@@ -6,7 +6,7 @@
 'use strict';
 
 import angular from 'angular';
-import 'bp-admin-skin';
+import './bp-sop-skin/theme.less';
 import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
 import Common from './common/common';

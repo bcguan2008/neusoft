@@ -1,0 +1,79 @@
+/**
+ * 按钮默认样式
+ * @author liuchang
+ */
+
+// 按钮皮肤
+
+.bp-btn-default {
+  color: @btn-default-font-color;
+  background-color: @btn-font-color;
+  border-color: @btn-default-border-color;
+  &:hover {
+    color: @btn-default-font-color;
+    background-color: @btn-default-hover-bg-color;
+    border-color: @btn-default-hover-border-color;
+  }
+}
+.bp-btn-default[disabled] {
+  color: @btn-default-font-color;
+  background-color: @btn-font-color;
+  border-color: @btn-default-border-color;
+  &:hover {
+    color: @btn-default-font-color;
+    background-color: @btn-font-color;
+    border-color: @btn-default-border-color;
+  }
+}
+/**
+ * 蓝色的按钮
+ */
+.bp-btn-primary {
+  color: @btn-font-color;
+  background-color: @btn-primary-color;
+  // border-color: @btn-primary-color;
+  &:hover {
+    color: @btn-font-color;
+    background-color: @btn-primary-hover-bg-color;
+    // border-color: @btn-primary-hover-border-color;
+  }
+  &:focus {
+    color: @btn-font-color;
+  }
+}
+.bp-btn-primary[disabled] {
+  color: @btn-font-color;
+  background-color: @btn-primary-color;
+  // border-color: @btn-primary-disabled-border-color;
+  &:hover {
+    color: @btn-font-color;
+    background-color: @btn-primary-color;
+    // border-color: @btn-primary-disabled-border-color;
+  }
+}
+/**
+ * 红色的按钮
+ */
+.bp-btn-danger {
+  color: @btn-font-color;
+  background-color: @btn-danger-color;
+  // border-color: @btn-danger-color;
+  &:hover {
+    color: @btn-font-color;
+    background-color: @btn-danger-hover-bg-color;
+    // border-color: @btn-danger-hover-border-color;
+  }
+  &:focus {
+    outline: 5px auto @btn-danger-color;
+  }
+}
+.bp-btn-danger[disabled] {
+  color: @btn-font-color;
+  background-color: @btn-danger-color;
+  // border-color: @btn-danger-disabled-border-color;
+  &:hover {
+    color: @btn-font-color;
+    background-color: @btn-danger-color;
+    // border-color: @btn-danger-disabled-border-color;
+  }
+}

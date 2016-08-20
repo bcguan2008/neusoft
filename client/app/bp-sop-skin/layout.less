@@ -1,0 +1,47 @@
+.layout(@top) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: @top;
+  bottom: 0;
+  overflow: scroll;
+}
+.layout(@top; @left) {
+  .layout(@top);
+  left: @left;
+}
+.app {
+  .layout(0);
+  .layout-page{
+    .layout(80px);
+    left: 50%;
+    bottom: 90px;
+    margin-left: -600px;
+    width: 1200px;
+    .layout-menu{
+      width: 200px;
+      position: fixed;
+      top: 80px;
+      bottom: 90px;
+      z-index: 100;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: @main-content-container-bg-color;
+    }
+    .layout-content{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 990px;
+      min-height: 100%;
+      margin-left: 210px;
+      background-color: @main-content-container-bg-color;
+    }
+  }
+}
+.menu-close .layout-content {
+  margin-left: 0!important;
+  left: 56px!important;
+  z-index: 1;
+}

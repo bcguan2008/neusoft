@@ -1,0 +1,32 @@
+table.table-hover {
+  tbody {
+    tr {
+      &:hover {
+        background-color: @table-hover-bg-color;
+      }
+    }
+  }
+} 
+
+// 分页组件的位置
+.ng-table-pager {
+  float: right;
+  .pagination {
+    margin: 0px;
+    li {
+      a {
+        color: @primary-color;
+      }
+      &.active {
+        a {
+          background-color: @primary-color;
+          border-color: @primary-color;
+          color: @table-page-font-color;
+        }
+      }
+    }
+  }
+  .ng-table-counts {
+    margin-left: 15px;
+  }
+}
