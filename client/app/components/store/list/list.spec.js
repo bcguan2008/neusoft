@@ -1,16 +1,16 @@
-import StoreModule from './store'
-import StoreController from './store.controller';
-import StoreComponent from './store.component';
-import StoreTemplate from './store.html';
+import ListModule from './list'
+import ListController from './list.controller';
+import ListComponent from './list.component';
+import ListTemplate from './list.html';
 
-describe('Store', () => {
+describe('List', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(StoreModule.name));
+  beforeEach(window.module(ListModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new StoreController();
+      return new ListController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('Store', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(StoreTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(ListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = StoreComponent;
+      let component = ListComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(StoreTemplate);
+        expect(component.template).to.equal(ListTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Store', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(StoreController);
+        expect(component.controller).to.equal(ListController);
       });
   });
 });

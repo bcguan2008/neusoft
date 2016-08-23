@@ -1,16 +1,16 @@
-import StaffModule from './staff'
-import StaffController from './staff.controller';
-import StaffComponent from './staff.component';
-import StaffTemplate from './staff.html';
+import ListModule from './list'
+import ListController from './list.controller';
+import ListComponent from './list.component';
+import ListTemplate from './list.html';
 
-describe('Staff', () => {
+describe('List', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(StaffModule.name));
+  beforeEach(window.module(ListModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new StaffController();
+      return new ListController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('Staff', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(StaffTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(ListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = StaffComponent;
+      let component = ListComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(StaffTemplate);
+        expect(component.template).to.equal(ListTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('Staff', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(StaffController);
+        expect(component.controller).to.equal(ListController);
       });
   });
 });

@@ -1,10 +1,11 @@
-import staffComponent from './staff.component';
-export default angular.module('staff', [])
-  .config(($stateProvider) => {
-  "ngInject";
-$stateProvider.state('staff', {
-  url: '/staff',
-  template: '<staff></staff>'
-});
-})
-.component('staff', staffComponent);
+/**
+ * store
+ * @author guanbingchang@wanda.cn
+ */
+
+import list from './list/list';
+
+export default angular.module('app.staff', [
+    list.name
+]);
+

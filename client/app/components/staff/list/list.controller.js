@@ -4,8 +4,8 @@
  * @author yourname
  */
 
-export default class StaffController {
+export default class ListController {
   constructor() {
-    this.name = 'staff';
+    this.name = 'list';
   }
 }

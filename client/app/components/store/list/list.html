@@ -1,0 +1,39 @@
+<div class="page-title">
+  <div class="title">
+    <h2>员工管理</h1>
+  </div>
+</div>
+<div class="conter-wrapper">
+  <div class="panel bp-panel-primary">
+    <div class="panel-heading">查询条件</div>
+    <div class="panel-body">
+      <form name="searchOptions" class="form-horizontal">
+        <div class="form-group">
+          <div class="col-md-6">
+            <label class="col-md-4 control-label">员工姓名：</label>
+            <div class="col-md-8 ">
+              <input type="text" class="form-control" ng-model="vm.searchOptions.staffName">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="col-md-4 control-label">员工手机号：</label>
+            <div class="col-md-8 ">
+              <input type="text" class="form-control" ng-model="vm.searchOptions.staffPhoneNumber">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <button class="btn bp-btn-primary">查询</button>
+      <button class="btn bp-btn-primary">重置</button>
+    </div>
+  </div>
+
+  <div class="panel bp-panel-primary">
+    <div class="panel-heading">查询结果</div>
+    <div class="panel-body">内容</div>
+    <div class="panel-footer">按钮</div>
+  </div>
+</div>

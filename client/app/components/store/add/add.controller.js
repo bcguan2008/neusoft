@@ -4,8 +4,8 @@
  * @author yourname
  */
 
-export default class StoreController {
+export default class AddController {
   constructor() {
-    this.name = 'store';
+    this.name = 'add';
   }
 }

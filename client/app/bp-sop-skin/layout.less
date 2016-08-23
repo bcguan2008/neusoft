@@ -4,7 +4,6 @@
   right: 0;
   top: @top;
   bottom: 0;
-  overflow: scroll;
 }
 .layout(@top; @left) {
   .layout(@top);
@@ -18,14 +17,14 @@
     bottom: 90px;
     margin-left: -600px;
     width: 1200px;
+    min-width: 960px;
     .layout-menu{
       width: 200px;
       position: fixed;
       top: 80px;
       bottom: 90px;
       z-index: 100;
-      overflow-x: hidden;
-      overflow-y: auto;
+      
       background-color: @main-content-container-bg-color;
     }
     .layout-content{

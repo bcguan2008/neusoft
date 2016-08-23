@@ -12,9 +12,9 @@ import ffanTable from 'ffan-ng-table';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
-import 'bootstrap';
 import 'angular-busy/dist/angular-busy';
 import 'angular-busy/angular-busy.css';
+import Service from './service/service';
 
 
 angular.module('app', [
@@ -22,6 +22,7 @@ angular.module('app', [
     Common.name,
     ffanTable.name,
     Components.name,
+    Service.name,
     'cgBusy'
   ])
   .constant('$menuConstant', {
