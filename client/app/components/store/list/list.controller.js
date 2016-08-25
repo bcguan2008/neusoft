@@ -11,4 +11,8 @@ export default class ListController {
     this.name = 'list';
     console.log(storeSvc);
   }
+
+  search(){
+  	this.storeSvc.getStoreInfoList();
+  }
 }
