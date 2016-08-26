@@ -1,10 +1,13 @@
 import addComponent from './add.component';
-export default angular.module('add', [])
-  .config(($stateProvider) => {
-  "ngInject";
-$stateProvider.state('add', {
-  url: '/add',
-  template: '<add></add>'
-});
+
+
+export default angular.module('staffadd', [])
+.config(($stateProvider) => {
+		"ngInject";
+		$stateProvider.state('staffadd', {
+			url: '/staff/add',
+  			template: '<staffadd></staffadd>'
+		});
 })
-.component('add', addComponent);
+  
+.component('staffadd', addComponent); 
