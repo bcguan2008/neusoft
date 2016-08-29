@@ -35,9 +35,9 @@
        
                   <label for="name" class="col-md-2 control-label" >门店选择<span>*</span></label>
                   <div class="col-md-3" >
-
-                        <select class="form-control" ng-model="vm.user.ststoreName" ng-options="vm.user.ststoreName for v in codeList"> 
-                          <option value="">--请选择--</option>  
+                       
+                        <select class="form-control" ng-options="a.name for a in ststoreName" ng-model="ststoreNamemodel">
+                          <option value="">--请选择--</option>
                         </select> 
                    </div>
            </div>         
@@ -73,7 +73,8 @@
        
                   <label for="name" class="col-md-2 control-label">邮箱</label>
                   <div class="col-md-3" >
-                       <input type="text" class="form-control" ng-model="vm.user.mail"  id="staffmail_id"> 
+                  
+                       <input type="text" class="form-control"  ng-model="vm.user.mail"  id="staffmail_id"> 
                    </div>
              </div>
              <div class="form-group" >

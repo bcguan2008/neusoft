@@ -1,17 +1,13 @@
-/**
- * (description)
- * 
- * @author yourname
- */
-
 export default class AddController {
-
   constructor($scope,$http,staffnewSvc) {
     "ngInject";
-   // this.name = 'add';
+    //var vm = this;
+   this.name = 'add';
     this.staffnewSvc=staffnewSvc;
-    
-  } 
+    $scope.ststoreNamemodel="";
+  	$scope.ststoreName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
+    // console.log(staffnewSvc);
+  }  
 
 	
  	/**
