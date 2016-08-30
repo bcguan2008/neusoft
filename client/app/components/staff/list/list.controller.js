@@ -121,7 +121,7 @@ export default class ListController {
         };
     }
 
-      /**
+  /**
    * [detail 去detail页面]
    */
   detail(id){

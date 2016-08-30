@@ -9,26 +9,24 @@
             <tbody>
                 <tr>
                     <td class="col-md-5">门店名称</td>
-                    <td class="col-md-7">河西万达店</td>
+                    <td class="col-md-7" ng-bind="vm.d.name"></td>
                 </tr>
                 <tr>
                     <td>门店负责人</td>
-                    <td>张三</td>
+                    <td ng-bind="vm.d.principal"></td>
                 </tr>
                 <tr>
                     <td>负责人联系方式</td>
-                    <td>13900000000</td>
+                    <td ng-bind="vm.d.contact"></td>
                 </tr>
                 <tr>
                     <td>备注</td>
-                    <td></td>
+                    <td ng-bind="vm.d.remark"></td>
                 </tr>
                 <tr>
                     <td>可使用的功能模板</td>
-                    <td>
-                        <a>功能模板1</a>
-                        <a>功能模板2</a>
-                        <a>功能模板3</a>
+                    <td >
+                        <a ng-repeat="role in vm.d.role_ids">功能模板{{role}}</a>
                     </td>
                 </tr>
             </tbody>

@@ -34,21 +34,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="row in result.list track by $index ">
-
+                 <tr ng-repeat="row in vm.items track by $index" ng-if="row.name==staffExcitation_1.name" >
                    
-                      <td> {{row.status}} </td>
-                       <td> {{row.updatetime}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.page_money}} </td>
-                      <td> {{row.contact}} </td>
+                      <td> {{row.name}} </td>
+                      <td> {{row.description}} </td>
+                      <td> {{row.field3}} </td>
+                      <td> {{row.field4}} </td>
+                      <td> {{row.id}} </td>
                     </tr>
-                    <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
+                     <tr class="lx-list-sp-tr" ng-if="!vm.items || !vm.items.length">
                       <td colspan="10" style="text-align: center">
                         <div class="text-center" ng-show="vm.loading">
                           <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
                         </div>
-                        <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
+                           <div class="text-center" ng-if="!vm.loading && (!vm.items || !vm.items.length)">
                           <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
                         </div>
                       </td>
