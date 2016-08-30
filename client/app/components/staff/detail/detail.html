@@ -1,51 +1,84 @@
 <div class="page-title">
-    <div class="title">
-        <h2>基本订单信息</h2>
-    </div>
+  <div class="title">
+  </div>
 </div>
 <div class="conter-wrapper">
-    <div class="panel bp-panel-primary">
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-2">订单编号:</td>
-                    <td class="col-md-10">1011053886887211</td>
-                </tr>
-                <tr>
-                    <td>下单时间:</td>
-                    <td>2016-08-03 18:54:43</td>
-                </tr>
-                <tr>
-                    <td>订单金额:</td>
-                    <td>2540.00元</td>
-                </tr>
-                <tr>
-                    <td>实付金额:</td>
-                    <td>2540.00元</td>
-                </tr>
-                <tr>
-                    <td>商品信息:</td>
-                    <td>
-                        <table class="col-md-4 table table-bordered table-info">
-                            <thead>
-                                <tr>
-                                    <th>商品数量</th>
-                                    <th>商品单价</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2450.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="panel-footer">
-            <button class="btn bp-btn-primary">查询</button>
+  <div class="panel panel-primary">
+
+    <form id="addStaff_id" name="addStaff"  class="form-horizontal" ng-submit="vm.createuser()" role="form">
+      <div class="panel-body">
+          <div class="form-group" >
+       
+                  <label for="name" class="col-md-2 control-label" >姓名<span>*</span></label>
+                  <div class="col-md-3" >
+                       <input type="text" class="form-control" ng-model="vm.user.name" readonly  id="staffname_id "> 
+                   </div>
+          </div>         
+          <div class="form-group" >
+                  <label for="name" class="col-md-2 control-label">手机号<span>*</span></label>
+                  <div class="col-md-3" >   
+                         <input type="text" class="form-control" ng-model="vm.user.contact" readonly   id="staffphone_id"> 
+                  </div>
+          </div>
+
+        <div class="form-group" >
+              <label for="name" class="col-md-2 control-label">即时通讯账号</label>
+                  <div class="col-md-3" >   
+                         <input type="text" class="form-control" ng-model="vm.user.rtxaccount_id" readonly  id="staffphone_id"> 
+                  </div>
+
         </div>
-    </div>
+   
+
+          <div class="form-group">
+       
+                  <label for="name" class="col-md-2 control-label" >门店选择<span>*</span></label>
+                  <div class="col-md-3" >
+                       
+                        <select class="form-control" ng-options="a.name for a in ststoreName"  readonly  ng-model="ststoreNamemodel">
+                        
+                        </select> 
+                   </div>
+           </div>         
+          <div class="form-group" >
+                  <label for="name" class="col-md-2 control-label">选择功能模板<span>*</span></label>
+                       <div class="col-md-3" > 
+                          
+                            <div>
+                              <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="option1" readonly ng-model="vm.user.checkbox1"> 功能模板1
+                              </label>
+                              <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox2" value="option2" readonly ng-model="vm.user.checkbox2"> 功能模板1
+                              </label>
+                              <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox3" value="option3" readonly ng-model="vm.user.checkbox3"> 功能模板1
+                              </label>
+
+                           
+                            </div>
+                     </div>
+            </div>
+
+            <div class="form-group" >
+       
+                  <label for="name" class="col-md-2 control-label">邮箱</label>
+                  <div class="col-md-3" >
+                  
+                       <input type="email" class="form-control"  readonly ng-model="vm.user.mail"  id="staffmail_id"> 
+                   </div>
+             </div>
+             <div class="form-group" >
+                  <label for="name" class="col-md-2 control-label">密码<span>*</span></label>
+                  <div class="col-md-3" >   
+                         <input type="password" class="form-control" readonly ng-model="vm.user.newpass" required  id="newpass_id"> 
+                  </div>
+             </div>              
+      </div>
+
+      <div class="panel-footer form-actions">
+        <button class="btn bp-btn-primary" type="submit" ng-click="vm.getstafflistc()" >返回</button>
+      </div>
+    </form>
+  </div>
 </div>

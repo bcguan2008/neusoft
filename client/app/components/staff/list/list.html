@@ -3,6 +3,10 @@
     <h1>员工管理</h1>
   </div>
 </div>
+
+
+
+
 <div class="conter-wrapper track-list-wrapper">
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
@@ -83,23 +87,22 @@
                <option value="">门店</option>
                  </select>
               </div>
+         </div>
+
+
+
+
       </div>
-    </div>
     <div class="panel-footer panel-footer-btn-center">
           <button class="btn bp-btn-primary" type="button" 
-        ng-disabled="vm.loading"
-        ng-click="vm.createnewuser()">新增员工账号</button>
+        ng-click="vm.getstaffpageadd()">新增员工账号</button>
 
       <button class="btn bp-btn-primary" type="button" 
-        ng-disabled="vm.loading"
         ng-click="vm.search()">查询</button>
     </div>
     </form>
   </div>
 </div>
-
-
-
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
       <div class="panel-title">员工查询</div>
@@ -122,7 +125,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="row in $data track by $index">
+                    <tr ng-repeat="row in vm.items track by $index">
 
                       <td> {{row.name}} </td>
                       <td> {{row.contact}} </td>
@@ -132,24 +135,20 @@
                       <td> {{row.storeName}} </td>
                       <td> {{row.storeName}} </td>
                       <td> 
-                        <a class="btn bp-btn-default btn-xs" 
+                          <a class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.id)">查看</a>
+                          <button class="btn bp-btn-default btn-xs" 
+                          ng-click="vm.detail(row.id)">冻结</button>
                         <button class="btn bp-btn-default btn-xs" 
-                          ng-if="vm.auths.onLine"
-                          ng-disabled="row.status !== 30"
-                          ng-click="vm.online(row.id)">冻结</button>
-                        <button class="btn bp-btn-default btn-xs" 
-                          ng-if="vm.auths.offLine"
-                          ng-disabled="row.status !== 40"
-                          ng-click="vm.offline(row.id)">修改</button>
+                          ng-click="vm.detail(row.id)">修改</button>
                       </td>
                     </tr>
-                    <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
+                   <tr class="lx-list-sp-tr" ng-if="!vm.items || !vm.items.length">
                       <td colspan="10" style="text-align: center">
                         <div class="text-center" ng-show="vm.loading">
                           <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
                         </div>
-                        <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
+                        <div class="text-center" ng-if="!vm.loading && (!vm.items || !vm.items.length)">
                           <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
                         </div>
                       </td>
@@ -161,4 +160,5 @@
           </div>
 </div>
 </div>
+
 </div>

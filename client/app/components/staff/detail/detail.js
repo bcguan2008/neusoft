@@ -1,10 +1,10 @@
-import detailComponent from './detail.component.js';
-export default angular.module('detail', [])
+import detailComponent from './detail.component';
+export default angular.module('staffdetail', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('detail', {
+$stateProvider.state('staffdetail', {
   url: '/staff/detail',
-  template: '<detail></detail>'
+  template: '<staffdetail></staffdetail>'
 });
 })
-.component('detail', detailComponent);
+.component('staffdetail', detailComponent);

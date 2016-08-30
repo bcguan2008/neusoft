@@ -1,13 +1,13 @@
 /**
- * template df
+ * template
  * @author guanbingchang@wanda.cn
  */
 
 import list from './list/list';
 import add from './add/add';
-
-export default angular.module('app.template', [
+let templateModule =  angular.module('app.template', [
     list.name,
     add.name
 ]);
 
+export default templateModule;
