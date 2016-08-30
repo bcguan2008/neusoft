@@ -6,12 +6,11 @@ class staffExcitationSvc  {
   constructor(Api) {
     "ngInject";
     this.Api = Api;
-    this.baseUrl = '/staffExcitation/list/';
-    this.personUrl = '/staffExcitation/personlist/';
+    this.baseUrl = '/staffExcitation/staffExcitation/';
   }
 
  getExcitationPerList(params){
-    return this.Api.post(this.personUrl + 'getExcitationPerList', params);
+    return this.Api.post(this.baseUrl + 'getExcitationPerList', params);
   }
 
   getExcitationList(params){

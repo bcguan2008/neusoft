@@ -20,14 +20,10 @@
                         ng-model="staffExcitation_1">
                         <option value="">切换月份</option>
                         </select> 
-                  </div>
-            
+                  </div> 
         </div>
-
-
           </div>
    </div>
-
     <div class="panel-body">
           <div class="bp-container">
             <div class="table-container">
@@ -44,8 +40,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
+                  <div ng-if="staffExcitation_1.name">
+                    <tr ng-repeat="row in vm.items track by $index">
+                 </div>
+                   <div ng-if="staffExcitation_1.name!=' '">
                   <tr ng-repeat="row in vm.items track by $index" ng-if="row.name==staffExcitation_1.name" >
+                  </div>
                      
                       <td> {{row.name}} </td>
                       <td> {{row.description}} </td>
@@ -53,7 +53,7 @@
                       <td> {{row.field4}} </td>
                       <td> {{row.id}} </td>
 
-                    </tr>
+                  </tr>
                     <tr class="lx-list-sp-tr" ng-if="!vm.items || !vm.items.length">
                       <td colspan="10" style="text-align: center">
                         <div class="text-center" ng-show="vm.loading">

@@ -1,5 +1,5 @@
 import template from './detail.html';
-import controller from './detail.controller.js';
+import controller from './detail.controller';
 import './detail.less';
 
 export default {

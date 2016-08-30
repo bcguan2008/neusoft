@@ -6,7 +6,7 @@
 <div class="conter-wrapper">
   <div class="panel panel-primary">
 
-    <form name="addStaff"  class="form-horizontal" ng-submit="vm.createuser()" role="form">
+    <form id="addStaff_id" name="addStaff"  class="form-horizontal" ng-submit="vm.createuser()" role="form">
       <div class="panel-body">
           <div class="form-group" >
        
@@ -74,7 +74,7 @@
                   <label for="name" class="col-md-2 control-label">邮箱</label>
                   <div class="col-md-3" >
                   
-                       <input type="text" class="form-control"  ng-model="vm.user.mail"  id="staffmail_id"> 
+                       <input type="email" class="form-control"  ng-model="vm.user.mail"  id="staffmail_id"> 
                    </div>
              </div>
              <div class="form-group" >
@@ -96,7 +96,7 @@
 
       <div class="panel-footer form-actions">
         <button class="btn bp-btn-primary" type="submit" >创建员工</button>
-         <button type="button" class="btn bp-btn-primary">取 消</button>
+        <!--  <button type="button" class="btn bp-btn-primary">取 消</button> -->
       </div>
     </form>
   </div>
