@@ -5,10 +5,11 @@
  */
 
 export default class ListController {
-  constructor($scope,templateSvc,NgTableParams) {
-  	 "ngInject";
+  constructor($scope,templateSvc,NgTableParams,$state) {
+     "ngInject";
     this.name = 'list';
     this.templateSvc = templateSvc;
+     this.$state = $state;
     this.NgTableParams =NgTableParams;
     $scope.vm.items = [
         {"id":"1","name":"name 1","contact":"contact 1","storeName":"field3 1","field4":"field4 1","field5 ":"field5 1"}, 
@@ -46,7 +47,7 @@ export default class ListController {
         .then(result => {
           self.loading = false;
           if(result && result.list){
-          	 console.log(result.total)
+             console.log(result.total)
             params.total(result.total);
             return result.list;
           }
@@ -54,9 +55,26 @@ export default class ListController {
       }
     });
   }
-
+//创建
   creatnewTemplate(){
-  		this.templateSvc.returnnewTemplate()
+
+      this.templateSvc.returnnewTemplate()
+  }
+  //查看
+
+  detail(id){
+    console.log("id==" & id)
+    this.$state.go('detail', {id: id});
+  }
+  //修改
+  update(id){
+      this.$state.go('templateedit', {id: id});
+  }
+
+  //返回
+    returnTemplatelist(){
+
+      this.templateSvc.returnTemplatelist()
   }
 
 }

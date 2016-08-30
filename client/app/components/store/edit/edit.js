@@ -3,7 +3,7 @@ export default angular.module('storeedit', [])
   .config(($stateProvider) => {
   "ngInject";
 $stateProvider.state('storeedit', {
-  url: '/store/edit',
+  url: '/store/edit/{id}',
   template: '<storeedit></storeedit>'
 });
 })

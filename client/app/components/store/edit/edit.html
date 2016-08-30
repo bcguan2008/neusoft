@@ -11,35 +11,28 @@
             <tbody>
                 <tr>
                     <td class="col-md-5">门店名称</td>
-                    <td class="col-md-7"><input type="text" class="form-control" placeholder="河西万达店"></td>
+                    <td class="col-md-7"><input type="text" ng-model="vm.d.name" class="form-control" placeholder=""></td>
                 </tr>
                 <tr>
                     <td>门店负责人</td>
-                    <td><input type="text" class="form-control" placeholder="张三"></td>
+                    <td><input type="text" class="form-control" placeholder="" ng-model="vm.d.principal"></td>
                 </tr>
                 <tr>
                     <td>负责人联系方式</td>
-                    <td><input type="tel" class="form-control" placeholder="13900000000"></td>
+                    <td><input type="tel" class="form-control" placeholder="" ng-model="vm.d.contact"></td>
                 </tr>
                 <tr>
                     <td>备注</td>
-                    <td><textarea class="form-control" rows="3"></textarea></td>
+                    <td><textarea class="form-control" rows="3" ng-model="vm.d.remark"></textarea></td>
                 </tr>
                 <tr>
                     <td class="col-md-5">可使用的功能模板</td>
                     <td class="col-md-7">
-                      <label>
-                        <input type="checkbox">
-                        功能模板1
+                      <label ng-repeat="role in vm.roles">
+                        <input type="checkbox" ng-checked="role.checked" ng-model="role.value">
+                        {{role.name}}
                       </label>
-                      <label>
-                        <input type="checkbox">
-                        功能模板2
-                      </label>
-                      <label>
-                        <input type="checkbox">
-                        功能模板3
-                      </label>
+
                     </td>
                 </tr>
             </tbody>

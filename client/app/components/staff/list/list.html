@@ -137,8 +137,9 @@
                       <td> 
                           <a class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.id)">查看</a>
-                          <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">冻结</button>
+                        <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                          冻结
+                        </button>
                         <button class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.id)">修改</button>
                       </td>
@@ -158,6 +159,36 @@
               </div>
             </div>
           </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+         SOP.ffan.com为您提示:
+        </h4>
+      </div>
+      <div class="modal-body">
+       确认是否冻结/恢复该账号？
+       <br>
+       账号冻结后，将无法通过此账号进行登录等操作。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">
+          确定
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!-- end -->
+
 </div>
 </div>
 

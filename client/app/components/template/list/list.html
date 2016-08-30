@@ -34,14 +34,16 @@
 
                       <td>  <a class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.id)">查看</a>
-                      
+                     
                            <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">修改</button>
+                          ng-click="vm.update(row.id)">修改</button>
+                  <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1">
+                         删除
+                        </button>
 
-                        <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">删除</button>
-                        <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">暂停</button>
+                       <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                          暂停
+                        </button>
 
                       </td>
                       <td> {{row.storeName}} </td>
@@ -68,6 +70,60 @@
               </div>
             </div>
           </div>
+
+  <!--冻结（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+         SOP.ffan.com为您提示:
+        </h4>
+      </div>
+      <div class="modal-body">
+      是否确认要禁用/暂停改权限模板。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">
+          确定
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!-- end -->
+
+  <!--删除（Modal） -->
+<div class="modal fade" id="myModal_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+         SOP.ffan.com为您提示:
+        </h4>
+      </div>
+      <div class="modal-body">
+       该权限模板尚在使用中，不可删除/暂停!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">
+          确定
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!-- end -->
+
+
 </div>
 </div>
 

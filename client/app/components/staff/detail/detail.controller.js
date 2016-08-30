@@ -5,14 +5,17 @@
  */
 
 export default class DetailController {
-  constructor($scope,staffnewSvc) {
+  constructor($state,staffnewSvc,) {
   	 "ngInject";
   	this.staffnewSvc=staffnewSvc;
-    this.name = 'detail';
+  	this.name = 'detail';
+  	this.$state = $state;
   }
-
+  init(){
+      debugger;
+  }
 //返回
-getstafflistc(){
+  getstafflistc(){
 
   	this.staffnewSvc.getstafflist();
 
