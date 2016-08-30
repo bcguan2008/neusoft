@@ -4,6 +4,8 @@
  */
 
 'use strict';
+import 'jquery';
+import 'bootstrap';
 
 import angular from 'angular';
 import './bp-sop-skin/theme.less';
@@ -16,6 +18,9 @@ import 'angular-busy/dist/angular-busy';
 import 'angular-busy/angular-busy.css';
 import Service from './service/service';
 
+import 'angular-bootstrap-datetimepicker';
+import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
+import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 angular.module('app', [
     uiRouter,
@@ -23,7 +28,8 @@ angular.module('app', [
     ffanTable.name,
     Components.name,
     Service.name,
-    'cgBusy'
+    'cgBusy',
+    'ui.bootstrap.datetimepicker',
   ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG
