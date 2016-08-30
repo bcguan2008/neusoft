@@ -1,6 +1,4 @@
 import addComponent from './add.component';
-
-
 export default angular.module('staffadd', [])
 .config(($stateProvider) => {
 		"ngInject";
