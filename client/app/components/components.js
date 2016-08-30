@@ -16,4 +16,3 @@ export default angular.module('app.components', [
 	clerk.name,
 	template.name
 ]);
-

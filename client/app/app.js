@@ -4,6 +4,8 @@
  */
 
 'use strict';
+import 'jquery';
+import 'bootstrap';
 
 import angular from 'angular';
 import './bp-sop-skin/theme.less';
@@ -26,7 +28,8 @@ angular.module('app', [
     ffanTable.name,
     Components.name,
     Service.name,
-    'cgBusy'
+    'cgBusy',
+    'ui.bootstrap.datetimepicker',
   ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG

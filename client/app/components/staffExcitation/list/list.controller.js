@@ -25,11 +25,10 @@ export default class ListController {
 
     this.list = [];   //当前页数据
     this.allIds = []; //当前页所有id
-
-  this.init();
+    this.init();
 
      $scope.vm.staffExcitation = [{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }, { id: 3, name: 'name 3' }, { id: 4, name: 'name 4' }];
-     $scope.vm.action = [{ id: 1, name: '一般好' }, { id: 2, name: '良' }, { id: 3, name: '优秀' }];
+     $scope.vm.action = [{ id: 1, name: '首单支付' }, { id: 2, name: '扫码激励' }, { id: 3, name: '拉新激励' }, { id: 4, name: '拉单激励' }];
      $scope.vm.items = [
         {"id":"1","name":"name 1","description":"description 1","field3":"field3 1","field4":"field4 1","field5 ":"field5 1"}, 
         {"id":"2","name":"name 2","description":"description 1","field3":"field3 2","field4":"field4 2","field5 ":"field5 2"}, 
