@@ -5,11 +5,12 @@
  */
 
 export default class ListController {
-  constructor($scope,$http,staffExcitationSvc,NgTableParams) {
+  constructor($scope,$http,staffExcitationSvc,NgTableParams,$httpParamSerializer) {
   	 "ngInject";
      this.name = 'list';
      this.staffExcitationSvc = staffExcitationSvc;
      this.NgTableParams = NgTableParams;
+    this.httpParamSerializer = $httpParamSerializer;
 
      this.filter = {
       limit: 10,
@@ -21,6 +22,10 @@ export default class ListController {
       update_start_time: '',
       update_end_time: ''
     };
+
+    this.list = [];   //当前页数据
+    this.allIds = []; //当前页所有id
+
   this.init();
 
      $scope.vm.staffExcitation = [{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }, { id: 3, name: 'name 3' }, { id: 4, name: 'name 4' }];
@@ -39,7 +44,18 @@ export default class ListController {
         {"id":"11","name":"name 11","description":"description 1","field3":"field3 11","field4":"field4 11","field5 ":"field5 11"}, 
     ];
   }
+ /**
+   * 获取格式化后的数据
+   */
+  getSearchFormData(){
+    let filter = this.filter,
+        selectObj = this.selectObj;
 
+    filter.track_page_type_id = selectObj.pageType.id;
+    filter.business_code = selectObj.business.business_code;
+
+    return filter;
+  }
 
   /**
    * [init 初始化]
@@ -88,7 +104,7 @@ export default class ListController {
 		}
   // 导出Excel
 		exportExcel(){
-
+        this.window.open('/staffExcitation/staffExcitation/export?' + this.httpParamSerializer(formData), '_blank');
 		
 
 		}

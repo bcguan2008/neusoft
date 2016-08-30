@@ -5,7 +5,7 @@ import DetailTemplate from './detail.html';
 
 describe('Detail', () => {
   let $rootScope, makeController;
-
+ 
   beforeEach(window.module(DetailModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;

@@ -1,8 +1,7 @@
 import DetailModule from './detail'
-import DetailController from './detail.controller';
-import DetailComponent from './detail.component';
+import DetailController from './detail.controller.js';
+import DetailComponent from './detail.component.js';
 import DetailTemplate from './detail.html';
-
 describe('Detail', () => {
   let $rootScope, makeController;
 

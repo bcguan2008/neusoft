@@ -12,7 +12,6 @@ class Api {
 
   get(url, params, isAlert) {
     let deferred = this.$q.defer();
-    
     this.$http({
       url: this.base + url,
       method: 'get',

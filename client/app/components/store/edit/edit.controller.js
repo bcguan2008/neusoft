@@ -5,7 +5,13 @@
  */
 
 export default class EditController {
-  constructor() {
-    this.name = 'edit';
+    constructor($scope,Api,$http) {
+      "ngInject";
+      this.name = 'edit';
+      this.api = api;
+      
+  }
+    init(){
+        $scope.vm.store = this.api.get
   }
 }

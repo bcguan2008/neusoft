@@ -16,6 +16,9 @@ import 'angular-busy/dist/angular-busy';
 import 'angular-busy/angular-busy.css';
 import Service from './service/service';
 
+import 'angular-bootstrap-datetimepicker';
+import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
+import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 angular.module('app', [
     uiRouter,
