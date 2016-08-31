@@ -5,6 +5,7 @@ import staffnewSvc from './staffnewSvc';
 import staffExcitationSvc from './staffExcitationSvc';
 import clerkSvc from './clerkSvc';
 import templateSvc from './templateSvc'
+import treeSvc from './treeSvc'
 
 export default angular.module('app.services', [
 ])
@@ -14,6 +15,7 @@ export default angular.module('app.services', [
     staffnewSvc,
     staffExcitationSvc,
     clerkSvc,
-    templateSvc
+    templateSvc,
+    treeSvc
 })
 .constant('APIBASE','/Staffmgt');;

@@ -1,5 +1,6 @@
 import addComponent from './add.component';
-export default angular.module('staffadd', [])
+import uiRouter from 'angular-ui-router';
+let addModule = angular.module('staffadd', [uiRouter])
 .config(($stateProvider) => {
 		"ngInject";
 		$stateProvider.state('staffadd', {
@@ -9,3 +10,4 @@ export default angular.module('staffadd', [])
 })
   
 .component('staffadd', addComponent); 
+export default addModule;

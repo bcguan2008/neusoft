@@ -17,14 +17,14 @@
       <div class="row">
         <div class="col-md-3 form-group">
             <label>员工姓名</label>
-             <input type="text" class="form-control" ng-model="name" required  id="staffphone_id">
+             <input type="text" class="form-control" ng-model="vm.filter.name" required  id="staffphone_id">
         
         </div>
         <div class="col-md-3 col-md-offset-1 form-group">
           <label>绑定模板</label>
-              <select class="form-control" ng-options="a.name for a in template_name" ng-model="template_name_1">
+              <select class="form-control" ng-options="a.name for a in template_name" ng-model="vm.filter.template_name_1">
                           <option value="">--请选择--</option>
-                        </select> 
+              </select> 
         </div>
 
       </div>
@@ -33,14 +33,14 @@
         <div class="col-md-3 form-group">
              
              <label>手机号</label>
-             <input type="text" class="form-control" ng-model="contact" required  id="staffphone_id">
+             <input type="text" class="form-control" ng-model="vm.filter.contact" required  id="staffphone_id">
         </div>
         <div class="col-md-3 col-md-offset-1 form-group">
 
           <label>员工状态</label>
              <select class="form-control"
               ng-options="a.name for a in staffstatus"
-              ng-model="staffstatus_1">
+              ng-model="vm.filter.status">
                <option value="">--请选择--</option>
               </select>
               
@@ -58,7 +58,7 @@
             <div class="col-md-2 form-group">
                <select class="form-control"
               ng-options="a.name for a in staffarea"
-              ng-model="staffarea_1">
+              ng-model="vm.filter.staffarea">
                <option value="">区域</option>
               </select>
               
@@ -68,7 +68,7 @@
             <div class="col-md-2 form-group">
                <select class="form-control"
               ng-options="a.name for a in square"
-              ng-model="square_1">
+              ng-model="vm.filter.square">
                <option value="">广场</option>
                 </select>
             </div>
@@ -76,14 +76,14 @@
 
                 <select class="form-control"
               ng-options="a.name for a in brand"
-              ng-model="brand_1">
+              ng-model="vm.filter.brand">
                <option value="">品牌</option>
                  </select>
             </div>
             <div class="col-md-2 form-group">
                    <select class="form-control"
               ng-options="a.name for a in store"
-              ng-model="store_1">
+              ng-model="vm.filter.store">
                <option value="">门店</option>
                  </select>
               </div>
@@ -125,31 +125,31 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="row in vm.items track by $index">
-
+                    <tr ng-repeat="row in $data track by $index">
+                      
                       <td> {{row.name}} </td>
                       <td> {{row.contact}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.storeName}} </td>
+                      <td> {{row.creator_name}} </td>
+                      <td> {{row.c_time}} </td>
+                      <td> {{row.organization_info}} </td>
+                      <td> {{row.data_role_name}} </td>
+                      <td> {{row.employee_status}} </td>
                       <td> 
-                          <a class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">查看</a>
-                        <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                        <button class="btn bp-btn-default btn-xs" 
+                          ng-click="vm.detail($data)">查看{{row.uid}}</button>
+                        <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-model ="row.uid">
                           冻结
                         </button>
                         <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail(row.id)">修改</button>
+                          ng-click="vm.edit(row.uid)">修改</button>
                       </td>
                     </tr>
-                   <tr class="lx-list-sp-tr" ng-if="!vm.items || !vm.items.length">
+                   <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
                       <td colspan="10" style="text-align: center">
                         <div class="text-center" ng-show="vm.loading">
                           <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
                         </div>
-                        <div class="text-center" ng-if="!vm.loading && (!vm.items || !vm.items.length)">
+                        <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
                           <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
                         </div>
                       </td>
@@ -178,7 +178,7 @@
        账号冻结后，将无法通过此账号进行登录等操作。
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
