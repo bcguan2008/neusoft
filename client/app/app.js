@@ -22,7 +22,7 @@ import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
 import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 
-import bpUntils from 'bp-utils';
+import bpUtils from 'bp-utils';
 
 angular.module('app', [
     uiRouter,

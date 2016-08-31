@@ -15,6 +15,8 @@ export default class ListController {
     this.init();
   }
     init(){
+        //约定：所有抛到后端的都放到这个键下
+        this.form = {};
 
         //拉去列表数据的promise
         var q = this.q.defer();
@@ -100,8 +102,7 @@ export default class ListController {
             fieldOfId: 'categoryId'
         };
 
-        //约定：所有抛到后端的都放到这个键下
-        this.form = {};
+        
 
 
 
