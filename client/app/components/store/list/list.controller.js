@@ -12,10 +12,11 @@ export default class ListController {
         this.q = $q;
     this.NgTableParams = NgTableParams;
     this.name = 'list';
-    //console.log(storeSvc);
     this.init();
   }
     init(){
+        //约定：所有抛到后端的都放到这个键下
+        this.form = {};
 
         //拉去列表数据的promise
         var q = this.q.defer();
@@ -86,8 +87,7 @@ export default class ListController {
       "checked": true
   }
             ])
-        },100)
-        //return  q.promise;
+        },100);
 
         //this.loadPromise = $http.get('/Database/coupon_component/selectCity');
         this.loadPromise = q.promise;
@@ -97,13 +97,12 @@ export default class ListController {
             //指示子节点的字段名
             fieldOfChildren: 'child',
             //指示节点名的字段
-            fieldOfName: 'name',
+            fieldOfName: 'categoryName',
             //指示节点id的字段
             fieldOfId: 'categoryId'
         };
 
-        //约定：所有抛到后端的都放到这个键下
-        this.form = {};
+        
 
 
 
