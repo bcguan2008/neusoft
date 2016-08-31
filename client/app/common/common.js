@@ -5,12 +5,12 @@
 'use strict';
 
 import angular from 'angular';
-import 'ffan-bp-menu';
-import 'ffan-bp-header';
+import 'bp-sop-common';
+import 'bp-sop-menu';
 
 let commonModule = angular.module('app.common', [
-  'bp.menu',
-  'bp.header'
+  'sop.common',
+  'sop.menu'
 ]);
 
 export default commonModule;

@@ -1,8 +1,11 @@
-<!-- Place all UI elements intended to be present across all routes in this file -->
 <div class="app">
- <!-- <commonheader></commonheader>-->
-  <div class='layout-page'>
-  	<!--<commonmenu class='layout-menu'></commonmenu>-->
-  	<div ui-view class='layout-content'></div>
+  <commonheader></commonheader>
+  <div class='layout-page clearfix'>
+    <commonmenu class="layout-menu"></commonmenu>
+    <div class='layout-content'>
+      <navmenu></navmenu>
+      <div class='layout-body' ui-view></div>
+    </div>
   </div>
+  <commonfooter></commonfooter>
 </div>
