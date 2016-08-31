@@ -11,8 +11,9 @@ export default class EditController {
       this.storeSvc = storeSvc;
       this.api = Api;
       this.$state = $state;
+      this.d={}
       this.init();
-        this.d={}
+        
     }
     init(){
         var _this = this;
@@ -31,6 +32,16 @@ export default class EditController {
                 return item;
             })
         })
+    }
+    save(){
+        var _this = this;
+        //debugger;
+        this.d.role_info=[];
+       this.roles.forEach(function(item){
+           _this.d.role_info.push(item.id)
+        })
+       this.api.post('/Organization/inputAjax',this.d).then(res=>{alert(res)},err=>{alert('提交错误')})
+    
     }
     
 }
