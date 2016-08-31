@@ -28,7 +28,7 @@ export default class EditController {
                 {name:"模板5",id:5},
                 {name:"模板6",id:6}
             ].map(function(item){
-                item.checked = _this.d.role_ids.indexOf(item.id)>-1?true:false;
+                item.checked =(_this.d.role_ids && _this.d.role_ids.indexOf(item.id)>-1)?true:false;
                 return item;
             })
         })
@@ -36,11 +36,11 @@ export default class EditController {
     save(){
         var _this = this;
         //debugger;
-        this.d.role_info=[];
+        this.d.role_ids=[];
        this.roles.forEach(function(item){
-           _this.d.role_info.push(item.id)
+           _this.d.role_ids.push(item.id)
         })
-       this.api.post('/Organization/inputAjax',this.d).then(res=>{alert(res)},err=>{alert('提交错误')})
+       this.api.post('/Organization/inputAjax',this.d).then(res=>{},err=>{alert('提交错误')})
     
     }
     
