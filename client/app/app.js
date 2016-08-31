@@ -22,6 +22,8 @@ import 'angular-bootstrap-datetimepicker';
 import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
 import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
+import fancyui from 'fancyui';
+
 angular.module('app', [
     uiRouter,
     Common.name,
@@ -30,6 +32,7 @@ angular.module('app', [
     Service.name,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
+    fancyui.name
   ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG
