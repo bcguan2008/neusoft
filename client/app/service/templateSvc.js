@@ -14,19 +14,18 @@ class templateSvc  {
   	 return this.Api.post(this.baseUrl + 'save', params);
   }
   //显示所有模板
-	getPageAllTempList()
-	{
-
+	getPageAllTempList(){
+		return this.Api.get('/role/search');
 	}
 	//返回新建模板
 	returnnewTemplate(){ //ok
      this.location.path("/template/add");
-  	}
+	}
 
   	//取消
 	returnnewTemplate(){ //ok
    		// this.location.path("/template/add");
-  	}
+	}
   	/**
 	 * [getDetail 详情]
 	 */
