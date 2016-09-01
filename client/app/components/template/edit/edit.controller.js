@@ -5,11 +5,16 @@
  */
 
 export default class EditController {
-    constructor($scope,Api,$http,treeSvc) {
+    constructor(Api,treeSvc,$state) {
       "ngInject";
       this.name = 'edit';
-      this.Api = Api;
+      this.api = Api;
+      this.$state=$state;
       this.treeSvc = treeSvc;
+      this.d={};
+      this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
+          _this.d=res;
+      })
       this.initTree();
   }
     initTree(){
@@ -30,5 +35,8 @@ export default class EditController {
         };
 
         
-  }
+    }
+    save(){
+        this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('ÐÞ¸Ä³É¹¦'),err=>{alert(err)}})
+    }
 }

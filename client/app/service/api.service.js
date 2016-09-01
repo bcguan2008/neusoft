@@ -18,7 +18,6 @@ class Api {
       params: params||{}
     }).then(function (raw) {
       let result = raw.data;
-      debugger;
       if (result.status == 200) {
         deferred.resolve(result.data);
       } else {
@@ -28,7 +27,6 @@ class Api {
         deferred.reject(result);
       }
     }, function (raw) {
-      debugger;
       deferred.reject(raw);
     });
     return deferred.promise;

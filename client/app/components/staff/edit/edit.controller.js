@@ -4,16 +4,16 @@
  * @author yourname
  */
 export default class EditController {
-    constructor(Api,$state,staffnewSvc) {
+    constructor($scope,Api,$state,staffnewSvc) {
       "ngInject";
     
       this.name = 'edit';
       this.Api = Api;
       this.staffnewSvc= staffnewSvc;
-this.$scope = $scope;
-       var vm = this;
-    
-      this.init($scope)
+      this.$scope = $scope;
+      this.$state= $state;
+      this.d={};
+      this.init()
    
   }
   //   init(){
@@ -28,7 +28,7 @@ returnstafflistc(){
 //updateEmployee
 updatestaff(){
 
-	this.staffnewSvc.updateEmployee();
+	this.staffnewSvc.updateEmployee(this.d);
 
 }
 
@@ -36,24 +36,24 @@ updatestaff(){
    * [init 初始化]
    */
 
-  init($scope){
-     let self = this;
-     
-     //console.log(this.$state.params.id)
-       return self.staffnewSvc.getDetail({
-      id: this.$state.params.id
+  init(){
+      let self = this;
+      var _this = this;
+
+    return self.staffnewSvc.getDetail({
+      id: this.$state.params.id,
+      type:1
     })
         .then(result => {
 
           if(result){
-            console.log(result)
-            var vm = this;
-          //  params.total(result.total);
-           $scope.name=result.name; 
-           $scope.contact=result.contact; 
-           $scope.rtx=result.rtx;
-           $scope.storeName=result.organization_name;
-           $scope.email=result.email;
+              _this.d={
+                  name:result.name,
+                  contact:result.contact,
+                  rtx:result.rtx,
+                  storeName:result.organization_name,
+                  email:result.email
+              }
 
           }
         });

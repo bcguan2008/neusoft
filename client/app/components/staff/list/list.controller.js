@@ -12,11 +12,16 @@ export default class ListController {
     this.$state = $state;
     this.staffnewSvc=staffnewSvc;
   	this.NgTableParams = NgTableParams;
+  	this.$scope = $scope;
+      
+  	this.nowRow=null;
   	this.init();
     
+      
+  
 // 员工状态
 
-  	$scope.staffstatus = [{ id: 1, name: 'OK' }, { id: 2, name: 'Null' }, { id: 3, name: 'non' }];
+  	$scope.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '恢复' }];
 
 // 模板
 
@@ -42,6 +47,7 @@ export default class ListController {
  this.filter = {
       limit: 10,
       name: '',
+      storeid:this.$state.params.storeid
       // phone: '',
       // action_1: '',
       // button_name: '',
@@ -102,9 +108,10 @@ export default class ListController {
     }, {
       counts:[],
       getData: function(params) {
+
         self.loading = true;
         let formData = self.getSearchFormData();
-        formData.page = params.url().page; 
+        formData.page = params.url().page;
         return self.staffnewSvc.getPageUserList(formData)
         .then(result => {
            self.loading = false;
@@ -122,7 +129,8 @@ export default class ListController {
           this.tableParams.parameters({page : 1}).reload();
 		}
 
-        reset(){
+		   reset(){
+
         this.filter = {
           limit: 10,
           name: '',
@@ -130,8 +138,10 @@ export default class ListController {
           action_1: '',
           status: '',
           update_start_time: '',
-          update_end_time: ''
+          update_end_time: '',
+            storeid:this.$state.params.storeid
         };
+
     }
 
   /**
@@ -140,7 +150,7 @@ export default class ListController {
   detail(id){
     this.$state.go('staffdetail', {id: id});
   }
-  
+
 
   //跳转到新增员工
   getstaffpageadd(){
@@ -148,12 +158,18 @@ export default class ListController {
 
   } 
   edit(id){
-     this.staffnewSvc.updatestaff()
+     //this.staffnewSvc.updatestaff()
+     this.$state.go('staffedit', {id: id});
   }
 
   //更新员工状态
-  changeStatus(id){
+  changeStatus(){
     //debugger;
-     this.staffnewSvc.changeStatus()
+      this.staffnewSvc.changeStatus({id:this.nowRow.uid,status:this.nowRow.status=='正常'?3:1})
   }
+  //传值给 冻结 窗口
+  editInfo (a,b){
+      this.nowRow=b;
+    // $scope.vm.status_id = b.uid;
+    }
 }

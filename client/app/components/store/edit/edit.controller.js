@@ -40,8 +40,19 @@ export default class EditController {
        this.roles.forEach(function(item){
            _this.d.role_ids.push(item.id)
         })
-       this.api.post('/Organization/inputAjax',this.d).then(res=>{},err=>{alert('提交错误')})
+        this.api.post('/Organization/inputAjax',{
+            organization_id:this.d.organization_id,
+           name:this.d.name,
+           contact:this.d.contact,
+           principal:this.d.principal,
+           remark:this.d.remark,
+           role_info:this.d.role_info
+
+       }).then(res=>{alert('提交成功')},err=>{alert('提交错误')})
     
+    }
+    back(){
+        this.$state.go('storelist');
     }
     
 }

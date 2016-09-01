@@ -12,13 +12,23 @@
        
                   <label for="name" class="col-md-2 control-label" >姓名<span>*</span></label>
                   <div class="col-md-3" >
-                       <input type="text" class="form-control" ng-model="vm.users.name" required id="staffname_id"> 
+                       <input type="text" class="form-control" name="staffname" ng-model="vm.users.name" required id="staffname_id" />
+                      <div class="input-group error-info" ng-show="addStaff.staffname.$invalid">
+                          <p class="discount-help-block">
+                              <i class="fa fa-info-circle"></i>请输人名
+                          </p>
+                      </div>
                    </div>
           </div>         
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">手机号<span>*</span></label>
                   <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="vm.users.contact" required  id="staffphone_id"> 
+                         <input type="text" class="form-control" ng-model="vm.users.contact" required  id="contact" name="contact"  ng-pattern="/^1[3|4|5|7|8]\d{9}$/"/>
+                      <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
+                          <p class="discount-help-block">
+                              <i class="fa fa-info-circle"></i>请输入有效手机号
+                          </p>
+                      </div>
                   </div>
           </div>
 
@@ -36,9 +46,14 @@
                   <label for="name" class="col-md-2 control-label" >门店选择<span>*</span></label>
                   <div class="col-md-3" >
                        
-                        <select class="form-control" ng-options="a.name for a in storeName" ng-model="storeName">
+                        <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
                           <option value="">--请选择--</option>
                         </select> 
+                      <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
+                          <p class="discount-help-block">
+                              <i class="fa fa-info-circle"></i>请输入有效负责人名称
+                          </p>
+                      </div>
                    </div>
            </div>         
           <div class="form-group" >

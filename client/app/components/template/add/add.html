@@ -10,13 +10,13 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
         <div class="col-sm-10">
-          <input type="name" class="form-control" id="inputEmail3" ng-model="rolename" placeholder="名称" required>
+          <input type="name" class="form-control" id="inputEmail3" ng-model="vm.d.rolename" placeholder="名称" required>
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
         <div class="col-sm-10">
-          <textarea class="form-control" rows="3" ng-model="fundescribe"  placeholder="描述"></textarea>
+          <textarea class="form-control" rows="3" ng-model="vm.d.fundescribe"  placeholder="描述"></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -29,8 +29,8 @@
 
     </div>
     <div class="panel-footer">
-      <button class="btn bp-btn-primary" type="submit" >保存</button>
-      <button type="submit" class="btn btn-default">取消</button>
+      <button class="btn bp-btn-primary" ng-disabled="addTemp.$invalid" type="submit" >保存</button>
+        <a class="btn btn-default" ui-sref="templatelist()">返回</a>
     </div>
      
   </form>
