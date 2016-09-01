@@ -40,7 +40,9 @@ updatestaff(){
      let self = this;
      
      //console.log(this.$state.params.id)
-       return self.staffnewSvc.getDetail("250686")
+       return self.staffnewSvc.getDetail({
+      id: this.$state.params.id
+    })
         .then(result => {
 
           if(result){

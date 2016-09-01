@@ -6,7 +6,6 @@
 
 
 
-
 <div class="conter-wrapper track-list-wrapper">
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
@@ -136,9 +135,10 @@
                       <td> {{row.employee_status}} </td>
                       <td> 
                         <button class="btn bp-btn-default btn-xs" 
-                          ng-click="vm.detail($data)">查看{{row.uid}}</button>
-                        <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-model ="row.uid">
+                          ng-click="vm.detail(row.uid)" >查看</button>
+                       <!--  <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="editInfo(this)">
                           冻结
+                        </button> -->
                         </button>
                         <button class="btn bp-btn-default btn-xs" 
                           ng-click="vm.edit(row.uid)">修改</button>
@@ -161,24 +161,25 @@
           </div>
 
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           &times;
         </button>
+        <input type="text"  id = "test1" value=" $('#test1').data('user')">
         <h4 class="modal-title" id="myModalLabel">
          SOP.ffan.com为您提示:
         </h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body">{{row.uid}}
        确认是否冻结/恢复该账号？
        <br>
        账号冻结后，将无法通过此账号进行登录等操作。
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
+        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus(row.uid)">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
@@ -191,5 +192,4 @@
 
 </div>
 </div>
-
 </div>

@@ -7,15 +7,16 @@ export default class AddController {
     $scope.ststoreNamemodel="";
   	$scope.storeName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
     // console.log(staffnewSvc);
-      this.users = {
+    this.users = {
       name: '我的名字',
+      employee_id:'123321',
       contact: '12336548752',
-      storeId:'12', //门店Id
-      storeName: '111', //门店名称
-      email: '1qqq@qq.component',
-      rtx: '123', //即时通讯账号
-      role_ids: '12', //模板ID
-      templateName: '模板名称', //模板名称
+     // storeId:'12', //门店Id
+     // storeName: '111', //门店名称
+     // email: '1qqq@qq.component',
+   //  rtx: '123', //即时通讯账号
+      role_ids: '1212,12332', //模板ID
+    //  templateName: '模板名称', //模板名称
       password: '112333', //密码
       con_password: '112333'//确认密码
     };

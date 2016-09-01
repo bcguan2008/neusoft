@@ -12,7 +12,6 @@ export default class ListController {
     this.$state = $state;
     this.staffnewSvc=staffnewSvc;
   	this.NgTableParams = NgTableParams;
-    //console.log($scope.row.id)
   	this.init();
     
 // 员工状态
@@ -109,7 +108,7 @@ export default class ListController {
         return self.staffnewSvc.getPageUserList(formData)
         .then(result => {
            self.loading = false;
-         
+         console.log(result.length);
           if(result){
             params.total(result.total);
             return result; 
@@ -139,17 +138,22 @@ export default class ListController {
    * 获取员工详情
    */
   detail(id){
-     //console.log(this.$state.params)
-    console.log("id==" & {id: this.$state.params.id})
     this.$state.go('staffdetail', {id: id});
   }
-  //新增员工
+  
+
+  //跳转到新增员工
   getstaffpageadd(){
       this.staffnewSvc.getstaffpage()
 
   } 
   edit(id){
- console.log("id==" & id)
      this.staffnewSvc.updatestaff()
+  }
+
+  //更新员工状态
+  changeStatus(id){
+    //debugger;
+     this.staffnewSvc.changeStatus()
   }
 }

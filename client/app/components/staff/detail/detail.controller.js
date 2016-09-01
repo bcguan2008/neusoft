@@ -5,16 +5,15 @@
  */
 
 export default class DetailController {
-  constructor($scope,staffnewSvc) {
+  constructor($scope,staffnewSvc,$state,Api) {
   	 "ngInject";
   	this.staffnewSvc=staffnewSvc;
     this.name = 'detail';
-    this.$scope = $scope;
-    var vm = this;
-    
-    this.init($scope)
-   
-      // $scope.contact="asd"; 
+    this.$state = $state;
+    this.api = Api;
+    this.detailInit();
+    this.d={}
+ 
   }
 
 //返回
@@ -22,31 +21,25 @@ export default class DetailController {
   	this.staffnewSvc.getstafflist();
   }
 
+  // detailInit(){
+  //   var _this = this;
+     
+  //   return self.staffnewSvc.getDetail({
+  //     id: this.$state.params.id
+  //   }).then(data => {
+       
+  //     if(data){
+  //        _this.d=data;
+  //     }
+  //   })
+  // }
 
-  	/**
-   * [init 初始化]
-   */
-
-  init($scope){
-  	 let self = this;
-  	 
-  	 //console.log(this.$state.params.id)
-  	   return self.staffnewSvc.getDetail("250686")
-        .then(result => {
-
-          if(result){
-          	console.log(result)
-          	var vm = this;
-          //  params.total(result.total);
-           $scope.name=result.name; 
-           $scope.contact=result.contact; 
-           $scope.rtx=result.rtx;
-           $scope.storeName=result.organization_name;
-           $scope.email=result.email;
-
-          }
-        });
-  }
-
-
+     detailInit(){
+        var _this = this;
+        console.log({id:this.$state.params.id});
+        debugger;
+        this.api.get('/Employee/detail/',{id:this.$state.params.id}).then(res=>{
+            _this.d=res;
+        })
+    }
 }

@@ -5,7 +5,7 @@ let editModule =  angular.module('staffedit', [uiRouter])
   .config(($stateProvider) => {
   "ngInject";
 $stateProvider.state('staffedit', {
-  url: '/staff/edit',
+  url: '/staff/edit/:id',
   template: '<staffedit></staffedit>'
 });
 })

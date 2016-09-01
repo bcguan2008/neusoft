@@ -3,34 +3,47 @@
  */
 
 class staffnewSvc  {
-  constructor(Api,$location) {
+  constructor(Api,$location,$http) {
     "ngInject";
     this.Api = Api;
     this.location = $location
-    this.baseUrl = '/staff/list/';
+    this.baseUrl = '/Employee/';
+    this.$http = $http;
   }
 
   /**
    * 提交员工信息 保存新员工
    */
   createuser(params){
-         return this.Api.post(this.baseUrl + 'save', params);
+    console.log(params);
+         return this.Api.post(this.baseUrl + 'addEmployee', params);
     }
-  
+ 
 
-//获取所有员工信息
+//查询所有员工信息  ok
   getPageUserList(params){
-    // return this.Api.post(this.baseUrl + 'getPageUserList', params);
-     return this.Api.post("http://api.sit.ffan.com/Staffmgt/Employee/storelist", params);
+    return this.Api.get(this.baseUrl+'stafflist', params);  
+}
+
+
+//获取员工个人详情
+  getDetail(params){ //params 有数值，但是返回的data为空 状态=200
+     // debugger;
+   return this.Api.get(this.baseUrl + 'detail',params);
   }
 
-//获取员工详情
-  getDetail(params){
-    return this.Api.post(this.baseUrl + 'getDetail', params);
+//更新员工 
+  updateEmployee(params){
+    return this.Api.post(this.baseUrl + 'updateEmployee', params);
   }
+  //更新员工状态
+  changeStatus(params){
+     return this.Api.post(this.baseUrl + 'changeStatus', params);
+  }
+
 //员工状态 
-  stateStaff(){
-
+  stateStaff(params){
+    this.location.path("/staff/state");
   }
   //搜索员工
   getStaffbysearch(){
@@ -43,6 +56,10 @@ class staffnewSvc  {
 //返回到员工list
   getstafflist(){ //ok
      this.location.path("/staff/list");
+  }
+  //跳转到编辑页面信息
+  updatestaff(){
+    this.location.path("/staff/edit");
   }
 
 }
