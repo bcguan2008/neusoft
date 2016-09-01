@@ -11,14 +11,14 @@ module.exports = {
   /**
    * 要过滤的api, 解决跨域的, 根据项目的情况改一下
    */
-  apiFilter: ['/Database','/Staffmgt'],
+  apiFilter: ['/home','/System','/Staffmgt'],
   /**
    * 要跨的目标域, 一般是sit, 需要服务端提交到sit之后才行
    */
-  targetDomain: 'http://sop.sit.ffan.com/',
+  targetDomain: 'http://demo1015.sit.ffan.com/',
   /**
    * 登陆的cookie, 这里暂时自己先登陆一下, 把cookie拷贝过来
    */
-  cookie: 'PHPSESSID=datt4h02i22mgljo56g0cdish2'
+  cookie: 'PHPSESSID=2fkcff8ajc5qm94fn7155r0sa5'
   
 };
