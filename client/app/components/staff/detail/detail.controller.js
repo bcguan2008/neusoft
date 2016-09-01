@@ -35,11 +35,12 @@ export default class DetailController {
   // }
 
      detailInit(){
-        var _this = this;
-        console.log({id:this.$state.params.id});
-        debugger;
-        this.api.get('/Employee/detail/',{id:this.$state.params.id}).then(res=>{
-            _this.d=res;
+        let params = {
+          id:this.$state.params.id,
+          type:1
+        };
+
+        this.api.get('/Employee/detail/',params).then(res=>{
         })
     }
 }
