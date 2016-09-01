@@ -48,4 +48,9 @@ export default class ListController {
       this.staffnewSvc.getstaffpage()
 
   } 
+  goStaff(storeid){
+      //debugger;
+      //self.location.href="/#/staff/list";
+      this.$state.go('stafflist',{storeid:storeid});
+  }
 }

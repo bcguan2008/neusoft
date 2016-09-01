@@ -38,6 +38,7 @@ class staffnewSvc  {
   }
   //更新员工状态
   changeStatus(params){
+
      return this.Api.post(this.baseUrl + 'changeStatus', params);
   }
 

@@ -17,14 +17,14 @@
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">手机号</label>
                   <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="contact" readonly  id="staffphone_id"> 
+                         <input type="text" class="form-control" ng-model="vm.d.contact" readonly  id="staffphone_id"> 
                   </div>
           </div>
 
         <div class="form-group" >
               <label for="name" class="col-md-2 control-label">即时通讯账号</label>
                   <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="im" readonly  id="staffphone_id"> 
+                         <input type="text" class="form-control" ng-model="vm.d.im" readonly  id="staffphone_id"> 
                   </div>
 
         </div>
@@ -35,13 +35,18 @@
                   <label for="name" class="col-md-2 control-label" >门店选择</label>
                   <div class="col-md-3" >
                        
-                     <input type="text" class="form-control" ng-model="employee_organization_name" readonly  id="storeName_id"> 
+                     <input type="text" class="form-control" ng-model="vm.d.employee_organization_name" readonly  id="storeName_id"> 
                    </div>
            </div>         
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">功能模板</label>
-                       <div class="col-md-3" >                        
-                           <a ng-repeat="role in vm.d.role_info.function_role_name">功能模板{{role}}</a>
+                       <div class="col-md-3" > 
+                       
+                     
+                       <input type="text" class="form-control" ng-model="vm.d.role_info.function_role_name" readonly  id="role_id"> 
+                       
+                      
+   
                      </div>
             </div>
 
@@ -50,7 +55,7 @@
                   <label for="name" class="col-md-2 control-label">邮箱</label>
                   <div class="col-md-3" >
                   
-                       <input type="email" class="form-control"  readonly ng-model="email"  id="staffmail_id"> 
+                       <input type="email" class="form-control"  readonly ng-model="vm.d.email"  id="staffmail_id"> 
                    </div>
              </div>            
       </div>

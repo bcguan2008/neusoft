@@ -10,7 +10,7 @@ class storeSvc  {
   }
   
     /*
-    店铺明细
+    店铺明细 模拟
     */
     getDetail(id){
         //return this.Api.post('/sop/门店明细',params) ;

@@ -5,13 +5,14 @@
  */
 
 export default class ListController {
-  constructor($scope,templateSvc,NgTableParams,$state,$location) {
+  constructor(templateSvc,NgTableParams,$state,$location) {
      "ngInject";
     this.name = 'list';
     this.templateSvc = templateSvc;
     this.$state = $state;
     this.NgTableParams = NgTableParams;
     this.$location = $location;
+    this.nowTemplate=null;
     this.init();
   }
   /**
@@ -44,16 +45,28 @@ export default class ListController {
   //查看
 
   detail(id){
-    this.$state.go('detail', {id: id});
+      this.$state.go('templatedetail',{id:id});
   }
   //修改
-  update(id){
-    this.$state.go('templateedit', {id: id});
+  edit(id){
+      this.$state.go('templateedit', {id: id});
   }
-
+  changeStatus(){
+      var newStatus = this.nowTemplate.status=="1"?"3":"1";
+      this.templateSvc.changeStatus({
+          templateNo:this.nowTemplate.templateNo,
+          status:newStatus,
+          operatorId:"1111",
+          operatorName:""
+      }).then(res=>{
+          this.nowTemplate.status=newStatus;
+      })
+  }
   //返回
   returnTemplatelist(){
     this.templateSvc.returnTemplatelist()
   }
-
+  changeStatusAlert(row){
+      this.nowTemplate = row;
+  }
 }

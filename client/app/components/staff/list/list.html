@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         
-        <div class="col-md-9  form-group">
+        <!--<div class="col-md-9  form-group">
           
          <div class="col-md-2  form-group">
              <label>筛选条件</label>
@@ -86,10 +86,7 @@
                <option value="">门店</option>
                  </select>
               </div>
-         </div>
-
-
-
+         </div>-->
 
       </div>
     <div class="panel-footer panel-footer-btn-center">
@@ -136,12 +133,11 @@
                       <td> 
                         <button class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.uid)" >查看</button>
-                       <!--  <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="editInfo(this)">
-                          冻结
-                        </button> -->
-                        </button>
+                         <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.editInfo($index,row)" ng-bind="row.status!='正常'?'恢复':'冻结'">
+                        </button> 
                         <button class="btn bp-btn-default btn-xs" 
                           ng-click="vm.edit(row.uid)">修改</button>
+
                       </td>
                     </tr>
                    <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
@@ -167,19 +163,19 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           &times;
-        </button>
-        <input type="text"  id = "test1" value=" $('#test1').data('user')">
+        </button>  
+        <input type="hidden"  id = "status_id" value="" ng-model="vm.nowStaffID">
         <h4 class="modal-title" id="myModalLabel">
          SOP.ffan.com为您提示:
         </h4>
       </div>
-      <div class="modal-body">{{row.uid}}
+      <div class="modal-body">
        确认是否冻结/恢复该账号？
        <br>
        账号冻结后，将无法通过此账号进行登录等操作。
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus(row.uid)">
+        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消

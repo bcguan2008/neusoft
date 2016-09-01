@@ -19,6 +19,6 @@ export default class AddController {
   }
 
   save(){
-
+      this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('ÐÞ¸Ä³É¹¦'),err=>{alert(err)}})
   }
 }

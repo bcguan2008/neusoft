@@ -15,10 +15,10 @@ module.exports = {
   /**
    * 要跨的目标域, 一般是sit, 需要服务端提交到sit之后才行
    */
-  targetDomain: 'http://sop.sit.ffan.com/',
+  targetDomain: 'http://demo1015.sit.ffan.com/',
   /**
    * 登陆的cookie, 这里暂时自己先登陆一下, 把cookie拷贝过来
    */
-  cookie: 'PHPSESSID=ovv5u2mbu3fvips89nq52ndt41'
+  cookie: 'PHPSESSID=lsdlsbuppk03tjc2ahbe5vasa5'
   
 };

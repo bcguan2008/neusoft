@@ -17,6 +17,9 @@ class templateSvc  {
 	getPageAllTempList(){
 		return this.Api.get('/role/search');
 	}
+	getTempList(id){
+	    return this.Api.get('/template/detail',{});
+	}
 	//返回新建模板
 	returnnewTemplate(){ //ok
      this.location.path("/template/add");
@@ -30,9 +33,11 @@ class templateSvc  {
 	 * [getDetail 详情]
 	 */
 	getDetail(params){
-		return this.Api.post(this.baseUrl + 'getDetail', params);
+	    return this.Api.post('/template/detail', params);
 	}
-
+	changeStatus(params){
+	    return this.Api.post('/template/changeStatus', params);
+	}
 }
 
 export default templateSvc

@@ -20,4 +20,8 @@ export default class DetailController {
             _this.d=res;
         })
     }
+    back(){
+        this.$state.go('storelist');
+    }
+
 }
