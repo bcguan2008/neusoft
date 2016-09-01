@@ -5,20 +5,24 @@ export default class AddController {
    this.name = 'add';
     this.staffnewSvc=staffnewSvc;
     $scope.ststoreNamemodel="";
+    
   	$scope.storeName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
     // console.log(staffnewSvc);
-    this.users = {
-      name: '我的名字',
-      employee_id:'123321',
-      contact: '12336548752',
+  	this.users = {
+  	    name: '',
+  	    employee_id:'',
+  	    contact: '',
+  	    storeId:"",
+  	    storeName:"",
+  	    rtx:"",
      // storeId:'12', //门店Id
      // storeName: '111', //门店名称
      // email: '1qqq@qq.component',
    //  rtx: '123', //即时通讯账号
-      role_ids: '1212,12332', //模板ID
+      role_ids: [], //模板ID
     //  templateName: '模板名称', //模板名称
-      password: '112333', //密码
-      con_password: '112333'//确认密码
+      password: '', //密码
+      con_password: ''//确认密码
     };
   }  
 
