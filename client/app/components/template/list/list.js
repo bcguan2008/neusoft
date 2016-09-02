@@ -1,8 +1,8 @@
-import listComponent from './list.component.js';
+import listComponent from './list.component';
 export default angular.module('templatelist', [])
   .config(($stateProvider) => {
   "ngInject";
-  $stateProvider.state('templatelist', {
+  $stateProvider.state('list', {
     url: '/template/list',
     template: '<templatelist></templatelist>'
   });

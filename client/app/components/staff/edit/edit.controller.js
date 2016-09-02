@@ -48,6 +48,7 @@ updatestaff(){
 
           if(result){
               _this.d={
+                  id:result.uuid,
                   name:result.name,
                   contact:result.contact,
                   rtx:result.rtx,

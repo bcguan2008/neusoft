@@ -165,7 +165,10 @@ export default class ListController {
   //更新员工状态
   changeStatus(){
     //debugger;
-      this.staffnewSvc.changeStatus({id:this.nowRow.uid,status:this.nowRow.status=='正常'?3:1})
+      this.staffnewSvc.changeStatus({id:this.nowRow.uid,status:this.nowRow.status=='正常'?3:1}).then(success=>{
+          //this.$modalInstance.close()
+          alert("修改成功")
+      })
   }
   //传值给 冻结 窗口
   editInfo (a,b){

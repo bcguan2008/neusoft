@@ -1,36 +1,40 @@
 <div class="page-title">
   <div class="title">
-    <h4>编辑模板</h4>
+    <h4>创建新模板</h4>
   </div>
 </div>
 <div class="conter-wrapper">
-    <div class="panel bp-panel-primary">
-        <form id="addTemp_id" name="editTemp" class="form-horizontal" ng-submit="vm.save()" role="form">
 
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
-                <div class="col-sm-10">
-                    <input name="name" class="form-control" required ng-model="vm.d.rolename" placeholder="名称">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" ng-model="vm.d.fundescribe" placeholder="描述"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
-                <div class="col-sm-10">
-                    <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.form.cities" config="vm.config"></bp-checkboxtree>
-                </div>
-            </div>
-
-
-            <div class="panel-footer">
-                <button class="btn bp-btn-primary btn-sm" ng-disabled="editTemp.$invalid" type="submit">保存</button>
-                <a class="btn btn-default" ui-sref="templatelist()">返回</a>
-            </div>
-        </form>
+  <form id="addTemp_id" name="addTemp"  class="form-horizontal" ng-submit="vm.save()" role="form">
+   
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
+      <div class="col-sm-10">
+        <input type="name" class="form-control" id="inputEmail3" ng-model="rolename"  placeholder="名称" >
+      </div>
     </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" rows="3" ng-model="fundescribe" placeholder="描述"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+           <button class="btn bp-btn-primary" type="submit" >保存</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
 </div>
