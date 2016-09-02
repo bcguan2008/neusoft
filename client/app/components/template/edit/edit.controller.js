@@ -52,10 +52,12 @@ editInit(){
       id: this.$state.params.id
     }).then(result => {
           if(result){
+            console.log(result)
                _this.d={
                  name:result.name,
                  describe:result.description,
-                 rid:result.rid
+                 rid : result.rid,
+                 node:result.nodes
                }
 
           }

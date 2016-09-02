@@ -34,14 +34,14 @@
                           ng-click="vm.detail(row.rid)">查看</a>
                            <button class="btn bp-btn-default btn-xs" 
                             ng-click="vm.edit(row.rid)">修改</button>
-                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.remove_role(row)">
+                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.editInfo($index,row)"> 
                           删除
                           </button>
 
-                              <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.changeStatusAlert(row)" ng-bind="row.status=='1'?'冻结':'生效'">
+                              <button ng-disabled="row.status=='1'" class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.changeStatusAlert(row)" ng-bind="row.status=='1'?'暂停':'启用'">
+                              
                               </button>
-
-</td>
+                      </td>
                       <td> {{row.creator}} </td>
                       <td> {{row.createTime}} </td>
                       <td> {{row.description}} </td>
@@ -79,10 +79,12 @@
         </h4>
       </div>
       <div class="modal-body">
-      是否确认要禁用/暂停改权限模板。
+     <!--   <input type="text" id="id_right" ng-model="id_right"> -->
+          是否确认要禁用/暂停改权限模板。
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="vm.remove_role()">
+        <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
@@ -105,12 +107,17 @@
          SOP.ffan.com为您提示:
         </h4>
       </div>
+
       <div class="modal-body">
-       该权限模板尚在使用中，不可删除/暂停!
+       <!-- 该权限模板尚在使用中，不可删除/暂停! -->
+       是否确认要删除该权限模板。
+      
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">
+        <button type="button"  class="btn btn-default" data-dismiss="modal" ng-click="vm.remove_role()">
           确定
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
       </div>
     </div><!-- /.modal-content -->
