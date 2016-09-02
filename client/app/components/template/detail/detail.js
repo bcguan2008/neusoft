@@ -3,7 +3,7 @@ export default angular.module('templatedetail', [])
   .config(($stateProvider) => {
   "ngInject";
   $stateProvider.state('templatedetail', {
-  url: '/template/detail/{id}',
+  url: '/template/detail/:id',
   template: '<templatedetail></detail>'
 });
 })

@@ -25,7 +25,6 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="row in $data track by $index">
-
                       <td> {{row.name}} </td>
                       <td> {{row.statusName}} </td>
 
@@ -35,7 +34,7 @@
                           ng-click="vm.detail(row.rid)">查看</a>
                            <button class="btn bp-btn-default btn-xs" 
                             ng-click="vm.edit(row.rid)">修改</button>
-                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1">
+                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.remove_role(row)">
                           删除
                           </button>
 
@@ -83,7 +82,7 @@
       是否确认要禁用/暂停改权限模板。
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" ng-click="vm.remove_role()">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消

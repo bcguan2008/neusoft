@@ -5,16 +5,18 @@
  */
 
 export default class EditController {
-    constructor(Api,treeSvc,$state) {
+    constructor(Api,treeSvc,$state,templateSvc) {
       "ngInject";
       this.name = 'edit';
       this.api = Api;
       this.$state=$state;
       this.treeSvc = treeSvc;
+      this.templateSvc = templateSvc;
       this.d={};
-      this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
-          _this.d=res;
-      })
+      // this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
+      //     _this.d=res;
+      // })
+      this.editInit();
       this.initTree();
   }
     initTree(){
@@ -37,6 +39,27 @@ export default class EditController {
         
     }
     save(){
-        this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('修改成功'),err=>{alert(err)}})
+      console.log(this.d)
+      this.templateSvc.postEdit(this.d);
+       // this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('修改成功'),err=>{alert(err)}})
     }
+
+editInit(){
+  
+  let self = this;
+  var _this = this;
+    return self.templateSvc.getDetail({
+      id: this.$state.params.id
+    }).then(result => {
+          if(result){
+               _this.d={
+                 name:result.name,
+                 describe:result.description,
+                 rid:result.rid
+               }
+
+          }
+        });
+    }
+
 }

@@ -14,25 +14,39 @@ export default class ListController {
     this.$location = $location;
     this.nowTemplate=null;
     this.init();
+    this.filter = {
+      limit: 10,
+      };
+  }
+     /**
+   * 获取格式化后的数据
+   */ 
+  getSearchFormData(){
+    let filter = this.filter
+    return filter
   }
   /**
    * [init 初始化 页面获取数据]
    */
 
-  init(){
+  init($scope){
     let self = this;
     this.tableParams = new this.NgTableParams({
       page: 1,
-      count: 10
+      count: 10 //每页几条
     }, {
       counts:[],
       getData: function(params) {
-        return self.templateSvc.getPageAllTempList()
+
+        self.loading = true;
+        let formData = self.getSearchFormData();
+        formData.page = params.url().page;
+        return self.templateSvc.getPageAllTempList(formData)
         .then(result => {
-          self.loading = false;
-          if(result && result.datas){
-            params.total(result.totalCount);
-            return result.datas;
+           self.loading = false;
+          if(result){
+            params.total(result.total);
+            return result.datas; 
           }
         });
       }
@@ -47,6 +61,7 @@ export default class ListController {
   detail(id){
       this.$state.go('templatedetail',{id:id});
   }
+  
   //修改
   edit(id){
       this.$state.go('templateedit', {id: id});
@@ -60,6 +75,7 @@ export default class ListController {
           operatorName:""
       }).then(res=>{
           this.nowTemplate.status=newStatus;
+          alert("修改成功");
       })
   }
   //返回

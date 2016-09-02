@@ -19,6 +19,6 @@ export default class AddController {
   }
 
   save(){
-      this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('�޸ĳɹ�'),err=>{alert(err)}})
+      this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('保存成功'),err=>{alert(err)}})
   }
 }

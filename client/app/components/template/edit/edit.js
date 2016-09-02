@@ -5,7 +5,7 @@ export default angular.module('templateedit', [])
   .config(($stateProvider) => {
   "ngInject";
 $stateProvider.state('templateedit', {
-  url: '/template/edit/{id}',
+  url: '/template/edit/:id',
   template: '<templateedit></templateedit>'
 });
 })
