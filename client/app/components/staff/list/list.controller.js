@@ -167,6 +167,7 @@ export default class ListController {
     //debugger;
       this.staffnewSvc.changeStatus({id:this.nowRow.uid,status:this.nowRow.status=='正常'?3:1}).then(success=>{
           //this.$modalInstance.close()
+
           alert("修改成功")
       })
   }

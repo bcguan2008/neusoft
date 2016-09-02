@@ -7,16 +7,19 @@ class templateSvc  {
     "ngInject";
     this.Api = Api;
     this.location = $location;
-    this.baseUrl = "/template/template";
+    this.baseUrl = "/role/";
   }
 //保存模板
   savetemplate(params){
   	 return this.Api.post(this.baseUrl + 'save', params);
   }
-  //显示所有模板
-	getPageAllTempList(){
-		return this.Api.get('/role/search');
+  //显示所有模板 role/search
+	getPageAllTempList(params){
+		return this.Api.get(this.baseUrl + 'search',params);
 	}
+
+
+
 	getTempList(id){
 	    return this.Api.get('/template/detail',{});
 	}
@@ -32,11 +35,23 @@ class templateSvc  {
   	/**
 	 * [getDetail 详情]
 	 */
+	// /role/operate/act/detail/rid/'+params
 	getDetail(params){
-	    return this.Api.post('/template/detail', params);
+	    return this.Api.post(this.baseUrl+'/operate/act/detail/rid/', params);
+	}
+
+	postEdit(params){
+		// debugger;
+		console.log("postEdit");
+	    return this.Api.post(this.baseUrl+'/operate/act/save/rid/', params);
 	}
 	changeStatus(params){
 	    return this.Api.post('/template/changeStatus', params);
+	}
+	//删除
+	remove_role(params){
+		  return this.Api.post(this.baseUrl+'/operate/act/remove/rid', params);
+
 	}
 }
 
