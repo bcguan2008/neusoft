@@ -90,16 +90,31 @@ export default class ListController {
     this.templateSvc.returnTemplatelist()
   }
   //在list里 为了传给模拟框参数
-  changeStatusAlert(row,){
+  changeStatusAlert(row){
       this.nowTemplate = row;
-     // console.log(row)
-      // $('#id_right').val(row.status);
+      if(row.status=='1'){
+         $("#alert1").css('display','none'); 
+         $("#alert3").css('display','none'); 
+       }
+       else{
+           $("#alert2").css('display','none');
+           $("#alert4").css('display','none'); 
+       }
   }
     //传值给删除确定窗口
   //在list里 为了传给模拟框参数
-  editInfo (a,b){
+  removeInfo (a,b){
       this.nowRow=b;
-    
+      //1=暂停 2=启用
+      if(b.status=='1'){
+         $("#msg1").css('display','none'); 
+         $("#msg3").css('display','none'); 
+       }
+       else{
+           $("#msg2").css('display','none');
+           $("#msg4").css('display','none'); 
+       }
+   
     }
   remove_role(){
     this.templateSvc.remove_role(this.nowRow)

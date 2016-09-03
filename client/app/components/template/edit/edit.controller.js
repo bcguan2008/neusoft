@@ -28,20 +28,24 @@ export default class EditController {
 
         //这个配置用于避免或减少数据转换
         this.config = {
-            //指示子节点的字段名
-            fieldOfChildren: 'child',
-            //指示节点名的字段
-            fieldOfName: 'categoryName',
-            //指示节点id的字段
+            // //指示子节点的字段名
+             fieldOfChildren: 'child',
+            // //指示节点名的字段
+             fieldOfName: 'categoryName',
+            // //指示节点id的字段
             fieldOfId: 'categoryId'
+
         };
 
         
     }
     save(){
       console.log(this.d)
-      this.templateSvc.postEdit(this.d);
-       // this.api.post('/Template/updateTemplate',this.d).then(res=>{alert('修改成功'),err=>{alert(err)}})
+     
+     this.templateSvc.postEdit(this.d);
+        //this.api.post('/role/operate/act/save/rid'+this.d.rid,this.d).then(res=>{alert('保存成功'),err=>{alert(err)}})
+
+
     }
 
 editInit(){
@@ -56,8 +60,8 @@ editInit(){
                _this.d={
                  name:result.name,
                  describe:result.description,
-                 rid : result.rid,
-                 node:result.nodes
+                 rid : result.rid
+                // nodes:result.nodes
                }
 
           }

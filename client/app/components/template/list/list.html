@@ -34,11 +34,11 @@
                           ng-click="vm.detail(row.rid)">查看</a>
                            <button class="btn bp-btn-default btn-xs" 
                             ng-click="vm.edit(row.rid)">修改</button>
-                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.editInfo($index,row)"> 
+                          <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.removeInfo($index,row)"> 
                           删除
                           </button>
 
-                              <button ng-disabled="row.status=='1'" class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.changeStatusAlert(row)" ng-bind="row.status=='1'?'暂停':'启用'">
+                              <button  class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.changeStatusAlert(row)" ng-bind="row.status=='1'?'暂停':'启用'">
                               
                               </button>
                       </td>
@@ -80,10 +80,15 @@
       </div>
       <div class="modal-body">
      <!--   <input type="text" id="id_right" ng-model="id_right"> -->
-          是否确认要禁用/暂停改权限模板。
+           <span id="alert1">该权限模板尚在使用中，不可删除! </span>
+         <span id="alert2">是否确认要禁用/暂停该权限模板。 </span>
         
       </div>
-      <div class="modal-footer">
+        <div class="modal-footer" id="alert3">
+          <button type="button" class="btn btn-default" data-dismiss="modal">确定
+          </button>
+        </div>
+      <div class="modal-footer" id= "alert4">
         <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
           确定
         </button>
@@ -109,16 +114,21 @@
       </div>
 
       <div class="modal-body">
-       <!-- 该权限模板尚在使用中，不可删除/暂停! -->
-       是否确认要删除该权限模板。
+      <span id="msg1">该权限模板尚在使用中，不可删除! </span>
+       <span id="msg2">是否确认要删除该权限模板。 </span>
       
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="msg3">
+          <button type="button" class="btn btn-default" data-dismiss="modal">确定
+          </button>
+        </div>
+      <div class="modal-footer" id="msg4">
         <button type="button"  class="btn btn-default" data-dismiss="modal" ng-click="vm.remove_role()">
           确定
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
+
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
