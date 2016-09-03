@@ -18,8 +18,6 @@ class templateSvc  {
 		return this.Api.get(this.baseUrl + 'search',params);
 	}
 
-
-
 	getTempList(id){
 	    return this.Api.get('/template/detail',{});
 	}
@@ -55,7 +53,14 @@ class templateSvc  {
 	remove_role(params){
 			console.log(params.rid);
 		  return this.Api.post(this.baseUrl+'/operate/act/remove/rid/'+ params.rid, params);
+	}
 
+	getTree(type){
+		var _type = 'sop';
+		if(type){
+			_type = type;
+		}
+		return this.Api.get('/role/operate/act/nodes/type/'+type);
 	}
 }
 

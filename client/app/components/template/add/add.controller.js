@@ -5,18 +5,19 @@
  */
 
 export default class AddController {
-  constructor(Api,treeSvc,$scope) {
+  constructor(Api,treeSvc,$scope,templateSvc) {
   	"ngInject";
     this.name = 'add';
     this.treeSvc= treeSvc;
     this.form = {};
     this.api=Api;
     this.d={};
-    this.loadPromise = this.treeSvc.get()
+    this.templateSvc = templateSvc;
+    this.loadPromise = this.templateSvc.getTree('sop');
     this.config = {
         fieldOfChildren: 'children',
         fieldOfName: 'name',
-        fieldOfId: 'id'
+        fieldOfId: 'nodeId'
     };
   }
   save(){

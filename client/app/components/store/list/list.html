@@ -7,7 +7,8 @@
   <div class="bp-container">
     <div class="table-container">
       <div class="table-wrapper" ng-table="vm.tableParams">
-        <table class="table table-bordered table-striped table-hover">
+        <table class="table table-bordered table-striped table-hover"
+          cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
           <thead class="panel-title">
             <tr>
               <th> 门店名称 </th>
@@ -19,7 +20,6 @@
           <tbody>
             <tr ng-repeat="row in $data track by $index">
               <td> 
-
                   {{row.name}}
               </td>
               <td>{{row.principal}}</td>
