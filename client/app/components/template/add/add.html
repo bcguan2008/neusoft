@@ -10,19 +10,19 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
         <div class="col-sm-10">
-          <input type="name" class="form-control" id="inputEmail3" ng-model="vm.d.rolename" placeholder="名称" required>
+          <input type="name" class="form-control" id="inputEmail3" ng-model="vm.d.name" placeholder="名称" required>
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
         <div class="col-sm-10">
-          <textarea class="form-control" rows="3" ng-model="vm.d.fundescribe"  placeholder="描述"></textarea>
+          <textarea class="form-control" rows="3" ng-model="vm.d.describe"  placeholder="描述"></textarea>
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
         <div class="col-sm-10">
-          <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.cities" config="vm.config"></bp-checkboxtree>
+          <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
         </div>
       </div>
       

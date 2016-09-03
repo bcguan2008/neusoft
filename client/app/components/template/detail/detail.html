@@ -5,12 +5,12 @@
 </div>
 <div class="conter-wrapper">
 
-  <form id="addTemp_id" name="addTemp"  class="form-horizontal" role="form">
+  <form id="detailTemp_id" name="detailTemp"  class="form-horizontal" role="form">
    
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
       <div class="col-sm-10">{{vm.d.name}}
-                 
+                           
       </div>
     </div>
     <div class="form-group">
@@ -19,10 +19,18 @@
 
       </div>
     </div>
-    <div class="row">
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
+                <div class="col-sm-10">
+                    <bp-checkboxtree list-promise="vm.loadPromise" disabled  ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                </div>
+            </div>
 
-    </div>
-     <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.cities" config="vm.config"></bp-checkboxtree>
+
+            <div class="panel-footer">
+             
+                <a class="btn btn-default" ui-sref="templatelist()">返回</a>
+            </div>
   </form>
 
 </div>
