@@ -64,7 +64,6 @@ export default class ListController {
   //查看
 
   detail(id){
-    console.log(id)
       this.$state.go('templatedetail',{id:id});
   }
 
