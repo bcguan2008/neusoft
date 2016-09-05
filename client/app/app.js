@@ -6,9 +6,8 @@
 'use strict';
 import 'jquery';
 import 'bootstrap';
-
+import 'bp-sop-skin';
 import angular from 'angular';
-import './bp-sop-skin/theme.less';
 import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
 import Common from './common/common';
@@ -22,6 +21,9 @@ import 'angular-bootstrap-datetimepicker';
 import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
 import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
+
+import bpUtils from 'bp-utils';
+
 angular.module('app', [
     uiRouter,
     Common.name,
@@ -30,6 +32,7 @@ angular.module('app', [
     Service.name,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
+    'bp.utils'
   ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG

@@ -5,20 +5,44 @@
  */
 
 export default class DetailController {
-  constructor($state,staffnewSvc,) {
+  constructor($scope,staffnewSvc,$state,Api) {
   	 "ngInject";
   	this.staffnewSvc=staffnewSvc;
-  	this.name = 'detail';
-  	this.$state = $state;
+    this.name = 'detail';
+    this.$state = $state;
+    this.api = Api;
+    this.detailInit();
+    this.d={}
+ 
   }
-  init(){
-      debugger;
-  }
+
 //返回
-  getstafflistc(){
-
+  returnstafflistc(){
   	this.staffnewSvc.getstafflist();
-
   }
 
+  // detailInit(){
+  //   var _this = this;
+     
+  //   return self.staffnewSvc.getDetail({
+  //     id: this.$state.params.id
+  //   }).then(data => {
+       
+  //     if(data){
+  //        _this.d=data;
+  //     }
+  //   })
+  // }
+
+     detailInit(){
+      var _this = this;
+        
+       let params ={
+        id:this.$state.params.id,
+        type:1
+        };
+        this.api.get('/Employee/detail',params).then(res=>{
+            _this.d=res;
+        })
+    }
 }

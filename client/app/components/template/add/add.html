@@ -1,41 +1,53 @@
 <div class="page-title">
   <div class="title">
-    <h4>创建新模板</h4>
+    <h1>创建新模板</h1>
   </div>
 </div>
 <div class="conter-wrapper">
-
+<div class="panel bp-panel-primary">
   <form id="addTemp_id" name="addTemp"  class="form-horizontal" ng-submit="vm.save()" role="form">
-   
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
-      <div class="col-sm-10">
-        <input type="name" class="form-control" id="inputEmail3" ng-model="rolename" placeholder="名称" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
-      <div class="col-sm-10">
-        <textarea class="form-control" rows="3" ng-model="fundescribe"  placeholder="描述"></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-           <button class="btn bp-btn-primary" type="submit" >保存</button>
-          </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
+        <div class="col-sm-10">
+          <input type="name" class="form-control" id="inputEmail3" ng-model="vm.d.name" placeholder="名称" required>
         </div>
       </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">取消</button>
-          </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" rows="3" ng-model="vm.d.description"  placeholder="描述"></textarea>
         </div>
       </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
+        <div class="col-sm-10">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+              <a href="#sop_id" data-toggle="tab">SOP</a> 
+            </li>
+            <li id="APP">
+              <a href="#app_id" data-toggle="tab" ng-click="vm.tabtree()">APP</a>
+            </li>
+          </ul>
+
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="sop_id">
+                <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+            </div>
+            <div class="tab-pane fade" id="app_id" >
+                <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes1" config="vm.config"></bp-checkboxtree>
+            </div>
+          </div>
+<!-- end -->
+  </div>
     </div>
-     <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.cities" config="vm.config"></bp-checkboxtree>
+    <div class="panel-footer">
+      <button class="btn bp-btn-primary" ng-disabled="addTemp.$invalid" type="submit" >保存</button>
+        <a class="btn btn-default" ui-sref="templatelist()">返回</a>
+    </div>
+     
   </form>
+</div>
 
 </div>
