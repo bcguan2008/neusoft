@@ -9,8 +9,8 @@ export default class AddController {
     this.q = $q;
 
 
-    //$scope.ststoreNamemodel="";
-    
+    //$scope.ststoreNamemodel="";  
+     
   	//$scope.storeName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
     // console.log(staffnewSvc);
     this.options={
@@ -58,7 +58,7 @@ export default class AddController {
           .then(data => {
           //alert(tip);
           //跳转到员工list页面
-         // this.staffnewSvc.getstafflist();
+          this.staffnewSvc.getstafflist();
         });
 	  }
 
