@@ -7,7 +7,8 @@
   <div class="panel bp-panel-primary">
     <form name="editStore" class="form-horizontal" ng-submit="vm.save()">
       <div class="panel bp-panel-primary">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped table-hover"
+                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
             <tbody>
                 <tr>
                     <td class="col-md-5">门店名称</td>
@@ -46,9 +47,8 @@
                 <tr>
                     <td class="col-md-5">可使用的功能模板</td>
                     <td class="col-md-7">
-                      <label ng-repeat="role in vm.roles">
-                        <input type="checkbox" ng-checked="role.checked" ng-model="role.value">
-                        {{role.name}}
+                      <label>
+                       <a ng-repeat="role in vm.d.role_info">功能模板{{role}},</a>
                       </label>
 
                     </td>

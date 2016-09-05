@@ -16,7 +16,8 @@ export default class ListController {
     init() {
         var self = this;
         this.tableParams = new this.NgTableParams({
-            count: 100
+            page: 1,
+            count: 10 //Ã¿Ò³¼¸Ìõ
         }, {
                 counts: [],
                 getData: function (params) {
@@ -24,9 +25,10 @@ export default class ListController {
                     return self.loadPromise
                         .then(result => {
                             self.loading = false;
-                            if (result) {
-                                params.total(1);
-                                return result
+                            if (result.datas) {
+                                console.log(result)
+                                params.total(result.totalCount);
+                                return result.datas
                             }
                         });
                 }

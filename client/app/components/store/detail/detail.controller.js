@@ -15,9 +15,14 @@ export default class DetailController {
         this.d={}
     }
     init(){
+         let self = this;
         var _this = this;
-        this.api.get('/Organization/detail',{id:this.$state.params.id}).then(res=>{
-            _this.d=res;
+         self.loading = true;
+        self.loadPromise = this.api.get('/Organization/detail',{id:this.$state.params.id})
+       return self.loadPromise.then(res=>{
+         self.loading = false;
+            _this.d=res.datas; 
+            
         })
     }
     back(){
