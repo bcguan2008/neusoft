@@ -4,10 +4,10 @@
   </div>
 </div>
 <div class="conter-wrapper">
-  <div class="bp-container">
+  <div class="panel bp-panel-primary">
 
     <form id="addStaff_id" name="addStaff"  class="form-horizontal" role="form">
-      <div class="panel-body">
+      <div class="panel-body"> 
           <div class="form-group" >
        
                   <label for="name" class="col-md-2 control-label " >姓名<span class="required-star">*</span></label>
@@ -59,28 +59,13 @@
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
                        <div class="col-md-3" > 
-                          
-                            <div>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="option1" ng-model="vm.user.checkbox1"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox2" value="option2" ng-model="vm.user.checkbox2"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox3"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox4"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox5"> 功能模板1
-                              </label>
-                               <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox6"> 功能模板1
-                              </label>
-                           
-                            </div>
+
+              <input type="text" class="form-control"
+                            placeholder="请输入关键字"
+                            uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
+                            typeahead-loading="loading" typeahead-no-results="noResults"
+                            ng-model="vm.filter.template_name_1"
+                             />
                      </div>
             </div>
 
@@ -106,20 +91,10 @@
                          <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.users.con_password" required  id="con_password_id" class="required form-control">
                   </div>
           </div>
-
-
        
       </div>
             <div class="panel-footer">
-                      <div class="row">
-      <div class="form-group">
-        <div class="col-md-7 col-md-offset-2">
-        <div class="panel-footer form-actions">
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.createuser()" >创建员工</button> 
-      </div>
-      </div>
-      </div>
-      </div>
             </div>
     </form>
 
