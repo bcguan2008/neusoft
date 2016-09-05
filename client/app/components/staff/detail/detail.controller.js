@@ -21,27 +21,18 @@ export default class DetailController {
   	this.staffnewSvc.getstafflist();
   }
 
-  // detailInit(){
-  //   var _this = this;
-     
-  //   return self.staffnewSvc.getDetail({
-  //     id: this.$state.params.id
-  //   }).then(data => {
-       
-  //     if(data){
-  //        _this.d=data;
-  //     }
-  //   })
-  // }
-
      detailInit(){
+      let self = this;
       var _this = this;
-        
+       self.loading = true;
        let params ={
         id:this.$state.params.id,
         type:1
         };
-        this.api.get('/Employee/detail',params).then(res=>{
+       self.loadPromise = this.api.get('/Employee/detail',params);
+
+       return self.loadPromise .then(res=>{
+         self.loading = false;
             _this.d=res;
         })
     }

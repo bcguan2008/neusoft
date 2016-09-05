@@ -21,9 +21,13 @@
         </div>
         <div class="col-md-3 col-md-offset-1 form-group">
           <label>绑定模板</label>
-              <select class="form-control" ng-options="a.name for a in template_name" ng-model="vm.filter.template_name_1">
-                          <option value="">--请选择--</option>
-              </select> 
+              
+              <input type="text" class="form-control"
+                            placeholder="请输入关键字"
+                            uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
+                            typeahead-loading="loading" typeahead-no-results="noResults"
+                            ng-model="vm.filter.template_name_1"
+                             />
         </div>
 
       </div>
@@ -38,7 +42,7 @@
 
           <label>员工状态</label>
              <select class="form-control"
-              ng-options="a.name for a in staffstatus"
+              ng-options="a.name for a in vm.staffstatus"
               ng-model="vm.filter.status">
                <option value="">--请选择--</option>
               </select>
@@ -130,7 +134,7 @@
                       <td> {{row.c_time}} </td>
                       <td> {{row.organization_info}} </td>
                       <td> {{row.data_role_name}} </td>
-                      <td> {{row.employee_status}} </td>
+                      <td> {{row.status}} </td>
                       <td> 
                         <button class="btn bp-btn-default btn-xs" 
                           ng-click="vm.detail(row.uid)" >查看</button>

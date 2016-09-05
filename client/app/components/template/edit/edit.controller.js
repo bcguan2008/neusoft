@@ -40,20 +40,23 @@ export default class EditController {
         
     }
     save(){     
-      this.templateSvc.postEdit(this.d);
-        //this.api.post('/role/operate/act/save/rid'+this.d.rid,this.d).then(res=>{alert('保存成功'),err=>{alert(err)}})
+       console.log(this.d);
+       this.templateSvc.postEdit(this.d);
+      // alert('保存成功');
+       // this.api.post('/role/operate/act/save/rid'+this.d.rid,this.d).then(res=>{alert('保存成功'),err=>{alert(err)}})
     }
 
 editInit(){
   
   let self = this;
   var _this = this;
-    return self.templateSvc.getDetail({
+   self.loading = true;
+    self.loadPromise= self.templateSvc.getDetail({
       id: this.$state.params.id
-    }).then(result => {
+    });
+    return self.loadPromise.then(result => {
           if(result){
-            console.log(result)
-            console.log(result.name)
+            self.loading = false;
                _this.d={
                  name:result.name,
                  description:result.description,

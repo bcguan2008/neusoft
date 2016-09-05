@@ -39,13 +39,13 @@ updatestaff(){
   init(){
       let self = this;
       var _this = this;
-
-    return self.staffnewSvc.getDetail({
+       self.loading = true;
+     self.loadPromise =  self.staffnewSvc.getDetail({
       id: this.$state.params.id,
       type:1
-    })
-        .then(result => {
-
+    });
+       return self.loadPromise.then(result => {
+          self.loading = false;
           if(result){
               _this.d={
                   id:result.uuid,

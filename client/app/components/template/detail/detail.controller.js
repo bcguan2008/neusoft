@@ -39,11 +39,13 @@ export default class DetailController {
     }
 
    detailInit(){
-          let self = this;
-          var _this = this;
-        return self.templateSvc.getDetail({
+         let self = this;
+         var _this = this;
+        self.loading = true;
+         self.loadPromise =  self.templateSvc.getDetail({
           id: this.$state.params.id
-        }).then(result => {
+        });
+         return  self.loadPromise.then(result => {
               if(result){
                 console.log(result)
                    _this.d={

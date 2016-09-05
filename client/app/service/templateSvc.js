@@ -17,6 +17,10 @@ class templateSvc  {
 	getPageAllTempList(params){
 		return this.Api.get(this.baseUrl + 'search',params);
 	}
+	//显示模板 根据名字
+	getPageTempbyname(params){
+		return this.Api.get(this.baseUrl + 'search/',params);
+	}
 
 	getTempList(id){
 	    return this.Api.get('/template/detail',{});
@@ -44,10 +48,10 @@ class templateSvc  {
 	    return this.Api.post(this.baseUrl+'operate/act/save/rid/'+params.rid, params);
 	}
 	changeStatus(params){ 
-		console.log(params.rid); 
-		console.log(params.status);  
-		//console.log(params.rid);
-	    return this.Api.get(this.baseUrl+'operate/act/update/rid/'+params.rid+/pause/+params.status, {});
+		console.log(params);
+		//debugger;
+		console.log('operate/act/update/rid/'+params.rid+/pause/+params.status);
+	    return this.Api.get(this.baseUrl+'operate/act/update/rid/'+params.rid+/pause/+params.status);
 	}
 	//删除
 	remove_role(params){
