@@ -6,6 +6,8 @@
   <div class="panel panel-primary">
 
     <form id="editStaff_id" name="edittaff"  class="form-horizontal" role="form">
+       <table class="table table-bordered table-striped table-hover"
+                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
       <div class="panel-body">
           <div class="form-group" >
        
@@ -82,11 +84,13 @@
           </div>           
       </div>
 
-    </form>
+ 
           <div class="panel-footer form-actions">
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.updatestaff()" >保存</button>
 
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.returnstafflistc()" >返回</button>
       </div>
+      </table>
+         </form>
   </div>
 </div>

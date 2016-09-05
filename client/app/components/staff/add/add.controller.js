@@ -1,9 +1,13 @@
 export default class AddController {
-  constructor($scope,$http,staffnewSvc) {
+  constructor($scope,$http,staffnewSvc,templateSvc,$q) {
     "ngInject";
     //var vm = this;
    this.name = 'add';
     this.staffnewSvc=staffnewSvc;
+    this.templateSvc = templateSvc;
+    this.q = $q;
+
+    
     $scope.ststoreNamemodel="";
     
   	$scope.storeName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
@@ -33,12 +37,22 @@ export default class AddController {
 	createuser(){
       var users = this.users,
         tip = '保存成功';
-
+        console.log(users);
     this.staffnewSvc.createuser(users)
     .then(data => {
       //alert(tip);
       this.cancel();
     });
 	  }
+
+    //获取模板名称
+  getTemplateList(temlateName){
+    let deferred = this.q.defer();
+    let templateList = this.templateSvc.getPageTempbyname(temlateName).then((result)=>{
+      return result.datas;
+    });
+    deferred.resolve(templateList);
+    return deferred.promise;
+  }
 
 }
