@@ -49,4 +49,10 @@ export default class ListController {
     goStaff(storeid) {
         this.$state.go('stafflist', { storeid: storeid });
     }
+/**
+   * [downloadExcel µ¼³öÄ£°å]
+   */
+  exportExcel(){
+        this.storeSvc.exportExcellist()
+  }
 }
