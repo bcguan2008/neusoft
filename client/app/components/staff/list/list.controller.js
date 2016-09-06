@@ -23,7 +23,7 @@ export default class ListController {
   
 // 员工状态
 
-  	this.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '恢复' }];
+  	this.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '正常' }];
 
 // 模板
 
@@ -46,16 +46,22 @@ export default class ListController {
 
 
 
+
  this.filter = {
       limit: 10,
       name: '',
-      storeid:this.$state.params.storeid
+      status_id:''
+      //storeid:this.$state.params.storeid
       // phone: '',
       // action_1: '',
       // button_name: '',
       // status: '',
       // update_start_time: '',
       // update_end_time: ''
+    };
+
+  this.selectObj = {
+      status_name: ''
     };
   }
 
@@ -73,12 +79,15 @@ export default class ListController {
    * 获取格式化后的数据
    */ 
   getSearchFormData(){
-    let filter = this.filter,
-        selectObj = this.selectObj;
-
-    // filter.track_page_type_id = selectObj.pageType.id;
-    // filter.business_code = selectObj.business.business_code;
-
+    let filter = this.filter
+    var selectObj = this.selectObj;
+       // console.log(selectObj); 
+       
+  if (selectObj.status != undefined){ 
+   
+      filter.status_id= selectObj.status.id
+    }
+  // console.log(filter);
     return filter;
   }
 
@@ -97,44 +106,46 @@ export default class ListController {
 
   init($scope){
     let self = this;
+    var filter = this.filter;
     this.tableParams = new this.NgTableParams({
+      page: 1,
       count: 10 //每页几条
     }, {
       counts:[],
       getData: function(params) {
-
+ console.log('filter')
         self.loading = true;
-        let formData = self.getSearchFormData();
+         let formData = self.getSearchFormData(filter);
         formData.page = params.url().page;
         self.loadPromise = self.staffnewSvc.getPageUserList(formData);
         return self.loadPromise
         .then(result => {
            self.loading = false;
-         console.log(result.length);
+          console.log(result)
           if(result){
-            params.total(result.total);
-            return result; 
+            params.total(result.totalCount);
+            return result.datas; 
           }
         });
-      }
+        } 
     });
   }
 
-		   search(){
+		search(){
           this.tableParams.parameters({page : 1}).reload();
-		}
+		  }  
 
-		   reset(){
+		   reset(){ 
 
         this.filter = {
-          limit: 10,
-          name: '',
-          phone: '',
-          action_1: '',
-          status: '',
-          update_start_time: '',
-          update_end_time: '',
-            storeid:this.$state.params.storeid
+          // limit: 10,
+          // name: '',
+          // phone: '',
+          // action_1: '',
+          // status: '',
+          // update_start_time: '',
+          // update_end_time: ''
+           // storeid:this.$state.params.storeid
         };
 
     }

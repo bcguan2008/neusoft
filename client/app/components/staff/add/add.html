@@ -46,12 +46,21 @@
                   <label for="name" class="col-md-2 control-label" >门店选择<span class="required-star">*</span></label>
                   <div class="col-md-3" >
                        
-                        <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
-                          <option value="">--请选择--</option>
+                       <!--  <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
+                          <option value="">--请选择--</option> -->
                         </select> 
+
+                             <input type="text" class="form-control"
+                            placeholder="请输入关键字"
+                            uib-typeahead="store as store.name for store in vm.getStorelist($viewValue)"
+                            typeahead-loading="loading" typeahead-no-results="noResults"
+                            ng-model="vm.options.store"
+                             />
+                    
+
                       <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
                           <p class="discount-help-block">
-                              <i class="fa fa-info-circle"></i>请输入有效负责人名称
+                              <i class="fa fa-info-circle"></i>请输入门店名称
                           </p>
                       </div>
                    </div>
@@ -64,7 +73,7 @@
                             placeholder="请输入关键字"
                             uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
                             typeahead-loading="loading" typeahead-no-results="noResults"
-                            ng-model="vm.filter.template_name_1"
+                            ng-model="vm.temp.template_name"
                              />
                      </div>
             </div>

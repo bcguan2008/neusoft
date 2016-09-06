@@ -33,6 +33,7 @@ export default class DetailController {
 
        return self.loadPromise .then(res=>{
          self.loading = false;
+         console.log(res)
             _this.d=res;
         })
     }

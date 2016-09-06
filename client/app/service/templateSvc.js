@@ -21,7 +21,6 @@ class templateSvc  {
 	getPageTempbyname(params){
 		return this.Api.get(this.baseUrl + 'search/',params);
 	}
-
 	getTempList(id){
 	    return this.Api.get('/template/detail',{});
 	}

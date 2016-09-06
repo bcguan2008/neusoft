@@ -4,7 +4,7 @@
  * @author yourname
  */
 export default class EditController {
-    constructor($scope,Api,$state,staffnewSvc) {
+    constructor($scope,Api,$state,staffnewSvc,templateSvc,$q) {
       "ngInject";
     
       this.name = 'edit';
@@ -12,7 +12,9 @@ export default class EditController {
       this.staffnewSvc= staffnewSvc;
       this.$scope = $scope;
       this.$state= $state;
+      this.q = $q;
       this.d={};
+      this.templateSvc=templateSvc;
       this.init()
    
   }
@@ -46,18 +48,31 @@ updatestaff(){
     });
        return self.loadPromise.then(result => {
           self.loading = false;
+          console.log(result);
           if(result){
               _this.d={
                   id:result.uuid,
                   name:result.name,
+                  templateName:result.template_data.template_name,
                   contact:result.contact,
                   rtx:result.rtx,
-                  storeName:result.organization_name,
-                  email:result.email
+                  storeName:result.storeName,
+                  email:result.email,
+                  employee_id:result.employee_id,
+                  employee_organization_name:result.employee_organization_name
               }
 
           }
         });
+  }
+      //获取模板名称
+  getTemplateList(temlateName){
+    let deferred = this.q.defer();
+    let templateList = this.templateSvc.getPageTempbyname(temlateName).then((result)=>{
+      return result.datas;
+    });
+    deferred.resolve(templateList); 
+    return deferred.promise;
   }
 
 }

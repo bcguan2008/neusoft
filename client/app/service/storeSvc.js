@@ -55,6 +55,10 @@ class storeSvc  {
       //},100)
       //return  q.promise;
   }
+    //显示模板 根据名字
+  getstorebyname(params){
+    return this.Api.get('/Organization/storelist/');
+  }
   
 }
 

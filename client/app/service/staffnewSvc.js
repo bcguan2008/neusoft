@@ -34,6 +34,7 @@ class staffnewSvc  {
 
 //更新员工 
   updateEmployee(params){
+    console.log(params)
     return this.Api.post(this.baseUrl + 'updateEmployee', params);
   }
   //更新员工状态
