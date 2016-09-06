@@ -81,15 +81,15 @@ export default class ListController {
 	 /**
    * 获取格式化后的数据
    */ 
-  getSearchFormData(){
+  getSearchFormData(){ 
     let filter = this.filter
     var selectObj = this.selectObj;
-       // console.log(selectObj); 
+     
        
-  if (selectObj.status != undefined){ 
+   if (selectObj.status != undefined){ 
    
-      filter.status_id= selectObj.status.id
-    }
+       filter.status_id= selectObj.status.id
+     }
     return filter;
   }
 
@@ -116,13 +116,16 @@ export default class ListController {
       counts:[],
       getData: function(params) {
         self.loading = true;
-         let formData = self.getSearchFormData(filter);
+        let formData = self.getSearchFormData(filter);//filter
         formData.page = params.url().page;
+        
         self.loadPromise = self.staffnewSvc.getPageUserList(formData);
+         //self.loadPromise = self.templateSvc.getPageAllTempList(formData);
         return self.loadPromise
         .then(result => {
            self.loading = false;
           if(result){
+            console.log(result)
             params.total(result.totalCount);
             return result.datas; 
           }
@@ -134,21 +137,6 @@ export default class ListController {
 		search(){
           this.tableParams.parameters({page : 1}).reload();
 		  }  
-
-		   reset(){ 
-
-        this.filter = {
-          // limit: 10,
-          // name: '',
-          // phone: '',
-          // action_1: '',
-          // status: '',
-          // update_start_time: '',
-          // update_end_time: ''
-           // storeid:this.$state.params.storeid
-        };
-
-    }
 
   /**
    * 获取员工详情
