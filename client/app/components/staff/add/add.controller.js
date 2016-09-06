@@ -2,38 +2,36 @@ export default class AddController {
   constructor($scope,$http,staffnewSvc,templateSvc,$q,storeSvc) {
     "ngInject";
     //var vm = this;
+   
    this.name = 'add';
     this.staffnewSvc=staffnewSvc;
     this.templateSvc = templateSvc;
     this.storeSvc = storeSvc;
+    this.scope = $scope;
     this.q = $q;
-
-
-    //$scope.ststoreNamemodel="";  
-     
-  	//$scope.storeName = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
-    // console.log(staffnewSvc);
+    this.d={};
+    this.getTempList();
+    this.gettemp={
+      role_ids:'',
+      role_info:''
+    }
     this.options={
          storeId:'',
         storeName:''
     }
-    this.temp ={
-      role_ids:[],
-      templateName:''
-    }
   	this.users = {
   	    name: '',
   	    contact: '',
-  	    rtx:'',
-     storeId:'', //门店Id
-      storeName: '', //门店名称
+  	    rtx:'',//即时通讯账号
+        storeId:'', //门店Id
+        storeName: '', //门店名称
      // email: '1qqq@qq.component',
-   //  rtx: '123', //即时通讯账号
-      role_ids: [], //模板ID
-      templateName:[], // '模板名称', //模板名称
+      role_ids: '', //模板ID
+      templateName:'', // '模板名称', //模板名称
       password: '', //密码
       con_password: ''//确认密码
     };
+
   }  
 
 	
@@ -43,20 +41,16 @@ export default class AddController {
 	createuser(){
       var users = this.users,
         options = this.options,
-        temp = this.temp,
-        tip = '保存成功';
-        //debugger;
-       console.log(temp)
+        gettemp = this.gettemp
+
         users.storename = options.store.name;
         users.storeId = options.store.organization_id;
-        users.templateName = temp.template_name.name;
-        users.role_ids =temp.template_name.creatorId;
-
-        //users.storeId = 
+        //users.role_ids =gettemp.role_ids;
+        users.role_ids =gettemp.role_ids;
+        users.role_info = gettemp.role_info;
         console.log(users)
         this.staffnewSvc.createuser(users)
           .then(data => {
-          //alert(tip);
           //跳转到员工list页面
           this.staffnewSvc.getstafflist();
         });
@@ -71,6 +65,15 @@ export default class AddController {
     deferred.resolve(templateList);
     return deferred.promise;
   }
+
+  //获取功能模板 check 多选
+  getTempList(){
+      this.templateSvc.getPageAllTempList().then((result)=>{
+      this.scope.datas= result.datas; 
+    });
+  }
+
+
   //获取门店list
   getStorelist(storename)
   {
@@ -84,6 +87,41 @@ export default class AddController {
     return deferred.promise;
 
      // this.staffnewSvc.getstoreAlllist()
+  }
+
+//判断checked 被选中
+  updateSelection($event, id,name){
+  var gettemp = this.gettemp
+  var checkbox = $event.target;
+  var action = (checkbox.checked?'add':'remove');
+  //如果action 是add 则添加，要是remove 就是删除
+  if (action=="add"){
+    if( gettemp.role_ids==""){
+      gettemp.role_ids=id; 
+      gettemp.role_info=name; 
+     }else{
+         gettemp.role_ids=gettemp.role_ids+","+id;
+         gettemp.role_info= gettemp.role_info+","+name;
+     }
+    }
+    else{
+       // 取消选中，则删除当前的id和template name
+       var temp_name = gettemp.role_info.split(',')
+        var words = gettemp.role_ids.split(',')
+         for(var i=0;i<words.length;i++) 
+         {
+        
+            if(words[i]==id)
+            {
+               words.splice(i,1);
+               temp_name.splice(i,1);
+            }
+         }
+         gettemp.role_ids= words.join(",")
+         gettemp.role_info = temp_name.join(",")
+    }
+
+     console.log(gettemp.role_ids);
   }
 
 }
