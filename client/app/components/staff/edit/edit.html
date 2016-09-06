@@ -1,19 +1,12 @@
-<div class="page-title">
-  <div class="title">
-  </div>
-</div>
 <div class="conter-wrapper">
-  <div class="panel panel-primary">
+  <div class="panel bp-panel-primary">
 
-    <form id="editStaff_id" name="edittaff"  class="form-horizontal" role="form">
-       <table class="table table-bordered table-striped table-hover"
-                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-      <div class="panel-body">
+    <form id="editStaff_id" name="edittaff"  class="form-horizontal" role="form">    
           <div class="form-group" >
        
-                  <label for="name" class="col-md-2 control-label" >姓名<span>*</span></label>
+                <label for="name" class="col-md-2 control-label" >姓名<span>*</span></label>
                   <div class="col-md-3" >
-                       <input type="text" class="form-control" ng-model="vm.d.name" readonly  id="staffname_id "> 
+                       <input type="text" class="form-control" ng-model="vm.d.name" readonly  id="staffname_id"> 
                    </div>
           </div>         
           <div class="form-group" >
@@ -28,49 +21,32 @@
                   <div class="col-md-3" >   
                          <input type="text" class="form-control" ng-model="vm.d.rtx"   id="staffphone_id"> 
                   </div>
-
         </div>
-   
-<input type="text" ng-model="vm.d.employee_id" style="display:none">
           <div class="form-group">
-       
+          <input type="text" ng-model="vm.d.employee_id" style="display:none">
                   <label for="name" class="col-md-2 control-label" >门店选择<span>*</span></label>
-                  <div class="col-md-3" >
-                       
+                  <div class="col-md-3" >    
                         <input type="text" class="form-control" ng-model="vm.d.employee_organization_name" readonly  id="storeName_id"> 
-                   </div>
-                       
-                   </div>
-           </div>         
+                   </div>       
+          </div>
+                
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">选择功能模板<span>*</span></label>
-                       <div class="col-md-3" > 
-                          
-               <!--              <div>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="option1"  ng-model="vm.user.checkbox1"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox2" value="option2"  ng-model="vm.user.checkbox2"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3"  ng-model="vm.user.checkbox3"> 功能模板1
-                              </label>
-
-                           
-                            </div> -->
-
-
-              <input type="text" class="form-control"
-                            placeholder="请输入关键字"
-                            uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
-                            typeahead-loading="loading" typeahead-no-results="noResults"
-                            ng-model="vm.d.templateName"
-                             />
-
-
-                     </div>
-            </div>
+                       <div class="col-md-3" >
+                        <!-- start -->
+                          <div class="table-container"> 
+                                  <div class="table-wrapper">                  
+                                      <table class="table table-bordered table-striped table-hover"
+                                       cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+                                        <tr ng-repeat="item in datas track by $index">
+                                            <td><input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}</td>
+                                        </tr>
+                                      </table> 
+                              </div>
+                          </div>
+                           <!-- end -->
+                      </div>
+          </div>
 
             <div class="form-group" >
        
@@ -86,21 +62,19 @@
                          <input type="password" class="form-control"  ng-model="vm.d.password" required  id="newpass_id"> 
                   </div>
              </div>   
-                       <div class="form-group" >
-                   <label for="name" class="col-md-2 control-label">确认密码<span>*</span></label>
+             <div class="form-group" >
+                <label for="name" class="col-md-2 control-label">确认密码<span>*</span></label>
                   <div class="col-md-3" >   
                          <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.d.con_password" required  id="con_password_id" class="required form-control">
                   </div>
-          </div>           
-      </div>
+            </div>           
+      
+          <div class="panel-footer">
+            <button class="btn bp-btn-primary" type="submit" ng-click="vm.updatestaff()" >保存</button>
 
- 
-          <div class="panel-footer form-actions">
-        <button class="btn bp-btn-primary" type="submit" ng-click="vm.updatestaff()" >保存</button>
-
-        <button class="btn bp-btn-primary" type="submit" ng-click="vm.returnstafflistc()" >返回</button>
-      </div>
-      </table>
-         </form>
+            <button class="btn bp-btn-primary" type="submit" ng-click="vm.returnstafflistc()" >返回</button>
+          </div>
+    </form>
+    </div>
   </div>
 </div>

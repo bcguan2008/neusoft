@@ -42,13 +42,19 @@
            </div>         
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">功能模板</label>
-                       <div class="col-md-3" > 
-                       
-                     
-                       <input type="text" class="form-control" ng-model="vm.d.template_data.template_name" readonly  id="role_id"> 
-                       
-                      
-   
+                       <div class="col-md-3" > {{vm.d.role_info.function_role_name}}
+                          <!-- start -->
+                           <!--  <div class="table-container"> 
+                                  <div class="table-wrapper">
+                                     <table class="table table-bordered table-striped table-hover">
+                                        <tr ng-repeat="item in vm.d.role_info.function_role_name track by $index">
+                                            <td>{{item}}</td>
+                                        </tr>
+                                      </table>
+                              </div>
+                            </div> -->
+                           <!-- end -->
+
                      </div>
             </div>
 

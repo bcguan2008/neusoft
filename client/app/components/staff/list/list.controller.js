@@ -5,15 +5,18 @@
  */
 
 export default class ListController {
-  constructor($scope,$http,staffnewSvc,NgTableParams,$state,templateSvc,$q) {
+  constructor($scope,$http,staffnewSvc,NgTableParams,$state,templateSvc,$q,$window
+    ,$httpParamSerializer) {
   	 "ngInject";
   	//var vm = this;
   //  this.name = 'list';
     this.$state = $state;
+    this.window = $window;
     this.staffnewSvc=staffnewSvc;
   	this.NgTableParams = NgTableParams;
   	this.$scope = $scope;
     this.templateSvc= templateSvc;
+    this.httpParamSerializer = $httpParamSerializer;
     this.q = $q;
       
   	this.nowRow=null;
@@ -87,7 +90,6 @@ export default class ListController {
    
       filter.status_id= selectObj.status.id
     }
-  // console.log(filter);
     return filter;
   }
 
@@ -113,7 +115,6 @@ export default class ListController {
     }, {
       counts:[],
       getData: function(params) {
- console.log('filter')
         self.loading = true;
          let formData = self.getSearchFormData(filter);
         formData.page = params.url().page;
@@ -121,7 +122,6 @@ export default class ListController {
         return self.loadPromise
         .then(result => {
            self.loading = false;
-          console.log(result)
           if(result){
             params.total(result.totalCount);
             return result.datas; 
@@ -183,4 +183,10 @@ export default class ListController {
       this.nowRow=b;
     // $scope.vm.status_id = b.uid;
     }
+  /**
+   * [downloadExcel 导出模板]
+   */
+  exportExcel(){
+        this.staffnewSvc.exportExcellist()
+  }
 }

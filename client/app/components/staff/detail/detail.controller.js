@@ -12,8 +12,8 @@ export default class DetailController {
     this.$state = $state;
     this.api = Api;
     this.detailInit();
-    this.d={}
- 
+    this.d={};
+    //this.getTempList();
   }
 
 //返回
@@ -35,6 +35,14 @@ export default class DetailController {
          self.loading = false;
          console.log(res)
             _this.d=res;
+           
         })
     }
+
+  //     //获取功能模板 check 多选
+  // getTempList(){
+  //     this.templateSvc.getPageAllTempList().then((result)=>{
+  //     this.scope.datas= result.datas; 
+  //   });
+  // }
 }
