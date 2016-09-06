@@ -28,7 +28,7 @@ export default class DetailController {
         //这个配置用于避免或减少数据转换
         this.config = {
             //指示子节点的字段名
-            fieldOfChildren: 'child',
+            fieldOfChildren: 'children',
             //指示节点名的字段
             fieldOfName: 'name',
             //指示节点id的字段

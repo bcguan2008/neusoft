@@ -12,13 +12,16 @@ export default class AddController {
     this.form = {};
     this.api=Api;
     this.d={};
+
+
     this.templateSvc = templateSvc;
-    this.loadPromise = this.treeSvc.getSopTree('sop');
-    this.config = {
-        fieldOfChildren: 'children',
-        fieldOfName: 'name',
-        fieldOfId: 'nodeId'
-    };
+        this.loadPromise = this.treeSvc.getSopTree('sop');
+        console.log( this.loadPromise)
+        this.config = {
+            fieldOfChildren: 'children',
+            fieldOfName: 'name',
+            fieldOfId: 'nodeId'
+        };
 
   }
 
