@@ -59,7 +59,10 @@ class storeSvc  {
   getstorebyname(params){
     return this.Api.get('/Organization/storelist/');
   }
-  
+   //导出门店信息
+  exportExcellist(params){
+    return this.Api.get('/Organization/storelist?format=excel');  
+  }
 }
 
 export default storeSvc
