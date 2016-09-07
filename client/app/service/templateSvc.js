@@ -65,6 +65,10 @@ class templateSvc  {
 		}
 		return this.Api.get('/role/operate/act/nodes/type/'+type);
 	}
+	//返回模板list
+  returntemplist(){ //ok
+     this.location.path("/template/list");
+  }
 }
 
 export default templateSvc
