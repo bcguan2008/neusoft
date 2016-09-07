@@ -19,6 +19,12 @@ export default class AddController {
          storeId:'',
         storeName:''
     }
+    this.selectSr={
+        status:''
+    }
+    this.selectSex={
+        sex:''
+    }
   	this.users = {
   	    name: '',
   	    contact: '',
@@ -29,9 +35,14 @@ export default class AddController {
       role_ids: '', //模板ID
       templateName:'', // '模板名称', //模板名称
       password: '', //密码
-      con_password: ''//确认密码
+      con_password: '',//确认密码
+      gender:'', //性别
+      status_id:''//状态
     };
-
+    // 员工状态
+    this.staffstatus = [{ id: 3, name: '冻结' }, { id: 1, name: '恢复' }];
+    //性别
+     this.sex = [{ id: 1, name: '男' }, { id: 3, name: '女' }];
   }  
 
 	
@@ -41,13 +52,19 @@ export default class AddController {
 	createuser(){
       var users = this.users,
         options = this.options,
-        gettemp = this.gettemp
+        gettemp = this.gettemp,
+        selectSr = this.selectSr,
+        selectSex = this.selectSex
 
         users.storename = options.store.name;
         users.storeId = options.store.organization_id;
         //users.role_ids =gettemp.role_ids;
         users.role_ids =gettemp.role_ids;
         users.role_info = gettemp.role_info;
+        // console.log(selectSr.status.name) 
+        // console.log(selectSex.sex.name)
+        users.status_id = selectSr.status.id;
+        users.gender = selectSex.sex.name;
         console.log(users)
         this.staffnewSvc.createuser(users)
           .then(data => {

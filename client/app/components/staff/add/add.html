@@ -1,6 +1,6 @@
 <div class="page-title">
   <div class="title">
-    <h1>新增员工</h1>
+    <h1>新增员工账号</h1>
   </div>
 </div>
 <div class="conter-wrapper">
@@ -10,7 +10,7 @@
       <div class="panel-body"> 
           <div class="form-group" >
        
-                  <label for="name" class="col-md-2 control-label " >姓名<span class="required-star">*</span></label>
+                  <label for="name" class="col-md-2 control-label ">账号姓名<span class="required-star">*</span></label>
                   <div class="col-md-3" >
                        <input type="text" class="form-control" name="staffname" ng-model="vm.users.name" required id="staffname_id" />
                       <div class="input-group error-info" ng-show="addStaff.staffname.$invalid">
@@ -87,7 +87,6 @@
                   <div class="col-md-3" >
                        <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
                        >
-                       <p ng-message="required">邮箱必填</p>
                    </div>
              </div>
              <div class="form-group" >
@@ -102,6 +101,28 @@
                          <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.users.con_password" required  id="con_password_id" class="required form-control">
                   </div>
           </div>
+          <div class="form-group" >
+                   <label for="name" class="col-md-2 control-label">员工性别</label>
+                   <div class="col-md-3" >   
+                       <select class="form-control"
+                        ng-options="a.name for a in vm.sex"
+                        ng-model="vm.selectSex.sex">
+                         <option value="">--请选择--</option>
+                        </select>
+                    </div>
+            </div>
+             <div class="form-group" >
+                 
+                        <label for="name" class="col-md-2 control-label">员工状态</label>
+                 
+                    <div class="col-md-3" >
+                     <select class="form-control"
+                      ng-options="a.name for a in vm.staffstatus"
+                      ng-model="vm.selectSr.status">
+                       <option value="">--请选择--</option>
+                    </select>
+                  </div>      
+             </div>
       </div>
       <div class="panel-footer">
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.createuser()" >创建员工</button> 

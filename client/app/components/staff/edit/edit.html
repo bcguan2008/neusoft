@@ -67,7 +67,29 @@
                   <div class="col-md-3" >   
                          <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.d.con_password" required  id="con_password_id" class="required form-control">
                   </div>
-            </div>           
+            </div>
+
+           <div class="form-group" >
+                   <label for="name" class="col-md-2 control-label">员工性别</label>
+                   <div class="col-md-3" >   
+                       <select class="form-control"
+                        ng-options="a.name for a in vm.sex" 
+                        ng-model="vm.selectSex1.sex">
+                         <option value="">{{vm.selectSex.sex}}</option>
+                        </select>
+                    </div>
+ 
+            </div>
+             <div class="form-group" >     
+                  <label for="name" class="col-md-2 control-label">员工状态</label>
+                    <div class="col-md-3" >
+                     <select class="form-control"
+                      ng-options="a.name for a in vm.staffstatus"
+                      ng-model="vm.selectSr1.status">
+                       <option value="">{{vm.selectSr.status}}</option>
+                    </select>
+                  </div>      
+             </div>         
       
           <div class="panel-footer">
             <button class="btn bp-btn-primary" type="submit" ng-click="vm.updatestaff()" >保存</button>
