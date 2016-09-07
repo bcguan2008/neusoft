@@ -18,7 +18,7 @@ export default class ListController {
     this.templateSvc= templateSvc;
     this.httpParamSerializer = $httpParamSerializer;
     this.q = $q;
-      
+    this.d={};  
   	this.nowRow=null;
   	this.init();
     
@@ -53,7 +53,8 @@ export default class ListController {
  this.filter = {
       limit: 10,
       name: '',
-      status_id:''
+      status_id:'',
+      offset:0
       //storeid:this.$state.params.storeid
       // phone: '',
       // action_1: '',
@@ -83,10 +84,8 @@ export default class ListController {
    */ 
   getSearchFormData(){ 
     let filter = this.filter
-    var selectObj = this.selectObj;
-     
-       
-   if (selectObj.status != undefined){ 
+    var selectObj = this.selectObj; 
+    if (selectObj.status != undefined){ 
    
        filter.status_id= selectObj.status.id
      }
@@ -106,26 +105,35 @@ export default class ListController {
    * [init 初始化]
    */
 
-  init($scope){
+  init(){
     let self = this;
+    var _this = this;
     var filter = this.filter;
     this.tableParams = new this.NgTableParams({
-      page: 1,
-      count: 10 //每页几条
+        page: 1,
+        offset:0 
+     // count: 10 //每页几条
     }, {
-      counts:[],
+     // counts:[],
       getData: function(params) {
+
         self.loading = true;
         let formData = self.getSearchFormData(filter);//filter
+
         formData.page = params.url().page;
-        
-        self.loadPromise = self.staffnewSvc.getPageUserList(formData);
+        formData.offset = params.url().page;
+       // formData.limit = params.url().count;
+
+       self.loadPromise = self.staffnewSvc.getPageUserList(formData);
          //self.loadPromise = self.templateSvc.getPageAllTempList(formData);
         return self.loadPromise
         .then(result => {
            self.loading = false;
           if(result){
             console.log(result)
+            _this.d={
+               totalCount:result.totalCount
+            }
             params.total(result.totalCount);
             return result.datas; 
           }

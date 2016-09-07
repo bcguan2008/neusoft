@@ -5,28 +5,53 @@
  */
 
 export default class ListController {
-    constructor($q, storeSvc, $scope, $http, NgTableParams, $state) {
+    constructor($q, storeSvc, $scope, $http, NgTableParams, $state,templateSvc) {
         "ngInject";
         this.$state = $state
         this.storeSvc = storeSvc;
         this.q = $q;
         this.NgTableParams = NgTableParams;
+        this.d={};
+        this.templateSvc=templateSvc;
         this.init();
+        this.filter = {
+            limit: 10,
+            offset:0
+            };
+
     }
+         /**
+   * 获取格式化后的数据
+   */ 
+  getSearchFormData(){ 
+    let filter = this.filter
+    return filter;
+  }
+
     init() {
         var self = this;
+        var _this = this;
+        var filter = this.filter;
         this.tableParams = new this.NgTableParams({
             page: 1,
-            count: 10 //每页几条
+            offset:0 
+            //count: 10 //每页几条
         }, {
-                counts: [],
+               // counts: [],
                 getData: function (params) {
-                    self.loadPromise = self.storeSvc.getStoreInfoList(params);
+                    let formData = self.getSearchFormData(filter);//filter
+                    formData.page = params.url().page;
+                    formData.offset = params.url().page;
+                   self.loadPromise = self.storeSvc.getStoreInfoList(params);
+                   // self.loadPromise = self.templateSvc.getPageAllTempList(formData);
                     return self.loadPromise
                         .then(result => {
                             self.loading = false;
                             if (result.datas) {
                                 console.log(result)
+                                  _this.d={
+                                         totalCount:result.totalCount
+                                         }
                                 params.total(result.totalCount);
                                 return result.datas
                             }

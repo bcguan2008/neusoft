@@ -33,7 +33,11 @@ export default class DetailController {
 
        return self.loadPromise .then(res=>{
          self.loading = false;
-         console.log(res)
+         console.log(res.status_id)
+            if(res.status_id==1){
+              status_id:"恢复"
+            }else{ status_id:"冻结"}
+
             _this.d=res;
            
         })

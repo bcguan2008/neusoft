@@ -19,7 +19,11 @@ export default class EditController {
       this.gettemp={
       role_ids:'',
       role_info:''
-    }
+      }
+       // 员工状态
+      this.staffstatus = [{ id: 3, name: '冻结' }, { id: 1, name: '恢复' }];
+    //性别
+      this.sex = [{id: 1, name: '男' }, { id: 3, name: '女' }];
       this.init();
       this.getTempList();   
   }
@@ -33,6 +37,8 @@ updatestaff(){
   var gettemp = this.gettemp
   this.d.role_ids =gettemp.role_ids;
   this.d.role_info = gettemp.role_info;
+  this.d.status_id = selectSr.status.id;
+   this.d.gender = selectSex.sex.name;
 	this.staffnewSvc.updateEmployee(this.d);
 }
     /**
@@ -52,6 +58,18 @@ updatestaff(){
           if(result){
            // _this.d = result
              this.checkid = result.role_ids
+             console.log(result); 
+               _this.selectSex={
+                 sex:result.genderName,   
+               }
+               if(result.status_id==1)
+               {
+                var stype = "恢复"
+               }else{  var stype = "冻结"}
+               _this.selectSr={
+                status:stype
+               }
+
                _this.d={
                   id:result.uuid,
                   name:result.name,
@@ -61,10 +79,10 @@ updatestaff(){
                   storeName:result.storeName,
                   email:result.email,
                   employee_id:result.employee_id,
-                  employee_organization_name:result.employee_organization_name
+                  employee_organization_name:result.employee_organization_name                 
+             }
               }
-
-          }
+        
         });
   }
   //     //获取模板名称

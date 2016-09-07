@@ -5,12 +5,11 @@
 class treeSvc  {
   constructor(Api,$q) {
       "ngInject";
-      this.q = $q;
+    this.q = $q;
     this.Api = Api;
   }
     //得到tree数据
   getSopTree(params){
-    console.log("getSopTree")
       return this.Api.get('/role/operate/act/nodes/type/sop',params)
   }
 

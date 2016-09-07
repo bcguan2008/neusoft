@@ -29,12 +29,28 @@ export default class EditController {
         
       self.loadPromise= self.templateSvc.getDetail({
         id: this.$state.params.id
-      });
+      })
+      this.loadPromise.then(results=>{
+        //self.d.nodes = results;
+        if (results) {
+         // console.log(results)
+              self.d.name = results.name;
+              self.d.description = results.description;
+              self.d.rid = results.rid;
+        }
+      })
 
       this.form = {};
       this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
       this.loadPromise.then(results=>{
-        self.d.nodes = results;
+        console.log(results)
+      self.d.nodes = results;
+        //��ȡsop���ĳ���
+        self.d.nodessop = results.length;
+      })
+      this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
+      this.loadPromiseapp.then(results=>{
+        self.d.nodesapp = results;
       })
       this.config = {
           fieldOfChildren: 'children',
@@ -45,15 +61,29 @@ export default class EditController {
       return self.loadPromise.then(result => {
             if(result){
               self.loading = false;
-              self.d.name = result.name;
-              self.d.description = result.description;
-              self.d.rid = result.rid;
             }
           });
     }
     
     save(){     
-       console.log(this.d);
+
+      var curnodes = this.d.nodes.length;
+      var oldnodes = this.d.nodessop;
+      console.log(this.d.nodes.children)
+
+      if(oldnodes < curnodes){ //�ύ��ʱ��������
+
+
+      }
+      for(var i=0;i<this.d.nodessop;i++) {
+        if(nodes=='')
+        {
+          nodes= nodesid[i].nodeId 
+        }else{
+         nodes=nodes +','+ nodesid[i].nodeId 
+         }
+       
+     }
        this.templateSvc.postEdit(this.d);
     }
 }
