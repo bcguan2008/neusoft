@@ -16,56 +16,77 @@ export default class EditController {
       // this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
       //     _this.d=res;
       // })
+      /**
       this.editInit();
       this.initTree();
+      */
+      this.init();
   }
-    initTree(){
-        //约定：所有抛到后端的都放到这个键下
-        this.form = {};
 
-        //拉去列表数据的promise
-        this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
-
-        //这个配置用于避免或减少数据转换
-        this.config = {
-           //指示子节点的字段名
-            fieldOfChildren: 'children',
-            //指示节点名的字段
-            fieldOfName: 'name',
-            //指示节点id的字段
-            fieldOfId: 'nodeId'
-
-        };
-
+    init(){
+      let self = this;
+      self.loading = true;
         
+      self.loadPromise= self.templateSvc.getDetail({
+        id: this.$state.params.id
+      })
+      this.loadPromise.then(results=>{
+        //self.d.nodes = results;
+        if (results) {
+         // console.log(results)
+              self.d.name = results.name;
+              self.d.description = results.description;
+              self.d.rid = results.rid;
+        }
+      })
+
+      this.form = {};
+      this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
+      this.loadPromise.then(results=>{
+        console.log(results)
+      self.d.nodes = results;
+        //获取sop树的长度
+        self.d.nodessop = results.length;
+      })
+      this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
+      this.loadPromiseapp.then(results=>{
+        self.d.nodesapp = results;
+      })
+      this.config = {
+          fieldOfChildren: 'children',
+          fieldOfName: 'name',
+          fieldOfId: 'nodeId'
+      };
+
+      return self.loadPromise.then(result => {
+            if(result){
+              self.loading = false;
+            }
+          });
     }
+    
     save(){     
-       console.log(this.d);
+     // console.log(this.d.nodes)
+      //赋值给nodes 编辑的时候每次都会
+      // console.log(this.d.nodes.length);//提交时候的object数量 
+      // console.log(this.d.nodessop); //打开页面时候节点的数目
+      var curnodes = this.d.nodes.length;
+      var oldnodes = this.d.nodessop;
+      console.log(this.d.nodes.children)
+
+      if(oldnodes < curnodes){ //提交的时候增加了
+
+
+      }
+      for(var i=0;i<this.d.nodessop;i++) {
+        if(nodes=='')
+        {
+          nodes= nodesid[i].nodeId 
+        }else{
+         nodes=nodes +','+ nodesid[i].nodeId 
+         }
+       
+     }
        this.templateSvc.postEdit(this.d);
-      // alert('保存成功');
-       // this.api.post('/role/operate/act/save/rid'+this.d.rid,this.d).then(res=>{alert('保存成功'),err=>{alert(err)}})
     }
-
-editInit(){
-  
-  let self = this;
-  var _this = this;
-   self.loading = true;
-    self.loadPromise= self.templateSvc.getDetail({
-      id: this.$state.params.id
-    });
-    return self.loadPromise.then(result => {
-          if(result){
-            self.loading = false;
-               _this.d={
-                 name:result.name,
-                 description:result.description,
-                 rid : result.rid
-                // nodes:result.nodes
-               }
-
-          }
-        });
-    }
-
 }
