@@ -23,8 +23,12 @@ class staffnewSvc  {
 //查询所有员工信息  ok
   getPageUserList(params){
     return this.Api.get(this.baseUrl+'stafflist', params);  
-}
+  }
 
+  //导出员工信息
+  exportExcellist(params){
+    return this.Api.get(this.baseUrl+'stafflist?format=excel');  
+  }
 
 //获取员工个人详情
   getDetail(params){ //params 有数值，但是返回的data为空 状态=200
@@ -34,7 +38,6 @@ class staffnewSvc  {
 
 //更新员工 
   updateEmployee(params){
-    console.log(params)
     return this.Api.post(this.baseUrl + 'updateEmployee', params);
   }
   //更新员工状态

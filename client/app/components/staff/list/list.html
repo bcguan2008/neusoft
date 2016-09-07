@@ -1,6 +1,6 @@
 <div class="page-title">
   <div class="title">
-    <h1>员工管理</h1>
+    <h1>员工账号查询</h1>
   </div>
 </div>
 
@@ -9,18 +9,18 @@
 <div class="conter-wrapper track-list-wrapper">
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
-      <div class="panel-title">员工查询</div>
+      <div class="panel-title">员工账号查询</div>
     </div>
     <div class="panel-body">
       <form action="">
       <div class="row">
         <div class="col-md-3 form-group">
-            <label>员工姓名</label>
+            <label>账号姓名</label>
              <input type="text" class="form-control" ng-model="vm.filter.name" required  id="staffphone_id">
         
         </div>
         <div class="col-md-3 col-md-offset-1 form-group">
-          <label>绑定模板</label>
+          <label>绑定功能模板</label>
               
               <input type="text" class="form-control"
                             placeholder="请输入关键字"
@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-3 col-md-offset-1 form-group">
 
-          <label>员工状态</label>
+          <label>员工账号状态</label>
              <select class="form-control"
               ng-options="a.name for a in vm.staffstatus"
               ng-model="vm.selectObj.status">
@@ -105,7 +105,7 @@
 </div>
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
-      <div class="panel-title">员工查询</div>
+      <div class="panel-title">员工账号列表</div>
     </div>
     <div class="panel-body">
           <div class="bp-container">
@@ -115,13 +115,13 @@
                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
                     <thead class="panel-title">
                     <tr>
-                      <th> 姓名 </th>
+                      <th> 账号姓名 </th>
                       <th> 手机号 </th>
                       <th> 创建人 </th>
                       <th> 创建时间 </th>
                       <th> 所在门店 </th>
-                      <th> 对应权限 </th>
-                      <th> 员工状态 </th>
+                      <th> 绑定功能模板 </th>
+                      <th> 账号状态 </th>
                       <th> 操作 </th>
                     </tr>
                   </thead>
@@ -133,7 +133,7 @@
                       <td> {{row.creator_name}} </td>
                       <td> {{row.c_time}} </td>
                       <td> {{row.organization_info}} </td>
-                      <td> {{row.data_role_name}} </td>
+                      <td> {{row.template_or_role_name}} </td>
                       <td> {{row.status}} </td>
                       <td> 
                         <button class="btn bp-btn-default btn-xs" 
@@ -193,7 +193,7 @@
 
 </div>
       <div class="panel-footer">
-           <button class="btn bp-btn-default" ng-click="vm.exportExcel()">导出Excel</button> 
+           <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button> 
       </div>
 </div>
 </div>
