@@ -35,6 +35,8 @@ returnstafflistc(){
 //updateEmployee
 updatestaff(){
   var gettemp = this.gettemp
+  var selectSr= this.selectSr;
+  var selectSex = this.selectSex;
   this.d.role_ids =gettemp.role_ids;
   this.d.role_info = gettemp.role_info;
   this.d.status_id = selectSr.status.id;

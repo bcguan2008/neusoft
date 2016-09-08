@@ -45,7 +45,7 @@ export default class EditController {
       this.loadPromise.then(results=>{
         console.log(results)
       self.d.nodes = results;
-        //锟斤拷取sop锟斤拷锟侥筹拷锟斤拷
+        //获取sop树的长度
         self.d.nodessop = results.length;
       })
       this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
@@ -66,24 +66,28 @@ export default class EditController {
     }
     
     save(){     
-
+     // console.log(this.d.nodes)
+      //赋值给nodes 编辑的时候每次都会
+      // console.log(this.d.nodes.length);//提交时候的object数量 
+      // console.log(this.d.nodessop); //打开页面时候节点的数目
       var curnodes = this.d.nodes.length;
       var oldnodes = this.d.nodessop;
+      var nodes;
       console.log(this.d.nodes.children)
 
-      if(oldnodes < curnodes){ //锟结交锟斤拷时锟斤拷锟斤拷锟斤拷锟斤拷
+     //  if(oldnodes < curnodes){ //提交的时候增加了
 
 
-      }
-      for(var i=0;i<this.d.nodessop;i++) {
-        if(nodes=='')
-        {
-          nodes= nodesid[i].nodeId 
-        }else{
-         nodes=nodes +','+ nodesid[i].nodeId 
-         }
+     //  }
+     //  for(var i=0;i<this.d.nodessop;i++) {
+     //    if(nodes=='')
+     //    {
+     //      nodes= nodesid[i].nodeId 
+     //    }else{
+     //     nodes=nodes +','+ nodesid[i].nodeId 
+     //     }
        
-     }
-       this.templateSvc.postEdit(this.d);
+     // }
+       this.templateSvc.postEdit(this.d); 
     }
 }
