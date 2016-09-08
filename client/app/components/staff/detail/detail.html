@@ -6,6 +6,8 @@
   <div class="panel panel-primary">
 
     <form id="datailStaff_id" name="datailStaff"  class="form-horizontal" role="form">
+        <table class="table table-bordered table-striped table-hover"
+                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
       <div class="panel-body">
           <div class="form-group" >
        
@@ -40,13 +42,19 @@
            </div>         
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">功能模板</label>
-                       <div class="col-md-3" > 
-                       
-                     
-                       <input type="text" class="form-control" ng-model="vm.d.role_info.function_role_name" readonly  id="role_id"> 
-                       
-                      
-   
+                       <div class="col-md-3" > {{vm.d.role_info.function_role_name}}
+                          <!-- start -->
+                           <!--  <div class="table-container"> 
+                                  <div class="table-wrapper">
+                                     <table class="table table-bordered table-striped table-hover">
+                                        <tr ng-repeat="item in vm.d.role_info.function_role_name track by $index">
+                                            <td>{{item}}</td>
+                                        </tr>
+                                      </table>
+                              </div>
+                            </div> -->
+                           <!-- end -->
+
                      </div>
             </div>
 
@@ -57,12 +65,30 @@
                   
                        <input type="email" class="form-control"  readonly ng-model="vm.d.email"  id="staffmail_id"> 
                    </div>
-             </div>            
+             </div>  
+
+            <div class="form-group" >
+                   <label for="name" class="col-md-2 control-label">员工性别</label>
+                   <div class="col-md-3" > 
+
+                       <input type="text" class="form-control"  readonly ng-model="vm.d.genderName"   id="sex_id"> 
+
+                    </div>
+            </div>
+             <div class="form-group" >
+                 
+                <label for="name" class="col-md-2 control-label">员工状态</label>
+                    <div class="col-md-3" > 
+                      <div class="form-control" ng-bind="vm.d.status_id=='1'?'冻结':'恢复'" >
+                      </div> 
+                  </div>      
+             </div>          
       </div>
 
       <div class="panel-footer form-actions">
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.returnstafflistc()" >返回</button>
       </div>
+      </table>
     </form>
   </div>
 </div>

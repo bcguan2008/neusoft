@@ -42,7 +42,12 @@
             </tr>
           </tbody>
         </table>
-          
+            <div class="recordCount">
+                 <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
+            </div> 
+      <div class="panel-footer">
+           <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button> 
+      </div>
       </div>
     </div>
   </div>

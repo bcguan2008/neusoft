@@ -1,16 +1,16 @@
 <div class="page-title">
   <div class="title">
-    <h1>新增员工</h1>
+    <h1>新增员工账号</h1>
   </div>
 </div>
 <div class="conter-wrapper">
-  <div class="bp-container">
+  <div class="panel bp-panel-primary">
 
     <form id="addStaff_id" name="addStaff"  class="form-horizontal" role="form">
-      <div class="panel-body">
+      <div class="panel-body"> 
           <div class="form-group" >
        
-                  <label for="name" class="col-md-2 control-label " >姓名<span class="required-star">*</span></label>
+                  <label for="name" class="col-md-2 control-label ">账号姓名<span class="required-star">*</span></label>
                   <div class="col-md-3" >
                        <input type="text" class="form-control" name="staffname" ng-model="vm.users.name" required id="staffname_id" />
                       <div class="input-group error-info" ng-show="addStaff.staffname.$invalid">
@@ -46,12 +46,21 @@
                   <label for="name" class="col-md-2 control-label" >门店选择<span class="required-star">*</span></label>
                   <div class="col-md-3" >
                        
-                        <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
-                          <option value="">--请选择--</option>
+                       <!--  <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
+                          <option value="">--请选择--</option> -->
                         </select> 
+
+                             <input type="text" class="form-control"
+                            placeholder="请输入关键字"
+                            uib-typeahead="store as store.name for store in vm.getStorelist($viewValue)"
+                            typeahead-loading="loading" typeahead-no-results="noResults"
+                            ng-model="vm.options.store"
+                             />
+                    
+
                       <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
                           <p class="discount-help-block">
-                              <i class="fa fa-info-circle"></i>请输入有效负责人名称
+                              <i class="fa fa-info-circle"></i>请输入门店名称
                           </p>
                       </div>
                    </div>
@@ -59,39 +68,25 @@
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
                        <div class="col-md-3" > 
-                          
-                            <div>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="option1" ng-model="vm.user.checkbox1"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox2" value="option2" ng-model="vm.user.checkbox2"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox3"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox4"> 功能模板1
-                              </label>
-                              <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox5"> 功能模板1
-                              </label>
-                               <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="vm.user.checkbox6"> 功能模板1
-                              </label>
-                           
+                              <!-- start -->
+                            <div class="table-container"> 
+                                  <div class="table-wrapper">
+                                     <table class="table table-bordered table-striped table-hover">
+                                        <tr ng-repeat="item in datas track by $index">
+                                            <td><input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}</td>
+                                        </tr>
+                                      </table>
+                              </div>
                             </div>
+                           <!-- end -->
                      </div>
             </div>
 
             <div class="form-group" >
-       
                   <label for="name" class="col-md-2 control-label">邮箱</label>
                   <div class="col-md-3" >
-                  
                        <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
                        >
-                       <p ng-message="required">邮箱必填</p>
                    </div>
              </div>
              <div class="form-group" >
@@ -106,25 +101,32 @@
                          <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.users.con_password" required  id="con_password_id" class="required form-control">
                   </div>
           </div>
-
-
-       
+          <div class="form-group" >
+                   <label for="name" class="col-md-2 control-label">员工性别</label>
+                   <div class="col-md-3" >   
+                       <select class="form-control"
+                        ng-options="a.name for a in vm.sex"
+                        ng-model="vm.selectSex.sex">
+                         <option value="">--请选择--</option>
+                        </select>
+                    </div>
+            </div>
+             <div class="form-group" >
+                 
+                        <label for="name" class="col-md-2 control-label">员工状态</label>
+                 
+                    <div class="col-md-3" >
+                     <select class="form-control"
+                      ng-options="a.name for a in vm.staffstatus"
+                      ng-model="vm.selectSr.status">
+                       <option value="">--请选择--</option>
+                    </select>
+                  </div>      
+             </div>
       </div>
-            <div class="panel-footer">
-                      <div class="row">
-      <div class="form-group">
-        <div class="col-md-7 col-md-offset-2">
-        <div class="panel-footer form-actions">
+      <div class="panel-footer">
         <button class="btn bp-btn-primary" type="submit" ng-click="vm.createuser()" >创建员工</button> 
       </div>
-      </div>
-      </div>
-      </div>
-            </div>
     </form>
-
-
-   
-
   </div>
 </div>

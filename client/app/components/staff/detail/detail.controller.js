@@ -12,8 +12,8 @@ export default class DetailController {
     this.$state = $state;
     this.api = Api;
     this.detailInit();
-    this.d={}
- 
+    this.d={};
+    //this.getTempList();
   }
 
 //返回
@@ -21,28 +21,32 @@ export default class DetailController {
   	this.staffnewSvc.getstafflist();
   }
 
-  // detailInit(){
-  //   var _this = this;
-     
-  //   return self.staffnewSvc.getDetail({
-  //     id: this.$state.params.id
-  //   }).then(data => {
-       
-  //     if(data){
-  //        _this.d=data;
-  //     }
-  //   })
-  // }
-
      detailInit(){
+      let self = this;
       var _this = this;
-        
+       self.loading = true;
        let params ={
         id:this.$state.params.id,
         type:1
         };
-        this.api.get('/Employee/detail',params).then(res=>{
+       self.loadPromise = this.api.get('/Employee/detail',params);
+
+       return self.loadPromise .then(res=>{
+         self.loading = false;
+         console.log(res.status_id)
+            if(res.status_id==1){
+              status_id:"恢复"
+            }else{ status_id:"冻结"}
+
             _this.d=res;
+           
         })
     }
+
+  //     //获取功能模板 check 多选
+  // getTempList(){
+  //     this.templateSvc.getPageAllTempList().then((result)=>{
+  //     this.scope.datas= result.datas; 
+  //   });
+  // }
 }

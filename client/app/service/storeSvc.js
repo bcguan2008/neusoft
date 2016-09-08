@@ -55,7 +55,14 @@ class storeSvc  {
       //},100)
       //return  q.promise;
   }
-  
+    //显示模板 根据名字
+  getstorebyname(params){
+    return this.Api.get('/Organization/storelist/');
+  }
+   //导出门店信息
+  exportExcellist(params){
+    return this.Api.get('/Organization/storelist?format=excel');  
+  }
 }
 
 export default storeSvc

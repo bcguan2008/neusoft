@@ -15,6 +15,7 @@ export default class ListController {
     this.nowTemplate=null;
     this.nowRow=null;
     this.$scope = $scope;
+    this.d={};
     this.init();
     this.filter = {
       limit: 10,
@@ -31,24 +32,29 @@ export default class ListController {
    * [init 初始化 页面获取数据]
    */
 
-  init($scope){
+  init(){
+    var _this = this;
     let self = this;
     this.tableParams = new this.NgTableParams({
-      page: 1,
-      count: 10 //每页几条
+      page: 1
+     // count: 10 //每页几条
     }, {
-      counts:[],
+      //counts:[],
       getData: function(params) {
 
         self.loading = true;
         let formData = self.getSearchFormData();
         formData.page = params.url().page;
    
-        return self.templateSvc.getPageAllTempList(formData)
+         self.loadPromise = self.templateSvc.getPageAllTempList(formData);
+         return  self.loadPromise
         .then(result => {
            self.loading = false;
           if(result){
-             console.log(result);
+            _this.d={
+               totalCount:result.totalCount
+            }
+             console.log(result)
             params.total(result.totalCount);
            
             return result.datas; 
@@ -80,9 +86,14 @@ export default class ListController {
           operatorName:"",
           rid:this.nowTemplate.rid
       }).then(res=>{
-          this.nowTemplate.status=newStatus;
+          //this.nowTemplate.status=newStatus;
           alert("修改成功");
-      })
+          $('#myModal').modal('hide');
+          this.init();
+      },err=>{
+          $('#myModal').modal('hide');
+          this.init();}
+          )
   }
   //返回
   returnTemplatelist(){
@@ -116,7 +127,9 @@ export default class ListController {
    
     }
   remove_role(){
-    this.templateSvc.remove_role(this.nowRow)
+    this.templateSvc.remove_role(this.nowRow);
+      $('#myModal_1').modal('hide');
+       this.init();
   }
 
   

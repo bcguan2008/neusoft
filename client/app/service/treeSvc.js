@@ -1,11 +1,11 @@
 /**
- * Created by guanbingchang  
+ * Created by guanbingchang
  */
 
 class treeSvc  {
   constructor(Api,$q) {
       "ngInject";
-      this.q = $q;
+    this.q = $q;
     this.Api = Api;
   }
     //得到tree数据

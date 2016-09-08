@@ -1,60 +1,68 @@
 /**
  * (description)
  * 
- * @author anyunfei
+ * @author yourname
  */
 
-export default class DetailController {
- constructor($scope,Api,$http,$state,templateSvc,treeSvc) {
+export default class EditController {
+    constructor(Api,treeSvc,$state,templateSvc) {
       "ngInject";
-      this.name = 'detail';
-      var _this = this;
-       this.api = Api;
-       this.$state=$state;
-  		this.treeSvc=treeSvc;
-       this.templateSvc=templateSvc;
-       this.d={};
- 	   this.detailInit();
- 	   this.initTree();
-
+      this.name = 'edit';
+      this.api = Api;
+      this.$state=$state;
+      this.treeSvc = treeSvc;
+      this.templateSvc = templateSvc;
+      this.d={};
+      // this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
+      //     _this.d=res;
+      // })
+      /**
+      this.editInit();
+      this.initTree();
+      */
+      this.init();
   }
-      initTree(){
-         //约定：所有抛到后端的都放到这个键下
-        this.form = {};
-//http://demo1015.sit.ffan.com/staffmgt/role/operate/act/nodes/type/{{sop/app}}/rid/23239
-        //拉去列表数据的promise
-        this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
 
-        //这个配置用于避免或减少数据转换
-        this.config = {
-            //指示子节点的字段名
-            fieldOfChildren: 'child',
-            //指示节点名的字段
-            fieldOfName: 'name',
-            //指示节点id的字段
-            fieldOfId: 'nodeId'
-       };
-
+    init(){
+      let self = this;
+      self.loading = true;
         
+      self.loadPromise= self.templateSvc.getDetail({
+        id: this.$state.params.id
+      })
+      this.loadPromise.then(results=>{
+        //self.d.nodes = results;
+        if (results) {
+         self.d.name = results.name;
+              self.d.description = results.description;
+              self.d.rid = results.rid;
+        }
+      })
+
+      this.form = {};
+      this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
+      this.loadPromise.then(results=>{
+        self.d.nodes = results;
+      })
+      this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
+      this.loadPromiseapp.then(results=>{
+        self.d.nodes = results;
+      })
+      this.config = {
+          fieldOfChildren: 'children',
+          fieldOfName: 'name',
+          fieldOfId: 'nodeId'
+      };
+
+      return self.loadPromise.then(result => {
+            if(result){
+              self.loading = false;
+            }
+          });
     }
-
-   detailInit(){
-          let self = this;
-          var _this = this;
-        return self.templateSvc.getDetail({
-          id: this.$state.params.id
-        }).then(result => {
-              if(result){
-                console.log(result)
-                   _this.d={
-                     name:result.name,
-                     description:result.description,
-                     rid : result.rid
-                    // nodes:result.nodes
-                   }
-
-              }
-            });
-		    }
-
+    
+    save(){     
+       console.log(this.d);
+       this.templateSvc.postEdit(this.d);
+    }
 }

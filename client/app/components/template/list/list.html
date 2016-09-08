@@ -43,9 +43,10 @@
                               
                               </button>
                       </td>
+                      <td> {{row.description}} </td>
                       <td> {{row.creator}} </td>
                       <td> {{row.createTime}} </td>
-                      <td> {{row.description}} </td>
+                      
                      
                     </tr>
                    <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
@@ -60,9 +61,12 @@
                     </tr>
                   </tbody>
                 </table>
+                    <div class="recordCount">
+                       <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
+                    </div> 
                  <div class="panel-footer form-actions">
                     <button class="btn bp-btn-primary" type="button" ng-click="vm.creatnewTemplate()">创建新模板</button>
-                </div>    
+                </div>  
               </div>
             </div>
           </div>
