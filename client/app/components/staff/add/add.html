@@ -70,10 +70,11 @@
                        <div class="col-md-3" > 
                               <!-- start -->
                             <div class="table-container"> 
-                                  <div class="table-wrapper">
+                                  <div class="table-wrapper pre-scrollable">
                                      <table class="table table-bordered table-striped table-hover">
                                         <tr ng-repeat="item in datas track by $index">
                                             <td><input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}</td>
+   
                                         </tr>
                                       </table>
                               </div>
@@ -85,8 +86,9 @@
             <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">邮箱</label>
                   <div class="col-md-3" >
-                       <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
-                       >
+                 <!--       <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
+                       > -->
+                        <input type="text" class="form-control" id="staffmail_id" ng-model="vm.users.email" >
                    </div>
              </div>
              <div class="form-group" >
