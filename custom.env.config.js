@@ -7,7 +7,7 @@ module.exports = {
   /**
    * 要发布的xadmin项目路径
    */
-  distPath: '/workspace/ffan/bp-sop-staff',
+  distPath: '../sop/webroot/SOPAPPS/staff',
   /**
    * 要过滤的api, 解决跨域的, 根据项目的情况改一下
    */
@@ -19,6 +19,6 @@ module.exports = {
   /**
    * 登陆的cookie, 这里暂时自己先登陆一下, 把cookie拷贝过来
    */
-  cookie: 'PHPSESSID=b5pq1h16j3vvu9ffcupqphbdb1'
+  cookie: 'PHPSESSID=k6scua4hgk74vs82865m2nm074'
   
 };

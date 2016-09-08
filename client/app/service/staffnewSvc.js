@@ -42,6 +42,11 @@ class staffnewSvc  {
      return this.Api.post(this.baseUrl + 'changeStatus', params);
   }
 
+  
+  getMyRole(){
+    return this.Api.get('/user/detail');
+  }
+
 //员工状态 
   stateStaff(params){
     this.location.path("/staff/state");
