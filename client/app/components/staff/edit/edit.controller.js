@@ -40,8 +40,9 @@ updatestaff(){
   this.d.role_ids =gettemp.role_ids;
   this.d.role_info = gettemp.role_info;
   this.d.status_id = selectSr.status.id;
-   this.d.gender = selectSex.sex.name;
+  this.d.gender = selectSex.sex.name;
 	this.staffnewSvc.updateEmployee(this.d);
+  this.staffnewSvc.getstafflist();
 }
     /**
    * [init 初始化]
@@ -60,7 +61,7 @@ updatestaff(){
           if(result){
            // _this.d = result
              this.checkid = result.role_ids
-             console.log(result); 
+            
                _this.selectSex={
                  sex:result.genderName,   
                }
@@ -71,7 +72,6 @@ updatestaff(){
                _this.selectSr={
                 status:stype
                }
-
                _this.d={
                   id:result.uuid,
                   name:result.name,
@@ -81,7 +81,9 @@ updatestaff(){
                   storeName:result.storeName,
                   email:result.email,
                   employee_id:result.employee_id,
-                  employee_organization_name:result.employee_organization_name                 
+                  employee_organization_name:result.employee_organization_name,
+                  role_ids:result.role_ids,
+                  role_info:result.role_info                 
              }
               }
         
@@ -100,9 +102,7 @@ updatestaff(){
     //获取功能模板 check 多选
   getTempList(){
       this.templateSvc.getPageAllTempList().then((result)=>{
-      this.scope.datas= result.datas; 
-     // console.log(result.datas)
-      
+      this.scope.datas= result.datas;      
       var check_id = this.checkid.split(',')
           for(var i=0; i < result.datas.length; i++){
                 for(var n=0; n < check_id.length; n++){
@@ -123,6 +123,8 @@ updatestaff(){
   var checkbox = $event.target;
   var action = (checkbox.checked?'add':'remove');
   //如果action 是add 则添加，要是remove 就是删除
+   gettemp.role_ids = this.d.role_ids;
+    gettemp.role_info = this.d.role_info.function_role_name;
   if (action=="add"){
     if( gettemp.role_ids==""){
       gettemp.role_ids=id; 
@@ -149,7 +151,7 @@ updatestaff(){
          gettemp.role_info = temp_name.join(",")
     }
 
-     console.log(gettemp.role_ids);
+     console.log(gettemp);
   }
 
 }

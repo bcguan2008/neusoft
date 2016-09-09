@@ -17,7 +17,7 @@
           </div>
 
         <div class="form-group" >
-              <label for="name" class="col-md-2 control-label">即时通讯账号1</label>
+              <label for="name" class="col-md-2 control-label">即时通讯账号</label>
                   <div class="col-md-3" >   
                          <input type="text" class="form-control" ng-model="vm.d.rtx"   id="staffphone_id"> 
                   </div>
@@ -32,18 +32,30 @@
                 
           <div class="form-group" >
                   <label for="name" class="col-md-2 control-label">选择功能模板<span>*</span></label>
-                       <div class="col-md-3" >
+                      <div class="col-md-6" >
+                      <!--  start new -->
+                        <div class="col-sm-6" ng-repeat="item in datas track by $index">
+                            <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}
+                        </div>
+
+
+
+                       <!--  start end -->
+
+
+
                         <!-- start -->
-                          <div class="table-container"> 
-                                  <div class="table-wrapper">                  
+                          <!-- <div class="table-container"> 
+                                  <div class="table-wrapper pre-scrollable">                  
                                       <table class="table table-bordered table-striped table-hover"
                                        cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
                                         <tr ng-repeat="item in datas track by $index">
                                             <td><input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}</td>
                                         </tr>
+                                        
                                       </table> 
                               </div>
-                          </div>
+                          </div> -->
                            <!-- end -->
                       </div>
           </div>
@@ -96,7 +108,10 @@
 
             <button class="btn bp-btn-primary" type="submit" ng-click="vm.returnstafflistc()" >返回</button>
           </div>
+           <input type="text" id="role_ids" ng-model="vm.d.role_ids" style="display:none">
+          <input type="text" id="role_info_id" style="display:none" ng-model="vm.d.role_info.function_role_name">
     </form>
+
     </div>
   </div>
 </div>

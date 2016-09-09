@@ -11,6 +11,7 @@ export default class AddController {
     this.q = $q;
     this.d={};
     this.getTempList();
+    this.getstoreid();
     this.gettemp={
       role_ids:'',
       role_info:''
@@ -55,14 +56,13 @@ export default class AddController {
         gettemp = this.gettemp,
         selectSr = this.selectSr,
         selectSex = this.selectSex
-
-        users.storename = options.store.name;
-        users.storeId = options.store.organization_id;
+        console.log(options.store)
+        users.storeName = options.store.name;
+        users.storeId =  options.store.organization_id;
+         //users.organization_id =options.store.organization_id;
         //users.role_ids =gettemp.role_ids;
         users.role_ids =gettemp.role_ids;
         users.role_info = gettemp.role_info;
-        // console.log(selectSr.status.name) 
-        // console.log(selectSex.sex.name)
         users.status_id = selectSr.status.id;
         users.gender = selectSex.sex.name;
         console.log(users)
@@ -94,17 +94,23 @@ export default class AddController {
   //获取门店list
   getStorelist(storename)
   {
-    console.log(storename)
-     let deferred = this.q.defer();
+    let deferred = this.q.defer();
     let storeList = this.storeSvc.getstorebyname(storename).then((result)=>{
-      console.log(result.datas);
       return result.datas;
     });
     deferred.resolve(storeList);
     return deferred.promise;
-
-     // this.staffnewSvc.getstoreAlllist()
   }
+  // //根据门店的名字找到门店的id
+  getstoreid(storename){
+    console.log("storename=" & storename)
+      let deferred = this.q.defer();
+      let storeList = this.storeSvc.getstorebyname(storename).then((result)=>{
+        // console.log(storename);
+        // console.log(result.datas);
+      return result.datas ;
+    });
+    }
 
 //判断checked 被选中
   updateSelection($event, id,name){
@@ -138,7 +144,7 @@ export default class AddController {
          gettemp.role_info = temp_name.join(",")
     }
 
-     console.log(gettemp.role_ids);
+     //console.log(gettemp.role_ids);
   }
 
 }

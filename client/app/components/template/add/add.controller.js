@@ -33,21 +33,22 @@ export default class AddController {
    // console.log(this.d.nodes[0].nodeId)
    var nodes='';
     var nodesid = this.d.nodes
-    //只算了增加的，没有计算减少的
+
      for(var i=0;i<nodesid.length;i++) {
         if(nodes=='')
         {
           nodes= nodesid[i].nodeId 
         }else{
-         nodes=nodes +','+ nodesid[i].nodeId 
+          nodes=nodes +','+ nodesid[i].nodeId 
          }
        
      }
-     console.log(nodes)
+     // console.log(nodes)
      this.d.nodes = nodes
 
      this.api.post('/role/operate/act/save',this.d).
        then(res=>{
+
         this.templateSvc.returntemplist()
       })
   }
