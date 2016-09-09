@@ -26,7 +26,7 @@ export default class ListController {
   
 // 员工状态
 
-  	this.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '正常' }];
+  	this.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '恢复' }];
 
 // 模板
 
@@ -51,9 +51,8 @@ export default class ListController {
 
 
  this.filter = {
-      limit: 10,
+    // limit: 10,
       name: '',
-      status_id:'',
       offset:0
       //storeid:this.$state.params.storeid
       // phone: '',
