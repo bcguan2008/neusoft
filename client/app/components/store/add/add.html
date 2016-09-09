@@ -1,26 +1,106 @@
-<div class="page-title">
-  <div class="title">
-    <h2>新增门店</h2>
-  </div>
+<div class="nav-padding">
+    <ul class="nav nav-tabs">
+        <li class="navbar-btn"><a ng-click="vm.back()">我的门店</a></li>
+        <li class="navbar-btn active"><a ng-click="vm.goClaimList()">认领门店</a></li>
+    </ul>
 </div>
-<div class="conter-wrapper">
-  <div class="panel bp-panel-primary">
-    <form name="addStore" class="form-horizontal">
-      <div class="panel-body">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">
-            <span class="required-star">*</span>
-            门店名称：
-          </label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="panel-footer">
-        <button class="btn bp-btn-primary" type="submit">添加</button>
-        <button class="btn bp-btn-primary" type="button">返回</button>
-      </div>
-    </form>
-  </div>
+
+<div class="page-title">
+    <div class="title">
+        <h1 class="pull-left">新建门店</h1>
+        <a href="" style="margin-left: 30px;" ng-click="vm.back()">返回</a>
+    </div>
+</div>
+
+<div class="conter-wrapper store-add-container">
+    <div class="panel bp-panel-primary">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
+                <td class="col-md-5"><input type="text" class="form-control" ng-model="vm.d.name"></td>
+                <td class="col-md-4">
+                    <input type="checkbox">新建自有门店
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">英文名称：</td>
+                <td colspan="2"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right">英文缩写：</td>
+                <td colspan="2"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>门店简介：</td>
+                <td colspan="2">
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                    <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
+                    <div>您最多还可输入<span>936</span>字</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
+                <td colspan="2">
+                    <button class="btn bp-btn-danger" type="button">添加</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>城市：</td>
+                <td colspan="2">
+                    <select name="" id="province">
+                        <option value="">省</option>
+                    </select>
+                    <select name="" id="city">
+                        <option value="">市</option>
+                    </select>
+                    <select name="" id="county">
+                        <option value="">区</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>门店地址：</td>
+                <td colspan="2"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>门店电话：</td>
+                <td colspan="2">
+                    <input type="text" class="form-control">
+                    <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">楼层：</td>
+                <td colspan="2"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right">铺位号：</td>
+                <td colspan="2"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right">是否支持WI-FI：</td>
+                <td colspan="2">
+                    <input type="radio" value="0">支持
+                    <input type="radio" value="1" style="margin-left: 30px;">不支持
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
+                <td colspan="2">
+                    <button class="btn bp-btn-danger" type="button">上传图片</button>
+                    <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
+                <td colspan="2">
+                    <button class="btn bp-btn-danger" type="button">上传图片</button>
+                    <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save()">提交</button>
 </div>

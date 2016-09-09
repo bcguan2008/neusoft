@@ -1,0 +1,93 @@
+<div class="nav-padding">
+    <ul class="nav nav-tabs">
+        <li class="navbar-btn"><a ng-click="vm.goList()">我的门店</a></li>
+        <li class="navbar-btn active"><a>认领门店</a></li>
+    </ul>
+</div>
+
+<div class="conter-wrapper track-list-wrapper">
+    <div class="bp-container">
+        <div class="top-container">
+            <div class="col-md-11 search-box">
+                <div class="col-md-2">
+                    <select name="" id="">
+                        <option value="">全部门店</option>
+                        <option value="">待审新建门店</option>
+                        <option value="">被驳回新建门店</option>
+                        <option value="">待审认领门店</option>
+                        <option value="">被驳回认领门店</option>
+                        <option value="">待审编辑门店</option>
+                        <option value="">被驳回编辑门店</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="门店名称">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="经营品牌">
+                </div>
+                <div class="col-md-4">
+                    <span>所在区域：</span>
+                    <select name="" id="province" class="city-select">
+                        <option value="">省</option>
+                    </select>
+                    <select name="" id="city" class="city-select">
+                        <option value="">市</option>
+                    </select>
+                    <select name="" id="county" class="city-select">
+                        <option value="">区</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn bp-btn-primary" type="button">查询</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn bp-btn-primary" type="button">重置</button>
+                </div>
+            </div>
+            <div class="col-md-1" style="padding-top: 15px">
+                <button class="btn bp-btn-primary" type="button">新建门店</button>
+            </div>
+        </div>
+
+        <div class="table-container list-table">
+            <div class="table-wrapper" ng-table="vm.tableParams">
+                <table class="table table-bordered table-striped table-hover"
+                       cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+                    <thead class="panel-title">
+                    <tr>
+                        <th>门店编号</th>
+                        <th>门店名称</th>
+                        <th>经营品牌</th>
+                        <th>城市</th>
+                        <th>门店地址</th>
+                        <th>门店电话</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in $data.datas track by $index">
+                        <td>门店编号</td>
+                        <td>{{row.name}}</td>
+                        <td>经营品牌</td>
+                        <td>城市</td>
+                        <td>门店地址</td>
+                        <td>门店电话</td>
+                        <td style="color: #0000cc">认领</td>
+                    </tr>
+                    <tr class="lx-list-sp-tr" ng-if="!$data.datas || !$data.datas.length">
+                        <td colspan="10" style="text-align: center">
+                            <div class="text-center" ng-show="vm.loading">
+                                <i class="glyphicon glyphicon-refresh">数据加载中...</i>
+                            </div>
+                            <div class="text-center" ng-if="!vm.loading && (!$data.datas || !$data.datas.length)">
+                                <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
