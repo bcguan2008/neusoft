@@ -83,7 +83,7 @@ export default class ListController {
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page();
         //return this.Api.get(this.baseUrl+'stafflist?format=excel');  
-        console.log("aasddsa")
+       
     this.window.open('/Staffmgt/Organization/storelist?format=excel', '_blank');
   
         //this.storeSvc.exportExcellist()

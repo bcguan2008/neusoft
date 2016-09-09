@@ -24,24 +24,24 @@ export default class EditController {
             self.loading = false;
            
             _this.d=res.datas;
-            // _this.roles = [
-            //     {name:"模板1",id:1},
-            //     {name:"模板2",id:2},
-            //     {name:"模板3",id:3},
-            //     {name:"模板4",id:4},
-            //     {name:"模板5",id:5},
-            //     {name:"模板6",id:6}
-            // ].map(function(item){
-            //     item.checked =(_this.d.role_ids && _this.d.role_ids.indexOf(item.id)>-1)?true:false;
-            //     return item;
-            // })
+            _this.roles = [
+                {name:"模板1",id:1},
+                {name:"模板2",id:2},
+                {name:"模板3",id:3},
+                {name:"模板4",id:4},
+                {name:"模板5",id:5},
+                {name:"模板6",id:6}
+            ].map(function(item){
+                item.checked =(_this.d.role_ids && _this.d.role_ids.indexOf(item.id)>-1)?true:false;
+                return item;
+            })
         })
     }
     save(){
         var _this = this;
         //debugger;
         this.d.role_ids=[];
-       this.roles.forEach(function(item){
+        this.roles.forEach(function(item){
            _this.d.role_ids.push(item.id)
         })
         this.api.post('/Organization/inputAjax',{
