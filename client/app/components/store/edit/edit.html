@@ -11,11 +11,17 @@
                      cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
             <tbody>
                 <tr>
-                    <td class="col-md-5">门店名称</td>
-                    <td class="col-md-7"><input type="text" ng-model="vm.d.name" class="form-control" placeholder=""></td>
+                    <td class="col-md-5">门店名称<span class="required-star">*</span></td>
+                    <td class="col-md-7"><input type="text" ng-model="vm.d.name" class="form-control" placeholder="门店名称" name ="name" ng-maxlength="40">
+                    <div class="input-group error-info" ng-show="editStore.name.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">门店名称不能超过40个英文字符长度</span>
+                            </p>
+                    </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>门店负责人</td>
+                    <td>门店负责人<span class="required-star">*</span></td>
                     <td><input type="text" class="form-control" placeholder=""
                     required 
                     name="principal"
@@ -23,32 +29,46 @@
                     ng-model="vm.d.principal">
                         <div class="input-group error-info" ng-show="editStore.principal.$invalid">
                             <p class="discount-help-block">
-                                <i class="fa fa-info-circle"></i>请输入有效负责人名称
+                                <span class="fa fa-info-circle required-star">请输入有效负责人名称</span>
                             </p>
                         </div>
                     </td>
 
                 </tr>
                 <tr>
-                    <td>负责人联系方式</td>
+                    <td>负责人联系方式<span class="required-star">*</span></td>
                     <td><input name="contact" type="tel" class="form-control" placeholder="" required ng-pattern="/^1[3|4|5|7|8]\d{9}$/" 
                                ng-model="vm.d.contact">
                         <div class="input-group error-info" ng-show="editStore.contact.$invalid">
                             <p class="discount-help-block">
-                                <i class="fa fa-info-circle"></i>请输入有效手机号
+                                <span class="fa fa-info-circle required-star">请输入有效手机号</span>
                             </p>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>备注</td>
-                    <td><textarea class="form-control" rows="3" ng-model="vm.d.remark"></textarea></td>
+                    <td>
+                    <textarea class="form-control" rows="3" ng-model="vm.d.remark" ng-maxlength="200" name="commit"></textarea>
+                      <div class="input-group error-info" ng-show="editStore.commit.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">备注不能超过200个英文字符长度</span>
+                            </p>
+                      </div>
+
+                    </td>
                 </tr>
                 <tr>
                     <td class="col-md-5">可使用的功能模板</td>
-                    <td class="col-md-7">
+                    <td class="col-md-6">
                       <label>
-                       <a ng-repeat="role in vm.d.role_info">功能模板{{role}},</a>
+                       <!-- <a ng-repeat="role in vm.d.role_info">{{role}},</a> -->
+                      <div class="col-md-12" >
+                      <!--  start new -->
+                        <div class="col-md-6" ng-repeat="item in vm.d.role_info track by $index">
+                            <input type="checkbox" id={{item}} name="{{item}}"> {{item}}
+                        </div>
+                        </div>
                       </label>
 
                     </td>

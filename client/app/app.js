@@ -8,6 +8,7 @@ import 'jquery';
 import 'bootstrap';
 import 'bp-sop-skin';
 import angular from 'angular';
+import uibs from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
 import Common from './common/common';
@@ -32,7 +33,8 @@ angular.module('app', [
     Service.name,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
-    'bp.utils'
+    'bp.utils',
+    uibs
   ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG

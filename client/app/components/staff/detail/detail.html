@@ -11,7 +11,7 @@
       <div class="panel-body">
           <div class="form-group" >
        
-                  <label for="name" class="col-md-2 control-label" >姓名</label>
+                  <label for="name" class="col-md-2 control-label">账号姓名</label>
                   <div class="col-md-3" >
                        <input type="text" class="form-control" ng-model="vm.d.name" readonly  id="staffname_id "> 
                    </div>
@@ -34,14 +34,14 @@
 
           <div class="form-group">
        
-                  <label for="name" class="col-md-2 control-label" >门店选择</label>
+                  <label for="name" class="col-md-2 control-label" >所在门店</label>
                   <div class="col-md-3" >
                        
                      <input type="text" class="form-control" ng-model="vm.d.employee_organization_name" readonly  id="storeName_id"> 
                    </div>
            </div>         
           <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">功能模板</label>
+                  <label for="name" class="col-md-2 control-label">可使用的功能模板</label>
                        <div class="col-md-3" > {{vm.d.role_info.function_role_name}}
                           <!-- start -->
                            <!--  <div class="table-container"> 
@@ -82,7 +82,15 @@
                       <div class="form-control" ng-bind="vm.d.status_id=='1'?'冻结':'恢复'" >
                       </div> 
                   </div>      
-             </div>          
+             </div>  
+
+              <div class="form-group" >
+                  <label for="name" class="col-md-2 control-label">密码</label>
+                  <div class="col-md-3" >   
+                         <input type="text" readonly  class="form-control" value="********"> 
+                  </div>
+             </div>  
+
       </div>
 
       <div class="panel-footer form-actions">

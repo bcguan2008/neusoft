@@ -56,7 +56,6 @@ export default class AddController {
         gettemp = this.gettemp,
         selectSr = this.selectSr,
         selectSex = this.selectSex
-        console.log(options.store)
         users.storeName = options.store.name;
         users.storeId =  options.store.organization_id;
          //users.organization_id =options.store.organization_id;
