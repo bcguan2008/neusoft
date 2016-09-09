@@ -5,10 +5,11 @@
  */
 
 export default class ListController {
-    constructor($q, storeSvc, $scope, $http, NgTableParams, $state,templateSvc) {
+    constructor($q, storeSvc, $scope, $http, NgTableParams, $state,templateSvc,$window) {
         "ngInject";
         this.$state = $state
         this.storeSvc = storeSvc;
+        this.window = $window;
         this.q = $q;
         this.NgTableParams = NgTableParams;
         this.d={};
@@ -78,6 +79,13 @@ export default class ListController {
    * [downloadExcel µ¼³öÄ£°å]
    */
   exportExcel(){
-        this.storeSvc.exportExcellist()
+   // debugger;
+    let formData = this.getSearchFormData();
+        formData.page = this.tableParams.page();
+        //return this.Api.get(this.baseUrl+'stafflist?format=excel');  
+        console.log("aasddsa")
+    this.window.open('/Staffmgt/Organization/storelist?format=excel', '_blank');
+  
+        //this.storeSvc.exportExcellist()
   }
 }
