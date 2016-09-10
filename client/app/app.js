@@ -39,6 +39,18 @@ angular.module('app', [
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG
   })
-  .component('app', AppComponent);
+  .component('app', AppComponent)
+  .directive('typeahead', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attr, ctrl) {
+            element.bind('click', function () {
+                element[0].value =' '; 
+                ctrl.$setViewValue(element[0].value);
+            });
+        }
+    };
+  })
+
 
   console.log('process.env.DEBUG', process.env.DEBUG);

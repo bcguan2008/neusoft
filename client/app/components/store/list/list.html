@@ -3,51 +3,48 @@
     <h1>门店管理</h1>
   </div>
 </div>
-<div class="conter-wrapper track-list-wrapper">
-  <div class="bp-container">
-    <div class="table-container">
-      <div class="table-wrapper" ng-table="vm.tableParams">
-        <table class="table table-bordered table-striped table-hover"
-          cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-          <thead class="panel-title">
-            <tr>
-              <th> 门店名称 </th>
-                <th> 门店负责人 </th>
-                <th> 负责人联系方式 </th>
-              <th> 操作 </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="row in $data track by $index">
-              <td> 
-                  {{row.name}}
-              </td>
-              <td>{{row.principal}}</td>
-                <td>{{row.contact}}</td>
-              <td> 
-                <a class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.organization_id)" >查看</a>
-                <button class="btn bp-btn-default btn-xs" ng-click="vm.edit(row.organization_id)">编辑</button>
-                <button class="btn bp-btn-default btn-xs" ng-click="vm.goStaff(row.organization_id)">查看员工</button>
-              </td>
-            </tr>
-            <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
-              <td colspan="10" style="text-align: center">
-                <div class="text-center" ng-show="vm.loading">
-                  <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
-                </div>
-                <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
-                  <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-            <div class="recordCount">
-                 <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
-            </div> 
-      <div class="panel-footer">
-           <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button> 
-      </div>
-      </div>
-    </div>
+<div class="panel bp-panel-primary">
+  <div class="panel-body">
+    <table ng-table="vm.tableParams" class="table table-bordered table-striped table-hover"
+      cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+      <thead class="panel-title">
+        <tr>
+          <th> 门店名称 </th>
+            <th> 门店负责人 </th>
+            <th> 负责人联系方式 </th>
+          <th> 操作 </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in $data track by $index">
+          <td> 
+              {{row.name}}
+          </td>
+          <td>{{row.principal}}</td>
+            <td>{{row.contact}}</td>
+          <td> 
+            <a class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.organization_id)" >查看</a>
+            <button class="btn bp-btn-default btn-xs" ng-click="vm.edit(row.organization_id)">编辑</button>
+            <button class="btn bp-btn-default btn-xs" ng-click="vm.goStaff(row.organization_id)">查看员工</button>
+          </td>
+        </tr>
+        <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
+          <td colspan="10" style="text-align: center">
+            <div class="text-center" ng-show="vm.loading">
+              <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
+            </div>
+            <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
+              <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+      <div class="recordCount">
+            <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
+      </div> 
   </div>
+  <div class="panel-footer">
+      <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button> 
+  </div>
+</div>

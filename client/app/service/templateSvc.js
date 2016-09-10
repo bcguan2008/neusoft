@@ -19,7 +19,8 @@ class templateSvc  {
 	}
 	//显示模板 根据名字
 	getPageTempbyname(params){
-		return this.Api.get(this.baseUrl + 'search/',params);
+		
+		return this.Api.get(this.baseUrl + 'search/page/1/limit/10',{'templateName':params});
 	}
 	getTempList(id){
 	    return this.Api.get('/template/detail',{});

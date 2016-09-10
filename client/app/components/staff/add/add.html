@@ -1,151 +1,136 @@
 <div class="page-title">
-  <div class="title">
-    <h1>新增员工账号</h1>
-  </div>
+    <div class="title">
+        <h1>新增员工账号</h1>
+    </div>
 </div>
 <div class="conter-wrapper">
-  <div class="panel bp-panel-primary">
+    <div class="panel bp-panel-primary">
 
-    <form id="addStaff_id" name="addStaff"  class="form-horizontal" ng-submit="vm.createuser()" role="form">
-      <div class="panel-body"> 
-          <div class="form-group" >
-       
-                  <label for="name" class="col-md-2 control-label ">账号姓名<span class="required-star">*</span></label>
-                  <div class="col-md-3" >
-                       <input type="text" class="form-control" name="staffname" ng-model="vm.users.name" required id="staffname_id" />
-                      <div class="input-group error-info" ng-show="addStaff.staffname.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">请输人名</span>
-                          </p>
-                      </div>
-                   </div>
-          </div>         
-          <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">手机号<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="vm.users.contact" required  id="contact" name="contact"  ng-pattern="/^1[3|4|5|7|8]\d{9}$/"/>
-                      <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">请输入有效手机号</span>
-                          </p>
-                      </div>
-                  </div>
-          </div>
+        <form id="addStaff_id" name="addStaff" class="form-horizontal" ng-submit="vm.createuser()" role="form">
+            <div class="panel-body">
+                <div class="form-group">
 
-        <div class="form-group" >
-              <label for="name" class="col-md-2 control-label">即时通讯账号</label>
-                  <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="vm.users.rtx"  id="staffphone_id"> 
-                  </div>
-
-        </div>
-   
-
-          <div class="form-group">
-       
-                  <label for="name" class="col-md-2 control-label" >门店选择<span class="required-star">*</span></label>
-                  <div class="col-md-3" >
-                       
-                       <!--  <select name="storeName" class="form-control" ng-options="a.name for a in storeName" ng-model="vm.users.storeName">
-                          <option value="">--请选择--</option> -->
-                        </select> 
-
-                             <input type="text" class="form-control"
-                            placeholder="请输入关键字"
-                            uib-typeahead="store as store.name for store in vm.getStorelist($viewValue)"
-                            typeahead-loading="loading" typeahead-no-results="noResults"
-                            ng-model="vm.options.store" required id="store" name="storename" 
-                             />
-                    
-
-                    <div class="input-group error-info" ng-show="addStaff.storename.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">请输入门店名称</span>
-                          </p>
-                      </div>
-                   </div>
-           </div>         
-          <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
-                       <div class="col-md-6  pre-scrollable" > 
-                              <!-- start -->
-<!--                             <div class="table-container"> 
-                                  <div class="table-wrapper pre-scrollable">
-                                     <table class="table table-bordered table-striped table-hover">
-                                        <tr ng-repeat="item in datas track by $index">
-                                            <td>
-                                            <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}
-                                            </td>
-   
-                                        </tr>
-                                      </table>
-                              </div> 
-                            </div> -->
-                            <div class="col-sm-6" ng-repeat="item in datas track by $index" > 
-                                     <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}
-                            </div>
-                           <!-- end -->
-                     </div>
-            </div>
-
-            <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">邮箱</label>
-                  <div class="col-md-3" >
-                 <!--       <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
-                       > -->
-                        <input type="text" class="form-control" id="staffmail_id" ng-model="vm.users.email" >
-                   </div>
-             </div>
-             <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">密码<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="password"  name="password" placeholder="密码" class="form-control" ng-model="vm.users.password"  id="newpass_id" required class="required form-control" ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"/>
-
-                         <div class="input-group error-info" ng-show="addStaff.password.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
-                          </p>
-                        </div> 
-                  </div>
-             </div>         
-          <div class="form-group" >
-                   <label for="name" class="col-md-2 control-label">确认密码<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="password" placeholder="确认密码" name="con_password" class="form-control" ng-model="vm.users.con_password" required  id="con_password_id" class="required form-control"  ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"/>
-                        <div class="input-group error-info" ng-show="addStaff.con_password.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
-                          </p>
+                    <label for="name" class="col-md-2 control-label ">账号姓名<span class="required-star">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="staffname" ng-model="vm.users.name" required id="staffname_id" />
+                        <div class="input-group error-info" ng-show="addStaff.staffname.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">请输入姓名</span>
+                            </p>
                         </div>
-
-                  </div>
-          </div>
-          <div class="form-group" >
-                   <label for="name" class="col-md-2 control-label">员工性别</label>
-                   <div class="col-md-3" >   
-                       <select class="form-control"
-                        ng-options="a.name for a in vm.sex"
-                        ng-model="vm.selectSex.sex">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">员工性别</label>
+                    <div class="col-md-3">
+                        <select class="form-control" ng-options="a.name for a in vm.sex" ng-model="vm.selectSex.sex">
                          <option value="">--请选择--</option>
                         </select>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">员工状态</label>
+                    <div class="col-md-3">
+                        <select class="form-control" ng-options="a.name for a in vm.staffstatus" ng-model="vm.selectSr.status">
+                            <option value="">--请选择--</option> 
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">手机号<span class="required-star">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="vm.users.contact" required id="contact" name="contact" ng-pattern="/^1[3|4|5|7|8]\d{9}$/"
+                        />
+                        <div class="input-group error-info" ng-show="addStaff.contact.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">请输入有效手机号</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">即时通讯账号</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="vm.users.rtx" id="staffphone_id">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="name" class="col-md-2 control-label">门店选择<span class="required-star">*</span></label>
+                    <div class="col-md-3">
+                        <select class="form-control" 
+                                ng-options="store as store.name for store in vm.storelist" 
+                                ng-model="vm.options.store">
+                                <option value="">－－请选择门店－－</option>
+                        </select>
+                        <!--
+                        <input type="text" class="form-control" placeholder="请输入关键字" typeahead uib-typeahead="store as store.name for store in vm.getStorelist($viewValue)"
+                            typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.options.store" required
+                            id="store" name="storename" />-->
+
+
+                        <div class="input-group error-info" ng-show="addStaff.storename.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">请输入门店名称</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
+                    <div class="col-md-6  pre-scrollable" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'正在加载功能模板列表...'}">
+                        <div class="col-sm-6 checkbox" ng-repeat="item in datas track by $index" >
+                            <label> 
+                                <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">邮箱</label>
+                    <div class="col-md-3">
+                        <!--       <input type="email" class="form-control" id="staffmail_id" ng-model="vm.users.email" ng-minlength="5" ng-maxlength="20"
+                       > -->
+                        <input type="text" class="form-control" id="staffmail_id" ng-model="vm.users.email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">密码<span class="required-star">*</span></label>
+                    <div class="col-md-3">
+                        <input type="password" name="password" placeholder="密码" class="form-control" ng-model="vm.users.password" id="newpass_id"
+                            required class="required form-control" ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"
+                        />
+
+                        <div class="input-group error-info" ng-show="addStaff.password.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-2 control-label">确认密码<span class="required-star">*</span></label>
+                    <div class="col-md-3">
+                        <input type="password" placeholder="确认密码" name="con_password" class="form-control" ng-model="vm.users.con_password" required
+                            id="con_password_id" class="required form-control" ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"
+                        />
+                        <div class="input-group error-info" ng-show="addStaff.con_password.$invalid">
+                            <p class="discount-help-block">
+                                <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-             <div class="form-group" >
-                 
-                        <label for="name" class="col-md-2 control-label">员工状态</label>
-                 
-                    <div class="col-md-3" >
-                     <select class="form-control"
-                      ng-options="a.name for a in vm.staffstatus"
-                      ng-model="vm.selectSr.status">
-                       <option value="">--请选择--</option> 
-                    </select>
-                  </div>      
-             </div>
-      </div>
-      <div class="panel-footer">
-        <button class="btn bp-btn-primary" type="submit" ng-disabled="addTemp.$invalid" type="submit"  >创建员工</button> 
-      </div>
-    </form>
-  </div>
+            <div class="panel-footer">
+                <button class="btn bp-btn-primary" type="submit" ng-disabled="addTemp.$invalid" type="submit">创建员工</button>
+            </div>
+        </form>
+    </div>
 </div>
