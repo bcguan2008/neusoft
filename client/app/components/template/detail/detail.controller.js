@@ -13,13 +13,7 @@ export default class EditController {
       this.treeSvc = treeSvc;
       this.templateSvc = templateSvc;
       this.d={};
-      // this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
-      //     _this.d=res;
-      // })
-      /**
-      this.editInit();
-      this.initTree();
-      */
+      
       this.init();
   }
 
@@ -31,16 +25,16 @@ export default class EditController {
         id: this.$state.params.id
       })
       this.loadPromise.then(results=>{
-        //self.d.nodes = results;
         if (results) {
-         self.d.name = results.name;
-              self.d.description = results.description;
-              self.d.rid = results.rid;
+          self.loading = false;
+          self.d.name = results.name;
+          self.d.description = results.description;
+          self.d.rid = results.rid;
         }
       })
 
       this.form = {};
-      this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
+      this.loadPromisesop = this.treeSvc.getselectSopTree(this.$state.params.id)
       this.loadPromise.then(results=>{
         self.d.nodes = results;
       })
@@ -53,12 +47,6 @@ export default class EditController {
           fieldOfName: 'name',
           fieldOfId: 'nodeId'
       };
-
-      return self.loadPromise.then(result => {
-            if(result){
-              self.loading = false;
-            }
-          });
     }
     
     save(){     

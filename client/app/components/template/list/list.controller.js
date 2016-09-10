@@ -76,24 +76,21 @@ export default class ListController {
   edit(id) {
     this.$state.go('templateedit', { id: id });
   }
+
   changeStatus() {
-    var newStatus = this.nowTemplate.status == "1" ? "2" : "1";
+    let  operateStatus = this.nowTemplate.status ;
     this.templateSvc.changeStatus({
       templateNo: this.nowTemplate.templateNo,
-      status: newStatus,
-      operatorId: "1111",
-      operatorName: "",
+      status: operateStatus,
       rid: this.nowTemplate.rid
     }).then(res => {
-      //this.nowTemplate.status=newStatus;
       alert("修改成功");
       $('#myModal').modal('hide');
       this.init();
     }, err => {
       $('#myModal').modal('hide');
       this.init();
-    }
-      )
+    })
   }
   //返回
   returnTemplatelist() {
@@ -111,8 +108,7 @@ export default class ListController {
       $("#alert4").css('display', 'none');
     }
   }
-  //传值给删除确定窗口
-  //在list里 为了传给模拟框参数
+
   removeInfo(a, b) {
     this.nowRow = b;
     //1=暂停 2=启用
