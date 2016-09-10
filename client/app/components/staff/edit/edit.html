@@ -1,133 +1,107 @@
-<div class="conter-wrapper">
-  <div class="panel bp-panel-primary">
-
-    <form id="editStaff_id" name="edittaff"  class="form-horizontal" ng-submit="vm.updatestaff()" role="form">    
-          <div class="form-group" >
-       
-                <label for="name" class="col-md-2 control-label" >姓名<span class="required-star">*</span></label>
-                  <div class="col-md-3" >
-                       <input type="text" class="form-control" ng-model="vm.d.name" readonly  id="staffname_id"> 
-                   </div>
-          </div>         
-          <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">手机号<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="vm.d.contact"  readonly  id="staffphone_id"> 
-                  </div>
+<div class="conter-wrapper" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+  <form id="editStaff_id" name="edittaff" class="form-horizontal" ng-submit="vm.updatestaff()" role="form">
+    <div class="panel bp-panel-primary">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">姓名<span class="required-star">*</span></label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="vm.d.name" readonly id="staffname_id">
           </div>
-
-        <div class="form-group" >
-              <label for="name" class="col-md-2 control-label">即时通讯账号</label>
-                  <div class="col-md-3" >   
-                         <input type="text" class="form-control" ng-model="vm.d.rtx"   id="staffphone_id"> 
-                  </div>
         </div>
-          <div class="form-group">
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">员工性别</label>
+          <div class="col-md-3">
+            <select class="form-control" ng-options="a.name as a.name for a in vm.sex" ng-model="vm.selectSex1.sex">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">员工状态</label>
+          <div class="col-md-3">
+            <select class="form-control" ng-options="a as a.name for a in vm.staffstatus" ng-model="vm.d.status">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">手机号<span class="required-star">*</span></label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="vm.d.contact" readonly id="staffphone_id">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">即时通讯账号</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="vm.d.rtx" id="staffphone_id">
+          </div>
+        </div>
+        <div class="form-group">
           <input type="text" ng-model="vm.d.employee_id" style="display:none">
-                  <label for="name" class="col-md-2 control-label" >门店选择<span class="required-star">*</span></label>
-                  <div class="col-md-3" >    
-                        <input type="text" class="form-control" ng-model="vm.d.employee_organization_name" readonly  id="storeName_id"> 
-                   </div>       
+          <label for="name" class="col-md-2 control-label">门店选择<span class="required-star">*</span></label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="vm.d.employee_organization_name" readonly id="storeName_id">
           </div>
-                
-          <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
-                      <div class="col-md-6 pre-scrollable" >
-                      <!--  start new -->
-                        <div class="col-sm-6" ng-repeat="item in datas track by $index">
-                            <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}
-                        </div>
+        </div>
 
-
-
-                       <!--  start end -->
-
-
-
-                        <!-- start -->
-                          <!-- <div class="table-container"> 
-                                  <div class="table-wrapper pre-scrollable">                  
-                                      <table class="table table-bordered table-striped table-hover"
-                                       cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-                                        <tr ng-repeat="item in datas track by $index">
-                                            <td><input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}</td>
-                                        </tr>
-                                        
-                                      </table> 
-                              </div>
-                          </div> -->
-                           <!-- end -->
-                      </div>
-          </div>
-
-            <div class="form-group" >
-       
-                  <label for="name" class="col-md-2 control-label">邮箱</label>
-                  <div class="col-md-3" >
-                  
-                       <input type="email" class="form-control"   ng-model="vm.d.email"  id="staffmail_id"> 
-                   </div>
-             </div>
-             <div class="form-group" >
-                  <label for="name" class="col-md-2 control-label">密码<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="password" name="password" class="form-control"  ng-model="vm.d.password" required  id="newpass_id" ng-minlength="8" name="con_password" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"/>
-                
-                         <div class="input-group error-info" ng-show="edittaff.password.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
-                          </p>
-                        </div> 
-
-
-                  </div>
-             </div>   
-             <div class="form-group" >
-                <label for="name" class="col-md-2 control-label">确认密码<span class="required-star">*</span></label>
-                  <div class="col-md-3" >   
-                         <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.d.con_password" required  id="con_password_id" class="required form-control" name ="con_password" ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"/>
-
-                          <div class="input-group error-info" ng-show="edittaff.con_password.$invalid">
-                          <p class="discount-help-block">
-                              <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
-                          </p>
-                        </div> 
-
-
-                  </div>
+        <div class="form-group" cg-busy="{promise:vm.loadTempatePromise, minDuration: 500, message:'加载功能模板中...'}">
+          <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
+          <div class="col-md-6 pre-scrollable" >
+            <!--  start new -->
+            <div class="col-sm-6" ng-repeat="item in vm.templateDatas track by $index">
+              <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" >{{item.name}}
             </div>
 
-           <div class="form-group" >
-                   <label for="name" class="col-md-2 control-label">员工性别</label>
-                   <div class="col-md-3" >   
-                       <select class="form-control"
-                        ng-options="a.name for a in vm.sex" 
-                        ng-model="vm.selectSex1.sex">
-                         <option value="">{{vm.selectSex.sex}}</option>
-                        </select>
-                    </div>
- 
-            </div>
-             <div class="form-group" >     
-                  <label for="name" class="col-md-2 control-label">员工状态</label>
-                    <div class="col-md-3" >
-                     <select class="form-control"
-                      ng-options="a.name for a in vm.staffstatus"
-                      ng-model="vm.selectSr1.status">
-                       <option value="">{{vm.selectSr.status}}</option>
-                    </select>
-                  </div>      
-             </div>         
-      
-          <div class="panel-footer">
-            <button class="btn bp-btn-primary" type="submit">保存</button>
-
-            <button class="btn bp-btn-primary" ng-click="vm.returnstafflistc()" >返回</button>
           </div>
-           <input type="text" id="role_ids" ng-model="vm.d.role_ids" style="display:none">
-          <input type="text" id="role_info_id" style="display:none" ng-model="vm.d.role_info.function_role_name">
-    </form>
+        </div>
 
+        <div class="form-group">
+
+          <label for="name" class="col-md-2 control-label">邮箱</label>
+          <div class="col-md-3">
+
+            <input type="email" class="form-control" ng-model="vm.d.email" id="staffmail_id">
+          </div>
+        </div>
+        <!--
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">密码<span class="required-star">*</span></label>
+          <div class="col-md-3">
+            <input type="password" name="password" class="form-control" ng-model="vm.d.password" required id="newpass_id" ng-minlength="8"
+              name="con_password" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/" />
+
+            <div class="input-group error-info" ng-show="edittaff.password.$invalid">
+              <p class="discount-help-block">
+                <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
+              </p>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name" class="col-md-2 control-label">确认密码<span class="required-star">*</span></label>
+          <div class="col-md-3">
+            <input type="password" placeholder="确认密码" class="form-control" ng-model="vm.d.con_password" required id="con_password_id"
+              class="required form-control" name="con_password" ng-minlength="8" ng-maxlength="20" ng-pattern="/^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{8,20}$/"
+            />
+
+            <div class="input-group error-info" ng-show="edittaff.con_password.$invalid">
+              <p class="discount-help-block">
+                <span class="fa fa-info-circle required-star">密码必须包含字母和数字组合且长度在8-20之间</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        -->
+        <input type="text" id="role_ids" ng-model="vm.d.role_ids" style="display:none">
+        <input type="text" id="role_info_id" style="display:none" ng-model="vm.d.role_info.function_role_name">
+      </div>
+      <div class="panel-footer">
+        <button class="btn bp-btn-primary" type="submit">保存</button>
+        <button class="btn bp-btn-primary" ng-click="vm.returnstafflistc()">返回</button>
+      </div>
     </div>
-  </div>
+    
+  </form>
+</div>
 </div>

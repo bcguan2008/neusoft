@@ -5,183 +5,153 @@
  */
 
 export default class ListController {
-  constructor($scope,$http,staffnewSvc,NgTableParams,$state,templateSvc,$q,$window
-    ,$httpParamSerializer) {
+  constructor($scope, $http, staffnewSvc, NgTableParams, $state, templateSvc, $q, $window
+    , $httpParamSerializer,commonSvc) {
   	 "ngInject";
-  	//var vm = this;
-  //  this.name = 'list';
+    //var vm = this;
+    //  this.name = 'list';
     this.$state = $state;
     this.window = $window;
-    this.staffnewSvc=staffnewSvc;
-  	this.NgTableParams = NgTableParams;
-  	this.$scope = $scope;
-    this.templateSvc= templateSvc;
+    this.staffnewSvc = staffnewSvc;
+    this.NgTableParams = NgTableParams;
+    this.$scope = $scope;
+    this.templateSvc = templateSvc;
     this.httpParamSerializer = $httpParamSerializer;
+    this.commonSvc = commonSvc;
     this.q = $q;
-    this.d={};  
-  	this.nowRow=null;
-  	this.init();
-    
-      
-  
-// 员工状态
-
-  	this.staffstatus = [{ id: 1, name: '冻结' }, { id: 3, name: '恢复' }];
-
-// 模板
-
-  	$scope.template_name = [{ id: 1, name: '模板1' }, { id: 2, name: '模板2' }, { id: 3, name: '模板3' }];
-    
-	// 区域
-
-  	$scope.staffarea = [{ id: 1, name: '区域1' }, { id: 2, name: '区域2' }, { id: 3, name: '区域3' }];
-
-//广场
-
-  	$scope.square = [{ id: 1, name: '广场1' }, { id: 2, name: '广场2' }, { id: 3, name: '广场3' }];
-
-//品牌
-  	this.brand = [{ id: 1, name: '品牌1' }, { id: 2, name: '品牌2' }, { id: 3, name: '品牌3' }];
-
-
-//门店
-  	$scope.store = [{ id: 1, name: '门店1' }, { id: 2, name: '门店2' }, { id: 3, name: '门店3' }];
-
-
-
-
- this.filter = {
-    // limit: 10,
+    this.d = {};
+    this.storelist = {};
+    this.nowRow = null;
+    this.init();
+    // 员工状态
+    this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' }];
+    this.filter = {
       name: '',
-      offset:0
-      //storeid:this.$state.params.storeid
-      // phone: '',
-      // action_1: '',
-      // button_name: '',
-      // status: '',
-      // update_start_time: '',
-      // update_end_time: ''
+      offset: 0
     };
 
-  this.selectObj = {
+    this.selectObj = {
       status_name: ''
     };
   }
 
-
-  searchbystaff(){
-
-  	this.staffnewSvc.getstaffpage()
+  searchbystaff() {
+    this.staffnewSvc.getstaffpage()
 
   }
   //修改员工状态
-  changeStatus(){
-      this.staffnewSvc.changeStatus()
+  changeStatus() {
+    this.staffnewSvc.changeStatus()
   }
-	 /**
-   * 获取格式化后的数据
-   */ 
-  getSearchFormData(){ 
+  /**
+  * 获取格式化后的数据
+  */
+  getSearchFormData() {
     let filter = this.filter
-    var selectObj = this.selectObj; 
-    if (selectObj.status != undefined){ 
-   
-       filter.status_id= selectObj.status.id
-     }
+    var selectObj = this.selectObj;
+    if (selectObj.status != undefined) {
+      filter.status = selectObj.status.id
+    }
     return filter;
   }
 
-//获取模板名称
-  getTemplateList(temlateName){
+  //获取模板名称
+  getTemplateList(temlateName) {
     let deferred = this.q.defer();
-    let templateList = this.templateSvc.getPageTempbyname(temlateName).then((result)=>{
+    let templateList = this.templateSvc.getPageTempbyname(temlateName).then((result) => {
       return result.datas;
     });
     deferred.resolve(templateList);
     return deferred.promise;
   }
-/**
-   * [init 初始化]
-   */
-
-  init(){
-    let self = this;
-    var _this = this;
-    var filter = this.filter;
-    this.tableParams = new this.NgTableParams({
-        page: 1,
-        offset:0 
-     // count: 10 //每页几条
-    }, {
-     // counts:[],
-      getData: function(params) {
-
-        self.loading = true;
-        let formData = self.getSearchFormData(filter);//filter
-
-        formData.page = params.url().page;
-        formData.offset = params.url().page;
-       // formData.limit = params.url().count;
-
-       self.loadPromise = self.staffnewSvc.getPageUserList(formData);
-         //self.loadPromise = self.templateSvc.getPageAllTempList(formData);
-        return self.loadPromise
-        .then(result => {
-           self.loading = false;
-          if(result){
-            console.log(result)
-            _this.d={
-               totalCount:result.totalCount
-            }
-            params.total(result.totalCount);
-            return result.datas; 
-          }
-        });
-        } 
+  //获取门店list
+  getStorelist() {
+    let deferred = this.q.defer();
+    let storeList = this.commonSvc.getStoreInfoList().then((result) => {
+      return result.datas;
     });
+    deferred.resolve(storeList);
+    return deferred.promise;
   }
 
-		search(){
-          this.tableParams.parameters({page : 1}).reload();
-		  }  
+  /**
+   * [init 初始化]
+   */
+  init() {
+    this.getStorelist().then(result=>{
+      this.storelist = result;
+    })
+
+    let self = this;
+    
+    this.tableParams = new this.NgTableParams({
+      page: 1,
+      count: 10
+    }, {
+        getData: function ($defer, params) {
+          let paramsUrl = params.url();
+          self.loading = true;
+          let formData = self.getSearchFormData();//filter
+
+          formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
+          formData.limit = paramsUrl.count;
+
+          self.loadPromise = self.staffnewSvc.getPageUserList(formData);
+          return self.loadPromise
+            .then(result => {
+              self.loading = false;
+              if (result) {
+                self.d = {
+                  totalCount: result.totalCount
+                }
+                params.total(result.totalCount);
+                return result.datas;
+              }
+            });
+        }
+      });
+  }
+
+  search() {
+    this.tableParams.parameters({ page: 1 }).reload();
+  }
 
   /**
    * 获取员工详情
    */
-  detail(id){
-    this.$state.go('staffdetail', {id: id});
+  detail(id) {
+    this.$state.go('staffdetail', { id: id });
   }
 
-
   //跳转到新增员工
-  getstaffpageadd(){
-      this.staffnewSvc.getstaffpage()
+  getstaffpageadd() {
+    this.staffnewSvc.getstaffpage()
 
-  } 
-  edit(id){
-     //this.staffnewSvc.updatestaff()
-     this.$state.go('staffedit', {id: id});
+  }
+  edit(id) {
+    //this.staffnewSvc.updatestaff()
+    this.$state.go('staffedit', { id: id });
   }
 
   //更新员工状态
-  changeStatus(){
+  changeStatus() {
     //debugger;
-      this.staffnewSvc.changeStatus({id:this.nowRow.uid,status:this.nowRow.status=='正常'?3:1}).then(success=>{
-          //this.$modalInstance.close()
-          alert("修改成功")
-          $('#myModal').modal('hide');
-          this.init();
-      })
+    this.staffnewSvc.changeStatus({ id: this.nowRow.uid, status: this.nowRow.status == '正常' ? 3 : 1 }).then(success => {
+      //this.$modalInstance.close()
+      alert("修改成功")
+      $('#myModal').modal('hide');
+      this.init();
+    })
   }
   //传值给 冻结 窗口
-  editInfo (a,b){
-      this.nowRow=b;
+  editInfo(a, b) {
+    this.nowRow = b;
     // $scope.vm.status_id = b.uid;
-    }
+  }
   /**
    * [downloadExcel 导出模板]
    */
-  exportExcel(){
-     this.staffnewSvc.exportExcellist()
+  exportExcel() {
+    this.staffnewSvc.exportExcellist()
   }
 }

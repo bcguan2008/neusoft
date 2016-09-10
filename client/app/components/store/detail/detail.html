@@ -4,10 +4,8 @@
     </div>
 </div>
 <div class="conter-wrapper">
-    <div class="panel bp-panel-primary">
-        
-           <table class="table table-bordered table-striped table-hover"
-                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+    <div class="panel bp-panel-primary" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+           <table class="table table-bordered table-striped table-hover">
             <tbody>
                 <tr>
                     <td class="col-md-5">门店名称</td>
