@@ -1,56 +1,54 @@
-<div class="page-title">
-  <div class="title">
-  
-  </div>
-</div>
-<div class="conter-wrapper">
+<div class="conter-wrapper" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+
     <div class="panel bp-panel-primary">
-        <form id="detailTemp_id" name="detailTemp" class="form-horizontal" ng-submit="vm.save()" role="form">
-            <table class="table table-bordered table-striped table-hover"
-                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
-                <div class="col-sm-10">
-                    <input name="name" class="form-control" required ng-model="vm.d.name" placeholder="名称"> 
-                </div>
-                    <input name="name" ng-model="vm.d.rid" style="display:none"> 
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" ng-model="vm.d.description" placeholder="描述"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
-                <div class="col-sm-10">
-                 <!--    <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree> -->
 
-      <ul id="myTab" class="nav nav-tabs">
-          <li class="active">
-            <a href="#sop_id" data-toggle="tab" >SOP</a> 
-          </li>
-          <li>
-             <a href="#app_id" data-toggle="tab" >APP</a>
-          </li>
-        </ul>
-        <div id="myTabContent" class="tab-content pre-scrollable">
-          <div class="tab-pane fade in active" id="sop_id">
-              <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
-          </div>
-          <div class="tab-pane fade" id="app_id" >
-                <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
-          </div>
-         </div>
-                </div>
-            </div>
+        <div class="panel-body">
+            <fieldset ng-disabled="true">
+                <form id="detailTemp_id" name="detailTemp" class="form-horizontal" ng-submit="vm.save()" role="form">
+                    <table class="table table-bordered table-striped table-hover" >
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
+                            <div class="col-sm-10">
+                                <input name="name" class="form-control" required ng-model="vm.d.name" placeholder="名称">
+                            </div>
+                            <input name="name" ng-model="vm.d.rid" style="display:none">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">功能描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="3" ng-model="vm.d.description" placeholder="描述"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
+                            <div class="col-sm-10">
+                                <ul id="myTab" class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#sop_id" data-toggle="tab">SOP</a>
+                                    </li>
+                                    <li>
+                                        <a href="#app_id" data-toggle="tab">APP</a>
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content pre-scrollable">
+                                    <div class="tab-pane fade in active" id="sop_id">
+                                        <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    </div>
+                                    <div class="tab-pane fade" id="app_id">
+                                        <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-            <div class="panel-footer">
-               <!--  <button class="btn bp-btn-primary btn-sm" ng-disabled="editTemp.$invalid" type="submit">保存</button> -->
-                <a class="btn btn-default" ui-sref="templatelist()">返回</a>
-            </div>
-            </table>
-        </form>
+
+                    </table>
+                </form>
+            </fieldset>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-primary" ui-sref="templatelist()">返回</a>
+        </div>
     </div>
 </div>
