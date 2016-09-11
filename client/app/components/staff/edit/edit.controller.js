@@ -24,7 +24,7 @@ export default class EditController {
     // 员工状态
     this.staffstatus = [{ id: 3, name: '冻结' }, { id: 1, name: '正常' }];
     //性别
-    this.sex = [{ id: 1, name: '男' }, { id: 3, name: '女' }];
+    this.sex = [{ id: 0, name: '男' }, { id: 1, name: '女' }];
     this.init();
   }
 
@@ -35,14 +35,26 @@ export default class EditController {
   //updateEmployee
   updatestaff() {
     let self = this;
-
     self.d.role_ids  = this.templateDatas.filter(data=>{
       return data.ifChecked;
     }).map((data)=>{
       return data.rid;
     }).join(',');
-    debugger;
-    this.staffnewSvc.updateEmployee(this.d);
+
+    let params = {
+      id:this.d.id,
+      name:this.d.name,
+      contact:this.d.contact,
+      storeId:this.d.storeId,
+      storeName:this.d.storeName,
+      email:this.d.email,
+      rtx:this.d.rtx,
+      role_ids:this.d.role_ids,
+      gender:this.d.gender,
+      employee_id:this.d.employee_id
+    };
+
+    this.staffnewSvc.updateEmployee(params);
     this.staffnewSvc.getstafflist();
   }
   /**
@@ -59,22 +71,22 @@ export default class EditController {
     }).then(result=>{
       self.loading = false;
       if (result) {
-        self.selectSex1 = {
-          sex: result.genderName,
-        }
         
         self.d = {
           id: result.uuid,
           name: result.name,
           contact: result.contact,
           rtx: result.rtx,
-          storeName: result.storeName,
           email: result.email,
           employee_id: result.employee_id,
           employee_organization_name: result.employee_organization_name,
+          storeId:result.organization_id,
+          storeName:result.organization_name,
           role_ids: result.role_ids,
-          role_info: result.role_info
+          role_info: result.role_info,
+          gender:result.gender
         }
+      
         /**
          * 给状态数组赋值
          */

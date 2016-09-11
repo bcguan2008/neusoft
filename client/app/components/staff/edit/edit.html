@@ -11,17 +11,20 @@
         <div class="form-group">
           <label for="name" class="col-md-2 control-label">员工性别</label>
           <div class="col-md-3">
-            <select class="form-control" ng-options="a.name as a.name for a in vm.sex" ng-model="vm.selectSex1.sex">
+            <select class="form-control" ng-model="vm.d.gender">
+                <option value="0">男</option>
+                <option value="1">女</option>
             </select>
           </div>
         </div>
+        <!--
         <div class="form-group">
           <label for="name" class="col-md-2 control-label">员工状态</label>
           <div class="col-md-3">
             <select class="form-control" ng-options="a as a.name for a in vm.staffstatus" ng-model="vm.d.status">
             </select>
           </div>
-        </div>
+        </div>-->
         <div class="form-group">
           <label for="name" class="col-md-2 control-label">手机号<span class="required-star">*</span></label>
           <div class="col-md-3">
@@ -47,8 +50,10 @@
           <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
           <div class="col-md-6 pre-scrollable" >
             <!--  start new -->
-            <div class="col-sm-6" ng-repeat="item in vm.templateDatas track by $index">
-              <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" >{{item.name}}
+            <div class="col-sm-6 checkbox" ng-repeat="item in vm.templateDatas track by $index">
+              <label>
+                <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" >{{item.name}}
+              </label>
             </div>
 
           </div>

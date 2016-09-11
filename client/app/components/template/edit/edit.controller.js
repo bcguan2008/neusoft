@@ -12,20 +12,42 @@ export default class EditController {
     this.$state = $state;
     this.treeSvc = treeSvc;
     this.templateSvc = templateSvc;
-    this.d = {}
+    this.d = {
+      nodesSop:[],
+      nodesApp:[]
+    }
     this.init();
+  }
+
+  formatNodes(treeNodes,nodes){
+    if(treeNodes && treeNodes.length>0){
+      treeNodes.forEach(node=>{
+        if(node.checked){
+          nodes.push(node);
+        }
+        this.formatNodes(node.children,nodes);
+      })
+    }
+    return nodes;
   }
 
   init() {
     let self = this;
-    self.loading = true;
-    self.loadPromise = self.templateSvc.getDetail({
+    this.loading = true;
+    this.loadPromise = self.templateSvc.getDetail({
       id: this.$state.params.id
     })
     this.form = {};
-    this.loadPromisesop = this.treeSvc.getselectSopTree(this.$state.params.id)
-    this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
-
+    this.loadPromisesop = this.treeSvc.getselectSopTree(this.$state.params.id);
+    this.loadPromisesop.then(data=>{
+      self.d.nodesSop = self.formatNodes(data,self.d.nodesSop);
+      
+    })
+    this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id);
+    this.loadPromiseapp.then((data)=>{
+      self.d.nodesApp = self.formatNodes(data,self.d.nodesApp);
+    })
+  
     this.config = {
       fieldOfChildren: 'children',
       fieldOfName: 'name',
@@ -43,8 +65,9 @@ export default class EditController {
 
 
   save() {
+    
     this.submitting = true;
-    this.d.nodes = this.d.nodes.map(node=>{
+    this.d.nodes = this.d.nodesApp.concat(this.d.nodesSop).map(node=>{
       return node.nodeId;
     }).join(',');
 
