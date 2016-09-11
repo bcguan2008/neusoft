@@ -1,66 +1,66 @@
 <div class="page-title">
-  <div class="title">
-    <h4>编辑模板</h4>
-  </div>
+    <div class="title">
+        <h1>编辑模板</h1>
+    </div>
 </div>
-<div class="conter-wrapper">
+<div class="conter-wrapper" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
     <div class="panel bp-panel-primary">
         <form id="editTemp_id" name="editTemp" class="form-horizontal" ng-submit="vm.save()" role="form">
-            <table class="table table-bordered table-striped table-hover"
-                     cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">角色名称<span class="required-star">*</span></label>
-                <div class="col-sm-10">
-                    <input name="name" class="form-control" required ng-model="vm.d.name" placeholder="名称"> 
-                </div>
-                    <input name="name" ng-model="vm.d.rid" style="display:none"> 
+            <div class="panel-body">
+
+                <table class="table table-bordered table-striped table-hover">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">角色名称<span class="required-star">*</span></label>
+                        <div class="col-sm-10">
+                            <input name="name" class="form-control" required ng-model="vm.d.name" placeholder="名称">
+                        </div>
+                        <input name="name" ng-model="vm.d.rid" style="display:none">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">功能模板描述<span class="required-star">*</span></label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="description" rows="3" ng-model="vm.d.description" placeholder="描述" ng-maxlength="200"></textarea>
+                            <div class="input-group error-info" ng-show="editTemp.description.$invalid">
+                                <p class="discount-help-block">
+                                    <span class="fa fa-info-circle required-star">功能模板描述最多可添加200英文字符</span>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
+                        <div class="col-sm-10">
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#sop_id" data-toggle="tab">SOP</a>
+                                </li>
+                                <li>
+                                    <a href="#app_id" data-toggle="tab">APP</a>
+                                </li>
+                            </ul>
+
+
+                            <div id="myTabContent" class="tab-content pre-scrollable">
+                                <div class="tab-pane fade in active" id="sop_id">
+                                    <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+
+                                </div>
+                                <div class="tab-pane fade" id="app_id">
+                                    <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </table>
+
             </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能模板描述<span class="required-star">*</span></label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" name="description" rows="3" ng-model="vm.d.description" placeholder="描述" ng-maxlength="200" ></textarea>
-                <div class="input-group error-info" ng-show="editTemp.description.$invalid">
-                            <p class="discount-help-block">
-                                <span class="fa fa-info-circle required-star">功能模板描述最多可添加200英文字符</span>
-                            </p>
-          </div>   
-
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
-                <div class="col-sm-10">
-                 <!--    <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree> -->
-
-      <ul id="myTab" class="nav nav-tabs">
-          <li class="active">
-            <a href="#sop_id" data-toggle="tab" >SOP</a> 
-          </li>
-          <li>
-             <a href="#app_id" data-toggle="tab">APP</a>
-          </li>
-        </ul>
-
-
-        <div id="myTabContent" class="tab-content pre-scrollable">
-          <div class="tab-pane fade in active" id="sop_id">
-          <input type="text" name="nodessop" ng-model='vm.d.nodessop' style="display:none">              
-          <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
-          
-          </div>
-          <div class="tab-pane fade" id="app_id" >
-                <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodesapp" config="vm.config"></bp-checkboxtree>
-          </div>
-         </div>
-                </div>
-            </div>
-
-
             <div class="panel-footer">
-                <button class="btn bp-btn-primary btn-sm" ng-disabled="editTemp.$invalid" type="submit">保存</button>
-                <a class="btn btn-default" ui-sref="templatelist()">返回</a>
+                <button class="btn bp-btn-primary " ng-disabled="editTemp.$invalid ||vm.submitting" type="submit">保存</button>
+                <a class="btn btn-primary" ui-sref="templatelist()">返回</a>
             </div>
-            </table>
         </form>
     </div>
 </div>
+
+{{vm.d}}
