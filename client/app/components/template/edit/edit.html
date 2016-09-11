@@ -43,11 +43,11 @@
 
                             <div id="myTabContent" class="tab-content pre-scrollable">
                                 <div class="tab-pane fade in active" id="sop_id">
-                                    <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodesSop" config="vm.config"></bp-checkboxtree>
 
                                 </div>
                                 <div class="tab-pane fade" id="app_id">
-                                    <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodesApp" config="vm.config"></bp-checkboxtree>
                                 </div>
                             </div>
                         </div>
@@ -62,5 +62,3 @@
         </form>
     </div>
 </div>
-
-{{vm.d}}
