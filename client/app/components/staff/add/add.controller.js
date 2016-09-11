@@ -17,12 +17,7 @@ export default class AddController {
     }
     this.options = {
     }
-    this.selectSr = {
-      status: ''
-    }
-    this.selectSex = {
-      sex: ''
-    }
+   
     this.users = {
       name: '',
       contact: '',
@@ -36,12 +31,14 @@ export default class AddController {
       gender: '', //性别
       status_id: ''//状态
     };
-    // 员工状态
-    this.staffstatus = [{ id: 3, name: '冻结' }, { id: 1, name: '正常' }];
-    //性别
+    this.staffstatus = [{ id: 1, name: '正常' },{ id: 3, name: '冻结' }];
     this.sex = [{ id: 1, name: '男' }, { id: 3, name: '女' }];
-
-
+    this.selectSr = {
+      status: this.staffstatus[0]
+    }
+    this.selectSex = {
+      sex: this.sex[0]
+    }
   }
 
   $onInit() {
