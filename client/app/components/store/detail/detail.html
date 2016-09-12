@@ -25,9 +25,10 @@
                 </tr>
                 <tr>
                     <td>可使用的功能模板</td>
-                    <td >
-
-                        <a ng-repeat="role in vm.d.role_info">功能模板{{role}},</a>
+                    <td>
+                        <ul class="noStyle">
+                            <li ng-repeat="role in vm.d.roles">{{role.role_name}}</li>
+                        </ul>
                     </td>
                 </tr>
             </tbody>
