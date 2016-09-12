@@ -53,10 +53,10 @@ export default class EditController {
     }
 
     goClaimList(){
-        this.$state.go('storeclaimlist');
+        this.$state.go('storeMclaimlist');
     }
 
     back() {
-        this.$state.go('storelist');
+        this.$state.go('storeMlist');
     }
 }

@@ -14,7 +14,7 @@ import claimReviewDetail from './claimReviewDetail/claimReviewDetail';
 import editReviewList from './editReviewList/editReviewList';
 import editReviewDetail from './editReviewDetail/editReviewDetail';
 
-export default angular.module('app.store', [
+export default angular.module('app.storeManage', [
     list.name,
     add.name,
     detail.name,
@@ -26,4 +26,3 @@ export default angular.module('app.store', [
     editReviewList.name,
     editReviewDetail.name
 ]);
-

@@ -1,10 +1,10 @@
 import addComponent from './add.component';
-export default angular.module('storeadd', [])
+export default angular.module('storemadd', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeadd', {
+$stateProvider.state('storeMadd', {
   url: '/storeManage/add',
-  template: '<storeadd></storeadd>'
+  template: '<storemadd></storemadd>'
 });
 })
-.component('storeadd', addComponent);
+.component('storemadd', addComponent);

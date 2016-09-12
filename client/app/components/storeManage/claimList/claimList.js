@@ -1,10 +1,10 @@
 import claimListComponent from './claimList.component';
-export default angular.module('storeclaimlist', [])
+export default angular.module('storemclaimlist', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeclaimlist', {
+$stateProvider.state('storeMclaimlist', {
   url: '/storeManage/claimList',
-  template: '<storeclaimlist></storeclaimlist>'
+  template: '<storemclaimlist></storemclaimlist>'
 });
 })
-.component('storeclaimlist', claimListComponent);
+.component('storemclaimlist', claimListComponent);

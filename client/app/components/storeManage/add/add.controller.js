@@ -41,10 +41,10 @@ export default class AddController {
     }
 
     goList() {
-        this.$state.go('storelist');
+        this.$state.go('storeMlist');
     }
 
     back() {
-        this.$state.go('storeclaimlist');
+        this.$state.go('storeMclaimlist');
     }
 }

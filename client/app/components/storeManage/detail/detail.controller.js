@@ -28,14 +28,14 @@ export default class DetailController {
     }
 
     goClaimList(){
-        this.$state.go('storeclaimlist');
+        this.$state.go('storeMclaimlist');
     }
 
     back() {
-        this.$state.go('storelist');
+        this.$state.go('storeMlist');
     }
 
     edit(id){
-        this.$state.go('storeedit', { id: id });
+        this.$state.go('storeMedit', { id: id });
     }
 }

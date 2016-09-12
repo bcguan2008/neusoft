@@ -1,10 +1,10 @@
 import listComponent from './list.component';
-export default angular.module('storelist', [])
+export default angular.module('storemlist', [])
   .config(($stateProvider) => {
     "ngInject";
-  $stateProvider.state('storelist', {
+  $stateProvider.state('storeMlist', {
     url: '/storeManage/list',
-    template: '<storelist></storelist>'
+    template: '<storemlist></storemlist>'
   });
 })
-.component('storelist', listComponent);
+.component('storemlist', listComponent);

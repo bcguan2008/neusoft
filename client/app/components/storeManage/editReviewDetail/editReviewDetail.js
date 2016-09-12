@@ -1,10 +1,10 @@
 import editReviewDetailComponent from './editReviewDetail.component';
-export default angular.module('editReviewDetail', [])
+export default angular.module('storemeditreviewdetail', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('editReviewDetail', {
+$stateProvider.state('storeMeditreviewdetail', {
   url: '/editReviewDetail',
-  template: '<editReviewDetail></editReviewDetail>'
+  template: '<storemeditreviewdetail></storemeditreviewdetail>'
 });
 })
-.component('editReviewDetail', editReviewDetailComponent);
+.component('storemeditreviewdetail', editReviewDetailComponent);

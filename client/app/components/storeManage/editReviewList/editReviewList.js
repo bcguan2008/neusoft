@@ -1,10 +1,10 @@
 import editReviewListComponent from './editReviewList.component';
-export default angular.module('storeeditreviewlist', [])
+export default angular.module('storemeditreviewlist', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeeditreviewlist', {
+$stateProvider.state('storeMeditreviewlist', {
   url: '/storeManage/editReviewList',
-  template: '<storeeditreviewlist></storeeditreviewlist>'
+  template: '<storemeditreviewlist></storemeditreviewlist>'
 });
 })
-.component('storeeditreviewlist', editReviewListComponent);
+.component('storemeditreviewlist', editReviewListComponent);

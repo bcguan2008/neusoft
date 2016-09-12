@@ -1,10 +1,10 @@
 import claimReviewDetailComponent from './claimReviewDetail.component';
-export default angular.module('storeclaimreviewdetail', [])
+export default angular.module('storemclaimreviewdetail', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeclaimreviewdetail', {
+$stateProvider.state('storeMclaimreviewdetail', {
   url: '/storeManage/claimReviewDetail/{id}',
-  template: '<storeclaimreviewdetail></storeclaimreviewdetail>'
+  template: '<storemclaimreviewdetail></storemclaimreviewdetail>'
 });
 })
-.component('storeclaimreviewdetail', claimReviewDetailComponent);
+.component('storemclaimreviewdetail', claimReviewDetailComponent);

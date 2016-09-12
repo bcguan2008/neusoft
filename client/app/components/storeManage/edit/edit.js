@@ -1,10 +1,10 @@
 import editComponent from './edit.component.js';
-export default angular.module('storeedit', [])
+export default angular.module('storemedit', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeedit', {
+$stateProvider.state('storeMedit', {
   url: '/storeManage/edit/{id}',
-  template: '<storeedit></storeedit>'
+  template: '<storemedit></storemedit>'
 });
 })
-.component('storeedit', editComponent);
+.component('storemedit', editComponent);

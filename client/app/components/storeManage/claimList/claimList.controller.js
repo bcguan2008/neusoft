@@ -35,7 +35,7 @@ export default class ClaimListController {
     }
 
     goList() {
-        this.$state.go('storelist');
+        this.$state.go('storeMlist');
     }
 
     search() {
@@ -43,11 +43,11 @@ export default class ClaimListController {
     }
 
     detail(id) {
-        this.$state.go('storedetail', {id: id});
+        this.$state.go('storeMdetail', {id: id});
     }
 
     edit(id) {
-        this.$state.go('storeedit', {id: id});
+        this.$state.go('storeMedit', {id: id});
     }
 
     getstaffpageadd() {

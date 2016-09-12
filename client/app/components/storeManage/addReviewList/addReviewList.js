@@ -1,10 +1,10 @@
 import addReviewListComponent from './addReviewList.component';
-export default angular.module('storeaddreviewlist', [])
+export default angular.module('storemaddreviewlist', [])
   .config(($stateProvider) => {
   "ngInject";
-$stateProvider.state('storeaddreviewlist', {
+$stateProvider.state('storeMaddreviewlist', {
   url: '/storeManage/addReviewList',
-  template: '<storeaddreviewlist></storeaddreviewlist>'
+  template: '<storemaddreviewlist></storemaddreviewlist>'
 });
 })
-.component('storeaddreviewlist', addReviewListComponent);
+.component('storemaddreviewlist', addReviewListComponent);

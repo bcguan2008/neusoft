@@ -38,7 +38,6 @@ export default class ListController {
         }, {
             // counts: [],
             getData: function (params) {
-                console.log("djs;lajg");
                 let formData = self.getSearchFormData(filter);//filter
                 formData.page = params.url().page;
                 formData.offset = params.url().page;
@@ -48,7 +47,6 @@ export default class ListController {
                     .then(result => {
                         self.loading = false;
                         if (result.datas) {
-                            console.log(result);
                             _this.d = {
                                 totalCount: result.totalCount
                             };
@@ -61,7 +59,7 @@ export default class ListController {
     }
 
     goClaimList(){
-        this.$state.go('storeclaimlist');
+        this.$state.go('storeMclaimlist');
     }
 
     search() {
@@ -69,11 +67,11 @@ export default class ListController {
     }
 
     detail(id) {
-        this.$state.go('storedetail', {id: id});
+        this.$state.go('storeMdetail', {id: id});
     }
 
     edit(id) {
-        this.$state.go('storeedit', {id: id});
+        this.$state.go('storeMedit', {id: id});
     }
 
     getstaffpageadd() {
