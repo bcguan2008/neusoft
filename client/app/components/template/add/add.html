@@ -10,7 +10,12 @@
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">模板名称<span class="required-star">*</span></label>
           <div class="col-sm-10">
-            <input type="name" class="form-control" id="inputEmail3" ng-model="vm.d.name" placeholder="名称" required>
+            <input type="name" name="nametemp" class="form-control" id="inputEmail3" ng-model="vm.d.name" placeholder="名称" required ng-maxlength="20">
+            <div class="input-group error-info" ng-show="addTemp.nametemp.$invalid">
+              <p class="discount-help-block">
+                <span class="fa fa-info-circle required-star">模板名称最多可添加20英文字符</span>
+              </p>
+            </div>
           </div>
         </div>
         <div class="form-group">
