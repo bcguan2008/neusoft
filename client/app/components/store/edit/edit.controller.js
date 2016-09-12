@@ -52,7 +52,7 @@ export default class EditController {
            remark:this.d.remark,
            role_info:this.d.role_info
 
-       }).then(res=>{alert('提交成功')},err=>{alert('提交错误')})
+       }).then(res=>{alert('提交成功'); this.back()},err=>{alert('提交错误')})
     
     }
     back(){
