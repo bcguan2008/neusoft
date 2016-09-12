@@ -11,7 +11,7 @@ export default class EditController {
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
-        this.d = {}
+        this.d = {};
         this.init();
     }
 
@@ -27,13 +27,14 @@ export default class EditController {
         })
     }
 
-    save() {
+    save(id) {
         var _this = this;
         //debugger;
         this.d.role_ids = [];
-        this.roles.forEach(function (item) {
-            _this.d.role_ids.push(item.id)
-        })
+        //forEach报错
+        // this.roles.forEach(function (item) {
+        //     _this.d.role_ids.push(item.id)
+        // });
         this.api.post('/Organization/inputAjax', {
             organization_id: this.d.organization_id,
             name: this.d.name,
@@ -43,7 +44,8 @@ export default class EditController {
             role_info: this.d.role_info
 
         }).then(res=> {
-            alert('提交成功')
+            alert('提交成功');
+            this.$state.go('storedetail', {id: id});
         }, err=> {
             alert('提交错误')
         })

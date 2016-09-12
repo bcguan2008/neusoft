@@ -3,7 +3,7 @@ export default angular.module('storeclaimlist', [])
   .config(($stateProvider) => {
   "ngInject";
 $stateProvider.state('storeclaimlist', {
-  url: '/store/claimList',
+  url: '/storeManage/claimList',
   template: '<storeclaimlist></storeclaimlist>'
 });
 })

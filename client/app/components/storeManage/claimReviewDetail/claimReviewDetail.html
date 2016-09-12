@@ -1,0 +1,163 @@
+<div class="page-title">
+    <div class="title">
+        <h1>认领门店审核（<span class="required-star">*</span>表示必填项）</h1>
+    </div>
+</div>
+
+<div class="conter-wrapper">
+    <div class="panel bp-panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">门店信息：</div>
+        </div>
+        <div>
+            <table class="table table-bordered table-striped table-hover"
+                   cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+                <tbody>
+                <tr>
+                    <td class="col-md-3 text-right">门店编号：</td>
+                    <td class="col-md-9"><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店名称：</td>
+                    <td><input type="text" class="form-control" ng-model="vm.d.name"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">英文名称：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">英文缩写：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店简介：</td>
+                    <td>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                        <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
+                        <div>您最多还可输入<span>936</span>字</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>城市：</td>
+                    <td>
+                        <select name="" id="province">
+                            <option value="">北京市</option>
+                        </select>
+                        <select name="" id="city">
+                            <option value="">北京市</option>
+                        </select>
+                        <select name="" id="county">
+                            <option value="">北京市</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店地址：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店电话：</td>
+                    <td>
+                        <input type="text" class="form-control">
+                        <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">楼层：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">铺位号：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">是否支持WI-FI：</td>
+                    <td>
+                        <input type="radio" value="0">支持
+                        <input type="radio" value="1" style="margin-left: 30px;">不支持
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
+                    <td>
+                        <img src="" alt="">
+                        <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
+                    <td>
+                        <img src="" alt="">
+                        <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">备注：</td>
+                    <td>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                        <div>（若门店地址或者其他信息与真实信息有出入不需要修改可在备注说明），可输入0-1000个字符（汉字相当于两个字符）</div>
+                        <div>您最多还可以输入1000字</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">经营权说明书：</td>
+                    <td>若其营业执照公司名称和地址与门店信息出入较大，则需下载<a>《经营权说明书》</a>模板，打印填写并签字/盖章后上传扫描件。</td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>商户名称：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><span class="required-star">*</span>注册地址：</td>
+                    <td><input type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button type="button" class="btn bp-btn-danger">编辑</button>
+                        <button type="button" class="btn bp-btn-danger">通过</button>
+                        <button type="button" class="btn bp-btn-danger">驳回</button>
+                        <button type="button" class="btn bp-btn-danger">返回</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel bp-panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">操作日志</div>
+        </div>
+        <div class="panel-body">
+            <div class="table-container list-table">
+                <div class="table-wrapper" ng-table="vm.tableParams">
+                    <table class="table table-bordered table-striped table-hover"
+                           cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+                        <thead>
+                        <tr>
+                            <th class="col-md-4">操作人</th>
+                            <th class="col-md-4">时间</th>
+                            <th class="col-md-4">操作说明</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>商户admin</td>
+                            <td>2016-08-24 09:18:03</td>
+                            <td>更新了门店认领：认领未审核</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
+            <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
+        </div>
+    </div>
+</div>

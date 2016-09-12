@@ -38,6 +38,7 @@ export default class ListController {
         }, {
             // counts: [],
             getData: function (params) {
+                console.log("djs;lajg");
                 let formData = self.getSearchFormData(filter);//filter
                 formData.page = params.url().page;
                 formData.offset = params.url().page;
