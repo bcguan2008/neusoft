@@ -1,6 +1,6 @@
 <div class="page-title">
   <div class="title">
-    <h1>门店管理</h1>
+    <h1>门店查询</h1>
   </div>
 </div>
 <div class="panel bp-panel-primary">
@@ -24,7 +24,7 @@
           <td>
             <a class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.organization_id)">查看</a>
             <button class="btn bp-btn-default btn-xs" ng-click="vm.edit(row.organization_id)">编辑</button>
-            <button class="btn bp-btn-default btn-xs" ng-click="vm.goStaff(row.organization_id)">查看员工</button>
+            <button class="btn bp-btn-default btn-xs" ng-click="vm.goStaff(row.organization_id)">查看账号</button>
           </td>
         </tr>
         <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
