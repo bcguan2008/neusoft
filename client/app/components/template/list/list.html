@@ -4,6 +4,8 @@
       <div class="panel-title">功能模板列表</div>
     </div>
     <div class="panel-body">
+      <div class="bp-container">
+            <div class="table-container">
       <table ng-table="vm.tableParams" class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
         <thead class="panel-title">
           <tr>
@@ -121,6 +123,8 @@
       </div>
       <!-- end -->
     </div>
+          </div>
+            </div>
     <div class="panel-footer form-actions">
       <button class="btn bp-btn-primary" type="button" ng-click="vm.creatnewTemplate()">创建新模板</button>
     </div>

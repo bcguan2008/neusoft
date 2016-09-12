@@ -57,19 +57,32 @@ export default class AddController {
       gettemp = this.gettemp,
       selectSr = this.selectSr,
       selectSex = this.selectSex
-    users.storeName = options.store.name;
-    users.storeId = options.store.organization_id;
-    users.role_ids = gettemp.role_ids;
-    users.role_info = gettemp.role_info;
-    users.status_id = selectSr.status.id;
-    users.gender = selectSex.sex.name;
+      if(options.store== undefined){
+        alert("请选择门店！")
+        return false;
+      }else{
+        users.storeName = options.store.name;
+        users.storeId = options.store.organization_id;
+      }
     
-    this.staffnewSvc.createuser(users)
-      .then(data => {
-        //跳转到员工list页面
-        alert('添加成功！')
-        this.staffnewSvc.getstafflist();
-      });
+      users.role_ids = gettemp.role_ids;
+      users.role_info = gettemp.role_info;
+      users.status_id = selectSr.status.id;
+      users.gender = selectSex.sex.name;
+
+       if(gettemp.role_ids=="")
+        {
+          alert ("请选择功能模板")
+          return false;
+        }
+        else{
+          this.staffnewSvc.createuser(users)
+          .then(data => {
+          //跳转到员工list页面
+          this.staffnewSvc.getstafflist();
+        });
+
+        }
   }
 
   //获取模板名称
