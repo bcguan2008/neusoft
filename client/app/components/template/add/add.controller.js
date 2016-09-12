@@ -22,7 +22,7 @@ export default class AddController {
   }
 
   save() {
-    debugger;
+
     this.d.nodes = this.d.nodes.map((node)=>{
       return node.nodeId;
     }).join(',');
