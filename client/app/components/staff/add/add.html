@@ -59,7 +59,10 @@
 
                     <label for="name" class="col-md-2 control-label">门店选择<span class="required-star">*</span></label>
                     <div class="col-md-3">
-                        <select class="form-control" ng-options="store as store.name for store in vm.storelist" ng-model="vm.options.store">
+                        <select class="form-control" 
+                                ng-options="store as store.name for store in vm.storelist" 
+                                ng-model="vm.options.store"
+                                name="storename">
                                 <option value="">－－请选择门店－－</option>
                         </select>
                         <!--
