@@ -1,5 +1,43 @@
 
 <div class="conter-wrapper">
+    <div class="panel bp-panel-primary" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">账号姓名</td>
+                    <td class="col-md-9" ng-bind="vm.d.name"></td>
+                </tr>
+                <tr>
+                    <td>手机号</td>
+                    <td ng-bind="vm.d.contact"></td>
+                </tr>
+                <tr>
+                    <td>即时通讯账号</td>
+                    <td ng-bind="vm.d.im">
+                    </td>
+                </tr>
+                <tr>
+                    <td>所在门店</td>
+                    <td ng-bind="vm.d.employee_organization_name"></td>
+                </tr>
+                <tr>
+                    <td>可使用的功能模板</td>
+                    <td ng-bind="vm.d.role_info.function_role_name"></td>
+                </tr>
+                
+                 <tr>
+                    <td>邮箱</td>
+                    <td ng-bind="vm.d.email">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="conter-wrapper">
   <div class="panel panel-primary" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
     <form id="datailStaff_id" name="datailStaff" class="form-horizontal" role="form">
       <table class="table table-bordered table-striped table-hover" >
