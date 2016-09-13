@@ -1,6 +1,5 @@
 <div class="page-title">
   <div class="title">
-    <h1>员工管理</h1>
   </div>
 </div>
 <div class="conter-wrapper track-list-wrapper">
@@ -15,7 +14,7 @@
             <label>账号姓名</label>
             <input type="text" class="form-control" ng-model="vm.filter.name" required id="staffphone_id">
           </div>
-          <div class="col-md-3 form-group">
+          <div class="col-md-3 form-group"> 
             <label>绑定功能模板</label>
 
             <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="template.name as template.name for template in vm.getTemplateList($viewValue)"
@@ -76,7 +75,7 @@
             <td> {{row.status}} </td>
             <td>
               <button class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.uid)">查看</button>
-              <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.editInfo($index,row)" ng-bind="row.status!='正常'?'恢复':'冻结'">
+              <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.editInfo($index,row)" ng-bind="row.status!='正常'?'启用':'冻结'">
                         </button>
               <button class="btn bp-btn-default btn-xs" ng-click="vm.edit(row.uid)">修改</button>
 
@@ -112,7 +111,7 @@
               </h4>
             </div>
             <div class="modal-body">
-              确认是否冻结/恢复该账号？
+              确认是否冻结/启用该账号？
               <br> 账号冻结后，将无法通过此账号进行登录等操作。
             </div>
             <div class="modal-footer">
