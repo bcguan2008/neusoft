@@ -69,15 +69,20 @@ export default class AddController {
       users.role_info = gettemp.role_info;
       users.status_id = selectSr.status.id;
       users.gender = selectSex.sex.name;
-
+      users.im=users.rtx;
+      console.log(users.rtx)
+      //vm.users.rtx
+    
        if(gettemp.role_ids=="")
         {
           alert ("请选择功能模板")
           return false;
         }
         else{
+      console.log(users);
           this.staffnewSvc.createuser(users)
-          .then(data => {
+          .then(success => {
+         
           //跳转到员工list页面
           this.staffnewSvc.getstafflist();
         });
@@ -97,7 +102,10 @@ export default class AddController {
 
   //获取功能模板 check 多选
   getTempList() {
-    this.loadPromise = this.templateSvc.getPageAllTempList({ limit: 999999 })
+    this.loadPromise = this.templateSvc.getPageAllTempList({
+     limit: 999999,
+     status:1
+    })
     this.loadPromise.then((result) => {
       this.scope.datas = result.datas;
     });

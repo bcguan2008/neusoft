@@ -7,7 +7,7 @@
 export default class ListController {
   constructor($scope, $http, staffnewSvc, NgTableParams, $state, templateSvc, $q, $window
     , $httpParamSerializer,commonSvc) {
-  	 "ngInject";
+     "ngInject";
     //var vm = this;
     //  this.name = 'list';
     this.$state = $state;
@@ -93,8 +93,12 @@ export default class ListController {
           self.loading = true;
           let formData = self.getSearchFormData();//filter
 
-          formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
+         // formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
+          formData.offset = paramsUrl.page;
           formData.limit = paramsUrl.count;
+
+          // formData.page = params.url().page;
+          // formData.offset = params.url().page;
 
           self.loadPromise = self.staffnewSvc.getPageUserList(formData);
           return self.loadPromise
@@ -151,7 +155,12 @@ export default class ListController {
   /**
    * [downloadExcel 导出模板]
    */
-  exportExcel() {
-    this.staffnewSvc.exportExcellist()
+  exportExcel(){
+   // debugger;
+    let formData = this.getSearchFormData();
+        formData.page = this.tableParams.page(); 
+    this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+  
+        //this.storeSvc.exportExcellist()
   }
 }
