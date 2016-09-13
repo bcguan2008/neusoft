@@ -19,6 +19,6 @@ module.exports = {
   /**
    * 登陆的cookie, 这里暂时自己先登陆一下, 把cookie拷贝过来
    */
-  cookie: 'PHPSESSID=l0qu1t7imq0iqlvtc706a4tvj1'
+  cookie: 'PHPSESSID=u8ghjifjsqrub3favluhtn4887'
   
 };

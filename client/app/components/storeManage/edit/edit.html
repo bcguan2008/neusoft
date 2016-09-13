@@ -38,7 +38,24 @@
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
-                <td><button class="btn bp-btn-danger" type="button">添加</button></td>
+                <td>
+                    <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandPopup()">添加</button>
+                    <div class="modal-dialog" style="position: fixed; top: 23%; left: 50%; margin-left: -210px" ng-show="vm.isAddBrandShow">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="modal-title">添加品牌</span>
+                                <div class="modal-close" ng-click="vm.hideBrandPopup()">X</div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-center">查找品牌：<input type="text" class="form-control"></div>
+                                <div style="height: 200px; overflow-y: scroll;">modal body</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bp-btn-danger" ng-click="vm.hideBrandPopup()">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>

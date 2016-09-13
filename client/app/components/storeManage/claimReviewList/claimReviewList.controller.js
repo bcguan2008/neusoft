@@ -72,6 +72,10 @@ export default class ClaimReviewListController {
         }
     }
 
+    goClaimReviewDetail(id) {
+        this.$state.go('storeMclaimreviewdetail', {id: id});
+    }
+
     /**
      * [downloadExcel 导出模板]
      */

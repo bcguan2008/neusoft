@@ -71,6 +71,10 @@ export default class EditReviewListController {
             status: '-1'
         }
     }
+    
+    goEditReviewDetail(id) {
+        this.$state.go('storeMeditreviewdetail', {id: id});
+    }
 
     /**
      * [downloadExcel 导出模板]

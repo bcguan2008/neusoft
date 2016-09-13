@@ -15,70 +15,70 @@
                 <tbody>
                 <tr>
                     <td class="col-md-3 text-right">门店编号：</td>
-                    <td class="col-md-9"><input type="text" class="form-control"></td>
+                    <td class="col-md-9"><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>门店名称：</td>
-                    <td><input type="text" class="form-control" ng-model="vm.d.name"></td>
+                    <td><input type="text" class="form-control" ng-model="vm.d.name" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right">英文名称：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right">英文缩写：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                     <td>
-                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled></textarea>
                         <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                         <div>您最多还可输入<span>936</span>字</div>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>城市：</td>
                     <td>
-                        <select name="" id="province">
+                        <select name="" id="province" disabled>
                             <option value="">北京市</option>
                         </select>
-                        <select name="" id="city">
+                        <select name="" id="city" disabled>
                             <option value="">北京市</option>
                         </select>
-                        <select name="" id="county">
+                        <select name="" id="county" disabled>
                             <option value="">北京市</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>门店地址：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                     <td>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" disabled>
                         <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-right">楼层：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right">铺位号：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right">是否支持WI-FI：</td>
                     <td>
-                        <input type="radio" value="0">支持
-                        <input type="radio" value="1" style="margin-left: 30px;">不支持
+                        <input type="radio" value="0" disabled checked>支持
+                        <input type="radio" value="1" style="margin-left: 30px;" disabled>不支持
                     </td>
                 </tr>
                 <tr>
@@ -98,7 +98,7 @@
                 <tr>
                     <td class="text-right">备注：</td>
                     <td>
-                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                        <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled></textarea>
                         <div>（若门店地址或者其他信息与真实信息有出入不需要修改可在备注说明），可输入0-1000个字符（汉字相当于两个字符）</div>
                         <div>您最多还可以输入1000字</div>
                     </td>
@@ -109,22 +109,20 @@
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>商户名称：</td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 <tr>
                     <td class="text-right"><span class="required-star">*</span>注册地址：</td>
-                    <td><input type="text" class="form-control"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <button type="button" class="btn bp-btn-danger">编辑</button>
-                        <button type="button" class="btn bp-btn-danger">通过</button>
-                        <button type="button" class="btn bp-btn-danger">驳回</button>
-                        <button type="button" class="btn bp-btn-danger">返回</button>
-                    </td>
+                    <td><input type="text" class="form-control" disabled></td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="panel-footer" style="text-align: center">
+            <button type="button" class="btn bp-btn-danger">编辑</button>
+            <button type="button" class="btn bp-btn-danger">通过</button>
+            <button type="button" class="btn bp-btn-danger">驳回</button>
+            <button type="button" class="btn bp-btn-danger">返回</button>
         </div>
     </div>
 

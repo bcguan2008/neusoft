@@ -59,4 +59,12 @@ export default class EditController {
     back() {
         this.$state.go('storeMlist');
     }
+
+    showBrandPopup() {
+        this.isAddBrandShow = true;
+    }
+
+    hideBrandPopup() {
+        this.isAddBrandShow = false;
+    }
 }
