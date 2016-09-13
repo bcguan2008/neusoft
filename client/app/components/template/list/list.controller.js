@@ -44,7 +44,8 @@ export default class ListController {
           self.loading = true;
           let formData = self.getSearchFormData();
           formData.page = params.url().page;
-
+          console.log(params.url().count);
+           formData.limit = params.url().count;
           self.loadPromise = self.templateSvc.getPageAllTempList(formData);
           return self.loadPromise
             .then(result => {

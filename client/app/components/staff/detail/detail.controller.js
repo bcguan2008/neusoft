@@ -35,7 +35,7 @@ export default class DetailController {
          self.loading = false;
          console.log(res)
             if(res.status_id==1){
-              status_id:"恢复"
+              status_id:"启用"
             }else{ status_id:"冻结"}
 
             _this.d=res;
