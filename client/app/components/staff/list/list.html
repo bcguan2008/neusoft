@@ -13,7 +13,6 @@
           <div class="col-md-3 form-group">
             <label>账号姓名</label>
             <input type="text" class="form-control" ng-model="vm.filter.name" required id="staffphone_id">
-
           </div>
           <div class="col-md-3 form-group"> 
             <label>绑定功能模板</label>
@@ -21,7 +20,7 @@
             <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="template.name as template.name for template in vm.getTemplateList($viewValue)"
               typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.template_name" />
           </div>
-          
+
         </div>
 
         <div class="row">
@@ -29,15 +28,7 @@
             <label>手机号</label>
             <input type="text" class="form-control" ng-model="vm.filter.contact" required id="staffphone_id">
           </div>
-          <!--
-          <div class="col-md-3 form-group">
-            <label>门店</label>
-            <select class="form-control" 
-                  ng-options="store.organization_id as store.name for store in vm.storelist" 
-                  ng-model="vm.filter.storeId">
-                  <option value="">－－请选择门店－－</option>
-            </select>
-          </div>-->
+        
           <div class="col-md-3 form-group">
             <label>员工账号状态</label>
             <select class="form-control" ng-options="a.name for a in vm.staffstatus" ng-model="vm.selectObj.status">
@@ -59,17 +50,17 @@
       <div class="panel-title">员工账号列表</div>
     </div>
     <div class="panel-body">
-      <table ng-table="vm.tableParams" class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
-        <thead class="panel-title">
+      <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+        <thead>
           <tr>
-            <th> 账号姓名 </th>
-            <th> 手机号 </th>
-            <th> 创建人 </th>
-            <th> 创建时间 </th>
-            <th> 所在门店 </th>
-            <th> 绑定功能模板 </th>
-            <th> 账号状态 </th>
-            <th> 操作 </th>
+            <th class="col-md-1"> 账号姓名 </th>
+            <th class="col-md-1"> 手机号 </th>
+            <th class="col-md-1"> 创建人 </th>
+            <th class="col-md-1"> 创建时间 </th>
+            <th class="col-md-1"> 所在门店 </th>
+            <th class="col-md-3"> 绑定功能模板 </th>
+            <th class="col-md-1"> 账号状态 </th>
+            <th class="col-md-2"> 操作 </th>
           </tr>
         </thead>
         <tbody>
