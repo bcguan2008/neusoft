@@ -11,8 +11,8 @@
                     <tbody>
                         <tr>
                             <td class="col-md-5">门店名称<span class="required-star">*</span></td>
-                            <td class="col-md-7"><input type="text" ng-model="vm.d.name" class="form-control" placeholder="门店名称" name="name" ng-maxlength="40">
-                                <div class="input-group error-info" ng-show="editStore.name.$invalid">
+                            <td class="col-md-7"><input type="text" ng-model="vm.d.name" class="form-control" placeholder="门店名称" name="namestore" ng-maxlength="40" required >
+                                <div class="input-group error-info" ng-show="editStore.namestore.$invalid">
                                     <p class="discount-help-block">
                                         <span class="fa fa-info-circle required-star">门店名称不能超过40个英文字符长度</span>
                                     </p>
