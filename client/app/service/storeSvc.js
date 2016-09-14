@@ -33,7 +33,15 @@ class storeSvc {
   getStoreInfoList(params) {
     //return this.Api.get('http://admin.sit.ffan.com/Staffmgt/Employee/storelist',params)
     return this.Api.get('/Organization/storelist', { id: 1 })
+     //return this.Api.get('/Organization/storelist', { id: 1 })
   }
+
+    getStoreAllList(params) {
+    //return this.Api.get('http://admin.sit.ffan.com/Staffmgt/Employee/storelist',params)
+    return this.Api.get('/Organization/storelist', params)
+
+  }
+
   /**
    * 获取门店信息
    */
