@@ -40,7 +40,11 @@ export default class EditController {
     }).map((data)=>{
       return data.rid;
     }).join(',');
-
+    if(self.d.role_ids =="")
+        {
+          alert ("请选择功能模板")
+          return false;
+        }
     let params = {
       id:this.d.id,
       name:this.d.name,
