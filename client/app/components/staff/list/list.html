@@ -46,7 +46,9 @@
       <div class="panel-title">员工账号列表</div>
     </div>
     <div class="panel-body">
-      <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+     <div class="bp-container">
+    <div class="table-container">
+      <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
         <thead>
           <tr>
             <th class="col-md-1"> 账号姓名 </th>
@@ -89,6 +91,8 @@
           </tr>
         </tbody>
       </table>
+      </div>
+      </div>
       <div class="recordCount">
         <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
       </div>
