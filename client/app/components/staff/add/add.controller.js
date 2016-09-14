@@ -82,7 +82,7 @@ export default class AddController {
       console.log(users);
           this.staffnewSvc.createuser(users)
           .then(success => {
-         
+          alert ("创建成功！")
           //跳转到员工list页面
           this.staffnewSvc.getstafflist();
         });
