@@ -20,7 +20,10 @@ export default class EditController {
   }
 
   formatNodes(treeNodes,nodes){
+
     if(treeNodes && treeNodes.length>0){
+           // console.log(treeNodes);
+           // console.log(nodes);
       treeNodes.forEach(node=>{
         if(node.checked){
           nodes.push(node);
@@ -28,6 +31,7 @@ export default class EditController {
         this.formatNodes(node.children,nodes);
       })
     }
+
     return nodes;
   }
 
@@ -36,7 +40,8 @@ export default class EditController {
     this.loading = true;
     this.loadPromise = self.templateSvc.getDetail({
       id: this.$state.params.id
-    })
+    });
+
     this.form = {};
     this.loadPromisesop = this.treeSvc.getselectSopTree(this.$state.params.id);
     this.loadPromisesop.then(data=>{
@@ -66,11 +71,17 @@ export default class EditController {
 
   save() {
     
+  
+    //console.log(this.d.nodesApp.length )
+   if(this.d.nodesApp.length == 0 && this.d.nodesSop == 0){
+      alert("请选择功能模板！")
+      return false;
+    }
     this.submitting = true;
     this.d.nodes = this.d.nodesApp.concat(this.d.nodesSop).map(node=>{
       return node.nodeId;
     }).join(',');
-
+  
     this.templateSvc.postEdit({
       rid:this.d.rid,
       description:this.d.description,

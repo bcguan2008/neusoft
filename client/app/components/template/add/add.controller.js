@@ -23,10 +23,15 @@ export default class AddController {
 
   save() {
 
+   if(this.d.nodes.length == 0){
+      alert("请选择功能模板！")
+      return false;
+    }
     this.d.nodes = this.d.nodes.map((node)=>{
       return node.nodeId;
     }).join(',');
 
+  
     this.templateSvc.addTemplate(this.d).
       then(res => {
         this.templateSvc.returntemplist()
