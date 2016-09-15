@@ -44,7 +44,7 @@ class templateSvc  {
 	 */
 	// /role/operate/act/detail/rid/'+params
 	getDetail(params){
-	    return this.Api.post(this.baseUrl+'/operate/act/detail/rid/', params);
+	    return this.Api.post(this.baseUrl+'/operate/act/detail/rid/'+ params.id, params);
 	}
 
 	postEdit(params){

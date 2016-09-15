@@ -22,6 +22,7 @@ export default class ListController {
     this.d = {};
     this.storelist = {};
     this.nowRow = null;
+    this.status_1 =null;
     this.init();
     // 员工状态
     this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' }];
@@ -106,6 +107,7 @@ export default class ListController {
             .then(result => {
               self.loading = false;
               if (result) {
+                console.log(result)
                 self.d = {
                   totalCount: result.totalCount
                 }
@@ -141,8 +143,12 @@ export default class ListController {
   //更新员工状态
   changeStatus() {
     //debugger;
-    this.staffnewSvc.changeStatus({ id: this.nowRow.uid, status: this.nowRow.status == '正常' ? 3 : 1 }).then(success => {
+    this.staffnewSvc.changeStatus({ 
+      id: this.nowRow.uid, 
+      status: this.nowRow.status == '正常' ? 3 : 1 
+      }).then(success => {
       //this.$modalInstance.close()
+     
       alert("修改成功")
       $('#myModal').modal('hide');
       this.init();
@@ -150,8 +156,10 @@ export default class ListController {
   }
   //传值给 冻结 窗口
   editInfo(a, b) {
+
     this.nowRow = b;
-    // $scope.vm.status_id = b.uid;
+
+
   }
   /**
    * [downloadExcel 导出模板]
