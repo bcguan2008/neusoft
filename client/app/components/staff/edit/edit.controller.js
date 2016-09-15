@@ -40,7 +40,11 @@ export default class EditController {
     }).map((data)=>{
       return data.rid;
     }).join(',');
-
+    if(self.d.role_ids =="")
+        {
+          alert ("请选择功能模板")
+          return false;
+        }
     let params = {
       id:this.d.id,
       name:this.d.name,
@@ -48,7 +52,7 @@ export default class EditController {
       storeId:this.d.storeId,
       storeName:this.d.storeName,
       email:this.d.email,
-      rtx:this.d.rtx,
+      im:this.d.rtx,
       role_ids:this.d.role_ids,
       gender:this.d.gender,
       employee_id:this.d.employee_id
@@ -71,12 +75,11 @@ export default class EditController {
     }).then(result=>{
       self.loading = false;
       if (result) {
-        
         self.d = {
           id: result.uuid,
           name: result.name,
           contact: result.contact,
-          rtx: result.rtx,
+          rtx: result.im,
           email: result.email,
           employee_id: result.employee_id,
           employee_organization_name: result.employee_organization_name,
