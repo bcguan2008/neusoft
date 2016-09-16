@@ -48,11 +48,21 @@ export default class ListController {
   * 获取格式化后的数据
   */
   getSearchFormData() {
-    let filter = this.filter
-    var selectObj = this.selectObj;
-    if (selectObj.status != undefined) {
-      filter.status = selectObj.status.id
+    let filter  = {
+      name:this.filter.name,
+      contact:this.filter.contact
     }
+
+    if(this.filter.template != undefined){
+      filter.template_name = this.filter.template.name;
+    }
+
+    let selectObj = this.selectObj;
+    
+    if (selectObj.status != undefined) {
+      filter.status = selectObj.status.id;
+    }
+    
     return filter;
   }
 

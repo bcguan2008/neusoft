@@ -10,11 +10,11 @@
             <label>账号姓名</label>
             <input type="text" class="form-control" ng-model="vm.filter.name" required id="staffphone_id">
           </div>
-          <div class="col-md-3 form-group"> 
+          <div class="col-md-3 form-group">
             <label>绑定功能模板</label>
 
-            <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="template.name as template.name for template in vm.getTemplateList($viewValue)"
-              typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.template_name" />
+            <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
+              typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.template" />
           </div>
 
         </div>
@@ -24,7 +24,7 @@
             <label>手机号</label>
             <input type="text" class="form-control" ng-model="vm.filter.contact" required id="staffphone_id">
           </div>
-        
+
           <div class="col-md-3 form-group">
             <label>员工账号状态</label>
             <select class="form-control" ng-options="a.name for a in vm.staffstatus" ng-model="vm.selectObj.status">
@@ -46,9 +46,8 @@
       <div class="panel-title">员工账号列表</div>
     </div>
     <div class="panel-body">
-     <div class="bp-container">
-    <div class="table-container">
-      <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+      <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;"
+        cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
         <thead>
           <tr>
             <th class="col-md-1"> 账号姓名 </th>
@@ -73,8 +72,8 @@
             <td> {{row.status}} </td>
             <td>
               <button class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.uid)">查看</button>
-              <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.editInfo($index,row)" ng-bind="row.status!='正常'?'启用':'冻结'">
-                        </button>
+              <button data-ng-show="row.status!='异常'" class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.editInfo($index,row)"
+                ng-bind="row.status=='正常'?'冻结':'解冻'"></button>
               <button class="btn bp-btn-default btn-xs" ng-click="vm.edit(row.uid)">修改</button>
 
             </td>
@@ -91,43 +90,40 @@
           </tr>
         </tbody>
       </table>
-      </div>
-      </div>
       <div class="recordCount">
         <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
       </div>
-
-      <!-- 模态框（Modal） -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           &times;
         </button>
-              <input type="hidden" id="status_id" value="" ng-model="vm.nowStaffID">
-              <h4 class="modal-title" id="myModalLabel">
-                SOP.ffan.com为您提示:
-              </h4>
-            </div>
-            <div class="modal-body">
-              确认是否冻结/启用该账号？
-              <br> 账号冻结后，将无法通过此账号进行登录等操作。
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
+            <input type="hidden" id="status_id" value="" ng-model="vm.nowStaffID">
+            <h4 class="modal-title" id="myModalLabel">
+              SOP.ffan.com为您提示:
+            </h4>
+          </div>
+          <div class="modal-body">
+            确认是否冻结/启用该账号？
+            <br> 账号冻结后，将无法通过此账号进行登录等操作。
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="vm.changeStatus()">
           确定
         </button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
-            </div>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal -->
+        <!-- /.modal-content -->
       </div>
-      <!-- end -->
+      <!-- /.modal -->
     </div>
+    <!-- end -->
     <div class="panel-footer">
       <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
     </div>
