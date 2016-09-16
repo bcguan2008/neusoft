@@ -19,31 +19,29 @@
                                 <textarea class="form-control" rows="3" ng-model="vm.d.description" placeholder="描述"></textarea>
                             </div>
                         </div>
-                    </fieldset>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
-                        <div class="col-sm-10">
-                            <ul id="myTab" class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#sop_id" data-toggle="tab">SOP</a>
-                                </li>
-                                <li>
-                                    <a href="#app_id" data-toggle="tab">APP</a>
-                                </li>
-                            </ul>
-                            <div id="myTabContent" class="tab-content pre-scrollable">
-                                <div class="tab-pane fade in active" id="sop_id">
-                                    <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
-                                </div>
-                                <div class="tab-pane fade" id="app_id">
-                                    <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                    
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">功能选择</label>
+                            <div class="col-sm-10">
+                                <ul id="myTab" class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#sop_id" data-toggle="tab">SOP</a>
+                                    </li>
+                                    <li>
+                                        <a href="#app_id" data-toggle="tab">APP</a>
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content pre-scrollable">
+                                    <div class="tab-pane fade in active" id="sop_id">
+                                        <bp-checkboxtree list-promise="vm.loadPromisesop" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    </div>
+                                    <div class="tab-pane fade" id="app_id">
+                                        <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-
+                    </fieldset>
                 </table>
             </form>
 
