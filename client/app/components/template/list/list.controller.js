@@ -44,8 +44,7 @@ export default class ListController {
           self.loading = true;
           let formData = self.getSearchFormData();
           formData.page = params.url().page;
-          console.log(params.url().count);
-           formData.limit = params.url().count;
+          formData.limit = params.url().count;
           self.loadPromise = self.templateSvc.getPageAllTempList(formData);
           return self.loadPromise
             .then(result => {
@@ -54,9 +53,7 @@ export default class ListController {
                 _this.d = {
                   totalCount: result.totalCount
                 }
-                console.log(result)
                 params.total(result.totalCount);
-
                 return result.datas;
               }
             });
@@ -78,12 +75,25 @@ export default class ListController {
     this.$state.go('templateedit', { id: id });
   }
 
-  changeStatus() {
-    let  operateStatus = this.nowTemplate.status ;
+  changeStatus(){
+    return this.changeStatusFactory(this.nowTemplate);
+  }
+
+  enableTemplate(row){
+    let mockRow = angular.copy(row);
+    /**
+     * 启用的状态接口是2
+     */
+    mockRow.status='2';
+    return this.changeStatusFactory(mockRow);
+  }
+
+  changeStatusFactory(row) {
+    let operateStatus = row.status ;
     this.templateSvc.changeStatus({
-      templateNo: this.nowTemplate.templateNo,
+      templateNo: row.templateNo,
       status: operateStatus,
-      rid: this.nowTemplate.rid
+      rid: row.rid
     }).then(res => {
       alert("修改成功");
       $('#myModal').modal('hide');
@@ -100,11 +110,17 @@ export default class ListController {
   //在list里 为了传给模拟框参数
   changeStatusAlert(row) {
     this.nowTemplate = row;
-    if (row.status == '1') {
+    console.log(row)
+    if (row.status == '1') { //生效
+      $("#alert2").css('display', '');
+      $("#alert4").css('display', '');
       $("#alert1").css('display', 'none');
       $("#alert3").css('display', 'none');
+    
     }
-    else {
+    else { //4 暂停
+      $("#alert1").css('display', '');
+      $("#alert3").css('display', '');
       $("#alert2").css('display', 'none');
       $("#alert4").css('display', 'none');
     }
@@ -116,10 +132,14 @@ export default class ListController {
     if (b.status == '1') {
       $("#msg1").css('display', 'none');
       $("#msg3").css('display', 'none');
+       $("#msg2").css('display', '');
+      $("#msg4").css('display', '');
     }
     else {
       $("#msg2").css('display', 'none');
       $("#msg4").css('display', 'none');
+        $("#msg1").css('display', '');
+      $("#msg3").css('display', '');
     }
 
   }

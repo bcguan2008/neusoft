@@ -5,7 +5,9 @@
 </div>
 <div class="panel bp-panel-primary">
   <div class="panel-body">
-    <table  class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+   <div class="bp-container">
+    <div class="table-container">
+    <table  class="table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
       <thead class="panel-title">
         <tr>
           <th> 门店名称 </th>
@@ -39,6 +41,8 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    </div>
     <div class="recordCount">
       <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
     </div>
