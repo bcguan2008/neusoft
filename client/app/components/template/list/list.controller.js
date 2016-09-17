@@ -75,12 +75,25 @@ export default class ListController {
     this.$state.go('templateedit', { id: id });
   }
 
-  changeStatus() {
-    let  operateStatus = this.nowTemplate.status ;
+  changeStatus(){
+    return this.changeStatusFactory(this.nowTemplate);
+  }
+
+  enableTemplate(row){
+    let mockRow = angular.copy(row);
+    /**
+     * 启用的状态接口是2
+     */
+    mockRow.status='2';
+    return this.changeStatusFactory(mockRow);
+  }
+
+  changeStatusFactory(row) {
+    let operateStatus = row.status ;
     this.templateSvc.changeStatus({
-      templateNo: this.nowTemplate.templateNo,
+      templateNo: row.templateNo,
       status: operateStatus,
-      rid: this.nowTemplate.rid
+      rid: row.rid
     }).then(res => {
       alert("修改成功");
       $('#myModal').modal('hide');
@@ -99,14 +112,14 @@ export default class ListController {
     this.nowTemplate = row;
     console.log(row)
     if (row.status == '1') { //生效
-       $("#alert2").css('display', '');
+      $("#alert2").css('display', '');
       $("#alert4").css('display', '');
       $("#alert1").css('display', 'none');
       $("#alert3").css('display', 'none');
     
     }
     else { //4 暂停
-        $("#alert1").css('display', '');
+      $("#alert1").css('display', '');
       $("#alert3").css('display', '');
       $("#alert2").css('display', 'none');
       $("#alert4").css('display', 'none');

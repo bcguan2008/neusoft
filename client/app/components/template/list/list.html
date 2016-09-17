@@ -27,8 +27,16 @@
               <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal_1" ng-click="vm.removeInfo($index,row)"> 
                   删除
               </button>
-              <button class="btn bp-btn-default btn-xs" data-toggle="modal" data-target="#myModal" ng-click="vm.changeStatusAlert(row)"
-                ng-bind="row.status=='1'?'暂停':'启用'"></button>
+              <button class="btn bp-btn-default btn-xs" 
+                ng-show="row.status=='1'"
+                data-toggle="modal" 
+                data-target="#myModal" 
+                ng-click="vm.changeStatusAlert(row)"
+                >暂停</button>
+              <button 
+                  class="btn bp-btn-default btn-xs"
+                  ng-show="row.status!='1'" 
+                  ng-click="vm.enableTemplate(row)">启用</button>
             </td>
             <td> {{row.description | limitTo:50 }} </td>
             <td> {{row.creator}} </td>
