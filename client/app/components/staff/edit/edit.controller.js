@@ -30,6 +30,7 @@ export default class EditController {
 
   //返回
   returnstafflistc() {
+    debugger;
     this.staffnewSvc.getstafflist();
   }
   //updateEmployee

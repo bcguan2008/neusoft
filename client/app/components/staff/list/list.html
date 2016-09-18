@@ -16,13 +16,21 @@
             <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="template as template.name for template in vm.getTemplateList($viewValue)"
               typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.template" />
           </div>
-
+          <div class="col-md-3 form-group">
+            <label>手机号</label>
+            <input type="text" class="form-control" ng-model="vm.filter.contact" required id="staffphone_id">
+          </div>
         </div>
 
         <div class="row">
           <div class="col-md-3 form-group">
-            <label>手机号</label>
-            <input type="text" class="form-control" ng-model="vm.filter.contact" required id="staffphone_id">
+            <label>门店</label>
+            <select class="form-control" 
+                    ng-options="store as store.name for store in vm.storelist" 
+                    ng-model="vm.filter.store"
+                    name="storename">
+                    <option value="">全部门店</option>
+            </select>
           </div>
 
           <div class="col-md-3 form-group">
@@ -30,7 +38,6 @@
             <select class="form-control" ng-options="a.name for a in vm.staffstatus" ng-model="vm.selectObj.status">
                <option value="">--请选择--</option>
               </select>
-
           </div>
         </div>
         <div class="panel-footer panel-footer-btn-center">
