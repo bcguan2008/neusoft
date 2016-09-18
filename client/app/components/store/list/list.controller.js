@@ -58,7 +58,7 @@ export default class ListController {
         this.staffnewSvc.getstaffpage() 
     }
     goStaff(storeid) {
-        this.$state.go('stafflist', { storeid: storeid });
+        this.staffnewSvc.getstafflist(storeid);
     }
 
   exportExcel(){

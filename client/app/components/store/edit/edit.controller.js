@@ -41,13 +41,17 @@ export default class EditController {
             template.checked && roleIdList.push(template.rid);
         });
 
+        if(roleIdList.length ==0){
+            alert('请选择功能模板.')
+            return false;
+        }
         this.api.post('/Organization/inputAjax', {
             organization_id: this.d.organization_id,
             name: this.d.name,
             contact: this.d.contact,
             principal: this.d.principal,
             remark: this.d.remark,
-            role_info: JSON.stringify(roleIdList)
+            role_ids: roleIdList.join(',')
 
         }).then(res => { alert('提交成功'); this.back() }, err => { alert('提交错误') })
 
