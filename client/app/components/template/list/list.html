@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="row in $data track by $index">
-            <td> {{row.name }} </td>
+            <td> {{row.name | limitTo: 10 }}{{row.name.length > 10 ? '.......' : ''}}  </td>
             <td> {{row.statusName}} </td>
             <td>
               <button class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.rid)">查看</button>
