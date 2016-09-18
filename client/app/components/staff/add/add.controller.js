@@ -103,7 +103,7 @@ export default class AddController {
   getTempList(organizationId) {
     let params = {
       limit: 999999,
-      status: 1
+      status: 0
     }
     if (organizationId > 0) {
       params.organizationId = organizationId;
