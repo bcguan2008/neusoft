@@ -10,7 +10,6 @@
     "angular-ui-router": "^0.2.15",
     "angular-ui-bootstrap": "^1.1.1",
     "bootstrap": "^3.3.6",
-    "bp-admin-skin": "latest",
     "bp-utils": "latest",
     "bp-sop-common": "latest",
     "bp-sop-menu": "latest",
