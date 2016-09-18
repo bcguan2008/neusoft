@@ -50,7 +50,7 @@
           <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
           <div class="col-md-6 pre-scrollable" >
             <!--  start new -->
-            <div class="col-sm-6 checkbox" ng-repeat="item in vm.templateDatas track by $index">
+            <div class="col-sm-6 checkbox"  style="word-break:break-all;word-wrap:break-all;" ng-repeat="item in vm.templateDatas track by $index">
               <label>
                 <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" >{{item.name}}
               </label>

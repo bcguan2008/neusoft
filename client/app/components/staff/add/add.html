@@ -77,7 +77,7 @@
                     <label for="name" class="col-md-2 control-label">选择功能模板<span class="required-star">*</span></label>
                     <div cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'功能模板加载中...'}">
                         <div
-                            ng-show="vm.templateData && vm.templateData.length>0" class="col-md-6 pre-scrollable" >
+                            ng-show="vm.templateData && vm.templateData.length>0" class="col-md-6 pre-scrollable" style="word-break:break-all;word-wrap:break-all;" >
                             <div class="col-sm-6 checkbox" ng-repeat="item in vm.templateData track by $index">
                                 <label> 
                                     <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}

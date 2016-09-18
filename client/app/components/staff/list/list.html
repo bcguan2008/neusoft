@@ -62,8 +62,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="row in $data track by $index">
-
-            <td> {{row.name}} </td>
+            <td> {{row.name | limitTo: 10}}{{row.name.length > 10 ? '...' : ''}} </td>
             <td> {{row.contact}} </td>
             <td> {{row.creator_name}} </td>
             <td> {{row.c_time}} </td>
