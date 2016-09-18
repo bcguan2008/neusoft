@@ -54,7 +54,7 @@ export default class ListController {
     }
 
     if(this.filter.template != undefined){
-      filter.template_name = this.filter.template.name;
+      filter.templateName = this.filter.template.name;
     }
 
     let selectObj = this.selectObj;
