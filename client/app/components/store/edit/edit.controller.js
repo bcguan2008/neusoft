@@ -45,6 +45,7 @@ export default class EditController {
             alert('请选择功能模板.')
             return false;
         }
+      
         this.api.post('/Organization/inputAjax', {
             organization_id: this.d.organization_id,
             name: this.d.name,
@@ -60,7 +61,7 @@ export default class EditController {
     getTempList() {
         this.loadPromise = this.templateSvc.getPageAllTempList({
             limit: 999999,
-            status: 1
+            status:0
         });
         return this.loadPromise;
     }

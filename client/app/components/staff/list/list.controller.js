@@ -25,7 +25,8 @@ export default class ListController {
     this.status_1 =null;
     this.init();
     // 员工状态
-    this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' },{ id: 4, name: '异常' }];
+
+    this.staffstatus = [{ id: 1, name: '正常' }, { id: 4, name: '异常' }, { id: 3, name: '冻结' }];
     this.filter = {
       name: '',
       offset: 0
@@ -172,7 +173,8 @@ export default class ListController {
   }
   //传值给 冻结 窗口
   editInfo(a, b) {
-
+    // $("#msg1").css('display', 'none');
+   // console.log(b.status)
     this.nowRow = b;
 
 
