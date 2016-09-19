@@ -1,6 +1,6 @@
 /**
- * store
- * @author guanbingchang@wanda.cn
+ * storeManage
+ * @author luoqian14
  */
 
 import list from './list/list';
@@ -8,11 +8,7 @@ import add from './add/add';
 import detail from './detail/detail';
 import edit from './edit/edit';
 import claimList from './claimList/claimList';
-import addReviewList from './addReviewList/addReviewList';
-import claimReviewList from './claimReviewList/claimReviewList';
-import claimReviewDetail from './claimReviewDetail/claimReviewDetail';
-import editReviewList from './editReviewList/editReviewList';
-import editReviewDetail from './editReviewDetail/editReviewDetail';
+import claimDetail from './claimDetail/claimDetail';
 
 export default angular.module('app.storeManage', [
     list.name,
@@ -20,9 +16,5 @@ export default angular.module('app.storeManage', [
     detail.name,
     edit.name,
     claimList.name,
-    addReviewList.name,
-    claimReviewList.name,
-    claimReviewDetail.name,
-    editReviewList.name,
-    editReviewDetail.name
+    claimDetail.name
 ]);

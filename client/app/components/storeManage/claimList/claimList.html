@@ -8,7 +8,7 @@
 <div class="conter-wrapper track-list-wrapper">
     <div class="bp-container">
         <div class="top-container">
-            <div class="col-md-11 search-box">
+            <div class="row search-box">
                 <div class="col-md-2">
                     <select name="" id="">
                         <option value="">全部门店</option>
@@ -26,28 +26,28 @@
                 <div class="col-md-2">
                     <input type="text" placeholder="经营品牌">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <span>所在区域：</span>
-                    <select name="" id="province" class="city-select">
+                    <select name="" id="province" class="city-select"
+                            ng-model="selected" ng-change="vm.c()" ng-options="s.name for s in list">
                         <option value="">省</option>
                     </select>
-                    <select name="" id="city" class="city-select">
+                    <select name="" id="city" class="city-select"
+                            ng-model="selected2" ng-change="vm.c2()" ng-options="sh.name for sh in selected.child">
                         <option value="">市</option>
                     </select>
-                    <select name="" id="county" class="city-select">
+                    <select name="" id="county" class="city-select"
+                            ng-model="selected3" ng-change="vm.c3()" ng-options="x.value for x in selected2.child">
                         <option value="">区</option>
                     </select>
                 </div>
-                <div class="col-md-1">
-                    <button class="btn bp-btn-primary" type="button">查询</button>
-                </div>
-                <div class="col-md-1">
-                    <button class="btn bp-btn-primary" type="button" ng-click="vm.reset()">重置</button>
-                </div>
+                <button class="btn bp-btn-primary" type="button">查询</button>
+                <button class="btn bp-btn-primary" type="button" ng-click="vm.reset()">重置</button>
             </div>
-            <div class="col-md-1" style="padding-top: 15px">
-                <button class="btn bp-btn-primary" type="button" ng-click="vm.goAdd()">新建门店</button>
-            </div>
+        </div>
+
+        <div class="row text-right">
+            <button class="btn bp-btn-primary" type="button" ng-click="vm.goAdd()">新建门店</button>
         </div>
 
         <div class="panel" style="border: none">
@@ -75,7 +75,7 @@
                                 <td>城市</td>
                                 <td>门店地址</td>
                                 <td>门店电话</td>
-                                <td style="color: #0000cc">认领</td>
+                                <td style="color: #337ab7" ng-click="vm.goClaimDetail(row.organization_id)">认领</td>
                             </tr>
                             <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
                                 <td colspan="10" style="text-align: center">

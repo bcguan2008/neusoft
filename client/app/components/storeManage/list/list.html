@@ -33,7 +33,7 @@
                             <td>门店电话</td>
                             <td>
                                 <a ng-click="vm.detail(row.organization_id)">查看详情</a>
-                                <a style="margin-left: 10px" ng-click="">二维码</a>
+                                <a style="margin-left: 10px" ng-click="vm.showQrcode()">二维码</a>
                             </td>
                         </tr>
                         <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
@@ -48,7 +48,6 @@
                         </tr>
                         </tbody>
                     </table>
-                    <!--new-->
                     <div class="recordCount">
                         <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
                     </div>
@@ -57,6 +56,27 @@
         </div>
         <div class="panel-footer" style="margin-top: 20px">
             <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
+        </div>
+    </div>
+</div>
+
+<!--弹窗-->
+<div class="store-list-popup" ng-show="vm.isQrcodeShow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-close text-right" ng-click="vm.hideQrcode()">X</div>
+                <div class="qrcode-image">
+                    <img src="http://img4.ffan.com/T13CDTB4K_1RCvBVdK" alt="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class ="btn bp-btn-primary">下载</button>-->
+                <!--<button type="button" class="btn bp-btn-primary">打印</button>-->
+                <a href="http://sop.sit.ffan.com/store/mystore/downloadImage?path=http%3A%2F%2Fimg4.ffan.com%2FT13CDTB4K_1RCvBVdK----------%E7%AC%AC%E4%B8%80%E5%AE%B6%E5%BA%9720160918.jpg"
+                   class="btn btn-primary" id="single-download" role="button" style="display: inline-block;">下载</a>
+                <a class="btn btn-primary" ng-click="vm.loada()" role="button">打印</a>
+            </div>
         </div>
     </div>
 </div>

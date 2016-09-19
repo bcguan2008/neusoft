@@ -33,29 +33,42 @@ export default class ListController {
         var filter = this.filter;
         this.tableParams = new this.NgTableParams({
             page: 1,
-            offset: 0
-            //count: 10 //每页几条
+            offset: 0,
+            count: 10 //每页几条
         }, {
             // counts: [],
             getData: function (params) {
+                self.loading = true;
                 let formData = self.getSearchFormData(filter);//filter
+
                 formData.page = params.url().page;
                 formData.offset = params.url().page;
-                self.loadPromise = self.storeSvc.getStoreInfoList(params);
+
+                self.loadPromise = self.storeSvc.getStoreInfoList(formData);
                 // self.loadPromise = self.templateSvc.getPageAllTempList(formData);
                 return self.loadPromise
                     .then(result => {
                         self.loading = false;
-                        if (result.datas) {
+                        if (result) {
+                            console.log(result);
                             _this.d = {
                                 totalCount: result.totalCount
                             };
                             params.total(result.totalCount);
-                            return result.datas
+                            return result.datas;
                         }
                     });
             }
         })
+    }
+
+    // 二维码
+    showQrcode() {
+        this.isQrcodeShow = true;
+    }
+
+    hideQrcode() {
+        this.isQrcodeShow = false;
     }
 
     goClaimList(){
@@ -87,5 +100,20 @@ export default class ListController {
      */
     exportExcel() {
         this.storeSvc.exportExcellist()
+    }
+
+    //test 二维码打印
+    loada(src) {
+        $(".ng-isolate-scope").hide();
+        var imgHtml = '<img src="http://img4.ffan.com/T13CDTB4K_1RCvBVdK" id="printImg" style="height: 100%;">';
+        $("body").append(imgHtml);
+
+        if ((window.print())==true) {
+            $("#printImg").remove();
+            $(".ng-isolate-scope").show();
+        }else {
+            $("#printImg").remove();
+            $(".ng-isolate-scope").show();
+        }
     }
 }

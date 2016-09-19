@@ -1,16 +1,16 @@
-import EditReviewListModule from './editReviewList'
-import EditReviewListController from './editReviewList.controller';
-import EditReviewListComponent from './editReviewList.component';
-import EditReviewListTemplate from './editReviewList.html';
+import ClaimDetailModule from './claimDetail'
+import ClaimDetailController from './claimDetail.controller';
+import ClaimDetailComponent from './claimDetail.component';
+import ClaimDetailTemplate from './claimDetail.html';
 
-describe('EditReviewList', () => {
+describe('ClaimDetail', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(EditReviewListModule.name));
+  beforeEach(window.module(ClaimDetailModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new EditReviewListController();
+      return new ClaimDetailController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('EditReviewList', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(EditReviewListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(ClaimDetailTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = EditReviewListComponent;
+      let component = ClaimDetailComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(EditReviewListTemplate);
+        expect(component.template).to.equal(ClaimDetailTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('EditReviewList', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(EditReviewListController);
+        expect(component.controller).to.equal(ClaimDetailController);
       });
   });
 });

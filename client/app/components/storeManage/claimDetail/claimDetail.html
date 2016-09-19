@@ -1,23 +1,26 @@
 <div class="nav-padding">
     <ul class="nav nav-tabs">
-        <li class="navbar-btn active"><a ng-click="vm.back()">我的门店</a></li>
-        <li class="navbar-btn"><a ng-click="vm.goClaimList()">认领门店</a></li>
+        <li class="navbar-btn"><a ng-click="vm.goList()">我的门店</a></li>
+        <li class="navbar-btn active"><a ng-click="vm.back()">认领门店</a></li>
     </ul>
 </div>
 
 <div class="page-title">
     <div class="title">
-        <h1 class="pull-left">查看门店</h1>
+        <h1 class="pull-left">认领门店</h1>
         <a href="" style="margin-left: 30px;" ng-click="vm.back()">返回</a>
     </div>
 </div>
 
 <div class="conter-wrapper">
-    <!--仅审核中门店显示，需判断-->
-    <div style="margin-bottom: 30px;color: #0000cc">（仅审核中门店显示）您的门店信息修改正在审核中……</div>
     <div class="panel bp-panel-primary">
-        <table class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+        <table class="table table-bordered table-striped table-hover"
+               cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
             <tbody>
+            <tr>
+                <td class="col-md-3 text-right">门店编号：</td>
+                <td class="col-md-9"><input type="text" class="form-control" disabled></td>
+            </tr>
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.name"></td>
@@ -33,7 +36,8 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled></textarea>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"
+                              disabled></textarea>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                     <div>您最多还可输入<span>936</span>字</div>
                 </td>
@@ -85,25 +89,33 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
                 <td>
-                    <img class="store-image" id="T1UEJTBmxT1RCvBVdK" src="http://img1.ffan.com/orig/T1UEJTBmxT1RCvBVdK">
+                    <img src="" alt="">
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
                 <td>
-                    <img class="store-image" src="">
+                    <img src="" alt="">
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                 </td>
             </tr>
-            <!--审核中门店不显示-->
             <tr>
-                <td class="text-right"><span class="required-star">*</span>内景收银台照片：</td>
-                <td><img class="store-image" src=""></td>
+                <td class="text-right">备注：</td>
+                <td>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled></textarea>
+                    <div>（若门店地址或者其他信息与真实信息有出入，需要修改可在备注说明）</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">经营权说明书：</td>
+                <td>
+                    <div><button type="button" class="btn bp-btn-danger">上传经营权说明书</button></div>
+                    <div style="margin-top: 8px">若其营业执照公司名称和地址与门店信息出入较大，则需下载<a>《经营权说明书》</a>模板，打印填写并签字/盖章后上传扫描件。</div>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <!--审核中门店不显示-->
-    <button class="btn bp-btn-primary" type="button" ng-click="vm.edit(vm.d.organization_id)">编辑</button>
+    <button class="btn bp-btn-primary" type="button">认领</button>
 </div>

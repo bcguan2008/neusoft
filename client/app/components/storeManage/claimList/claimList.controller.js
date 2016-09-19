@@ -15,7 +15,16 @@ export default class ClaimListController {
         this.filter = {
             limit: 10,
             offset: 0
-        }
+        };
+
+        //test 城市选择
+        this.error = {};
+        this.list = [];
+        let self = this;
+        $http.get('../../../mock/list.json').success(function (data) {
+            $scope.list = data;
+            // self.list = data;
+        });
     }
 
     init() {
@@ -53,6 +62,30 @@ export default class ClaimListController {
         return filter;
     }
 
+    c() {
+        this.error.province = false;
+        this.error.city = false;
+        this.error.area = false;
+        this.selected2 = "";
+        this.selected3 = "";
+    }
+
+    c2() {
+        this.error.city = false;
+        this.error.area = false;
+        this.selected3 = "";
+    }
+
+    c3() {
+        this.error.area = false;
+    }
+
+    submit() {
+        this.error.province = this.selected ? false:true;
+        this.error.city = this.selected2 ? false:true;
+        this.error.area = this.selected3 ? false:true;
+    }
+
     reset() {
         this.searchOptions = {
             publisherSubject:'-1',
@@ -66,6 +99,10 @@ export default class ClaimListController {
 
     goAdd() {
         this.$state.go('storeMadd');
+    }
+
+    goClaimDetail(id) {
+        this.$state.go('storeMclaimdetail', {id: id});
     }
 
     search() {

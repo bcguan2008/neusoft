@@ -4,10 +4,10 @@
  * @author yourname
  */
 
-export default class ClaimReviewDetailController {
+export default class ClaimDetailController {
     constructor(storeSvc, Api, $http, $state) {
         "ngInject";
-        this.name = 'claimReviewDetail';
+        this.name = 'claimDetail';
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
@@ -27,15 +27,11 @@ export default class ClaimReviewDetailController {
         })
     }
 
-    goClaimList() {
-        this.$state.go('storeMclaimlist');
-    }
-
-    back() {
+    goList(){
         this.$state.go('storeMlist');
     }
 
-    edit(id) {
-        this.$state.go('storeMedit', {id: id});
+    back() {
+        this.$state.go('storeMclaimlist');
     }
 }

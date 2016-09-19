@@ -5,3 +5,34 @@
         vertical-align: inherit;
     }
 }
+
+.brand-popup, .repetition-list-popup {
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(51, 51, 51, 0.6);
+    z-index: 1024;
+}
+
+.brand-popup {
+    .modal-dialog {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        margin-left: -210px;
+    }
+}
+
+.repetition-list-popup {
+    .modal-dialog {
+        position: fixed;
+        min-width: 1050px;
+        max-height: 950px;
+        overflow: auto;
+        top: 141.333px;//待改
+        left: 187px;//待改
+    }
+}

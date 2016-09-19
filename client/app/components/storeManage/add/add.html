@@ -42,7 +42,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td colspan="2">
-                    <button class="btn bp-btn-danger" type="button">添加</button>
+                    <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandList()">添加</button>
                 </td>
             </tr>
             <tr>
@@ -103,4 +103,63 @@
         </table>
     </div>
     <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save()">提交</button>
+    <!--添加品牌 弹窗-->
+    <div class="brand-popup" ng-show="vm.isBrandListShow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">添加品牌</span>
+                    <div class="modal-close" ng-click="vm.hideBrandList()">X</div>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">查找品牌：<input type="text" class="form-control" style="width: 50%; display: inline-block"></div>
+                    <div style="height: 200px; overflow-y: scroll;">modal body</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hideBrandList()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--查重 弹窗-->
+    <div class="repetition-list-popup" ng-show="vm.isPopupListShow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">门店列表</span>
+                    <div class="modal-close" ng-click="vm.hidePopupList()">X</div>
+                </div>
+                <div class="modal-body list-table">
+                    <div class="text-center" style="padding-bottom: 15px; color: red">根据您填写的资料，为您查找到以下相关门店信息，如其中有您的门店，请点击认领，避免重复提交资料。</div>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>门店编号</th>
+                            <th>门店名称</th>
+                            <th>经营品牌</th>
+                            <th>城市</th>
+                            <th>门店地址</th>
+                            <th>门店电话</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>9105380</td>
+                            <td>第一家店</td>
+                            <td>爱茉莉</td>
+                            <td>北京市-北京市-东城区</td>
+                            <td>金地中心22</td>
+                            <td>010-1111111</td>
+                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">查看</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -24,6 +24,14 @@ export default class AddController {
         })
     }
 
+    showBrandList() {
+        this.isBrandListShow = true;
+    }
+
+    hideBrandList() {
+        this.isBrandListShow = false;
+    }
+
     save() {
         var _this = this;
         //debugger;
@@ -34,10 +42,18 @@ export default class AddController {
             principal: this.d.principal,
             remark: this.d.remark
         }).then(res=> {
-            alert('提交成功')
+            alert('提交成功');
+            // test 保存成功则返回认领门店列表页
+            this.goList();
         }, err=> {
-            alert('提交错误')
+            alert('提交错误');
+            // test 需判断查重
+            this.isPopupListShow = true;
         })
+    }
+
+    hidePopupList() {
+        this.isPopupListShow = false;
     }
 
     goList() {
