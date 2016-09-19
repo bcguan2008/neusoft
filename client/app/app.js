@@ -49,6 +49,15 @@ angular.module('app', [
         }
     };
   })
+  .filter('html',function($sce){
+        "ngInject";
+        return function(text){
+            if(text){
+            return $sce.trustAsHtml(text);
+            }
+            return '';
+        }
+    })
 
 
   console.log('process.env.DEBUG', process.env.DEBUG);

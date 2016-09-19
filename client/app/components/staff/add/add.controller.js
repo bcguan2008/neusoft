@@ -117,7 +117,7 @@ export default class AddController {
   }
 
   changeStore(store) {
-    this.getTempList(store.organizationId);
+    this.getTempList(store.organization_id);
   }
 
   getStorelist(storename) {
