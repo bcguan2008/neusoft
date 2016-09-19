@@ -86,6 +86,8 @@ export default class EditController {
       this.submitting = false;
       alert('修改成功');
       this.templateSvc.returntemplist();
+    },error=>{
+      this.submitting = false;
     });
   }
 
