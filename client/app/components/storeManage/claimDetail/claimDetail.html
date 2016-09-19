@@ -1,14 +1,6 @@
-<div class="nav-padding">
-    <ul class="nav nav-tabs">
-        <li class="navbar-btn"><a ng-click="vm.goList()">我的门店</a></li>
-        <li class="navbar-btn active"><a ng-click="vm.back()">认领门店</a></li>
-    </ul>
-</div>
-
 <div class="page-title">
     <div class="title">
         <h1 class="pull-left">认领门店</h1>
-        <a href="" style="margin-left: 30px;" ng-click="vm.back()">返回</a>
     </div>
 </div>
 
@@ -116,6 +108,9 @@
             </tr>
             </tbody>
         </table>
+        <div class="panel-footer">
+            <button class="btn bp-btn-primary" type="button">认领</button>
+            <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
+        </div>
     </div>
-    <button class="btn bp-btn-primary" type="button">认领</button>
 </div>

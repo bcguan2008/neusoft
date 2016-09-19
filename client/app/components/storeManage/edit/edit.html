@@ -1,14 +1,6 @@
-<div class="nav-padding">
-    <ul class="nav nav-tabs">
-        <li class="navbar-btn active"><a ng-click="vm.back()">我的门店</a></li>
-        <li class="navbar-btn"><a ng-click="vm.goClaimList()">认领门店</a></li>
-    </ul>
-</div>
-
 <div class="page-title">
     <div class="title">
         <h1 class="pull-left">编辑门店</h1>
-        <a href="" style="margin-left: 30px;" ng-click="vm.back()">返回</a>
     </div>
 </div>
 
@@ -126,6 +118,9 @@
             </tr>
             </tbody>
         </table>
+        <div class="panel-footer">
+            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.organization_id)">提交</button>
+            <button class="btn bp-btn-primary" ng-click="vm.babelrc">返回</button>
+        </div>
     </div>
-    <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.organization_id)">提交</button>
 </div>

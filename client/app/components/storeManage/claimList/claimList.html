@@ -1,52 +1,50 @@
-<div class="nav-padding">
-    <ul class="nav nav-tabs">
-        <li class="navbar-btn"><a ng-click="vm.goList()">我的门店</a></li>
-        <li class="navbar-btn active"><a>认领门店</a></li>
-    </ul>
-</div>
-
 <div class="conter-wrapper track-list-wrapper">
     <div class="bp-container">
-        <div class="top-container">
-            <div class="row search-box">
-                <div class="col-md-2">
-                    <select name="" id="">
-                        <option value="">全部门店</option>
-                        <option value="">待审新建门店</option>
-                        <option value="">被驳回新建门店</option>
-                        <option value="">待审认领门店</option>
-                        <option value="">被驳回认领门店</option>
-                        <option value="">待审编辑门店</option>
-                        <option value="">被驳回编辑门店</option>
-                    </select>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row search-box" style="margin-left: 0;">
+                    <div class="col-md-2">
+                        <select name="" id="">
+                            <option value="">全部门店</option>
+                            <option value="">待审新建门店</option>
+                            <option value="">被驳回新建门店</option>
+                            <option value="">待审认领门店</option>
+                            <option value="">被驳回认领门店</option>
+                            <option value="">待审编辑门店</option>
+                            <option value="">被驳回编辑门店</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" placeholder="门店名称" ng-model="vm.searchOptions.name">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" placeholder="经营品牌">
+                    </div>
+                    <div class="col-md-6">
+                        <span>所在区域：</span>
+                        <select name="" id="province" class="city-select"
+                                ng-model="selected" ng-change="vm.c()" ng-options="s.name for s in list">
+                            <option value="">省</option>
+                        </select>
+                        <select name="" id="city" class="city-select"
+                                ng-model="selected2" ng-change="vm.c2()" ng-options="sh.name for sh in selected.child">
+                            <option value="">市</option>
+                        </select>
+                        <select name="" id="county" class="city-select"
+                                ng-model="selected3" ng-change="vm.c3()" ng-options="x.value for x in selected2.child">
+                            <option value="">区</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <input type="text" placeholder="门店名称" ng-model="vm.searchOptions.name">
+                <div class="panel-footer">
+                    <button class="btn bp-btn-primary" type="button">查询</button>
+                    <button class="btn bp-btn-primary" type="button" ng-click="vm.reset()">重置</button>
                 </div>
-                <div class="col-md-2">
-                    <input type="text" placeholder="经营品牌">
-                </div>
-                <div class="col-md-5">
-                    <span>所在区域：</span>
-                    <select name="" id="province" class="city-select"
-                            ng-model="selected" ng-change="vm.c()" ng-options="s.name for s in list">
-                        <option value="">省</option>
-                    </select>
-                    <select name="" id="city" class="city-select"
-                            ng-model="selected2" ng-change="vm.c2()" ng-options="sh.name for sh in selected.child">
-                        <option value="">市</option>
-                    </select>
-                    <select name="" id="county" class="city-select"
-                            ng-model="selected3" ng-change="vm.c3()" ng-options="x.value for x in selected2.child">
-                        <option value="">区</option>
-                    </select>
-                </div>
-                <button class="btn bp-btn-primary" type="button">查询</button>
-                <button class="btn bp-btn-primary" type="button" ng-click="vm.reset()">重置</button>
             </div>
+
         </div>
 
-        <div class="row text-right">
+        <div>
             <button class="btn bp-btn-primary" type="button" ng-click="vm.goAdd()">新建门店</button>
         </div>
 
@@ -89,9 +87,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div>
-                            <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
-                        </div>
+                    </div>
+                    <div class="recordCount">
+                        <span>共 <span class="count" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
                     </div>
                 </div>
             </div>
@@ -99,6 +97,5 @@
                 <button type="button" class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
             </div>
         </div>
-
     </div>
 </div>

@@ -1,20 +1,12 @@
-<div class="nav-padding">
-    <ul class="nav nav-tabs">
-        <li class="navbar-btn active"><a ng-click="vm.back()">我的门店</a></li>
-        <li class="navbar-btn"><a ng-click="vm.goClaimList()">认领门店</a></li>
-    </ul>
-</div>
-
 <div class="page-title">
     <div class="title">
         <h1 class="pull-left">查看门店</h1>
-        <a href="" style="margin-left: 30px;" ng-click="vm.back()">返回</a>
     </div>
 </div>
 
 <div class="conter-wrapper">
     <!--仅审核中门店显示，需判断-->
-    <div style="margin-bottom: 30px;color: #0000cc">（仅审核中门店显示）您的门店信息修改正在审核中……</div>
+    <div style="margin-bottom: 30px; margin-top: 15px; color: #0000cc">（仅审核中门店显示）您的门店信息修改正在审核中……</div>
     <div class="panel bp-panel-primary">
         <table class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
             <tbody>
@@ -103,7 +95,10 @@
             </tr>
             </tbody>
         </table>
+        <!--审核中门店不显示-->
+        <div class="panel-footer form-actions">
+            <button class="btn bp-btn-primary" type="button" ng-click="vm.edit(vm.d.organization_id)">编辑</button>
+            <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
+        </div>
     </div>
-    <!--审核中门店不显示-->
-    <button class="btn bp-btn-primary" type="button" ng-click="vm.edit(vm.d.organization_id)">编辑</button>
 </div>
