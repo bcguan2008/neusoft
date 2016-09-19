@@ -36,16 +36,18 @@ export default class EditController {
     save() {
         let self = this;
         let roleIdList = [] 
+        console.log(this.d)
 
+        //if (roleIdList) {}
         this.d.templateData.forEach((template)=>{
             template.checked && roleIdList.push(template.rid);
         });
+        
+     if(roleIdList.length==0){
+        alert("请选择可使用的功能模板！")
+        return false;
+     }
 
-        if(roleIdList.length ==0){
-            alert('请选择功能模板.')
-            return false;
-        }
-      
         this.api.post('/Organization/inputAjax', {
             organization_id: this.d.organization_id,
             name: this.d.name,
