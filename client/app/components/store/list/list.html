@@ -18,10 +18,9 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in $data track by $index">
-          <td>
-            {{row.name}}
+          <td ng-bind-html="row.name | html">
           </td>
-          <td>{{row.principal}}</td>
+          <td ng-bind-html="row.principal | html"></td>
           <td>{{row.contact}}</td>
           <td>
             <a class="btn bp-btn-default btn-xs" ng-click="vm.detail(row.organization_id)">查看</a>
