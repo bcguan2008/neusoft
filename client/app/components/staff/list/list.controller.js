@@ -114,7 +114,6 @@ export default class ListController {
           // formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
             formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
-
             // formData.page = params.url().page;
             // formData.offset = params.url().page;
 
@@ -123,7 +122,6 @@ export default class ListController {
               .then(result => {
                 self.loading = false;
                 if (result) {
-                  console.log(result)
                   self.d = {
                     totalCount: result.totalCount
                   }
@@ -173,11 +171,7 @@ export default class ListController {
   }
   //传值给 冻结 窗口
   editInfo(a, b) {
-    // $("#msg1").css('display', 'none');
-   // console.log(b.status)
     this.nowRow = b;
-
-
   }
   /**
    * [downloadExcel 导出模板]
@@ -186,8 +180,8 @@ export default class ListController {
    // debugger;
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
+        formData.limit = this.tableParams.data.length;
     this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
-  
-        //this.storeSvc.exportExcellist()
+
   }
 }
