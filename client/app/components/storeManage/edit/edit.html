@@ -18,7 +18,10 @@
             <tbody>
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
-                <td class="col-md-9"><input type="text" class="form-control" ng-model="vm.d.name"></td>
+                <td class="col-md-9">
+                    <input type="text" class="form-control" id="name" ng-change="vm.changeInput()" ng-model="vm.d.name">
+                    <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right">英文名称：</td>
@@ -31,15 +34,18 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-change="vm.inputStoreIntr()" ng-model="vm.storeIntr"></textarea>
+                    <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
-                    <div>您最多还可输入<span>936</span>字</div>
+                    <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td>
                     <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandPopup()">添加</button>
+                    <input type="text" class="form-control" id="brand" disabled style="background: #ffffff">
+                    <span class="error-tips" ng-show="vm.brandTips">必填字段</span>
                     <div class="modal-dialog" style="position: fixed; top: 23%; left: 50%; margin-left: -210px" ng-show="vm.isAddBrandShow">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -69,17 +75,24 @@
                     <select name="" id="county" disabled>
                         <option value="">区</option>
                     </select>
+                    <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
+                    <span class="error-tips" ng-show="vm.cityTips">城市不能为空！</span>
+                    <span class="error-tips" ng-show="vm.countyTips">区县不能为空！</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店地址：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td>
+                    <input type="text" class="form-control" id="address" disabled>
+                    <span class="error-tips" ng-show="vm.addressTips">必填字段</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="phone">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+                    <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                 </td>
             </tr>
             <tr>
