@@ -10,9 +10,12 @@
             <tbody>
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
-                <td class="col-md-5"><input type="text" class="form-control" ng-model="vm.d.name"></td>
+                <td class="col-md-5">
+                    <input type="text" class="form-control" id="storeName" ng-model="vm.d.name">
+                    <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
+                </td>
                 <td class="col-md-4">
-                    <input type="checkbox">新建自有门店
+                    <input type="checkbox" checked>新建自有门店
                 </td>
             </tr>
             <tr>
@@ -26,15 +29,18 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td colspan="2">
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-change="vm.inputStoreIntr()" ng-model="vm.storeIntr"></textarea>
+                    <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
-                    <div>您最多还可输入<span>936</span>字</div>
+                    <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td colspan="2">
                     <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandList()">添加</button>
+                    <input type="text" class="form-control" id="brand" disabled style="background: #ffffff">
+                    <span class="error-tips" ng-show="vm.brandTips">必填字段</span>
                 </td>
             </tr>
             <tr>
@@ -49,17 +55,24 @@
                     <select name="" id="county">
                         <option value="">区</option>
                     </select>
+                    <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
+                    <span class="error-tips" ng-show="vm.cityTips">城市不能为空！</span>
+                    <span class="error-tips" ng-show="vm.countyTips">区县不能为空！</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店地址：</td>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2">
+                    <input type="text" class="form-control" id="address">
+                    <span class="error-tips" ng-show="vm.addressTips">必填字段</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="phone">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+                    <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                 </td>
             </tr>
             <tr>
@@ -106,6 +119,7 @@
         </table>
         <div class="panel-footer">
             <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save()">提交</button>
+            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid || vm.submitting" type="submit" ng-click="vm.save()">提交(test)</button>
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>
@@ -168,23 +182,4 @@
             </div>
         </div>
     </div>
-
-
-    <!--<div class="form-group">-->
-        <!--<label class="col-md-2 control-label">上传规则附件</label>-->
-        <!--<div class="col-md-9">-->
-            <!--<a href="javascript:void(0);" class="btn bp-btn-primary btn_addpic"-->
-               <!--ngf-select="vm.uploadFile($file, $invalidFiles)"-->
-               <!--accept="image/*"-->
-               <!--ngf-pattern="image/*"-->
-               <!--ng-disabled="vm.fileList.length >= 10"-->
-               <!--ngf-max-size="5MB">-->
-                <!--上传文件-->
-                <!--<input type="file" tabindex="3" size="3" class="fileprew" name="file" ng-disabled="vm.fileList.length > 10" enctype="multipart/form-data">-->
-            <!--</a>-->
-            <!--<input type="hidden" name="fileKey" ng-model="vm.fileKey">-->
-            <!--<span class="prompt-text error" ng-if="vm.uploadErrorMsg == ''">提示：请上传.doc或.docx文件，最多支持10个附件</span>-->
-            <!--<span class="prompt-text error" ng-if="vm.uploadErrorMsg != ''">{{ vm.uploadErrorMsg }}</span>-->
-        <!--</div>-->
-    <!--</div>-->
 </div>

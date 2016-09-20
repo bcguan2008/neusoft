@@ -14,6 +14,7 @@ export default class EditController {
         this.d = {};
         this.init();
         this.storeIntrTips = 1000;
+        this.storeIntrLen = 0;
     }
 
     init() {
@@ -29,7 +30,9 @@ export default class EditController {
     }
 
     save(id) {
-        if (this.checkInput()) {
+        let tipsCount = this.validate();
+
+        if (tipsCount == null) {
             var _this = this;
             //debugger;
             this.d.role_ids = [];
@@ -54,9 +57,10 @@ export default class EditController {
         }
     }
 
-    //test 检查必填项(缺上传图片的验证)
-    checkInput() {
-        var name = $("#name").val(),
+    // 验证必填项(缺上传图片的验证)
+    validate() {
+        let tipsCount = 0;
+        var storeName = $("#storeName").val(),
             storeIntr = $("#storeIntr").val(),
             brand = $("#brand").val(),
             province = $("#province").val(),
@@ -64,42 +68,51 @@ export default class EditController {
             county = $("#county").val(),
             address = $("#address").val(),
             phone = $("#phone").val();
-        
-        if (name.length == 0) {
+
+        if (storeName.length == 0) {
             this.nameTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (storeIntr.length < 40) {
+
+        if (storeIntr.length < 40) {
             this.intrTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (brand.length == 0) {
+
+        if (brand.length == 0) {
             this.brandTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (province.length == 0) {
+
+        if (province.length == 0) {
             this.provinceTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (city.length == 0) {
+
+        if (city.length == 0) {
             this.cityTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (county.length == 0) {
+
+        if (county.length == 0) {
             this.countyTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (address.length == 0) {
+
+        if (address.length == 0) {
             this.addressTips = true;
-            return false;
+            tipsCount++;
         }
-        else if (phone.length == 0) {
+
+        if (phone.length == 0) {
             this.phoneTips = true;
-            return false;
+            tipsCount++;
         }
-        else {
-            return true;
+
+        if (tipsCount > 0) {
+            return tipsCount;
         }
+        return null;
     }
     
     //test 输入必填项

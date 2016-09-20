@@ -14,7 +14,8 @@ export default class AddController {
         this.uploadSvc = uploadSvc;
         this.d = {};
         this.init();
-
+        this.storeIntrTips = 1000;
+        this.storeIntrLen = 0;
     }
 
     init() {
@@ -33,26 +34,6 @@ export default class AddController {
         this.isBrandListShow = false;
     }
 
-    save() {
-        var _this = this;
-        //debugger;
-        this.api.post('/Organization/inputAjax', {
-            organization_id: this.d.organization_id,
-            name: this.d.name,
-            contact: this.d.contact,
-            principal: this.d.principal,
-            remark: this.d.remark
-        }).then(res=> {
-            alert('提交成功');
-            // test 保存成功则返回认领门店列表页
-            this.goList();
-        }, err=> {
-            alert('提交错误');
-            // test 需判断查重
-            this.isPopupListShow = true;
-        })
-    }
-
     hidePopupList() {
         this.isPopupListShow = false;
     }
@@ -64,7 +45,6 @@ export default class AddController {
     back() {
         this.$state.go('storeMclaimlist');
     }
-
     
     // test 上传图片
     uploadFile(file, errFile) {
@@ -111,5 +91,109 @@ export default class AddController {
             }
             return errInfo;
         }
+    }
+
+    // 门店简介输入字数限制
+    inputStoreIntr() {
+        var len = 0;
+        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
+            var a = this.storeIntr.charAt(i);
+            if (a.match(/[^\x00-\xff]/ig)!=null) {
+                len += 2;
+            }else {
+                len += 1;
+            }
+
+            if (len >= 1000) {
+                this.storeIntr = this.storeIntr.substr(0, round+1);
+            }
+        }
+
+        this.storeIntrTips = 1000 - len;
+        this.storeIntrLen = len;
+    }
+
+    // 提交
+    save() {
+        this.submitting = true;
+        let tipsCount = this.validate();
+
+        if (tipsCount == null) {
+            var _this = this;
+            //debugger;
+            this.api.post('/Organization/inputAjax', {
+                organization_id: this.d.organization_id,
+                name: this.d.name,
+                contact: this.d.contact,
+                principal: this.d.principal,
+                remark: this.d.remark
+            }).then(res=> {
+                alert('提交成功');
+                // test 保存成功则返回认领门店列表页
+                this.goList();
+            }, err=> {
+                alert('提交错误');
+                // test 需判断查重
+                this.isPopupListShow = true;
+            })
+        }
+    }
+
+    // 验证必填项（缺图片）
+    validate() {
+        let tipsCount = 0;
+        var storeName = $("#storeName").val(),
+            storeIntr = $("#storeIntr").val(),
+            brand = $("#brand").val(),
+            province = $("#province").val(),
+            city = $("#city").val(),
+            county = $("#county").val(),
+            address = $("#address").val(),
+            phone = $("#phone").val();
+
+        if (storeName.length == 0) {
+            this.nameTips = true;
+            tipsCount++;
+        }
+
+        if (storeIntr.length < 40) {
+            this.intrTips = true;
+            tipsCount++;
+        }
+
+        if (brand.length == 0) {
+            this.brandTips = true;
+            tipsCount++;
+        }
+
+        if (province.length == 0) {
+            this.provinceTips = true;
+            tipsCount++;
+        }
+
+        if (city.length == 0) {
+            this.cityTips = true;
+            tipsCount++;
+        }
+
+        if (county.length == 0) {
+            this.countyTips = true;
+            tipsCount++;
+        }
+
+        if (address.length == 0) {
+            this.addressTips = true;
+            tipsCount++;
+        }
+
+        if (phone.length == 0) {
+            this.phoneTips = true;
+            tipsCount++;
+        }
+
+        if (tipsCount > 0) {
+            return tipsCount;
+        }
+        return null;
     }
 }
