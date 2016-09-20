@@ -25,12 +25,12 @@ export default class ListController {
     this.status_1 =null;
     this.init();
     // 员工状态
+
     this.staffstatus = [{ id: 1, name: '正常' }, { id: 4, name: '异常' }, { id: 3, name: '冻结' }];
     this.filter = {
       name: '',
       offset: 0
     };
-
     this.selectObj = {
       status_name: ''
     };
@@ -38,8 +38,9 @@ export default class ListController {
 
   searchbystaff() {
     this.staffnewSvc.getstaffpage()
-
   }
+ 
+
   //修改员工状态
   changeStatus() {
     this.staffnewSvc.changeStatus()
@@ -50,11 +51,14 @@ export default class ListController {
   getSearchFormData() {
     let filter  = {
       name:this.filter.name,
-      contact:this.filter.contact
+      contact:this.filter.contact,
+    }
+    if(this.filter.store && this.filter.store.organization_id){
+      filter.storeId = this.filter.store.organization_id;
     }
 
     if(this.filter.template != undefined){
-      filter.template_name = this.filter.template.name;
+      filter.templateName = this.filter.template.name;
     }
 
     let selectObj = this.selectObj;
@@ -89,43 +93,45 @@ export default class ListController {
    * [init 初始化]
    */
   init() {
+    let self = this;
     this.getStorelist().then(result=>{
       this.storelist = result;
-    })
-
-    let self = this;
-    
-    this.tableParams = new this.NgTableParams({
-      page: 1,
-      count: 10
-    }, {
-        getData: function ($defer, params) {
-          let paramsUrl = params.url();
-          self.loading = true;
-          let formData = self.getSearchFormData();//filter
-
-         // formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
-          formData.offset = paramsUrl.page;
-          formData.limit = paramsUrl.count;
-
-          // formData.page = params.url().page;
-          // formData.offset = params.url().page;
-
-          self.loadPromise = self.staffnewSvc.getPageUserList(formData);
-          return self.loadPromise
-            .then(result => {
-              self.loading = false;
-              if (result) {
-                console.log(result)
-                self.d = {
-                  totalCount: result.totalCount
-                }
-                params.total(result.totalCount);
-                return result.datas;
-              }
-            });
+      this.storelist.forEach(store=>{
+        if(store.organization_id == self.$state.params.id ){
+          self.filter.store = store;
         }
       });
+    }).then(()=>{
+      this.tableParams = new this.NgTableParams({
+        page: 1,
+        count: 10
+      }, {
+          getData: function ($defer, params) {
+            let paramsUrl = params.url();
+            self.loading = true;
+            let formData = self.getSearchFormData();//filter
+
+          // formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
+            formData.offset = paramsUrl.page;
+            formData.limit = paramsUrl.count;
+            // formData.page = params.url().page;
+            // formData.offset = params.url().page;
+
+            self.loadPromise = self.staffnewSvc.getPageUserList(formData);
+            return self.loadPromise
+              .then(result => {
+                self.loading = false;
+                if (result) {
+                  self.d = {
+                    totalCount: result.totalCount
+                  }
+                  params.total(result.totalCount);
+                  return result.datas;
+                }
+              });
+          }
+        });
+    })
   }
 
   search() {
@@ -165,11 +171,7 @@ export default class ListController {
   }
   //传值给 冻结 窗口
   editInfo(a, b) {
-    // $("#msg1").css('display', 'none');
-   // console.log(b.status)
     this.nowRow = b;
-
-
   }
   /**
    * [downloadExcel 导出模板]
@@ -178,8 +180,8 @@ export default class ListController {
    // debugger;
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
+        formData.limit = this.tableParams.data.length;
     this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
-  
-        //this.storeSvc.exportExcellist()
+
   }
 }

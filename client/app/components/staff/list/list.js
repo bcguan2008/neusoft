@@ -3,7 +3,7 @@ export default angular.module('stafflist', [])
   .config(($stateProvider) => {
   "ngInject";
 $stateProvider.state('stafflist', {
-  url: '/staff/list',
+  url: '/staff/list/:id',
   template: '<stafflist></stafflist>'
 });
 })

@@ -3,12 +3,13 @@
  */
 
 class staffnewSvc  {
-  constructor(Api,$location,$http) {
+  constructor(Api,$location,$http,$state) {
     "ngInject";
     this.Api = Api;
     this.location = $location
     this.baseUrl = '/Employee/';
     this.$http = $http;
+    this.$state = $state;
   }
 
   /**
@@ -64,8 +65,9 @@ class staffnewSvc  {
      this.location.path("/staff/add");
   }
 //返回到员工list
-  getstafflist(){ //ok
-     this.location.path("/staff/list");
+  getstafflist(id){ //ok
+    this.$state.go('stafflist', { 'id': id ?id:''});
+    //this.location.path("/staff/list");
   }
   //跳转到编辑页面信息
   updatestaff(){

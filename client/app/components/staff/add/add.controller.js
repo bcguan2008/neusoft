@@ -62,6 +62,7 @@ export default class AddController {
     } else {
       users.storeName = options.store.name;
       users.storeId = options.store.organization_id;
+      users.share_id = options.store.share_id;
     }
 
     users.role_ids = gettemp.role_ids;
@@ -116,7 +117,7 @@ export default class AddController {
   }
 
   changeStore(store) {
-    this.getTempList(store.organizationId);
+    this.getTempList(store.organization_id);
   }
 
   getStorelist(storename) {
