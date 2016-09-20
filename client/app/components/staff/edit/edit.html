@@ -52,7 +52,7 @@
             <!--  start new -->
             <div class="col-sm-6 checkbox"  style="word-break:break-all;word-wrap:break-all;" ng-repeat="item in vm.templateDatas track by $index">
               <label>
-                <input type="checkbox" id={{item.rid}} name="{{item.name}}({{item.statusName}})" ng-model="item.ifChecked" >{{item.name}}({{item.statusName}})
+                <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-model="item.ifChecked" > {{vm.getTemplateName(item)}}
               </label>
             </div>
 

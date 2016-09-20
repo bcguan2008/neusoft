@@ -28,6 +28,18 @@ export default class EditController {
     this.init();
   }
 
+  getTemplateName(item){
+    if(!item){
+      return '';
+    }
+
+    if(item.status =='1'){
+      return item.name;
+    }
+
+    return item.name + '('+ item.statusName + ')';
+  }
+
   //返回
   returnstafflistc() {
     debugger;
@@ -69,7 +81,7 @@ export default class EditController {
   init() {
     let self = this;
     self.loading = true;
-    self.loadTempatePromise = this.templateSvc.getPageAllTempList({limit:999999});
+    
     self.loadPromise = self.staffnewSvc.getDetail({
       id: this.$state.params.id,
       type: 1
@@ -100,6 +112,7 @@ export default class EditController {
           }
         })
 
+        self.loadTempatePromise = this.templateSvc.getPageAllTempList({limit:999999,organizationId:result.organization_id});
         /**
          * 拉template数据，并且回填
          */

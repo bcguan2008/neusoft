@@ -80,7 +80,7 @@
                             ng-show="vm.templateData && vm.templateData.length>0" class="col-md-6 pre-scrollable" style="word-break:break-all;word-wrap:break-all;" >
                             <div class="col-sm-6 checkbox" ng-repeat="item in vm.templateData track by $index">
                                 <label> 
-                                    <input type="checkbox" id={{item.rid}} name="{{item.name}}({{item.statusName}})" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{item.name}}({{item.statusName}})
+                                    <input type="checkbox" id={{item.rid}} name="{{item.name}}" ng-checked="isSelected(item.rid)" ng-click="vm.updateSelection($event,item.rid,item.name)"> {{vm.getTemplateName(item)}}
                                 </label>
                             </div>
                         </div>

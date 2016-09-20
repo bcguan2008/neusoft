@@ -100,6 +100,19 @@ export default class AddController {
     return deferred.promise;
   }
 
+  getTemplateName(item){
+    if(!item){
+      return '';
+    }
+
+    if(item.status =='1'){
+      return item.name;
+    }
+
+    return item.name + '('+ item.statusName + ')';
+  }
+
+
   //获取功能模板 check 多选
   getTempList(organizationId) {
     let params = {
