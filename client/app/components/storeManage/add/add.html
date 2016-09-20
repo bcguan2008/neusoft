@@ -80,14 +80,25 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
                 <td colspan="2">
-                    <button class="btn bp-btn-danger" type="button">上传图片</button>
+                    <img class="store-image" id="T1UEJTBmxT1RCvBVdK" ng-src="{{vm.logoSrc}}" ng-show="vm.showStoreLogo">
+                    <a href="javascript:void(0);" class="btn bp-btn-danger"
+                       ngf-select="vm.uploadFile($file, $invalidFiles)"
+                       accept="image/*"
+                       ngf-pattern="'.jpg,.jpeg,.png'"
+                       ngf-max-size="5MB">
+                        上传图片
+                    </a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
                 <td colspan="2">
-                    <button class="btn bp-btn-danger" type="button">上传图片</button>
+                    <a class="btn bp-btn-danger"
+                       ngf-select="vm.uploadFile($file, $invalidFiles)"
+                       accept="image/*"
+                       ngf-pattern="'.jpg,.jpeg,.png'"
+                       ngf-max-size="5MB" >上传图片</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                 </td>
             </tr>
@@ -157,4 +168,23 @@
             </div>
         </div>
     </div>
+
+
+    <!--<div class="form-group">-->
+        <!--<label class="col-md-2 control-label">上传规则附件</label>-->
+        <!--<div class="col-md-9">-->
+            <!--<a href="javascript:void(0);" class="btn bp-btn-primary btn_addpic"-->
+               <!--ngf-select="vm.uploadFile($file, $invalidFiles)"-->
+               <!--accept="image/*"-->
+               <!--ngf-pattern="image/*"-->
+               <!--ng-disabled="vm.fileList.length >= 10"-->
+               <!--ngf-max-size="5MB">-->
+                <!--上传文件-->
+                <!--<input type="file" tabindex="3" size="3" class="fileprew" name="file" ng-disabled="vm.fileList.length > 10" enctype="multipart/form-data">-->
+            <!--</a>-->
+            <!--<input type="hidden" name="fileKey" ng-model="vm.fileKey">-->
+            <!--<span class="prompt-text error" ng-if="vm.uploadErrorMsg == ''">提示：请上传.doc或.docx文件，最多支持10个附件</span>-->
+            <!--<span class="prompt-text error" ng-if="vm.uploadErrorMsg != ''">{{ vm.uploadErrorMsg }}</span>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>

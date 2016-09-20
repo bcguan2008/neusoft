@@ -22,6 +22,8 @@ import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
 import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 
+import ngFileUpload from 'ng-file-upload';
+
 import bpUtils from 'bp-utils';
 
 angular.module('app', [
@@ -30,10 +32,11 @@ angular.module('app', [
     ffanTable.name,
     Components.name,
     Service.name,
+    ngFileUpload,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
     'bp.utils'
-  ])
+])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG
   })

@@ -5,13 +5,14 @@
  */
 
 export default class AddController {
-    constructor(Api, $http, storeSvc, $state) {
+    constructor(Api, $http, storeSvc, $state, uploadSvc) {
         "ngInject";
         this.name = 'add';
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
-        this.d = {}
+        this.uploadSvc = uploadSvc;
+        this.d = {};
         this.init();
 
     }
@@ -62,5 +63,53 @@ export default class AddController {
 
     back() {
         this.$state.go('storeMclaimlist');
+    }
+
+    
+    // test 上传图片
+    uploadFile(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
+        }
+
+        if (file) {
+            let options = {
+                file: file
+            };
+
+            this.uploadSvc.upload(options).then(data=> {
+                this.showStoreLogo = true;
+                this.logoSrc = 'http://img1.ffan.com/orig/T1UEJTBmxT1RCvBVdK';
+            });
+        }
+    }
+
+    catchErrFileError(errFile) {
+        //本身错误信息
+        let errInfo = {
+            data: false,
+            msg: ''
+        };
+        if (errFile && errFile.length > 0) {
+            switch (errFile[0]['$error']) {
+                case 'pattern':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件类型错误'
+                    };
+                    break;
+                case 'maxSize':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件最大的值为5M'
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return errInfo;
+        }
     }
 }
