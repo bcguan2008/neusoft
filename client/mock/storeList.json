@@ -1,0 +1,117 @@
+{
+  "status": 200,
+  "message": "操作成功",
+  "data": {
+    "totalCount": 417,
+    "datas": [
+      {
+        "storeId": 9105695,
+        "storeNo": "666660000055070",
+        "storeCateMapNo": "",
+        "storeCatePartnerNo": "",
+        "storeName": "dllteststore16.107071249947502",
+        "storePinyin": "dllteststore16.107071249947502",
+        "storeInitials": "dllteststore16.107071249947502",
+        "storeAddress": "dllteststoreaddress",
+        "storePhone": "13887654321",
+        "storePicsrc": "T1wFhTB5Yv1RCvBVdK",
+        "bgPic": "T1gNhTB5Dv1RCvBVdK",
+        "storeFloor": "1F",
+        "storeDesc": "这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店",
+        "storeBunkNo": "1",
+        "provinceId": 110000,
+        "provinceName": "北京市",
+        "cityId": 110100,
+        "cityName": "北京市",
+        "countyId": 110102,
+        "countyName": "西城区",
+        "merchantId": 2078228,
+        "merchantName": "dll测试商户",
+        "updateTime": 1474306537000,
+        "version": 1,
+        "type": 3,
+        "businessType": 1,
+        "isPhysicalStore": 1,
+        "isWandaOwn": 1,
+        "storeViewName": "dllteststore16.107071249947502",
+        "supportPhoneCheckTicket": 0,
+        "storeShortAddress": "dllteststoreaddress",
+        "isValid": 1,
+        "storeEnglishName": "dllteststore16.107071249947502",
+        "storeEnglishInitials": "dllteststore16.107071249947502",
+        "entGroupId": 0,
+        "entGroupName": "",
+        "merchantSource": 1,
+        "md5": "b782b274547972d27bc1898c247c484f",
+        "businessTypeName": "电影",
+        "plazaStore": false,
+        "brands": [
+          {
+            "brandId": 10005890,
+            "brandName": "测试品牌1"
+          },
+          {
+            "brandId": 10005891,
+            "brandName": "测试品牌2"
+          },
+          {
+            "brandId": 10005892,
+            "brandName": "测试品牌3"
+          }
+        ]
+      },
+      {
+        "storeId": 9105696,
+        "storeNo": "666660000055071",
+        "storeCateMapNo": "",
+        "storeCatePartnerNo": "",
+        "storeName": "test",
+        "storePinyin": "dllteststore16.107071249947502",
+        "storeInitials": "dllteststore16.107071249947502",
+        "storeAddress": "address",
+        "storePhone": "138fas54321",
+        "storePicsrc": "T1wFhTB5Yv1RCvBVdK",
+        "bgPic": "T1gNhTB5Dv1RCvBVdK",
+        "storeFloor": "1F",
+        "storeDesc": "这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店",
+        "storeBunkNo": "1",
+        "provinceId": 110000,
+        "provinceName": "北京市",
+        "cityId": 110100,
+        "cityName": "北京市",
+        "countyId": 110102,
+        "countyName": "西城区",
+        "merchantId": 2078228,
+        "merchantName": "dll测试商户",
+        "updateTime": 1474306537000,
+        "version": 1,
+        "type": 3,
+        "businessType": 1,
+        "isPhysicalStore": 1,
+        "isWandaOwn": 1,
+        "storeViewName": "dllteststore16.107071249947502",
+        "supportPhoneCheckTicket": 0,
+        "storeShortAddress": "dllteststoreaddress",
+        "isValid": 1,
+        "storeEnglishName": "dllteststore16.107071249947502",
+        "storeEnglishInitials": "dllteststore16.107071249947502",
+        "entGroupId": 0,
+        "entGroupName": "",
+        "merchantSource": 1,
+        "md5": "b782b274547972d27bc1898c247c484f",
+        "businessTypeName": "电影",
+        "plazaStore": false,
+        "brands": [
+          {
+            "brandId": 10005890,
+            "brandName": "测试品牌1"
+          },
+          {
+            "brandId": 10005891,
+            "brandName": "测试品牌2"
+          }
+        ]
+      }
+    ]
+  }
+}

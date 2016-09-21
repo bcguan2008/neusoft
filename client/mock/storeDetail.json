@@ -1,0 +1,48 @@
+{
+  "status": 200,
+  "message": "操作成功",
+  "data": {
+    "storeId": 9105695,
+    "storeCateMapNo": "",
+    "storeCatePartnerNo": "",
+    "storeName": "dllteststore16.107071249947502",
+    "storeDesc": "这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店这是一个实体门店",
+    "merchantId": 2078228,
+    "merchantName": "dll测试商户",
+    "storePhone": "13887654321",
+    "provinceId": 110000,
+    "provinceName": "北京市",
+    "cityId": 110100,
+    "cityName": "北京市",
+    "countyId": 110102,
+    "countyName": "西城区",
+    "storeBunkNo": "1",
+    "storeAddress": "dllteststoreaddress",
+    "businessType": 1,
+    "storePicsrc": "T1wFhTB5Yv1RCvBVdK",
+    "bgPic": "T1gNhTB5Dv1RCvBVdK",
+    "version": 1,
+    "storePinyin": "dllteststore16.107071249947502",
+    "storeInitials": "dllteststore16.107071249947502",
+    "type": 3,
+    "isPhysicalStore": 1,
+    "supportWifi": 1,
+    "storeViewName": "dllteststore16.107071249947502",
+    "storeEnglishName": "dllteststore16.107071249947502",
+    "storeEnglishInitials": "dllteststore16.107071249947502",
+    "entGroupId": 0,
+    "entGroupName": "",
+    "storeFloor": "1F",
+    "merchantSource": 1,
+    "brands": [
+      {
+        "brandId": 10005890,
+        "brandName": "dll测试品牌"
+      },
+      {
+        "brandId": 10005891,
+        "brandName": "品牌2"
+      }
+    ]
+  }
+}

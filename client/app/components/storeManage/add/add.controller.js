@@ -59,10 +59,11 @@ export default class AddController {
                 file: file
             };
 
-            this.uploadSvc.upload(options).then(data=> {
-                this.showStoreLogo = true;
+            // this.uploadSvc.upload(options).then(data=> {
                 this.logoSrc = 'http://img1.ffan.com/orig/T1UEJTBmxT1RCvBVdK';
-            });
+                this.showStoreLogo = true;
+                this.showDeleteBtn = true;
+            // });
         }
     }
 
@@ -91,6 +92,13 @@ export default class AddController {
             }
             return errInfo;
         }
+    }
+
+    // test 删除图片
+    deleteFile() {
+        this.showStoreLogo = false;
+        this.logoSrc = '';
+        this.showDeleteBtn = false;
     }
 
     // 门店简介输入字数限制

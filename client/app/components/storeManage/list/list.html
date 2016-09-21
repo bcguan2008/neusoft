@@ -1,7 +1,7 @@
 <div class="conter-wrapper">
     <div class="panel panel-primary" style="border: none">
         <div class="panel-body" style="padding: 0">
-            <div class="table-container">
+            <div class="table-container list-table" id="page">
                 <div class="table-wrapper" ng-table="vm.tableParams">
                     <table class="table table-bordered table-striped table-hover"
                            cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
@@ -18,15 +18,17 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in $data track by $index">
-                            <td>门店编号</td>
-                            <td>{{row.name}}</td>
-                            <td>经营品牌</td>
-                            <td>城市</td>
-                            <td>门店地址</td>
-                            <td>门店电话</td>
+                            <td>{{row.storeNo}}</td>
+                            <td>{{row.storeName}}</td>
                             <td>
-                                <a ng-click="vm.detail(row.organization_id)">查看详情</a>
-                                <a style="margin-left: 10px" ng-click="vm.showQrcode()">二维码</a>
+                                <span ng-repeat="brandArr in row.brands">{{brandArr.brandName}},</span>
+                            </td>
+                            <td>{{row.provinceName}}-{{row.cityName}}-{{row.countyName}}</td>
+                            <td>{{row.storeAddress}}</td>
+                            <td>{{row.storePhone}}</td>
+                            <td>
+                                <a ng-click="vm.detail(row.storeId)">查看详情</a>
+                                <a style="margin-left: 10px" ng-click="vm.showQrcode(row.storeId)">二维码</a>
                             </td>
                         </tr>
                         <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
@@ -48,27 +50,26 @@
             </div>
         </div>
         <div class="panel-footer" style="margin-top: 20px">
-            <button class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
+            <a class="btn bp-btn-primary" id="batch-download" ng-click="vm.batchDownQrcode()" ng-href="{{vm.batchDownQrcodeUrl}}">批量导出二维码</a>
+            <a class="btn bp-btn-primary" ng-click="vm.exportExcel()" ng-href="{{vm.exportExcelUrl}}">导出Excel</a>
         </div>
     </div>
 </div>
 
-<!--弹窗-->
+<!--弹窗 二维码-->
 <div class="store-list-popup" ng-show="vm.isQrcodeShow">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="modal-close text-right" ng-click="vm.hideQrcode()">X</div>
                 <div class="qrcode-image">
-                    <img src="http://img4.ffan.com/T13CDTB4K_1RCvBVdK" alt="">
+                    <img ng-src="{{vm.qrCodeUrl}}">
                 </div>
             </div>
             <div class="modal-footer">
-                <!--<button type="button" class ="btn bp-btn-primary">下载</button>-->
-                <!--<button type="button" class="btn bp-btn-primary">打印</button>-->
-                <a href="http://sop.sit.ffan.com/store/mystore/downloadImage?path=http%3A%2F%2Fimg4.ffan.com%2FT13CDTB4K_1RCvBVdK----------%E7%AC%AC%E4%B8%80%E5%AE%B6%E5%BA%9720160918.jpg"
-                   class="btn btn-primary" id="single-download" role="button" style="display: inline-block;">下载</a>
-                <a class="btn btn-primary" ng-click="vm.loada()" role="button">打印</a>
+                <a href="http://demo1015.sit.ffan.com/storemanage/store/codeDown?storeId={{vm.singleStoreId}}"
+                   class="btn btn-primary" id="single-download" role="button">下载</a>
+                <a class="btn bp-btn-primary" role="button" ng-click="vm.printQrcode()">打印</a>
             </div>
         </div>
     </div>

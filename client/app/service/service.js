@@ -7,6 +7,7 @@ import clerkSvc from './clerkSvc';
 import templateSvc from './templateSvc';
 import treeSvc from './treeSvc';
 import uploadSvc from './uploadSvc';
+import storeManageSvc from './storeManageSvc';
 
 export default angular.module('app.services', [
 ])
@@ -18,6 +19,8 @@ export default angular.module('app.services', [
     clerkSvc,
     templateSvc,
     treeSvc,
-    uploadSvc
+    uploadSvc,
+    storeManageSvc
 })
-.constant('APIBASE','/Staffmgt');;
+// .constant('APIBASE','/Staffmgt');;
+.constant('APIBASE','');

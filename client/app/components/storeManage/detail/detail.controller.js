@@ -5,12 +5,13 @@
  */
 
 export default class DetailController {
-    constructor(storeSvc, Api, $http, $state) {
+    constructor(storeSvc, Api, $http, $state, storeManageSvc) {
         "ngInject";
         this.name = 'detail';
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
+        this.storeManageSvc = storeManageSvc;
         this.init();
         this.d = {}
     }
@@ -19,11 +20,22 @@ export default class DetailController {
         let self = this;
         var _this = this;
         self.loading = true;
-        self.loadPromise = this.api.get('/Organization/detail', {id: this.$state.params.id})
+        self.loadPromise = self.storeManageSvc.getStoreDetail({storeId: this.$state.params.id});
         return self.loadPromise.then(res=> {
             self.loading = false;
-            _this.d = res.datas;
+            _this.d = res;
 
+            // 简介字数
+            var len = 0;
+            for (var i=0,round=0; i<res.storeDesc.length; i++,round++) {
+                var a = res.storeDesc.charAt(i);
+                if (a.match(/[^\x00-\xff]/ig)!=null) {
+                    len += 2;
+                }else {
+                    len += 1;
+                }
+            }
+            _this.d.descLen = 1000 - len;
         })
     }
 
@@ -36,6 +48,6 @@ export default class DetailController {
     }
 
     edit(id){
-        this.$state.go('storeMedit', { id: id });
+        this.$state.go('storeMedit', {id: id});
     }
 }

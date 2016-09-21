@@ -5,7 +5,7 @@
  */
 
 export default class ListController {
-    constructor($q, storeSvc, $scope, $http, NgTableParams, $state, templateSvc) {
+    constructor($q, storeSvc, $scope, $http, NgTableParams, $state, templateSvc, storeManageSvc, Api) {
         "ngInject";
         this.$state = $state;
         this.storeSvc = storeSvc;
@@ -13,12 +13,13 @@ export default class ListController {
         this.NgTableParams = NgTableParams;
         this.d = {};
         this.templateSvc = templateSvc;
+        this.storeManageSvc = storeManageSvc;
+        this.api = Api;
         this.init();
         this.filter = {
             limit: 10,
             offset: 0
         };
-
     }
 
     // 格式化后的数据
@@ -31,26 +32,23 @@ export default class ListController {
         var self = this;
         var _this = this;
         var filter = this.filter;
+
         this.tableParams = new this.NgTableParams({
             page: 1,
-            offset: 0,
-            count: 10 //每页几条
+            count: 10
         }, {
-            // counts: [],
             getData: function (params) {
                 self.loading = true;
-                let formData = self.getSearchFormData(filter);//filter
+                let formData = self.getSearchFormData(filter);
 
                 formData.page = params.url().page;
-                formData.offset = params.url().page;
+                formData.offset = (params.url().page-1) * params.url().count;
 
-                self.loadPromise = self.storeSvc.getStoreInfoList(formData);
-                // self.loadPromise = self.templateSvc.getPageAllTempList(formData);
+                self.loadPromise = self.storeManageSvc.getStoreList(formData);
                 return self.loadPromise
                     .then(result => {
                         self.loading = false;
-                        if (result) {
-                            console.log(result);
+                        if (result.datas) {
                             _this.d = {
                                 totalCount: result.totalCount
                             };
@@ -63,12 +61,35 @@ export default class ListController {
     }
 
     // 二维码
-    showQrcode() {
+    showQrcode(storeId) {
+        let self = this;
+        this.api.get('/storemanage/store/code', {storeId: storeId})
+            .then(result => {
+                console.log(result);
+                this.qrCodeUrl = result.qrCodeImgUrl;
+            });
+        this.singleStoreId = storeId;
+
         this.isQrcodeShow = true;
     }
 
     hideQrcode() {
         this.isQrcodeShow = false;
+    }
+
+    // 二维码打印
+    printQrcode() {
+        $(".ng-isolate-scope").hide();
+        var imgHtml = '<img src="' +this.qrCodeUrl+ '" id="printImg" style="height: 100%;">';
+        $("body").append(imgHtml);
+
+        if ((window.print())==true) {
+            $("#printImg").remove();
+            $(".ng-isolate-scope").show();
+        }else {
+            $("#printImg").remove();
+            $(".ng-isolate-scope").show();
+        }
     }
 
     goClaimList(){
@@ -95,25 +116,30 @@ export default class ListController {
         this.$state.go('stafflist', {storeid: storeid});
     }
 
-    /**
-     * [downloadExcel 导出模板]
-     */
-    exportExcel() {
-        this.storeSvc.exportExcellist()
+    // 批量导出二维码
+    batchDownQrcode() {
+        var limit = $("#page .active span").html();
+        var page = $("#page ul li.active a span").html();
+        var offset = (page-1)*limit;
+
+        // this.batchDownQrcodeUrl = "/storemanage/store/codeBatchDown?offset=" +offset+ "&limit=" +limit;
+        this.batchDownQrcodeUrl = "http://demo1015.sit.ffan.com/storemanage/store/codeBatchDown?offset=" +offset+ "&limit=" +limit;
     }
 
-    //test 二维码打印
-    loada(src) {
-        $(".ng-isolate-scope").hide();
-        var imgHtml = '<img src="http://img4.ffan.com/T13CDTB4K_1RCvBVdK" id="printImg" style="height: 100%;">';
-        $("body").append(imgHtml);
+    // 导出Excel
+    exportExcel() {
+        var limit = $("#page .active span").html();
+        var page;
 
-        if ((window.print())==true) {
-            $("#printImg").remove();
-            $(".ng-isolate-scope").show();
+        if ($("#page ul li.active a span")==null) {
+            page = 1;
         }else {
-            $("#printImg").remove();
-            $(".ng-isolate-scope").show();
+            page = $("#page ul li.active a span").html();
         }
+
+        var offset = (page-1)*limit;
+
+        // this.exportExcelUrl = "/storemanage/store/excel?offset=" +offset+ "&limit=" +limit;
+        this.exportExcelUrl = "http://demo1015.sit.ffan.com/storemanage/store/excel?offset=" +offset+ "&limit=" +limit;
     }
 }
