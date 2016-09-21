@@ -42,7 +42,6 @@ export default class EditController {
 
   //返回
   returnstafflistc() {
-    debugger;
     this.staffnewSvc.getstafflist();
   }
   //updateEmployee
@@ -64,6 +63,7 @@ export default class EditController {
       contact:this.d.contact,
       storeId:this.d.storeId,
       storeName:this.d.storeName,
+      share_id:this.d.share_id,
       email:this.d.email,
       im:this.d.rtx,
       role_ids:this.d.role_ids,
@@ -100,6 +100,7 @@ export default class EditController {
           storeName:result.organization_name,
           role_ids: result.role_ids,
           role_info: result.role_info,
+          share_id:result.share_id,
           gender:result.gender
         }
       

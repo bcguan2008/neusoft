@@ -33,6 +33,20 @@ export default class EditController {
             });
         });
     }
+
+    getTemplateName(item){
+        if(!item){
+        return '';
+        }
+
+        if(item.status =='1'){
+        return item.name;
+        }
+
+        return item.name + '('+ item.statusName + ')';
+    }
+
+
     save() {
         let self = this;
         let roleIdList = [] 
