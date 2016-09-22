@@ -116,30 +116,36 @@ export default class ListController {
         this.$state.go('stafflist', {storeid: storeid});
     }
 
-    // 批量导出二维码
-    batchDownQrcode() {
+    // 导出 参数
+    getDownloadParams() {
         var limit = $("#page .active span").html();
         var page = $("#page ul li.active a span").html();
+
+        if (page == undefined) {
+            page = 1;
+        }
+
+        limit = parseInt(limit);
+        page = parseInt(page);
         var offset = (page-1)*limit;
 
-        // this.batchDownQrcodeUrl = "/storemanage/store/codeBatchDown?offset=" +offset+ "&limit=" +limit;
-        this.batchDownQrcodeUrl = "http://demo1015.sit.ffan.com/storemanage/store/codeBatchDown?offset=" +offset+ "&limit=" +limit;
+        var params = {
+            limit: limit,
+            offset: offset
+        }
+
+        return params;
+    }
+
+    // 批量导出二维码
+    batchDownQrcode() {
+        var params = this.getDownloadParams();
+        this.batchDownQrcodeUrl = "/storemanage/store/codeBatchDown?offset=" +params.offset+ "&limit=" +params.limit;
     }
 
     // 导出Excel
     exportExcel() {
-        var limit = $("#page .active span").html();
-        var page;
-
-        if ($("#page ul li.active a span")==null) {
-            page = 1;
-        }else {
-            page = $("#page ul li.active a span").html();
-        }
-
-        var offset = (page-1)*limit;
-
-        // this.exportExcelUrl = "/storemanage/store/excel?offset=" +offset+ "&limit=" +limit;
-        this.exportExcelUrl = "http://demo1015.sit.ffan.com/storemanage/store/excel?offset=" +offset+ "&limit=" +limit;
+        var params = this.getDownloadParams();
+        this.exportExcelUrl = "/storemanage/store/excel?offset=" +params.offset+ "&limit=" +params.limit;
     }
 }
