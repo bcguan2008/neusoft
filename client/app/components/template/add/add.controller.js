@@ -11,6 +11,7 @@ export default class AddController {
     this.treeSvc = treeSvc;
     this.form = {};
     this.d = {};
+    this.tabType = 1;
     this.templateSvc = templateSvc;
     this.config = {
       fieldOfChildren: 'children',

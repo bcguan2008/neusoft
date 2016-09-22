@@ -31,12 +31,12 @@ export default class AddController {
       status_id: ''//状态
     };
     this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' }];
-    this.sex = [{ id: 1, name: '男' }, { id: 3, name: '女' }];
+    this.sex = [{ id: 0, name: '男' }, { id: 1, name: '女' }];
     this.selectSr = {
       status: this.staffstatus[0]
     }
     this.selectSex = {
-      sex: this.sex[0]
+      sex: 0
     }
   }
 
@@ -68,7 +68,7 @@ export default class AddController {
     users.role_ids = gettemp.role_ids;
     users.role_info = gettemp.role_info;
     users.status_id = selectSr.status.id;
-    users.gender = selectSex.sex.name;
+    users.gender = selectSex.sex;
     users.im = users.rtx;
     console.log(users.rtx)
     //vm.users.rtx

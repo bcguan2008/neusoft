@@ -36,19 +36,19 @@
 
             <ul id="myTab" class="nav nav-tabs">
               <li class="active">
-                <a href="#sop_id" data-toggle="tab">SOP</a>
+                <a ng-click="vm.tabType=1" data-toggle="tab">SOP</a>
               </li>
               <li>
-                <a href="#app_id" data-toggle="tab">APP</a>
+                <a ng-click="vm.tabType=2" data-toggle="tab">APP</a>
               </li>
             </ul>
 
 
             <div id="myTabContent" class="tab-content pre-scrollable">
-              <div class="tab-pane fade in active" id="sop_id">
+              <div  ng-show="vm.tabType===1">
                 <bp-checkboxtree list-promise="vm.loadPromise" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
               </div>
-              <div class="tab-pane fade" id="app_id">
+              <div ng-show="vm.tabType===2">
                 <bp-checkboxtree list-promise="vm.loadPromiseapp" ng-model="vm.d.nodes" config="vm.config"></bp-checkboxtree>
               </div>
             </div>
