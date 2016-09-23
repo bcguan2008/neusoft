@@ -41,18 +41,18 @@ export default class ClaimListController {
                 formData.page = params.url().page;
                 formData.offset = params.url().page;
 
-                self.loadPromise = self.storeSvc.getStoreInfoList(params);
-                return self.loadPromise
-                    .then(result => {
-                        self.loading = false;
-                        if (result.datas) {
-                            _this.d = {
-                                totalCount: result.totalCount
-                            };
-                            params.total(result.totalCount);
-                            return result.datas
-                        }
-                    });
+                // self.loadPromise = self.storeSvc.getStoreInfoList(params);
+                // return self.loadPromise
+                //     .then(result => {
+                //         self.loading = false;
+                //         if (result.datas) {
+                //             _this.d = {
+                //                 totalCount: result.totalCount
+                //             };
+                //             params.total(result.totalCount);
+                //             return result.datas
+                //         }
+                //     });
             }
         })
     }

@@ -5,28 +5,126 @@
  */
 
 export default class EditController {
-    constructor(Api, $http, storeSvc, $state) {
+    constructor(Api, $http, storeSvc, $state, storeManageSvc, uploadSvc) {
         "ngInject";
         this.name = 'edit';
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
+        this.storeManageSvc = storeManageSvc;
+        this.uploadSvc = uploadSvc;
         this.d = {};
         this.init();
         this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
+        this.showStoreLogo = true;
+        this.showLogoDeleteBtn = true;
+        this.showBgPic = true;
+        this.showBgDeleteBtn = true;
+
+        this.myTimeout = null;
     }
 
     init() {
         let self = this;
         var _this = this;
         self.loading = true;
-        self.loadPromise = this.api.get('/Organization/detail', {id: this.$state.params.id})
+        self.loadPromise = self.storeManageSvc.getStoreDetail({storeId: this.$state.params.id});
         return self.loadPromise.then(res=> {
             self.loading = false;
+            _this.d = res;
+            _this.storeIntr = res.storeDesc;
+            _this.storePicsrc = res.storePicsrc;
+            _this.bgPic = res.bgPic;
+            _this.brands = res.brands;
 
-            _this.d = res.datas;
-        })
+            this.inputStoreIntr();
+        });
+    }
+
+    // 门店简介输入字数限制
+    inputStoreIntr() {
+        var len = 0;
+        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
+            var a = this.storeIntr.charAt(i);
+            if (a.match(/[^\x00-\xff]/ig)!=null) {
+                len += 2;
+            }else {
+                len += 1;
+            }
+
+            if (len >= 1000) {
+                this.storeIntr = this.storeIntr.substr(0, round+1);
+            }
+        }
+
+        this.storeIntrTips = 1000 - len;
+        this.storeIntrLen = len;
+    }
+
+    // 添加品牌弹窗
+    showBrandPopup() {
+        this.isAddBrandShow = true;
+
+        this.searchBrandList("");
+    }
+
+    // 输入查询条件
+    changeSearchName(name) {
+        let self = this;
+        clearTimeout(self.myTimeout);
+        this.myTimeout = setTimeout(function () {
+            self.searchBrandList(name);
+        }, 1000);
+    }
+
+    // 调用经营品牌列表接口
+    searchBrandList(name) {
+        var _this = this;
+        this.storeManageSvc.getBrandList(name)
+            .then(result=>{
+                _this.brandList = result.datas;
+            });
+    }
+
+    //test 经营品牌 保存，显示到已添加中（缺查重功能？）
+    addBrand() {
+        var checkbox = $("#selectBrand input:checked"),
+            addCount = checkbox.length;
+
+        for (var i=0; i<addCount; i++) {
+            var brandId = parseInt(checkbox[i].id);
+            this.brands.push(
+                {
+                    brandId: brandId,
+                    brandName: $(checkbox[i]).val()
+                }
+            )
+        }
+        console.log(this.brands);
+        this.brands = this.checkBrands();
+
+        this.hideBrandPopup();
+    }
+
+    //test 查重
+    checkBrands() {
+        var n = [];
+        for (var i=0; i<this.brands.length; i++) {
+            // console.log(this.brands[i].brandId);
+            // console.log(n.indexOf(this.brands[i]));
+
+            if (n.indexOf(this.brands[i]) == -1) {
+                n.push(this.brands[i]);
+            }
+            // console.log(n);
+        }
+        return n;
+    }
+
+    // 删除经营品牌
+    deleteBrand(i) {
+        this.brands.splice(i,1);
     }
 
     save(id) {
@@ -57,12 +155,11 @@ export default class EditController {
         }
     }
 
-    // 验证必填项(缺上传图片的验证)
+    // 验证必填项
     validate() {
         let tipsCount = 0;
         var storeName = $("#storeName").val(),
             storeIntr = $("#storeIntr").val(),
-            brand = $("#brand").val(),
             province = $("#province").val(),
             city = $("#city").val(),
             county = $("#county").val(),
@@ -79,7 +176,8 @@ export default class EditController {
             tipsCount++;
         }
 
-        if (brand.length == 0) {
+        this.getBrandIds();
+        if (this.brandIdArr == "") {
             this.brandTips = true;
             tipsCount++;
         }
@@ -109,10 +207,33 @@ export default class EditController {
             tipsCount++;
         }
 
+        if (this.showStoreLogo == false) {
+            this.storePicTips = true;
+            tipsCount++;
+        }
+
+        if (this.showBgPic == false) {
+            this.bgPicTips = true;
+            tipsCount++;
+        }
+
         if (tipsCount > 0) {
             return tipsCount;
         }
         return null;
+    }
+
+    // 获取经营品牌（提交时用）
+    getBrandIds() {
+        var count = $("#brandIds tr").length,
+            brandIdArr = [];
+
+        for (var i=0; i<count; i++) {
+            var id = $("#brandIds tr")[i].id;
+            brandIdArr.push(id);
+        }
+
+        this.brandIdArr = brandIdArr;
     }
     
     //test 输入必填项
@@ -128,31 +249,91 @@ export default class EditController {
         this.$state.go('storeMlist');
     }
 
-    showBrandPopup() {
-        this.isAddBrandShow = true;
-    }
+
 
     hideBrandPopup() {
         this.isAddBrandShow = false;
     }
 
-    // 门店简介输入字数限制
-    inputStoreIntr() {
-        var len = 0;
-        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
-            var a = this.storeIntr.charAt(i);
-            if (a.match(/[^\x00-\xff]/ig)!=null) {
-                len += 2;
-            }else {
-                len += 1;
-            }
-
-            if (len >= 1000) {
-                this.storeIntr = this.storeIntr.substr(0, round+1);
-            }
+    // test 上传logo图片
+    uploadLogo(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
         }
 
-        this.storeIntrTips = 1000 - len;
-        this.storeIntrLen = len;
+        if (file) {
+            let options = {
+                file: file
+            };
+
+            // this.uploadSvc.upload(options, url).then(data=> {
+                this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
+                this.showStoreLogo = true;
+                this.showLogoDeleteBtn = true;
+            // });
+        }
+    }
+
+    //test 上传背景图片
+    uploadBg(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
+        }
+
+        if (file) {
+            let option = {
+                file: file
+            };
+
+            this.uploadSvc.upload(options, url).then(data=>{
+                this.bgPic = 'T1UEJTBmxT1RCvBVdK';
+                this.showBgPic = true;
+                this.showBgDeleteBtn = true;
+            });
+        }
+    }
+
+    catchErrFileError(errFile) {
+        //本身错误信息
+        let errInfo = {
+            data: false,
+            msg: ''
+        };
+        if (errFile && errFile.length > 0) {
+            switch (errFile[0]['$error']) {
+                case 'pattern':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件类型错误'
+                    };
+                    break;
+                case 'maxSize':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件最大的值为5M'
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return errInfo;
+        }
+    }
+
+    // test 删除图片
+    deleteLogo() {
+        this.showStoreLogo = false;
+        this.storePicsrc = "";
+        this.showLogoDeleteBtn = false;
+    }
+    
+    deleteBg() {
+        this.showBgPic = false;
+        this.bgPic = "";
+        this.showBgDeleteBtn = false;
     }
 }

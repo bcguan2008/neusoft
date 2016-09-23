@@ -16,12 +16,13 @@ export default class uploadSvc {
      * @param params
      * @returns {*}
      */
-    upload(options){
+    upload(options, url){
         return this
             .Upload
             .upload({
-                url:'/rule/center/fileUpload',
-                data:options
+                // url:'/rule/center/fileUpload',
+                url: url,
+                data: options
             }).then(data=>{
                 let status = data && data.data.status;
                 if(status != 200){

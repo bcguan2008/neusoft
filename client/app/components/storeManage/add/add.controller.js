@@ -5,25 +5,49 @@
  */
 
 export default class AddController {
-    constructor(Api, $http, storeSvc, $state, uploadSvc) {
+    constructor(Api, $http, storeSvc, $state, uploadSvc, storeManageSvc) {
         "ngInject";
         this.name = 'add';
         this.storeSvc = storeSvc;
         this.api = Api;
         this.$state = $state;
         this.uploadSvc = uploadSvc;
+        this.storeManageSvc = storeManageSvc;
         this.d = {};
         this.init();
+        this.getProvince();
         this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
     }
 
     init() {
-        var _this = this;
-        this.api.get('/Organization/detail', {id: this.$state.params.id}).then(res=> {
-            _this.loading = false;
-            _this.d = res.datas;
-        })
+        // var _this = this;
+        // this.api.get('/Organization/detail', {id: this.$state.params.id}).then(res=> {
+        //     _this.loading = false;
+        //     _this.d = res.datas;
+        // })
+    }
+
+    // 城市选择
+    getProvince() {
+        this.storeManageSvc.getProvinceList()
+            .then(res=>{
+                this.provinceList = res;
+            })
+    }
+
+    getCity(provinceId) {
+        this.storeManageSvc.getCityList(provinceId)
+            .then(res=>{
+                this.cityList = res;
+            })
+    }
+
+    getRegion(cityId) {
+        this.storeManageSvc.getRegionList(cityId)
+            .then(res=>{
+                this.regionList = res;
+            })
     }
 
     showBrandList() {

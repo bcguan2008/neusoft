@@ -46,14 +46,22 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
                 <td colspan="2">
-                    <select name="" id="province">
-                        <option value="">省</option>
+                    <select name="province" id="province"
+                            ng-model="vm.city.provinceId"
+                            ng-options="item.provinceName for item in vm.provinceList"
+                            ng-change="vm.getCity(vm.city.provinceId)" required>
+                        <option disabled value="">省</option>
                     </select>
-                    <select name="" id="city">
-                        <option value="">市</option>
+                    <select name="city" id="city"
+                            ng-model="vm.city.cityId"
+                            ng-options="item.cityName for item in vm.cityList"
+                            ng-change="vm.getRegion(vm.city.cityId)" required>
+                        <option disabled value="">市</option>
                     </select>
-                    <select name="" id="county">
-                        <option value="">区</option>
+                    <select name="" id="county"
+                            ng-model="vm.city.regionId"
+                            ng-options="item.regionName for item in vm.regionList" required>
+                        <option disabled value="">区</option>
                     </select>
                     <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
                     <span class="error-tips" ng-show="vm.cityTips">城市不能为空！</span>

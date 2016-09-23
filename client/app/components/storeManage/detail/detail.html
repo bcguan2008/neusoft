@@ -33,19 +33,27 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td>
-                    <span ng-repeat="brands in vm.d.brands">{{brands.brandName}}，</span>
+                    <div id="brandIds" style="margin-top: 10px">
+                        <table class="col-md-5 table-bordered">
+                            <tbody>
+                            <tr id="{{brand.brandId}}" ng-repeat="brand in vm.d.brands">
+                                <td class="text-right">{{brand.brandName}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
                 <td>
-                    <select name="" id="province" disabled>
+                    <select id="province" disabled>
                         <option selected>{{vm.d.provinceName}}</option>
                     </select>
-                    <select name="" id="city" disabled>
+                    <select id="city" disabled>
                         <option selected>{{vm.d.cityName}}</option>
                     </select>
-                    <select name="" id="county" disabled>
+                    <select id="county" disabled>
                         <option selected>{{vm.d.countyName}}</option>
                     </select>
                 </td>
@@ -72,8 +80,8 @@
             <tr>
                 <td class="text-right">是否支持WI-FI：</td>
                 <td>
-                    <input type="radio" value="0" disabled ng-checked="vm.d.supportWifi==0">支持
-                    <input type="radio" value="1" style="margin-left: 30px;" disabled ng-checked="vm.d.supportWifi==1">不支持
+                    <input type="radio" value="0" disabled ng-checked="vm.d.supportWifi==1">支持
+                    <input type="radio" value="1" style="margin-left: 30px;" disabled ng-checked="vm.d.supportWifi==0">不支持
                 </td>
             </tr>
             <tr>
@@ -89,11 +97,6 @@
                     <img class="store-image" ng-if="vm.d.bgPic!=''" ng-src="http://img1.ffan.com/orig/{{vm.d.bgPic}}">
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                 </td>
-            </tr>
-            <!--审核中门店不显示-->
-            <tr>
-                <td class="text-right"><span class="required-star">*</span>内景收银台照片：</td>
-                <td><img class="store-image" src=""></td>
             </tr>
             </tbody>
         </table>
