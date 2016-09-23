@@ -5,130 +5,91 @@
  */
 
 export default class EditController {
-    constructor(Api,treeSvc,$state,templateSvc) {
-      "ngInject";
-      this.name = 'edit';
-      this.api = Api;
-      this.$state=$state;
-      this.treeSvc = treeSvc;
-      this.templateSvc = templateSvc;
-      this.d={};
-      // this.api.get('/Template/detail',{templateNo:this.$state.params.id}).then(res=>{
-      //     _this.d=res;
-      // })
-      /**
-      this.editInit();
-      this.initTree();
-      */
-      this.init();
+  constructor(Api, treeSvc, $state, templateSvc) {
+    "ngInject";
+    this.name = 'edit';
+    this.api = Api;
+    this.$state = $state;
+    this.treeSvc = treeSvc;
+    this.templateSvc = templateSvc;
+    this.d = {
+      nodesSop: [],
+      nodesApp: []
+    }
+    this.tabType = 1;
+    this.init();
   }
 
-    init(){
-      let self = this;
-      self.loading = true;
-        
-      self.loadPromise= self.templateSvc.getDetail({
-        id: this.$state.params.id
-      })
-      this.loadPromise.then(results=>{
-        //self.d.nodes = results;
-        if (results) {
-         // console.log(results)
-              self.d.name = results.name;
-              self.d.description = results.description;
-              self.d.rid = results.rid;
+  formatNodes(treeNodes, nodes) {
+    if (treeNodes && treeNodes.length > 0) {
+      treeNodes.forEach(node => {
+        if (node.checked) {
+          nodes.push(node);
         }
+        this.formatNodes(node.children, nodes);
       })
-
-      this.form = {};
-      this.loadPromise = this.treeSvc.getselectSopTree(this.$state.params.id)
-      this.loadPromise.then(results=>{
-        console.log(results)
-      self.d.nodes = results;
-        //»ñÈ¡sopÊ÷µÄ³¤¶È
-        self.d.nodessop = results.length;
-      })
-      this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id)
-      this.loadPromiseapp.then(results=>{
-        self.d.nodesapp = results;
-      })
-      this.config = {
-          fieldOfChildren: 'children',
-          fieldOfName: 'name',
-          fieldOfId: 'nodeId'
-      };
-
-      return self.loadPromise.then(result => {
-            if(result){
-              self.loading = false;
-            }
-          });
     }
 
+    return nodes;
+  }
 
-    
-    save(){     
-     // console.log(this.d.nodes)
-      //¸³Öµ¸ønodes ±à¼­µÄÊ±ºòÃ¿´Î¶¼»á
+  init() {
+    let self = this;
+    this.loading = true;
+    this.loadPromise = self.templateSvc.getDetail({
+      id: this.$state.params.id
+    });
 
-      var curnodes = this.d.nodes.length;
-      var oldnodes = this.d.nodessop;
-      var nodes="";
+    this.form = {};
+    this.loadPromisesop = this.treeSvc.getselectSopTree(this.$state.params.id);
+    this.loadPromisesop.then(data => {
+      self.d.nodesSop = self.formatNodes(data, self.d.nodesSop);
 
-      //»ñÈ¡ÒÑ¾­±»Ñ¡ÖĞµÄ×Ó½ÚµãµÄrid
-      $.each(this.d.nodes, function(key,val){
-        // console.log(val)
-        if(typeof val == "object" ) { //¸ù½Úµã
-          console.log(val)
-          if(val.checked)
-                {
-                      if(nodes==""){
-                        nodes =val.nodeId
-                  }else{
-                        nodes =nodes+','+val.nodeId
-                  }
- 
-             }
+    })
+    this.loadPromiseapp = this.treeSvc.getselectAppTree(this.$state.params.id);
+    this.loadPromiseapp.then((data) => {
+      self.d.nodesApp = self.formatNodes(data, self.d.nodesApp);
+    })
 
-            $.each(val.children, function(keychild,valchild){
-                
-                      if( typeof(valchild.children) != "undefined" ) {
-                          if(val.checked)
-                             {
-                                if(nodes==""){
-                                      nodes =val.nodeId
-                                }else{
-                                    nodes =nodes+','+val.nodeId
-                              }
+    this.config = {
+      fieldOfChildren: 'children',
+      fieldOfName: 'name',
+      fieldOfId: 'nodeId'
+    };
 
-                        }
+    this.loadPromise.then(results => {
+      if (results) {
+        self.d.name = results.name;
+        self.d.description = results.description;
+        self.d.rid = results.rid;
+      }
+    });
+  }
 
-                     $.each(valchild.children, function(keycc,valcc){
-                     // console.log(valcc +","+ valcc.children);
-                      if (valcc.children == "undefined")
-                          {
-                              if(valcc.checked)
-                              {
-                                if(nodes==""){
-                                  nodes =valcc.nodeId
-                                }else{
-                                  nodes =nodes+','+valcc.nodeId
-                                }
 
-                              }
-                          }
-                     })
-                  }
-              });
-        
-        }
-          //console.log(nodes)
-      });
+  save() {
 
-    
-       this.d.nodes= nodes
-       console.log(this.d);
-       this.templateSvc.postEdit(this.d); 
+    if (this.d.nodesApp.length == 0 && this.d.nodesSop == 0) {
+      alert("è¯·é€‰æ‹©åŠŸèƒ½æ¨¡æ¿ï¼")
+      return false;
     }
+    this.submitting = true;
+    this.d.nodes = this.d.nodesApp.concat(this.d.nodesSop).map(node => {
+      return node.nodeId;
+    }).join(',');
+
+    this.templateSvc.postEdit({
+      rid: this.d.rid,
+      description: this.d.description,
+      name: this.d.name,
+      nodes: this.d.nodes
+    }).then(res => {
+      this.submitting = false;
+      alert('ä¿®æ”¹æˆåŠŸ');
+      this.templateSvc.returntemplist();
+    },error=>{
+      this.submitting = false;
+    });
+  }
 
 }

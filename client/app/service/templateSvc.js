@@ -9,6 +9,11 @@ class templateSvc  {
     this.location = $location;
     this.baseUrl = "/role/";
   }
+
+	addTemplate(params){
+		return this.Api.post('/role/operate/act/save',params);
+	}
+
 //保存模板role/operate/act/save
   savetemplate(params){
   	 return this.Api.post(this.baseUrl + 'operate/act/save', params);
@@ -39,7 +44,7 @@ class templateSvc  {
 	 */
 	// /role/operate/act/detail/rid/'+params
 	getDetail(params){
-	    return this.Api.post(this.baseUrl+'/operate/act/detail/rid/', params);
+	    return this.Api.post(this.baseUrl+'/operate/act/detail/rid/'+ params.id, params);
 	}
 
 	postEdit(params){

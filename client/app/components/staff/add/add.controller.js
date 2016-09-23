@@ -10,19 +10,13 @@ export default class AddController {
     this.scope = $scope;
     this.q = $q;
     this.d = {};
-    this.getTempList();
     this.gettemp = {
       role_ids: '',
       role_info: ''
     }
     this.options = {
     }
-    this.selectSr = {
-      status: ''
-    }
-    this.selectSex = {
-      sex: ''
-    }
+
     this.users = {
       name: '',
       contact: '',
@@ -36,12 +30,14 @@ export default class AddController {
       gender: '', //性别
       status_id: ''//状态
     };
-    // 员工状态
-    this.staffstatus = [{ id: 3, name: '冻结' }, { id: 1, name: '正常' }];
-    //性别
-    this.sex = [{ id: 1, name: '男' }, { id: 3, name: '女' }];
-
-
+    this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' }];
+    this.sex = [{ id: 0, name: '男' }, { id: 1, name: '女' }];
+    this.selectSr = {
+      status: this.staffstatus[0]
+    }
+    this.selectSex = {
+      sex: 0
+    }
   }
 
   $onInit() {
@@ -60,17 +56,36 @@ export default class AddController {
       gettemp = this.gettemp,
       selectSr = this.selectSr,
       selectSex = this.selectSex
-    users.storeName = options.store.name;
-    users.storeId = options.store.organization_id;
+    if (options.store == undefined) {
+      alert("请选择门店！")
+      return false;
+    } else {
+      users.storeName = options.store.name;
+      users.storeId = options.store.organization_id;
+      users.share_id = options.store.share_id;
+    }
+
     users.role_ids = gettemp.role_ids;
     users.role_info = gettemp.role_info;
     users.status_id = selectSr.status.id;
-    users.gender = selectSex.sex.name;
-    
+    users.gender = selectSex.sex;
+    users.im = users.rtx;
+    console.log(users.rtx)
+    //vm.users.rtx
+
+    if (gettemp.role_ids == "") {
+      alert("请选择功能模板")
+      return false;
+    }
+    else if (users.password !== users.con_password){
+      alert('两次输入密码不一致')
+      return false;
+    }
+
     this.staffnewSvc.createuser(users)
-      .then(data => {
+      .then(success => {
+        alert("创建成功！")
         //跳转到员工list页面
-        alert('添加成功！')
         this.staffnewSvc.getstafflist();
       });
   }
@@ -85,16 +100,39 @@ export default class AddController {
     return deferred.promise;
   }
 
-  //获取功能模板 check 多选
-  getTempList() {
-    this.loadPromise = this.templateSvc.getPageAllTempList({ limit: 999999 })
-    this.loadPromise.then((result) => {
-      this.scope.datas = result.datas;
-    });
+  getTemplateName(item){
+    if(!item){
+      return '';
+    }
+
+    if(item.status =='1'){
+      return item.name;
+    }
+
+    return item.name + '('+ item.statusName + ')';
   }
 
 
-  //获取门店list
+  //获取功能模板 check 多选
+  getTempList(organizationId) {
+    let params = {
+      limit: 999999,
+      status: 0
+    }
+    if (organizationId > 0) {
+      params.organizationId = organizationId;
+    }
+
+    this.loadPromise = this.templateSvc.getPageAllTempList(params);
+    this.loadPromise.then((result) => {
+      this.templateData = result.datas;
+    });
+  }
+
+  changeStore(store) {
+    this.getTempList(store.organization_id);
+  }
+
   getStorelist(storename) {
     let deferred = this.q.defer();
     let storeList = this.storeSvc.getstorebyname(storename).then((result) => {

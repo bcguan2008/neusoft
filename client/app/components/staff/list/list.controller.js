@@ -7,7 +7,7 @@
 export default class ListController {
   constructor($scope, $http, staffnewSvc, NgTableParams, $state, templateSvc, $q, $window
     , $httpParamSerializer,commonSvc) {
-  	 "ngInject";
+     "ngInject";
     //var vm = this;
     //  this.name = 'list';
     this.$state = $state;
@@ -22,14 +22,15 @@ export default class ListController {
     this.d = {};
     this.storelist = {};
     this.nowRow = null;
+    this.status_1 =null;
     this.init();
     // 员工状态
-    this.staffstatus = [{ id: 1, name: '正常' }, { id: 3, name: '冻结' }];
+
+    this.staffstatus = [{ id: 1, name: '正常' }, { id: 4, name: '异常' }, { id: 3, name: '冻结' }];
     this.filter = {
       name: '',
       offset: 0
     };
-
     this.selectObj = {
       status_name: ''
     };
@@ -37,8 +38,9 @@ export default class ListController {
 
   searchbystaff() {
     this.staffnewSvc.getstaffpage()
-
   }
+ 
+
   //修改员工状态
   changeStatus() {
     this.staffnewSvc.changeStatus()
@@ -47,11 +49,24 @@ export default class ListController {
   * 获取格式化后的数据
   */
   getSearchFormData() {
-    let filter = this.filter
-    var selectObj = this.selectObj;
-    if (selectObj.status != undefined) {
-      filter.status = selectObj.status.id
+    let filter  = {
+      name:this.filter.name,
+      contact:this.filter.contact,
     }
+    if(this.filter.store && this.filter.store.organization_id){
+      filter.storeId = this.filter.store.organization_id;
+    }
+
+    if(this.filter.template != undefined){
+      filter.templateName = this.filter.template.name;
+    }
+
+    let selectObj = this.selectObj;
+    
+    if (selectObj.status != undefined) {
+      filter.status = selectObj.status.id;
+    }
+    
     return filter;
   }
 
@@ -78,38 +93,45 @@ export default class ListController {
    * [init 初始化]
    */
   init() {
+    let self = this;
     this.getStorelist().then(result=>{
       this.storelist = result;
-    })
-
-    let self = this;
-    
-    this.tableParams = new this.NgTableParams({
-      page: 1,
-      count: 10
-    }, {
-        getData: function ($defer, params) {
-          let paramsUrl = params.url();
-          self.loading = true;
-          let formData = self.getSearchFormData();//filter
-
-          formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
-          formData.limit = paramsUrl.count;
-
-          self.loadPromise = self.staffnewSvc.getPageUserList(formData);
-          return self.loadPromise
-            .then(result => {
-              self.loading = false;
-              if (result) {
-                self.d = {
-                  totalCount: result.totalCount
-                }
-                params.total(result.totalCount);
-                return result.datas;
-              }
-            });
+      this.storelist.forEach(store=>{
+        if(store.organization_id == self.$state.params.id ){
+          self.filter.store = store;
         }
       });
+    }).then(()=>{
+      this.tableParams = new this.NgTableParams({
+        page: 1,
+        count: 10
+      }, {
+          getData: function ($defer, params) {
+            let paramsUrl = params.url();
+            self.loading = true;
+            let formData = self.getSearchFormData();//filter
+
+          // formData.offset = (paramsUrl.page - 1) * paramsUrl.count;
+            formData.offset = paramsUrl.page;
+            formData.limit = paramsUrl.count;
+            // formData.page = params.url().page;
+            // formData.offset = params.url().page;
+
+            self.loadPromise = self.staffnewSvc.getPageUserList(formData);
+            return self.loadPromise
+              .then(result => {
+                self.loading = false;
+                if (result) {
+                  self.d = {
+                    totalCount: result.totalCount
+                  }
+                  params.total(result.totalCount);
+                  return result.datas;
+                }
+              });
+          }
+        });
+    })
   }
 
   search() {
@@ -136,8 +158,12 @@ export default class ListController {
   //更新员工状态
   changeStatus() {
     //debugger;
-    this.staffnewSvc.changeStatus({ id: this.nowRow.uid, status: this.nowRow.status == '正常' ? 3 : 1 }).then(success => {
+    this.staffnewSvc.changeStatus({ 
+      id: this.nowRow.uid, 
+      status: this.nowRow.status == '正常' ? 3 : 1 
+      }).then(success => {
       //this.$modalInstance.close()
+     
       alert("修改成功")
       $('#myModal').modal('hide');
       this.init();
@@ -146,12 +172,16 @@ export default class ListController {
   //传值给 冻结 窗口
   editInfo(a, b) {
     this.nowRow = b;
-    // $scope.vm.status_id = b.uid;
   }
   /**
    * [downloadExcel 导出模板]
    */
-  exportExcel() {
-    this.staffnewSvc.exportExcellist()
+  exportExcel(){
+   // debugger;
+    let formData = this.getSearchFormData();
+        formData.page = this.tableParams.page(); 
+        formData.limit = this.tableParams.data.length;
+    this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+
   }
 }

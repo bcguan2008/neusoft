@@ -8,6 +8,7 @@ import 'jquery';
 import 'bootstrap';
 import 'bp-sop-skin';
 import angular from 'angular';
+import 'angular-ui-tree';
 import uibs from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
@@ -23,8 +24,6 @@ import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
 import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 
-import bpUtils from 'bp-utils';
-
 angular.module('app', [
     uiRouter,
     Common.name,
@@ -33,7 +32,6 @@ angular.module('app', [
     Service.name,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
-    'bp.utils',
     uibs
   ])
   .constant('$menuConstant', {
@@ -51,6 +49,15 @@ angular.module('app', [
         }
     };
   })
+  .filter('html',function($sce){
+        "ngInject";
+        return function(text){
+            if(text){
+            return $sce.trustAsHtml(text);
+            }
+            return '';
+        }
+    })
 
 
   console.log('process.env.DEBUG', process.env.DEBUG);

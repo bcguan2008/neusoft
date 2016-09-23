@@ -8,8 +8,8 @@
            <table class="table table-bordered table-striped table-hover">
             <tbody>
                 <tr>
-                    <td class="col-md-5">门店名称</td>
-                    <td class="col-md-7" ng-bind="vm.d.name"></td>
+                    <td class="col-md-3">门店名称</td>
+                    <td class="col-md-9" ng-bind="vm.d.name"></td>
                 </tr>
                 <tr>
                     <td>门店负责人</td>
@@ -25,9 +25,10 @@
                 </tr>
                 <tr>
                     <td>可使用的功能模板</td>
-                    <td >
-
-                        <a ng-repeat="role in vm.d.role_info">功能模板{{role}},</a>
+                    <td ng-bind="vm.d.role_info.function_role_name">
+<!--                         <ul class="noStyle"> 
+                            <li ng-repeat="role in vm.d.role_info track by $index"">{{role}}</li>                       
+                        </ul> -->
                     </td>
                 </tr>
             </tbody>
