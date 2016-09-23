@@ -62,7 +62,7 @@ export default class EditController {
       name:this.d.name,
       contact:this.d.contact,
       storeId:this.d.storeId,
-      storeName:this.d.storeName,
+      storeName:this.d.employee_organization_name,
       share_id:this.d.share_id,
       email:this.d.email,
       im:this.d.rtx,
