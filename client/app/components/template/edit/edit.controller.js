@@ -16,6 +16,7 @@ export default class EditController {
       nodesSop: [],
       nodesApp: []
     }
+    this.tabType = 1;
     this.init();
   }
 
