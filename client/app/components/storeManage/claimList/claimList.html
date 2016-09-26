@@ -22,17 +22,22 @@
                     </div>
                     <div class="col-md-6">
                         <span>所在区域：</span>
-                        <select name="" id="province" class="city-select"
-                                ng-model="selected" ng-change="vm.c()" ng-options="s.name for s in list">
-                            <option value="">省</option>
+                        <select name="province" id="province" class="city-select"
+                                ng-model="vm.city.provinceId"
+                                ng-options="item.provinceName for item in vm.provinceList"
+                                ng-change="vm.getCity(vm.city.provinceId)" required>
+                            <option disabled value="">省</option>
                         </select>
-                        <select name="" id="city" class="city-select"
-                                ng-model="selected2" ng-change="vm.c2()" ng-options="sh.name for sh in selected.child">
-                            <option value="">市</option>
+                        <select name="city" id="city" class="city-select"
+                                ng-model="vm.city.cityId"
+                                ng-options="item.cityName for item in vm.cityList"
+                                ng-change="vm.getRegion(vm.city.cityId)" required>
+                            <option disabled value="">市</option>
                         </select>
                         <select name="" id="county" class="city-select"
-                                ng-model="selected3" ng-change="vm.c3()" ng-options="x.value for x in selected2.child">
-                            <option value="">区</option>
+                                ng-model="vm.city.regionId"
+                                ng-options="item.regionName for item in vm.regionList" required>
+                            <option disabled value="">区</option>
                         </select>
                     </div>
                 </div>

@@ -28,6 +28,87 @@ export default class AddController {
         // })
     }
 
+    // 门店简介输入字数限制
+    inputStoreIntr() {
+        var len = 0;
+        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
+            var a = this.storeIntr.charAt(i);
+            if (a.match(/[^\x00-\xff]/ig)!=null) {
+                len += 2;
+            }else {
+                len += 1;
+            }
+
+            if (len >= 1000) {
+                this.storeIntr = this.storeIntr.substr(0, round+1);
+            }
+        }
+
+        this.storeIntrTips = 1000 - len;
+        this.storeIntrLen = len;
+    }
+
+    // 添加品牌弹窗
+    showBrandPopup() {
+        this.isAddBrandShow = true;
+
+        this.searchBrandList("");
+    }
+
+    // 输入查询条件
+    changeSearchName(name) {
+        let self = this;
+        clearTimeout(self.myTimeout);
+        this.myTimeout = setTimeout(function () {
+            self.searchBrandList(name);
+        }, 1000);
+    }
+
+    // 调用经营品牌列表接口
+    searchBrandList(name) {
+        var _this = this;
+        this.storeManageSvc.getBrandList(name)
+            .then(result=>{
+                _this.brandList = result.datas;
+            });
+    }
+
+    // 经营品牌 保存，显示到已添加中
+    addBrand() {
+        var checkbox = $("#selectBrand input:checked"),
+            addCount = checkbox.length;
+
+        for (var i=0; i<addCount; i++) {
+            var brandId = parseInt(checkbox[i].id);
+            this.brands.push(
+                {
+                    brandId: brandId,
+                    brandName: $(checkbox[i]).val()
+                }
+            )
+        }
+
+        var n = [];
+        for (var i=0; i<this.brands.length; i++) {
+            if (n.indexOf(this.brands[i].brandId) == -1) {
+                n.push(this.brands[i].brandId);
+            }else {
+                this.brands.splice(i, 1);
+            }
+        }
+
+        this.hideBrandPopup();
+    }
+
+    hideBrandPopup() {
+        this.isAddBrandShow = false;
+    }
+
+    // 删除经营品牌
+    deleteBrand(i) {
+        this.brands.splice(i,1);
+    }
+
     // 城市选择
     getProvince() {
         this.storeManageSvc.getProvinceList()
@@ -50,13 +131,6 @@ export default class AddController {
             })
     }
 
-    showBrandList() {
-        this.isBrandListShow = true;
-    }
-
-    hideBrandList() {
-        this.isBrandListShow = false;
-    }
 
     hidePopupList() {
         this.isPopupListShow = false;
@@ -123,26 +197,6 @@ export default class AddController {
         this.showStoreLogo = false;
         this.logoSrc = '';
         this.showDeleteBtn = false;
-    }
-
-    // 门店简介输入字数限制
-    inputStoreIntr() {
-        var len = 0;
-        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
-            var a = this.storeIntr.charAt(i);
-            if (a.match(/[^\x00-\xff]/ig)!=null) {
-                len += 2;
-            }else {
-                len += 1;
-            }
-
-            if (len >= 1000) {
-                this.storeIntr = this.storeIntr.substr(0, round+1);
-            }
-        }
-
-        this.storeIntrTips = 1000 - len;
-        this.storeIntrLen = len;
     }
 
     // 提交

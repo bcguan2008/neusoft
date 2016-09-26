@@ -11,91 +11,100 @@
             <tbody>
             <tr>
                 <td class="col-md-3 text-right">门店编号：</td>
-                <td class="col-md-9"><input type="text" class="form-control" disabled></td>
+                <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.storeNo"></td>
             </tr>
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
-                <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.name"></td>
+                <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.storeName"></td>
             </tr>
             <tr>
                 <td class="text-right">英文名称：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td><input type="text" class="form-control" disabled ng-model="vm.d.storeEnglishName"></td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td><input type="text" class="form-control" disabled ng-model="vm.d.storeEnglishInitials"></td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"
-                              disabled></textarea>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled ng-model="vm.d.storeDesc"></textarea>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
-                    <div>您最多还可输入<span>936</span>字</div>
+                    <div>您最多还可输入{{vm.d.descLen}}字</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td>
+                    <div id="brandIds" style="margin-top: 10px">
+                        <table class="col-md-5 table-bordered">
+                            <tbody>
+                            <tr id="{{brand.brandId}}" ng-repeat="brand in vm.d.brands">
+                                <td class="text-right">{{brand.brandName}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
                 <td>
                     <select name="" id="province" disabled>
-                        <option value="">北京市</option>
+                        <option selected>{{vm.d.provinceName}}</option>
                     </select>
                     <select name="" id="city" disabled>
-                        <option value="">北京市</option>
+                        <option selected>{{vm.d.cityName}}</option>
                     </select>
                     <select name="" id="county" disabled>
-                        <option value="">北京市</option>
+                        <option selected>{{vm.d.countyName}}</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店地址：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td><input type="text" class="form-control" disabled ng-model="vm.d.storeAddress"></td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td>
-                    <input type="text" class="form-control" disabled>
+                    <input type="text" class="form-control" disabled ng-model="vm.d.storePhone">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">楼层：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td><input type="text" class="form-control" disabled ng-model="vm.d.storeFloor"></td>
             </tr>
             <tr>
                 <td class="text-right">铺位号：</td>
-                <td><input type="text" class="form-control" disabled></td>
+                <td><input type="text" class="form-control" disabled ng-model="vm.d.storeBunkNo"></td>
             </tr>
             <tr>
                 <td class="text-right">是否支持WI-FI：</td>
                 <td>
-                    <input type="radio" value="0" disabled checked>支持
-                    <input type="radio" value="1" style="margin-left: 30px;" disabled>不支持
+                    <input type="radio" value="0" disabled ng-checked="vm.d.supportWifi==1">支持
+                    <input type="radio" value="1" style="margin-left: 30px;" disabled ng-checked="vm.d.supportWifi==0">不支持
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
                 <td>
-                    <img src="" alt="">
+                    <img class="store-image" id="{{vm.d.storePicsrc}}" ng-if="vm.d.storePicsrc!=''" ng-src="http://img1.ffan.com/orig/{{vm.d.storePicsrc}}">
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
                 <td>
-                    <img src="" alt="">
+                    <img class="store-image" ng-if="vm.d.bgPic!=''" ng-src="http://img1.ffan.com/orig/{{vm.d.bgPic}}">
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">备注：</td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled></textarea>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
                     <div>（若门店地址或者其他信息与真实信息有出入，需要修改可在备注说明）</div>
                 </td>
             </tr>

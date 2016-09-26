@@ -87,7 +87,7 @@ export default class EditController {
             });
     }
 
-    //test 经营品牌 保存，显示到已添加中（缺查重功能？）
+    // 经营品牌 保存，显示到已添加中
     addBrand() {
         var checkbox = $("#selectBrand input:checked"),
             addCount = checkbox.length;
@@ -101,25 +101,21 @@ export default class EditController {
                 }
             )
         }
-        console.log(this.brands);
-        this.brands = this.checkBrands();
+
+        var n = [];
+        for (var i=0; i<this.brands.length; i++) {
+            if (n.indexOf(this.brands[i].brandId) == -1) {
+                n.push(this.brands[i].brandId);
+            }else {
+                this.brands.splice(i, 1);
+            }
+        }
 
         this.hideBrandPopup();
     }
 
-    //test 查重
-    checkBrands() {
-        var n = [];
-        for (var i=0; i<this.brands.length; i++) {
-            // console.log(this.brands[i].brandId);
-            // console.log(n.indexOf(this.brands[i]));
-
-            if (n.indexOf(this.brands[i]) == -1) {
-                n.push(this.brands[i]);
-            }
-            // console.log(n);
-        }
-        return n;
+    hideBrandPopup() {
+        this.isAddBrandShow = false;
     }
 
     // 删除经营品牌
@@ -247,12 +243,6 @@ export default class EditController {
 
     back() {
         this.$state.go('storeMlist');
-    }
-
-
-
-    hideBrandPopup() {
-        this.isAddBrandShow = false;
     }
 
     // test 上传logo图片

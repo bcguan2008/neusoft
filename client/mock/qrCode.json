@@ -1,8 +1,0 @@
-{
-  "status": 200,
-  "message": "操作成功",
-  "data": {
-    "qrCodeImgUrl": "http://img4.ffan.com/T12ZZTBgLv1RCvBVdK",
-    "expireTime": "2026-09-20"
-  }
-}

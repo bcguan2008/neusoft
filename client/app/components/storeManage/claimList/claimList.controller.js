@@ -5,26 +5,19 @@
  */
 
 export default class ClaimListController {
-    constructor($q, storeSvc, $scope, $http, NgTableParams, $state) {
+    constructor($q, storeSvc, $scope, $http, NgTableParams, $state, storeManageSvc) {
         "ngInject";
         this.$state = $state
         this.storeSvc = storeSvc;
         this.q = $q;
         this.NgTableParams = NgTableParams;
+        this.storeManageSvc = storeManageSvc;
         this.init();
+        this.getProvince();
         this.filter = {
             limit: 10,
             offset: 0
         };
-
-        //test 城市选择
-        this.error = {};
-        this.list = [];
-        let self = this;
-        $http.get('../../../mock/list.json').success(function (data) {
-            $scope.list = data;
-            // self.list = data;
-        });
     }
 
     init() {
@@ -62,28 +55,26 @@ export default class ClaimListController {
         return filter;
     }
 
-    c() {
-        this.error.province = false;
-        this.error.city = false;
-        this.error.area = false;
-        this.selected2 = "";
-        this.selected3 = "";
+    // 城市选择
+    getProvince() {
+        this.storeManageSvc.getProvinceList()
+            .then(res=>{
+                this.provinceList = res;
+            })
     }
 
-    c2() {
-        this.error.city = false;
-        this.error.area = false;
-        this.selected3 = "";
+    getCity(provinceId) {
+        this.storeManageSvc.getCityList(provinceId)
+            .then(res=>{
+                this.cityList = res;
+            })
     }
 
-    c3() {
-        this.error.area = false;
-    }
-
-    submit() {
-        this.error.province = this.selected ? false:true;
-        this.error.city = this.selected2 ? false:true;
-        this.error.area = this.selected3 ? false:true;
+    getRegion(cityId) {
+        this.storeManageSvc.getRegionList(cityId)
+            .then(res=>{
+                this.regionList = res;
+            })
     }
 
     reset() {

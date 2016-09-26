@@ -38,9 +38,44 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td colspan="2">
-                    <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandList()">添加</button>
-                    <input type="text" class="form-control" id="brand" disabled style="background: #ffffff">
-                    <span class="error-tips" ng-show="vm.brandTips">必填字段</span>
+                    <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandPopup()">添加</button>
+                    <!--已添加品牌列表-->
+                    <div id="brandIds" style="margin-top: 10px">
+                        <table class="col-md-8 table-bordered">
+                            <tbody>
+                            <tr id="{{brand.brandId}}" ng-repeat="brand in vm.brands">
+                                <td class="col-md-8 text-right">{{brand.brandName}}</td>
+                                <td class="col-md-4"><a ng-click="vm.deleteBrand($index)">删除</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="error-tips" ng-show="vm.brandTips">必填字段</div>
+
+                    <!--添加品牌弹窗-->
+                    <div class="modal-dialog" style="position: fixed; top: 23%; left: 50%; margin-left: -210px; z-index: 9" ng-show="vm.isAddBrandShow">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="modal-title">添加品牌</span>
+                                <div class="modal-close" ng-click="vm.hideBrandPopup()">X</div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <span>查找品牌：</span>
+                                    <input type="text" class="form-control"
+                                           ng-init="vm.searchName=''" ng-model="vm.searchName" ng-change="vm.changeSearchName(vm.searchName)">
+                                </div>
+                                <div id="selectBrand" style="height: 200px; padding-top: 20px; overflow-y: auto;">
+                                    <div class="col-md-6" ng-repeat="brand in vm.brandList">
+                                        <input type="checkbox" id="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bp-btn-danger" ng-click="vm.addBrand()">保存</button>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -130,24 +165,7 @@
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>
-    <!--添加品牌 弹窗-->
-    <div class="brand-popup" ng-show="vm.isBrandListShow">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="modal-title">添加品牌</span>
-                    <div class="modal-close" ng-click="vm.hideBrandList()">X</div>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center">查找品牌：<input type="text" class="form-control" style="width: 50%; display: inline-block"></div>
-                    <div style="height: 200px; overflow-y: auto;">modal body</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hideBrandList()">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!--查重 弹窗-->
     <div class="repetition-list-popup" ng-show="vm.isPopupListShow">
         <div class="modal-dialog">
