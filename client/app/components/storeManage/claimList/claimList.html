@@ -4,45 +4,45 @@
             <div class="panel-body">
                 <div class="row search-box" style="margin-left: 0;">
                     <div class="col-md-2">
-                        <select name="" id="">
-                            <option value="">全部门店</option>
-                            <option value="">待审新建门店</option>
-                            <option value="">被驳回新建门店</option>
-                            <option value="">待审认领门店</option>
-                            <option value="">被驳回认领门店</option>
-                            <option value="">待审编辑门店</option>
-                            <option value="">被驳回编辑门店</option>
+                        <select name="" id="" ng-model="vm.searchOptions.status" ng-init="vm.searchOptions.status = '-1'">
+                            <option value="-1">全部门店</option>
+                            <option value="0">待审新建门店</option>
+                            <option value="2">被驳回新建门店</option>
+                            <option value="3">待审认领门店</option>
+                            <option value="4">被驳回认领门店</option>
+                            <option value="6">待审编辑门店</option>
+                            <option value="8">被驳回编辑门店</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <input type="text" placeholder="门店名称" ng-model="vm.searchOptions.name">
+                        <input type="text" placeholder="门店名称" ng-model="vm.searchOptions.storeName">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" placeholder="经营品牌">
+                        <input type="text" placeholder="经营品牌" ng-model="vm.searchOptions.brandName">
                     </div>
                     <div class="col-md-6">
                         <span>所在区域：</span>
                         <select name="province" id="province" class="city-select"
-                                ng-model="vm.city.provinceId"
+                                ng-model="vm.searchOptions.provinceId"
                                 ng-options="item.provinceName for item in vm.provinceList"
-                                ng-change="vm.getCity(vm.city.provinceId)" required>
+                                ng-change="vm.getCity(vm.searchOptions.provinceId)" required>
                             <option disabled value="">省</option>
                         </select>
                         <select name="city" id="city" class="city-select"
-                                ng-model="vm.city.cityId"
+                                ng-model="vm.searchOptions.cityId"
                                 ng-options="item.cityName for item in vm.cityList"
-                                ng-change="vm.getRegion(vm.city.cityId)" required>
+                                ng-change="vm.getRegion(vm.searchOptions.cityId)" required>
                             <option disabled value="">市</option>
                         </select>
                         <select name="" id="county" class="city-select"
-                                ng-model="vm.city.regionId"
+                                ng-model="vm.searchOptions.regionId"
                                 ng-options="item.regionName for item in vm.regionList" required>
                             <option disabled value="">区</option>
                         </select>
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn bp-btn-primary" type="button">查询</button>
+                    <button class="btn bp-btn-primary" type="button" ng-click="vm.search()">查询</button>
                     <button class="btn bp-btn-primary" type="button" ng-click="vm.reset()">重置</button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
 
         <div class="panel" style="border: none">
             <div class="panel-body">
-                <div class="table-container list-table">
+                <div class="table-container list-table" id="page">
                     <div class="table-wrapper" ng-table="vm.tableParams">
                         <table class="table table-bordered table-striped table-hover"
                                cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
@@ -72,13 +72,18 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="row in $data track by $index">
-                                <td>门店编号</td>
-                                <td>{{row.name}}</td>
-                                <td>经营品牌</td>
-                                <td>城市</td>
-                                <td>门店地址</td>
-                                <td>门店电话</td>
-                                <td style="color: #337ab7" ng-click="vm.goClaimDetail(row.organization_id)">认领</td>
+                                <td>{{row.storeId}}</td>
+                                <td>{{row.storeName}}</td>
+                                <td>
+                                    <span ng-repeat="brand in row.brands">{{brand.brandName}}，</span>
+                                </td>
+                                <td>{{row.provinceName}}-{{row.cityName}}-{{row.countyName}}</td>
+                                <td>{{row.storeAddress}}</td>
+                                <td>{{row.storePhone}}</td>
+                                <td>
+                                    <a ng-if="row.status != 5" ng-click="vm.goClaimDetail(row.storeId)">认领</a>
+                                    <a ng-if="row.status == 5" ng-click="vm.goDetail(row.storeId)">查看</a>
+                                </td>
                             </tr>
                             <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
                                 <td colspan="10" style="text-align: center">
@@ -94,12 +99,12 @@
                         </table>
                     </div>
                     <div class="recordCount">
-                        <span>共 <span class="count" ng-init="vm.d.totalCount=0" ng-model="vm.d.totalCount">{{vm.d.totalCount}}</span> 条记录</span>
+                        <span>共 <span class="count" ng-init="vm.d.totalCount=0" ng-model="vm.d.totalCount">{{vm.storeInfo.totalCount}}</span> 条记录</span>
                     </div>
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="button" class="btn bp-btn-primary" ng-click="vm.exportExcel()">导出Excel</button>
+                <a class="btn bp-btn-primary" ng-click="vm.exportExcel()" ng-href="{{vm.exportExcelUrl}}">导出Excel</a>
             </div>
         </div>
     </div>

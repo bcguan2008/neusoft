@@ -11,7 +11,7 @@
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-9">
-                    <input type="text" class="form-control" id="storeName" ng-change="vm.changeInput()" ng-model="vm.d.storeName">
+                    <input type="text" class="form-control" id="storeName" ng-model="vm.d.storeName" ng-change="vm.changeRequired()">
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
                 </td>
             </tr>
@@ -26,7 +26,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputStoreIntr()"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputStoreIntr(); vm.changeRequired()"></textarea>
                     <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                     <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
@@ -103,7 +103,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td>
-                    <input type="text" class="form-control" id="phone" ng-model="vm.d.storePhone">
+                    <input type="text" class="form-control" id="phone" ng-model="vm.d.storePhone" ng-change="vm.changeRequired()">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                 </td>

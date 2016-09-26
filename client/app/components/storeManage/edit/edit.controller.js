@@ -112,6 +112,7 @@ export default class EditController {
         }
 
         this.hideBrandPopup();
+        this.changeRequired();
     }
 
     hideBrandPopup() {
@@ -155,11 +156,6 @@ export default class EditController {
     validate() {
         let tipsCount = 0;
         var storeName = $("#storeName").val(),
-            storeIntr = $("#storeIntr").val(),
-            province = $("#province").val(),
-            city = $("#city").val(),
-            county = $("#county").val(),
-            address = $("#address").val(),
             phone = $("#phone").val();
 
         if (storeName.length == 0) {
@@ -167,7 +163,7 @@ export default class EditController {
             tipsCount++;
         }
 
-        if (storeIntr.length < 40) {
+        if (this.storeIntrLen < 40) {
             this.intrTips = true;
             tipsCount++;
         }
@@ -175,26 +171,6 @@ export default class EditController {
         this.getBrandIds();
         if (this.brandIdArr == "") {
             this.brandTips = true;
-            tipsCount++;
-        }
-
-        if (province.length == 0) {
-            this.provinceTips = true;
-            tipsCount++;
-        }
-
-        if (city.length == 0) {
-            this.cityTips = true;
-            tipsCount++;
-        }
-
-        if (county.length == 0) {
-            this.countyTips = true;
-            tipsCount++;
-        }
-
-        if (address.length == 0) {
-            this.addressTips = true;
             tipsCount++;
         }
 
@@ -219,7 +195,7 @@ export default class EditController {
         return null;
     }
 
-    // 获取经营品牌（提交时用）
+    // 获取该门店经营品牌
     getBrandIds() {
         var count = $("#brandIds tr").length,
             brandIdArr = [];
@@ -231,11 +207,36 @@ export default class EditController {
 
         this.brandIdArr = brandIdArr;
     }
-    
-    //test 输入必填项
-    changeInput() {
-        this.nameTips = false;
+
+    // 输入必填项
+    changeRequired() {
+        if (this.d.storeName != "" && this.nameTips == true) {
+            this.nameTips = false;
+        }
+
+        if (this.storeIntr != "" && this.intrTips == true) {
+            this.intrTips = false;
+        }
+
+        this.getBrandIds();
+        if (this.brandIdArr == "" && this.brandTips == true) {
+            this.brandTips = false;
+        }
+
+        if (this.d.storePhone != "" && this.phoneTips == true) {
+            this.phoneTips = false;
+        }
+
+        if (this.showStoreLogo == true && this.storePicTips == true) {
+            this.storePicTips = false;
+        }
+
+        if (this.showBgPic == true && this.bgPicTips == true) {
+            this.bgPicTips = false;
+        }
     }
+    
+
 
     goClaimList(){
         this.$state.go('storeMclaimlist');
@@ -262,6 +263,8 @@ export default class EditController {
                 this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
                 this.showStoreLogo = true;
                 this.showLogoDeleteBtn = true;
+
+                this.changeRequired();
             // });
         }
     }
@@ -283,6 +286,8 @@ export default class EditController {
                 this.bgPic = 'T1UEJTBmxT1RCvBVdK';
                 this.showBgPic = true;
                 this.showBgDeleteBtn = true;
+
+                this.changeRequired();
             });
         }
     }
@@ -326,4 +331,6 @@ export default class EditController {
         this.bgPic = "";
         this.showBgDeleteBtn = false;
     }
+
+    
 }

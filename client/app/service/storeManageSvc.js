@@ -40,6 +40,11 @@ class storeManageSvc {
     getRegionList(cityId) {
         return this.Api.get('/storemanage/label/region', cityId);
     }
+    
+    // 认领门店列表
+    getClaimList(params) {
+        return this.Api.get('/storemanage/claim/search', params);
+    }
 }
 
 export default storeManageSvc

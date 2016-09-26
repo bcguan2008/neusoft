@@ -13,7 +13,7 @@ export default class AddController {
         this.$state = $state;
         this.uploadSvc = uploadSvc;
         this.storeManageSvc = storeManageSvc;
-        this.d = {};
+        this.storeInfo = {};
         this.init();
         this.getProvince();
         this.storeIntrTips = 1000;
@@ -24,15 +24,15 @@ export default class AddController {
         // var _this = this;
         // this.api.get('/Organization/detail', {id: this.$state.params.id}).then(res=> {
         //     _this.loading = false;
-        //     _this.d = res.datas;
+        //     _this.storeInfo = res.datas;
         // })
     }
 
     // 门店简介输入字数限制
     inputStoreIntr() {
         var len = 0;
-        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
-            var a = this.storeIntr.charAt(i);
+        for (var i=0,round=0; i<this.storeInfo.storeIntr.length; i++,round++) {
+            var a = this.storeInfo.storeIntr.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
             }else {
@@ -40,7 +40,7 @@ export default class AddController {
             }
 
             if (len >= 1000) {
-                this.storeIntr = this.storeIntr.substr(0, round+1);
+                this.storeInfo.storeIntr = this.storeInfo.storeIntr.substr(0, round+1);
             }
         }
 
@@ -98,6 +98,7 @@ export default class AddController {
         }
 
         this.hideBrandPopup();
+        this.changeRequired();
     }
 
     hideBrandPopup() {
@@ -143,9 +144,9 @@ export default class AddController {
     back() {
         this.$state.go('storeMclaimlist');
     }
-    
-    // test 上传图片
-    uploadFile(file, errFile) {
+
+    // test 上传logo图片
+    uploadLogo(file, errFile) {
         let errInfo = this.catchErrFileError(errFile);
         if (errInfo && errInfo['data']) {
             this.uploadErrorMsg = errInfo['msg'];
@@ -157,11 +158,36 @@ export default class AddController {
                 file: file
             };
 
-            // this.uploadSvc.upload(options).then(data=> {
-                this.logoSrc = 'http://img1.ffan.com/orig/T1UEJTBmxT1RCvBVdK';
-                this.showStoreLogo = true;
-                this.showDeleteBtn = true;
+            // this.uploadSvc.upload(options, url).then(data=> {
+            this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
+            this.showStoreLogo = true;
+            this.showLogoDeleteBtn = true;
+
+            this.changeRequired();
             // });
+        }
+    }
+
+    //test 上传背景图片
+    uploadBg(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
+        }
+
+        if (file) {
+            let option = {
+                file: file
+            };
+
+            this.uploadSvc.upload(options, url).then(data=>{
+                this.bgPic = 'T1UEJTBmxT1RCvBVdK';
+                this.showBgPic = true;
+                this.showBgDeleteBtn = true;
+
+                this.changeRequired();
+            });
         }
     }
 
@@ -193,10 +219,16 @@ export default class AddController {
     }
 
     // test 删除图片
-    deleteFile() {
+    deleteLogo() {
         this.showStoreLogo = false;
-        this.logoSrc = '';
-        this.showDeleteBtn = false;
+        this.storePicsrc = "";
+        this.showLogoDeleteBtn = false;
+    }
+
+    deleteBg() {
+        this.showBgPic = false;
+        this.bgPic = "";
+        this.showBgDeleteBtn = false;
     }
 
     // 提交
@@ -225,11 +257,10 @@ export default class AddController {
         }
     }
 
-    // 验证必填项（缺图片）
+    // 验证必填项
     validate() {
         let tipsCount = 0;
         var storeName = $("#storeName").val(),
-            storeIntr = $("#storeIntr").val(),
             brand = $("#brand").val(),
             province = $("#province").val(),
             city = $("#city").val(),
@@ -242,27 +273,28 @@ export default class AddController {
             tipsCount++;
         }
 
-        if (storeIntr.length < 40) {
+        if (this.storeIntrLen < 40) {
             this.intrTips = true;
             tipsCount++;
         }
 
-        if (brand.length == 0) {
+        this.getBrandIds();
+        if (this.brandIdArr == "") {
             this.brandTips = true;
             tipsCount++;
         }
 
-        if (province.length == 0) {
+        if (province == null) {
             this.provinceTips = true;
             tipsCount++;
         }
 
-        if (city.length == 0) {
+        if (city == null) {
             this.cityTips = true;
             tipsCount++;
         }
 
-        if (county.length == 0) {
+        if (county == null) {
             this.countyTips = true;
             tipsCount++;
         }
@@ -277,9 +309,80 @@ export default class AddController {
             tipsCount++;
         }
 
+        if (this.showStoreLogo == false || this.showStoreLogo == undefined) {
+            this.storePicTips = true;
+            tipsCount++;
+        }
+
+        if (this.showBgPic == false || this.showBgPic == undefined) {
+            this.bgPicTips = true;
+            tipsCount++;
+        }
+
         if (tipsCount > 0) {
             return tipsCount;
         }
         return null;
+    }
+
+    // 获取该门店经营品牌
+    getBrandIds() {
+        var count = $("#brandIds tr").length,
+            brandIdArr = [];
+
+        for (var i=0; i<count; i++) {
+            var id = $("#brandIds tr")[i].id;
+            brandIdArr.push(id);
+        }
+
+        this.brandIdArr = brandIdArr;
+    }
+
+    // 输入必填项
+    changeRequired() {
+        var province = $("#province").val(),
+            city = $("#city").val(),
+            county = $("#county").val();
+
+        if (this.storeInfo.storeName != "" && this.storeInfo.storeName != undefined && this.nameTips == true) {
+            this.nameTips = false;
+        }
+
+        if (this.storeInfo.storeIntr != "" && this.storeInfo.storeIntr != undefined && this.intrTips == true) {
+            this.intrTips = false;
+        }
+
+        this.getBrandIds();
+        if (this.brandIdArr == "" && this.brandTips == true) {
+            this.brandTips = false;
+        }
+
+        if (province != null && this.provinceTips == true) {
+            this.provinceTips = false;
+        }
+
+        if (city != null && this.cityTips == true) {
+            this.cityTips = false;
+        }
+
+        if (county != null && this.countyTips == true) {
+            this.countyTips = false;
+        }
+
+        if (this.storeInfo.storeAddress != "" && this.storeInfo.storeAddress != undefined && this.addressTips == true) {
+            this.addressTips = false;
+        }
+
+        if (this.storeInfo.storePhone != "" && this.storeInfo.storePhone != undefined && this.phoneTips == true) {
+            this.phoneTips = false;
+        }
+
+        if (this.showStoreLogo == true && this.storePicTips == true) {
+            this.storePicTips = false;
+        }
+
+        if (this.showBgPic == true && this.bgPicTips == true) {
+            this.bgPicTips = false;
+        }
     }
 }

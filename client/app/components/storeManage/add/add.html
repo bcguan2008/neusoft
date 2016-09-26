@@ -11,7 +11,7 @@
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-5">
-                    <input type="text" class="form-control" id="storeName" ng-model="vm.d.name">
+                    <input type="text" class="form-control" id="storeName" ng-model="vm.storeInfo.storeName" ng-change="vm.changeRequired()">
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
                 </td>
                 <td class="col-md-4">
@@ -29,7 +29,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td colspan="2">
-                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-change="vm.inputStoreIntr()" ng-model="vm.storeIntr"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeInfo.storeIntr" ng-change="vm.inputStoreIntr(); vm.changeRequired()"></textarea>
                     <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                     <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
@@ -50,6 +50,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <br>
                     <div class="error-tips" ng-show="vm.brandTips">必填字段</div>
 
                     <!--添加品牌弹窗-->
@@ -84,18 +85,19 @@
                     <select name="province" id="province"
                             ng-model="vm.city.provinceId"
                             ng-options="item.provinceName for item in vm.provinceList"
-                            ng-change="vm.getCity(vm.city.provinceId)" required>
+                            ng-change="vm.getCity(vm.city.provinceId); vm.changeRequired()" required>
                         <option disabled value="">省</option>
                     </select>
                     <select name="city" id="city"
                             ng-model="vm.city.cityId"
                             ng-options="item.cityName for item in vm.cityList"
-                            ng-change="vm.getRegion(vm.city.cityId)" required>
+                            ng-change="vm.getRegion(vm.city.cityId); vm.changeRequired()" required>
                         <option disabled value="">市</option>
                     </select>
                     <select name="" id="county"
                             ng-model="vm.city.regionId"
-                            ng-options="item.regionName for item in vm.regionList" required>
+                            ng-options="item.regionName for item in vm.regionList"
+                            ng-change="vm.changeRequired()" required>
                         <option disabled value="">区</option>
                     </select>
                     <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
@@ -106,14 +108,14 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店地址：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control" id="address">
+                    <input type="text" class="form-control" id="address" ng-model="vm.storeInfo.storeAddress" ng-change="vm.changeRequired()">
                     <span class="error-tips" ng-show="vm.addressTips">必填字段</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control" id="phone">
+                    <input type="text" class="form-control" id="phone" ng-model="vm.storeInfo.storePhone" ng-change="vm.changeRequired()">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                 </td>
@@ -144,6 +146,7 @@
                        ngf-max-size="5MB">上传图片</a>
                     <a class="btn bp-btn-danger" ng-show="vm.showDeleteBtn" ng-click="vm.deleteFile()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
+                    <div class="error-tips" ng-show="vm.storePicTips">此处为必填项</div>
                 </td>
             </tr>
             <tr>
@@ -155,13 +158,14 @@
                        ngf-pattern="'.jpg,.jpeg,.png'"
                        ngf-max-size="5MB" >上传图片</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
+                    <div class="error-tips" ng-show="vm.bgPicTips">此处为必填项</div>
                 </td>
             </tr>
             </tbody>
         </table>
         <div class="panel-footer">
             <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save()">提交</button>
-            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid || vm.submitting" type="submit" ng-click="vm.save()">提交(test)</button>
+            <!--<button class="btn bp-btn-primary" ng-disabled="editStore.$invalid || vm.submitting" type="submit" ng-click="vm.save()">提交(test)</button>-->
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>
