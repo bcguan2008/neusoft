@@ -11,22 +11,29 @@
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-9">
-                    <input type="text" class="form-control" id="storeName" ng-model="vm.d.storeName" ng-change="vm.changeRequired()">
+                    <input type="text" class="form-control" id="storeName" ng-focus="vm.showStoreNameLen=true; vm.inputLength('storeName', vm.d.storeName, 40)" ng-blur="vm.showStoreNameLen=false" ng-model="vm.d.storeName" ng-change="vm.changeRequired()">
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
+                    <span class="error-tips" ng-if="vm.showStoreNameLen">{{vm.storeNameLen}}/40</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文名称：</td>
-                <td><input type="text" class="form-control" ng-model="vm.d.storeEnglishName"></td>
+                <td>
+                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false" ng-model="vm.d.storeEnglishName">
+                    <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
-                <td><input type="text" class="form-control" ng-model="vm.d.storeEnglishInitials"></td>
+                <td>
+                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false" ng-model="vm.d.storeEnglishInitials">
+                    <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputStoreIntr(); vm.changeRequired()"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputLength('storeIntr', vm.storeInfo.storeIntr, 1000); vm.changeRequired()"></textarea>
                     <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                     <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
@@ -35,7 +42,6 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
                 <td>
-                    <!--<button ng-click="vm.getBrandIds()">test</button>-->
                     <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandPopup()">添加</button>
                     <!--已添加品牌列表-->
                     <div id="brandIds" style="margin-top: 10px">
@@ -103,18 +109,26 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td>
-                    <input type="text" class="form-control" id="phone" ng-model="vm.d.storePhone" ng-change="vm.changeRequired()">
+                    <input type="text" class="form-control" id="phone" ng-focus="vm.showStorePhoneLen=true; vm.inputLength('storePhone', vm.d.storePhone, 100)" ng-blur="vm.showStorePhoneLen=false; vm.checkPhone(vm.d.storePhone)" ng-model="vm.d.storePhone" ng-change="vm.changeRequired()">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
+                    <span class="error-tips" ng-if="vm.showCheckTips">请正确填写电话号码</span>
+                    <span class="error-tips" ng-if="vm.showStorePhoneLen">{{vm.storePhoneLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">楼层：</td>
-                <td><input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-model="vm.d.storeFloor"></td>
+                <td>
+                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor">
+                    <span class="error-tips" ng-if="vm.showStoreFloorLen">{{vm.storeFloorLen}}/100</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right">铺位号：</td>
-                <td><input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-model="vm.d.storeBunkNo"></td>
+                <td>
+                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo">
+                    <span class="error-tips" ng-if="vm.showStoreBunkNoLen">{{vm.storeBunkNoLen}}/15</span>
+                </td>
             </tr>
             <tr>
                 <td class="text-right">是否支持WI-FI：</td>

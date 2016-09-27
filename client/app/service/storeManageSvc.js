@@ -58,7 +58,12 @@ class storeManageSvc {
 
     // 新增门店
     saveStore(params) {
-        return this.Api.post('/storemanage/store/save', params);
+        return this.Api.post('/storemanage/claim/save', params);
+    }
+
+    // 认领门店详情
+    getClaimDetail(params) {
+        return this.Api.get('/storemanage/claim/detail', params);
     }
 }
 

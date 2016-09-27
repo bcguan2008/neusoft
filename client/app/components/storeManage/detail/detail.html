@@ -99,8 +99,8 @@
             </tr>
             </tbody>
         </table>
-        <div class="panel-footer form-actions" ng-if="vm.d.status != 6">
-            <button class="btn bp-btn-primary" type="button" ng-click="vm.edit(vm.d.storeId)">编辑</button>
+        <div class="panel-footer form-actions">
+            <button class="btn bp-btn-primary" type="button" ng-if="vm.d.status != 6" ng-click="vm.edit(vm.d.storeId)">编辑</button>
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>

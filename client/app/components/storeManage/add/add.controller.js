@@ -14,39 +14,68 @@ export default class AddController {
         this.uploadSvc = uploadSvc;
         this.storeManageSvc = storeManageSvc;
         this.storeInfo = {};
-        this.init();
         this.getProvince();
         this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
         this.brands = [];
     }
 
-    init() {
-        // var _this = this;
-        // this.api.get('/Organization/detail', {id: this.$state.params.id}).then(res=> {
-        //     _this.loading = false;
-        //     _this.storeInfo = res.datas;
-        // })
-    }
-
-    // 门店简介输入字数限制
-    inputStoreIntr() {
+    // 输入字数限制
+    inputLength(inputId, inputText, maxLength) {
         var len = 0;
-        for (var i=0,round=0; i<this.storeInfo.storeIntr.length; i++,round++) {
-            var a = this.storeInfo.storeIntr.charAt(i);
+        for (var i=0,round=0; i<inputText.length; i++,round++) {
+            var a = inputText.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
             }else {
                 len += 1;
             }
 
-            if (len >= 1000) {
-                this.storeInfo.storeIntr = this.storeInfo.storeIntr.substr(0, round+1);
+            if (len >= maxLength) {
+                inputText = inputText.substr(0, round+1);
             }
         }
 
-        this.storeIntrTips = 1000 - len;
-        this.storeIntrLen = len;
+        if (inputId == "storeName") {
+            this.storeInfo.storeName = inputText;
+            this.storeNameLen = len;
+        }
+
+        if (inputId == "storeEnglishName") {
+            this.storeInfo.storeEnglishName = inputText;
+            this.storeENameLen = len;
+        }
+
+        if (inputId == "storeEnglishInitials") {
+            this.storeInfo.storeEnglishInitials = inputText;
+            this.storeEInitialsLen = len;
+        }
+        
+        if (inputId == "storeIntr") {
+            this.storeInfo.storeIntr = inputText;
+            this.storeIntrTips = maxLength - len;
+            this.storeIntrLen = len;
+        }
+
+        if (inputId == "storeAddress") {
+            this.storeInfo.storeAddress = inputText;
+            this.storeAddressLen = len;
+        }
+        
+        if (inputId == "storePhone") {
+            this.storeInfo.storePhone = inputText;
+            this.storePhoneLen = len;
+        }
+
+        if (inputId == "storeFloor") {
+            this.storeInfo.storeFloor = inputText;
+            this.storeFloorLen = len;
+        }
+
+        if (inputId == "storeBunkNo") {
+            this.storeInfo.storeBunkNo = inputText;
+            this.storeBunkNoLen = len;
+        }
     }
 
     // 添加品牌弹窗
@@ -133,6 +162,16 @@ export default class AddController {
             })
     }
 
+    // 验证电话号码
+    checkPhone(phone) {
+        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)/;
+        if (pattern.test(phone)) {
+            this.showCheckTips = false;
+        }else {
+            this.showCheckTips = true;
+        }
+    }
+
     // 提交
     save() {
         this.submitting = true;
@@ -180,7 +219,7 @@ export default class AddController {
         }
     }
 
-    // 验证必填项
+    // 验证必填项 -> 输入项
     validate() {
         let tipsCount = 0;
         var storeName = $("#storeName").val(),
@@ -229,6 +268,10 @@ export default class AddController {
 
         if (phone.length == 0) {
             this.phoneTips = true;
+            tipsCount++;
+        }
+        if (this.showCheckTips) {
+            this.phoneTips = false;
             tipsCount++;
         }
 

@@ -20,7 +20,7 @@ export default class ClaimDetailController {
         let self = this;
         var _this = this;
         self.loading = true;
-        self.loadPromise = self.storeManageSvc.getStoreDetail({storeId: this.$state.params.id});
+        self.loadPromise = self.storeManageSvc.getClaimDetail({storeId: this.$state.params.id});
         return self.loadPromise.then(res=> {
             self.loading = false;
             _this.d = res;

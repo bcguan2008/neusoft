@@ -15,7 +15,7 @@ export default class EditController {
         this.uploadSvc = uploadSvc;
         this.d = {};
         this.init();
-        this.storeIntrTips = 1000;
+        // this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
         this.showStoreLogo = true;
         this.showLogoDeleteBtn = true;
@@ -38,28 +38,61 @@ export default class EditController {
             _this.bgPic = res.bgPic;
             _this.brands = res.brands;
 
-            this.inputStoreIntr();
+            this.inputLength('storeIntr', res.storeDesc, 1000);
         });
     }
 
-    // 门店简介输入字数限制
-    inputStoreIntr() {
+    // 输入字数限制
+    inputLength(inputId, inputText, maxLength) {
         var len = 0;
-        for (var i=0,round=0; i<this.storeIntr.length; i++,round++) {
-            var a = this.storeIntr.charAt(i);
+        for (var i=0,round=0; i<inputText.length; i++,round++) {
+            var a = inputText.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
             }else {
                 len += 1;
             }
 
-            if (len >= 1000) {
-                this.storeIntr = this.storeIntr.substr(0, round+1);
+            if (len >= maxLength) {
+                inputText = inputText.substr(0, round+1);
             }
         }
 
-        this.storeIntrTips = 1000 - len;
-        this.storeIntrLen = len;
+        if (inputId == "storeName") {
+            this.d.storeName = inputText;
+            this.storeNameLen = len;
+        }
+
+        if (inputId == "storeEnglishName") {
+            this.d.storeEnglishName = inputText;
+            this.storeENameLen = len;
+        }
+
+        if (inputId == "storeEnglishInitials") {
+            this.d.storeEnglishInitials = inputText;
+            this.storeEInitialsLen = len;
+        }
+
+        if (inputId == "storeIntr") {
+            this.storeIntr = inputText;
+            this.storeIntrTips = maxLength - len;
+            this.storeIntrLen = len;
+        }
+
+        if (inputId == "storePhone") {
+            this.d.storePhone = inputText;
+            this.storePhoneLen = len;
+        }
+
+        if (inputId == "storeFloor") {
+            this.d.storeFloor = inputText;
+            this.storeFloorLen = len;
+        }
+
+        if (inputId == "storeBunkNo") {
+            this.d.storeBunkNo = inputText;
+            this.storeBunkNoLen = len;
+        }
     }
 
     // 添加品牌弹窗
@@ -122,6 +155,16 @@ export default class EditController {
     // 删除经营品牌
     deleteBrand(i) {
         this.brands.splice(i,1);
+    }
+
+    // 验证电话号码
+    checkPhone(phone) {
+        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)/;
+        if (pattern.test(phone)) {
+            this.showCheckTips = false;
+        }else {
+            this.showCheckTips = true;
+        }
     }
 
     // 提交
