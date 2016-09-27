@@ -46,4 +46,13 @@ export default class ClaimDetailController {
     back() {
         this.$state.go('storeMclaimlist');
     }
+
+    // 门店认领
+    receive(storeId) {
+        this.storeManageSvc.claimStore({storeId: storeId})
+            .then(res=>{
+                console.log(res)
+                this.$state.go('storeMclaimlist');
+            })
+    }
 }

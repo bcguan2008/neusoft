@@ -93,7 +93,7 @@ export default class EditController {
             addCount = checkbox.length;
 
         for (var i=0; i<addCount; i++) {
-            var brandId = parseInt(checkbox[i].id);
+            var brandId = parseInt(checkbox[i].name);
             this.brands.push(
                 {
                     brandId: brandId,
@@ -124,31 +124,35 @@ export default class EditController {
         this.brands.splice(i,1);
     }
 
+    // 提交
     save(id) {
         let tipsCount = this.validate();
 
         if (tipsCount == null) {
-            var _this = this;
-            //debugger;
-            this.d.role_ids = [];
-            //forEach报错
-            // this.roles.forEach(function (item) {
-            //     _this.d.role_ids.push(item.id)
-            // });
-            this.api.post('/Organization/inputAjax', {
-                organization_id: this.d.organization_id,
-                name: this.d.name,
-                contact: this.d.contact,
-                principal: this.d.principal,
-                remark: this.d.remark,
-                role_info: this.d.role_info
+            var brandIds = this.brandIdArr;
 
-            }).then(res=> {
-                alert('提交成功');
-                this.$state.go('storeMdetail', {id: id});
-            }, err=> {
-                alert('提交错误')
-            })
+            var params = {
+                storeId: id,
+                storeName: this.d.storeName,
+                storeEnglishName: this.d.storeEnglishName,
+                storeEnglishInitials: this.d.storeEnglishInitials,
+                storeDesc: this.storeIntr,
+                brandIds: brandIds.join(),
+                storePhone: this.d.storePhone,
+                storeFloor: this.d.storeFloor,
+                storeBunkNo: this.d.storeBunkNo,
+                supportWifi: this.d.supportWifi,
+                storePicsrc: this.storePicsrc,
+                bgPic: this.bgPic
+            };
+
+            this.storeManageSvc.updateStore(params)
+                .then(res=>{
+                    alert('提交成功');
+                    // this.$state.go('storeMdetail', {id: id});
+                }, err=>{
+                    alert('提交错误');
+                })
         }
     }
 
@@ -331,6 +335,4 @@ export default class EditController {
         this.bgPic = "";
         this.showBgDeleteBtn = false;
     }
-
-    
 }

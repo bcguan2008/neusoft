@@ -61,7 +61,7 @@
                                cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
                             <thead class="panel-title">
                             <tr>
-                                <th>门店编号</th>
+                                <th>门店ID</th>
                                 <th>门店名称</th>
                                 <th>经营品牌</th>
                                 <th>城市</th>
@@ -81,8 +81,8 @@
                                 <td>{{row.storeAddress}}</td>
                                 <td>{{row.storePhone}}</td>
                                 <td>
-                                    <a ng-if="row.status != 5" ng-click="vm.goClaimDetail(row.storeId)">认领</a>
-                                    <a ng-if="row.status == 5" ng-click="vm.goDetail(row.storeId)">查看</a>
+                                    <a ng-if="row.status != 5 && row.status != 3" ng-click="vm.goClaimDetail(row.storeId)">认领</a>
+                                    <a ng-if="row.status == 5 || row.status == 3" ng-click="vm.goDetail(row.storeId)">查看</a>
                                 </td>
                             </tr>
                             <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">

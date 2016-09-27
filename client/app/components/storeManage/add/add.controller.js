@@ -18,6 +18,7 @@ export default class AddController {
         this.getProvince();
         this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
+        this.brands = [];
     }
 
     init() {
@@ -79,7 +80,7 @@ export default class AddController {
             addCount = checkbox.length;
 
         for (var i=0; i<addCount; i++) {
-            var brandId = parseInt(checkbox[i].id);
+            var brandId = parseInt(checkbox[i].name);
             this.brands.push(
                 {
                     brandId: brandId,
@@ -132,128 +133,50 @@ export default class AddController {
             })
     }
 
-
-    hidePopupList() {
-        this.isPopupListShow = false;
-    }
-
-    goList() {
-        this.$state.go('storeMlist');
-    }
-
-    back() {
-        this.$state.go('storeMclaimlist');
-    }
-
-    // test 上传logo图片
-    uploadLogo(file, errFile) {
-        let errInfo = this.catchErrFileError(errFile);
-        if (errInfo && errInfo['data']) {
-            this.uploadErrorMsg = errInfo['msg'];
-            return;
-        }
-
-        if (file) {
-            let options = {
-                file: file
-            };
-
-            // this.uploadSvc.upload(options, url).then(data=> {
-            this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
-            this.showStoreLogo = true;
-            this.showLogoDeleteBtn = true;
-
-            this.changeRequired();
-            // });
-        }
-    }
-
-    //test 上传背景图片
-    uploadBg(file, errFile) {
-        let errInfo = this.catchErrFileError(errFile);
-        if (errInfo && errInfo['data']) {
-            this.uploadErrorMsg = errInfo['msg'];
-            return;
-        }
-
-        if (file) {
-            let option = {
-                file: file
-            };
-
-            this.uploadSvc.upload(options, url).then(data=>{
-                this.bgPic = 'T1UEJTBmxT1RCvBVdK';
-                this.showBgPic = true;
-                this.showBgDeleteBtn = true;
-
-                this.changeRequired();
-            });
-        }
-    }
-
-    catchErrFileError(errFile) {
-        //本身错误信息
-        let errInfo = {
-            data: false,
-            msg: ''
-        };
-        if (errFile && errFile.length > 0) {
-            switch (errFile[0]['$error']) {
-                case 'pattern':
-                    errInfo = {
-                        data: true,
-                        msg: '上传文件类型错误'
-                    };
-                    break;
-                case 'maxSize':
-                    errInfo = {
-                        data: true,
-                        msg: '上传文件最大的值为5M'
-                    };
-                    break;
-                default:
-                    break;
-            }
-            return errInfo;
-        }
-    }
-
-    // test 删除图片
-    deleteLogo() {
-        this.showStoreLogo = false;
-        this.storePicsrc = "";
-        this.showLogoDeleteBtn = false;
-    }
-
-    deleteBg() {
-        this.showBgPic = false;
-        this.bgPic = "";
-        this.showBgDeleteBtn = false;
-    }
-
     // 提交
     save() {
         this.submitting = true;
         let tipsCount = this.validate();
 
         if (tipsCount == null) {
-            var _this = this;
-            //debugger;
-            this.api.post('/Organization/inputAjax', {
-                organization_id: this.d.organization_id,
-                name: this.d.name,
-                contact: this.d.contact,
-                principal: this.d.principal,
-                remark: this.d.remark
-            }).then(res=> {
-                alert('提交成功');
-                // test 保存成功则返回认领门店列表页
-                this.goList();
-            }, err=> {
-                alert('提交错误');
-                // test 需判断查重
-                this.isPopupListShow = true;
-            })
+            var isOwer;
+            if ($("#isOwer").is(':checked')) {
+                isOwer = 1;
+            }else {
+                isOwer = 0;
+            }
+
+            var brandIds = this.brandIdArr;
+
+            var params = {
+                storeName: this.storeInfo.storeName,
+                isOwer: isOwer,
+                storeEnglishName: this.storeInfo.storeEnglishName,
+                storeEnglishInitials: this.storeInfo.storeEnglishInitials,
+                storeDesc: this.storeInfo.storeIntr,
+                brandIds: brandIds.join(),
+                provinceId: this.storeInfo.provinceId.provinceId,
+                cityId: this.storeInfo.cityId.cityId,
+                regionId: this.storeInfo.regionId.regionId,
+                storeAddress: this.storeInfo.storeAddress,
+                storePhone: this.storeInfo.storePhone,
+                storeFloor: this.storeInfo.storeFloor,
+                storeBunkNo: this.storeInfo.storeBunkNo,
+                supportWifi: this.storeInfo.supportWifi,
+                storePicsrc: this.storePicsrc,
+                bgPic: this.bgPic
+            };
+
+            this.storeManageSvc.saveStore(params)
+                .then(res=>{
+                    alert('提交成功');
+                    // test 保存成功则返回认领门店列表页
+                    // this.goList();
+                }, err=>{
+                    alert('提交错误');
+                    // test 需判断查重
+                    // this.isPopupListShow = true;
+                })
         }
     }
 
@@ -384,5 +307,104 @@ export default class AddController {
         if (this.showBgPic == true && this.bgPicTips == true) {
             this.bgPicTips = false;
         }
+    }
+
+    hidePopupList() {
+        this.isPopupListShow = false;
+    }
+
+    goList() {
+        this.$state.go('storeMlist');
+    }
+
+    back() {
+        this.$state.go('storeMclaimlist');
+    }
+
+
+    // test 上传logo图片
+    uploadLogo(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
+        }
+
+        if (file) {
+            let options = {
+                file: file
+            };
+
+            // this.uploadSvc.upload(options, url).then(data=> {
+            this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
+            this.showStoreLogo = true;
+            this.showLogoDeleteBtn = true;
+
+            this.changeRequired();
+            // });
+        }
+    }
+
+    //test 上传背景图片
+    uploadBg(file, errFile) {
+        let errInfo = this.catchErrFileError(errFile);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            return;
+        }
+
+        if (file) {
+            let option = {
+                file: file
+            };
+
+            // this.uploadSvc.upload(options, url).then(data=>{
+            this.bgPic = 'T1UEJTBmxT1RCvBVdK';
+            this.showBgPic = true;
+            this.showBgDeleteBtn = true;
+
+            this.changeRequired();
+            // });
+        }
+    }
+
+    catchErrFileError(errFile) {
+        //本身错误信息
+        let errInfo = {
+            data: false,
+            msg: ''
+        };
+        if (errFile && errFile.length > 0) {
+            switch (errFile[0]['$error']) {
+                case 'pattern':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件类型错误'
+                    };
+                    break;
+                case 'maxSize':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件最大的值为5M'
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return errInfo;
+        }
+    }
+
+    // test 删除图片
+    deleteLogo() {
+        this.showStoreLogo = false;
+        this.storePicsrc = "";
+        this.showLogoDeleteBtn = false;
+    }
+
+    deleteBg() {
+        this.showBgPic = false;
+        this.bgPic = "";
+        this.showBgDeleteBtn = false;
     }
 }

@@ -45,6 +45,21 @@ class storeManageSvc {
     getClaimList(params) {
         return this.Api.get('/storemanage/claim/search', params);
     }
+
+    // 门店认领
+    claimStore(params) {
+        return this.Api.post('/storemanage/claim/receive', params);
+    }
+
+    // 编辑门店
+    updateStore(params) {
+        return this.Api.post('/storemanage/store/update', params);
+    }
+
+    // 新增门店
+    saveStore(params) {
+        return this.Api.post('/storemanage/store/save', params);
+    }
 }
 
 export default storeManageSvc

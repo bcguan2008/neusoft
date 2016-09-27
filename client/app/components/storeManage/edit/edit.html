@@ -65,7 +65,7 @@
                                 </div>
                                 <div id="selectBrand" style="height: 200px; padding-top: 20px; overflow-y: auto;">
                                     <div class="col-md-6" ng-repeat="brand in vm.brandList">
-                                        <input type="checkbox" id="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
+                                        <input type="checkbox" name="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
                                     </div>
                                 </div>
                             </div>
@@ -110,17 +110,17 @@
             </tr>
             <tr>
                 <td class="text-right">楼层：</td>
-                <td><input type="text" class="form-control" ng-model="vm.d.storeFloor"></td>
+                <td><input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-model="vm.d.storeFloor"></td>
             </tr>
             <tr>
                 <td class="text-right">铺位号：</td>
-                <td><input type="text" class="form-control" ng-model="vm.d.storeBunkNo"></td>
+                <td><input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-model="vm.d.storeBunkNo"></td>
             </tr>
             <tr>
                 <td class="text-right">是否支持WI-FI：</td>
                 <td>
-                    <input type="radio" value="0" ng-checked="vm.d.supportWifi==1">支持
-                    <input type="radio" value="1" style="margin-left: 30px;" ng-checked="vm.d.supportWifi==0">不支持
+                    <input type="radio" name="supportWifi" ng-model="vm.d.supportWifi" value="1" ng-checked="vm.d.supportWifi==1">支持
+                    <input type="radio" name="supportWifi" ng-model="vm.d.supportWifi" value="0" style="margin-left: 30px;" ng-checked="vm.d.supportWifi==0">不支持
                 </td>
             </tr>
             <tr>

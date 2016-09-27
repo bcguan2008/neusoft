@@ -100,6 +100,9 @@ export default class ClaimListController {
         if (status > -1) {
             params.status = status;
         }
+        if (status == -1) {
+            params.status = "0,1,2,3,4,5";
+        }
 
         if (this.searchOptions.storeName) {
             params.storeName = this.searchOptions.storeName;

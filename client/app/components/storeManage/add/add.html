@@ -15,16 +15,16 @@
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
                 </td>
                 <td class="col-md-4">
-                    <input type="checkbox" checked>新建自有门店
+                    <input type="checkbox" id="isOwer" checked>新建自有门店
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文名称：</td>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input type="text" class="form-control" ng-model="vm.storeInfo.storeEnglishName"></td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input type="text" class="form-control" ng-model="vm.storeInfo.storeEnglishInitials"></td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div id="selectBrand" style="height: 200px; padding-top: 20px; overflow-y: auto;">
                                     <div class="col-md-6" ng-repeat="brand in vm.brandList">
-                                        <input type="checkbox" id="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
+                                        <input type="checkbox" name="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
                                     </div>
                                 </div>
                             </div>
@@ -83,19 +83,19 @@
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
                 <td colspan="2">
                     <select name="province" id="province"
-                            ng-model="vm.city.provinceId"
+                            ng-model="vm.storeInfo.provinceId"
                             ng-options="item.provinceName for item in vm.provinceList"
-                            ng-change="vm.getCity(vm.city.provinceId); vm.changeRequired()" required>
+                            ng-change="vm.getCity(vm.storeInfo.provinceId); vm.changeRequired()" required>
                         <option disabled value="">省</option>
                     </select>
                     <select name="city" id="city"
-                            ng-model="vm.city.cityId"
+                            ng-model="vm.storeInfo.cityId"
                             ng-options="item.cityName for item in vm.cityList"
-                            ng-change="vm.getRegion(vm.city.cityId); vm.changeRequired()" required>
+                            ng-change="vm.getRegion(vm.storeInfo.cityId); vm.changeRequired()" required>
                         <option disabled value="">市</option>
                     </select>
                     <select name="" id="county"
-                            ng-model="vm.city.regionId"
+                            ng-model="vm.storeInfo.regionId"
                             ng-options="item.regionName for item in vm.regionList"
                             ng-change="vm.changeRequired()" required>
                         <option disabled value="">区</option>
@@ -122,29 +122,30 @@
             </tr>
             <tr>
                 <td class="text-right">楼层：</td>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input type="text" class="form-control" ng-model="vm.storeInfo.storeFloor"></td>
             </tr>
             <tr>
                 <td class="text-right">铺位号：</td>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input type="text" class="form-control" ng-model="vm.storeInfo.storeBunkNo"></td>
             </tr>
             <tr>
                 <td class="text-right">是否支持WI-FI：</td>
                 <td colspan="2">
-                    <input type="radio" value="0">支持
-                    <input type="radio" value="1" style="margin-left: 30px;">不支持
+                    <input type="radio" value="1" ng-model="vm.storeInfo.supportWifi">支持
+                    <input type="radio" value="0" style="margin-left: 30px;" ng-model="vm.storeInfo.supportWifi">不支持
+                    <span style="margin-left: 20px; color: red">{{vm.storeInfo.supportWifi}}</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
                 <td colspan="2">
-                    <img class="store-image" id="T1UEJTBmxT1RCvBVdK" ng-src="{{vm.logoSrc}}" ng-show="vm.showStoreLogo">
-                    <a href="javascript:void(0);" class="btn bp-btn-danger"
-                       ngf-select="vm.uploadFile($file, $invalidFiles)"
+                    <img class="store-image" id="{{vm.storePicsrc}}" ng-src="http://img1.ffan.com/orig/{{vm.storePicsrc}}" ng-if="vm.showStoreLogo">
+                    <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
+                       ngf-select="vm.uploadLogo($file, $invalidFiles)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
                        ngf-max-size="5MB">上传图片</a>
-                    <a class="btn bp-btn-danger" ng-show="vm.showDeleteBtn" ng-click="vm.deleteFile()">删除</a>
+                    <a class="btn bp-btn-danger" ng-show="vm.showLogoDeleteBtn" ng-click="vm.deleteLogo()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.storePicTips">此处为必填项</div>
                 </td>
@@ -152,11 +153,13 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
                 <td colspan="2">
-                    <a class="btn bp-btn-danger"
-                       ngf-select="vm.uploadFile($file, $invalidFiles)"
+                    <img class="store-image" ng-src="http://img1.ffan.com/orig/{{vm.bgPic}}" ng-if="vm.showBgPic">
+                    <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
+                       ngf-select="vm.uploadBg($file, $invalidFiles)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
-                       ngf-max-size="5MB" >上传图片</a>
+                       ngf-max-size="5MB">上传图片</a>
+                    <a class="btn bp-btn-danger" ng-show="vm.showBgDeleteBtn" ng-click="vm.deleteBg()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.bgPicTips">此处为必填项</div>
                 </td>
