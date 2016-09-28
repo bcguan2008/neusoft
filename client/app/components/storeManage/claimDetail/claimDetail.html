@@ -10,10 +10,6 @@
                cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
             <tbody>
             <tr>
-                <td class="col-md-3 text-right">门店编号：</td>
-                <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.storeNo"></td>
-            </tr>
-            <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.storeName"></td>
             </tr>
@@ -57,7 +53,7 @@
                         <option selected>{{vm.d.cityName}}</option>
                     </select>
                     <select name="" id="county" disabled>
-                        <option selected>{{vm.d.countyName}}</option>
+                        <option selected>{{vm.d.regionName}}</option>
                     </select>
                 </td>
             </tr>
@@ -112,7 +108,7 @@
                 <td class="text-right">经营权说明书：</td>
                 <td>
                     <div><button type="button" class="btn bp-btn-danger">上传经营权说明书</button></div>
-                    <div style="margin-top: 8px">若其营业执照公司名称和地址与门店信息出入较大，则需下载<a>《经营权说明书》</a>模板，打印填写并签字/盖章后上传扫描件。</div>
+                    <div style="margin-top: 8px">若其营业执照公司名称和地址与门店信息出入较大，则需下载<a href="/storemanage/claim/statement">《经营权说明书》</a>模板，打印填写并签字/盖章后上传扫描件。</div>
                 </td>
             </tr>
             </tbody>

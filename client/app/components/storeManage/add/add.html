@@ -133,7 +133,8 @@
             <tr>
                 <td class="text-right">楼层：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control" ng-focus="vm.showStoreFloorLen=true" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.storeInfo.storeFloor" ng-change="vm.inputLength('storeFloor', vm.storeInfo.storeFloor, 100)">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreFloorLen=true" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.storeInfo.storeFloor" ng-change="vm.inputLength('storeFloor', vm.storeInfo.storeFloor, 100); vm.checkFloor(vm.storeInfo.storeFloor)">
+                    <span class="error-tips" ng-if="vm.showFloorTips">楼层格式为1F 或 B1</span>
                     <span class="error-tips" ng-if="vm.showStoreFloorLen" ng-init="vm.storeFloorLen = 0">{{vm.storeFloorLen}}/100</span>
                 </td>
             </tr>
@@ -154,12 +155,15 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
                 <td colspan="2">
-                    <img class="store-image" id="{{vm.storePicsrc}}" ng-src="http://img1.ffan.com/orig/{{vm.storePicsrc}}" ng-if="vm.showStoreLogo">
-                    <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
-                       ngf-select="vm.uploadLogo($file, $invalidFiles)"
+                    <img class="store-image" id="{{vm.storePicsrc}}" ng-src="{{vm.storePicUrl}}" ng-if="vm.showStoreLogo">
+                    <a href="javascript:void(0);" class="btn bp-btn-danger" id="storeLogo"  style="margin: 10px 0"
+                       ngf-select="vm.uploadLogo($file, $invalidFiles, vm.picId)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
-                       ngf-max-size="5MB">上传图片</a>
+                       ngf-min-height="640"
+                       ngf-min-width="640"
+                       ngf-max-size="5MB"
+                       ngf-max-files="1">上传图片</a>
                     <a class="btn bp-btn-danger" ng-show="vm.showLogoDeleteBtn" ng-click="vm.deleteLogo()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.storePicTips">此处为必填项</div>
@@ -168,12 +172,15 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
                 <td colspan="2">
-                    <img class="store-image" ng-src="http://img1.ffan.com/orig/{{vm.bgPic}}" ng-if="vm.showBgPic">
-                    <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
-                       ngf-select="vm.uploadBg($file, $invalidFiles)"
+                    <img class="store-image" ng-src="{{vm.bgPicUrl}}" ng-if="vm.showBgPic">
+                    <a href="javascript:void(0);" class="btn bp-btn-danger" id="storeBg"  style="margin: 10px 0"
+                       ngf-select="vm.uploadBg($file, $invalidFiles, vm.bgId)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
-                       ngf-max-size="5MB">上传图片</a>
+                       ngf-min-height="540"
+                       ngf-min-width="960"
+                       ngf-max-size="5MB"
+                       ngf-max-files="1">上传图片</a>
                     <a class="btn bp-btn-danger" ng-show="vm.showBgDeleteBtn" ng-click="vm.deleteBg()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.bgPicTips">此处为必填项</div>
@@ -182,8 +189,7 @@
             </tbody>
         </table>
         <div class="panel-footer">
-            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save()">提交</button>
-            <!--<button class="btn bp-btn-primary" ng-disabled="editStore.$invalid || vm.submitting" type="submit" ng-click="vm.save()">提交(test)</button>-->
+            <button class="btn bp-btn-primary" type="submit" ng-click="vm.save()">提交</button>
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>

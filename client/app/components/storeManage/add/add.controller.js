@@ -18,6 +18,9 @@ export default class AddController {
         this.storeIntrTips = 1000;
         this.storeIntrLen = 0;
         this.brands = [];
+
+        this.picId = 'storePic';
+        this.bgId = 'storeBg';
     }
 
     // 输入字数限制
@@ -172,6 +175,151 @@ export default class AddController {
         }
     }
 
+    // 验证楼层输入
+    checkFloor(floor) {
+        var pattern=/(^[\dF]+$)|(^[B\d]+$)/;
+        if (pattern.test(floor)) {
+            this.showFloorTips = false;
+        }else {
+            this.showFloorTips = true;
+        }
+    }
+
+    // 上传logo图片
+    uploadLogo(file, errFile, id) {
+        let errInfo = this.catchErrFileError(errFile, id);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            alert(this.uploadErrorMsg);
+            return;
+        }
+
+        if (file) {
+            if (file.$ngfHeight > 640 || file.$ngfWidth > 640) {
+                alert('尺寸要求640*640');
+            }else {
+                let options = {
+                    fileName: file
+                };
+
+                this.uploadSvc.upload(options).then(result=> {
+                    if (result && result.data) {
+                        this.storePicUrl = result.data.url;
+                        this.storePicsrc = result.data.name;
+
+                        this.showStoreLogo = true;
+                        this.showLogoDeleteBtn = true;
+
+                        this.changeRequired();
+                    }
+                });
+            }
+        }
+    }
+
+    // 上传背景图片
+    uploadBg(file, errFile, id) {
+        let errInfo = this.catchErrFileError(errFile, id);
+        if (errInfo && errInfo['data']) {
+            this.uploadErrorMsg = errInfo['msg'];
+            alert(this.uploadErrorMsg);
+            return;
+        }
+
+        if (file) {
+            if (file.$ngfHeight > 540 || file.$ngfWidth > 960) {
+                alert('尺寸要求960*540');
+            }else {
+                let option = {
+                    file: file
+                };
+
+                this.uploadSvc.upload(options).then(result=> {
+                    if (result && result.data) {
+                        this.bgPicUrl = result.data.url;
+                        this.bgPic = result.data.name;
+
+                        this.showBgPic = true;
+                        this.showBgDeleteBtn = true;
+
+                        this.changeRequired();
+                    }
+                });
+            }
+        }
+    }
+
+    catchErrFileError(errFile, id) {
+        //本身错误信息
+        let errInfo = {
+            data: false,
+            msg: ''
+        };
+        if (errFile && errFile.length > 0) {
+            let tip;
+            switch (errFile[0]['$error']) {
+                case 'pattern':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件类型错误'
+                    };
+                    break;
+                case 'maxSize':
+                    errInfo = {
+                        data: true,
+                        msg: '上传文件最大的值为5M'
+                    };
+                    break;
+                case 'minHeight':
+                    if (id == 'storePic') {
+                        tip = "尺寸要求640*640";
+                    }
+                    if (id == 'storeBg') {
+                        tip = "尺寸要求960*540";
+                    }
+                    errInfo = {
+                        data: true,
+                        msg: tip
+                    };
+                    break;
+                case 'minWidth':
+                    if (id == 'storePic') {
+                        tip = "尺寸要求640*640";
+                    }
+                    if (id == 'storeBg') {
+                        tip = "尺寸要求960*540";
+                    }
+                    errInfo = {
+                        data: true,
+                        msg: tip
+                    };
+                    break;
+                case 'maxSize':
+                    errInfo = {
+                        data: true,
+                        msg: '大小不超过5M'
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return errInfo;
+        }
+    }
+
+    // 删除图片
+    deleteLogo() {
+        this.showStoreLogo = false;
+        this.storePicsrc = "";
+        this.showLogoDeleteBtn = false;
+    }
+
+    deleteBg() {
+        this.showBgPic = false;
+        this.bgPic = "";
+        this.showBgDeleteBtn = false;
+    }
+
     // 提交
     save() {
         this.submitting = true;
@@ -209,8 +357,7 @@ export default class AddController {
             this.storeManageSvc.saveStore(params)
                 .then(res=>{
                     alert('提交成功');
-                    // test 保存成功则返回认领门店列表页
-                    // this.goList();
+                    this.goClaimList();
                 }, err=>{
                     alert('提交错误');
                     // test 需判断查重
@@ -272,6 +419,10 @@ export default class AddController {
         }
         if (this.showCheckTips) {
             this.phoneTips = false;
+            tipsCount++;
+        }
+
+        if (this.showFloorTips) {
             tipsCount++;
         }
 
@@ -356,98 +507,11 @@ export default class AddController {
         this.isPopupListShow = false;
     }
 
-    goList() {
-        this.$state.go('storeMlist');
+    goClaimList() {
+        this.$state.go('storeMclaimlist');
     }
 
     back() {
         this.$state.go('storeMclaimlist');
-    }
-
-
-    // test 上传logo图片
-    uploadLogo(file, errFile) {
-        let errInfo = this.catchErrFileError(errFile);
-        if (errInfo && errInfo['data']) {
-            this.uploadErrorMsg = errInfo['msg'];
-            return;
-        }
-
-        if (file) {
-            let options = {
-                file: file
-            };
-
-            // this.uploadSvc.upload(options, url).then(data=> {
-            this.storePicsrc = 'T1UEJTBmxT1RCvBVdK';
-            this.showStoreLogo = true;
-            this.showLogoDeleteBtn = true;
-
-            this.changeRequired();
-            // });
-        }
-    }
-
-    //test 上传背景图片
-    uploadBg(file, errFile) {
-        let errInfo = this.catchErrFileError(errFile);
-        if (errInfo && errInfo['data']) {
-            this.uploadErrorMsg = errInfo['msg'];
-            return;
-        }
-
-        if (file) {
-            let option = {
-                file: file
-            };
-
-            // this.uploadSvc.upload(options, url).then(data=>{
-            this.bgPic = 'T1UEJTBmxT1RCvBVdK';
-            this.showBgPic = true;
-            this.showBgDeleteBtn = true;
-
-            this.changeRequired();
-            // });
-        }
-    }
-
-    catchErrFileError(errFile) {
-        //本身错误信息
-        let errInfo = {
-            data: false,
-            msg: ''
-        };
-        if (errFile && errFile.length > 0) {
-            switch (errFile[0]['$error']) {
-                case 'pattern':
-                    errInfo = {
-                        data: true,
-                        msg: '上传文件类型错误'
-                    };
-                    break;
-                case 'maxSize':
-                    errInfo = {
-                        data: true,
-                        msg: '上传文件最大的值为5M'
-                    };
-                    break;
-                default:
-                    break;
-            }
-            return errInfo;
-        }
-    }
-
-    // test 删除图片
-    deleteLogo() {
-        this.showStoreLogo = false;
-        this.storePicsrc = "";
-        this.showLogoDeleteBtn = false;
-    }
-
-    deleteBg() {
-        this.showBgPic = false;
-        this.bgPic = "";
-        this.showBgDeleteBtn = false;
     }
 }

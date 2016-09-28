@@ -33,7 +33,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店简介：</td>
                 <td>
-                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputLength('storeIntr', vm.storeInfo.storeIntr, 1000); vm.changeRequired()"></textarea>
+                    <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputLength('storeIntr', vm.storeIntr, 1000); vm.changeRequired()"></textarea>
                     <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
                     <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
                     <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
@@ -119,7 +119,8 @@
             <tr>
                 <td class="text-right">楼层：</td>
                 <td>
-                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor">
+                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor" ng-change="vm.checkFloor(vm.d.storeFloor)">
+                    <span class="error-tips" ng-if="vm.showFloorTips">楼层格式为1F 或 B1</span>
                     <span class="error-tips" ng-if="vm.showStoreFloorLen">{{vm.storeFloorLen}}/100</span>
                 </td>
             </tr>
@@ -142,10 +143,13 @@
                 <td>
                     <img class="store-image" id="{{vm.storePicsrc}}" ng-src="http://img1.ffan.com/orig/{{vm.storePicsrc}}" ng-if="vm.showStoreLogo">
                     <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
-                       ngf-select="vm.uploadLogo($file, $invalidFiles)"
+                       ngf-select="vm.uploadLogo($file, $invalidFiles, vm.picId)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
-                       ngf-max-size="5MB">上传图片</a>
+                       ngf-min-height="640"
+                       ngf-min-width="640"
+                       ngf-max-size="5MB"
+                       ngf-max-files="1">上传图片</a>
                     <a class="btn bp-btn-danger" ng-show="vm.showLogoDeleteBtn" ng-click="vm.deleteLogo()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.storePicTips">此处为必填项</div>
@@ -156,10 +160,13 @@
                 <td>
                     <img class="store-image" ng-src="http://img1.ffan.com/orig/{{vm.bgPic}}" ng-if="vm.showBgPic">
                     <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
-                       ngf-select="vm.uploadBg($file, $invalidFiles)"
+                       ngf-select="vm.uploadBg($file, $invalidFiles, vm.bgId)"
                        accept="image/*"
                        ngf-pattern="'.jpg,.jpeg,.png'"
-                       ngf-max-size="5MB">上传图片</a>
+                       ngf-min-height="540"
+                       ngf-min-width="960"
+                       ngf-max-size="5MB"
+                       ngf-max-files="1">上传图片</a>
                     <a class="btn bp-btn-danger" ng-show="vm.showBgDeleteBtn" ng-click="vm.deleteBg()">删除</a>
                     <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
                     <div class="error-tips" ng-show="vm.bgPicTips">此处为必填项</div>
@@ -170,6 +177,48 @@
         <div class="panel-footer">
             <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.storeId)">提交</button>
             <button class="btn bp-btn-primary" ng-click="vm.back()">返回</button>
+        </div>
+    </div>
+
+    <!--查重 弹窗-->
+    <div class="repetition-list-popup" ng-show="vm.isPopupListShow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">门店列表</span>
+                    <div class="modal-close" ng-click="vm.hidePopupList()">X</div>
+                </div>
+                <div class="modal-body list-table">
+                    <div class="text-center" style="padding-bottom: 15px; color: red">根据您填写的资料，为您查找到以下相关门店信息，如其中有您的门店，请点击认领，避免重复提交资料。</div>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>门店编号</th>
+                            <th>门店名称</th>
+                            <th>经营品牌</th>
+                            <th>城市</th>
+                            <th>门店地址</th>
+                            <th>门店电话</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>9105380</td>
+                            <td>第一家店</td>
+                            <td>爱茉莉</td>
+                            <td>北京市-北京市-东城区</td>
+                            <td>金地中心22</td>
+                            <td>010-1111111</td>
+                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">查看</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList()">关闭</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

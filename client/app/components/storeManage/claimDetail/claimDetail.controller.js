@@ -49,10 +49,13 @@ export default class ClaimDetailController {
 
     // 门店认领
     receive(storeId) {
+        console.log(storeId)
         this.storeManageSvc.claimStore({storeId: storeId})
             .then(res=>{
-                console.log(res)
+                alert('认领成功');
                 this.$state.go('storeMclaimlist');
+            }, err=>{
+                alert(err.data.RESULT.message);
             })
     }
 }

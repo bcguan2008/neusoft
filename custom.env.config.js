@@ -11,7 +11,7 @@ module.exports = {
   /**
    * 要过滤的api, 解决跨域的, 根据项目的情况改一下
    */
-  apiFilter: ['/Database','/Staffmgt','/storemanage'],
+  apiFilter: ['/Database','/Staffmgt','/storemanage','/System'],
   /**
    * 要跨的目标域, 一般是sit, 需要服务端提交到sit之后才行
    */
@@ -19,6 +19,6 @@ module.exports = {
   /**
    * 登陆的cookie, 这里暂时自己先登陆一下, 把cookie拷贝过来
    */
-  cookie: 'PHPSESSID=8c1fi63dgn3v0b5gdqjrd2s1g7'
+  cookie: 'PHPSESSID=v02e3mj43n4eal6tkrfvt92777'
   
 };

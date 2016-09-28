@@ -16,12 +16,11 @@ export default class uploadSvc {
      * @param params
      * @returns {*}
      */
-    upload(options, url){
+    upload(options){
         return this
             .Upload
             .upload({
-                // url:'/rule/center/fileUpload',
-                url: url,
+                url: '/System/files/ajaxImageUpload',
                 data: options
             }).then(data=>{
                 let status = data && data.data.status;
@@ -29,30 +28,10 @@ export default class uploadSvc {
                     let errorMsg = data.data && data.data.message;
                     alert(errorMsg);
                 }else{
-                    console.log('错误信息:',data);
+                    // console.log('错误信息:',data);
+                    data = data.data;
                 }
                 return data;
             });
     };
-
-    // upload(options){
-    //     return this.Upload.upload({
-    //         url:'/System/files/ajaxImageUpload',
-    //         data:options
-    //     }).then(data=>{
-    //         let status = data && data.status;
-    //         if(status == 200){
-    //             let uploadStatus = data && data.data && data.data.status,
-    //                 errorMsg = data && data.data && data.data.msg;
-    //             if(uploadStatus != 200){
-    //                 console.log('错误信息',errorMsg);
-    //                 return;
-    //             }else{
-    //                 return data && data.data;
-    //             }
-    //         }else{
-    //             console.log('错误信息:',data);
-    //         }
-    //     });
-    // };
 }
