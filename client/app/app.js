@@ -8,6 +8,8 @@ import 'jquery';
 import 'bootstrap';
 import 'bp-sop-skin';
 import angular from 'angular';
+import 'angular-ui-tree';
+import uibs from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
 import Common from './common/common';
@@ -25,8 +27,6 @@ import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 
 import ngFileUpload from 'ng-file-upload';
 
-import bpUtils from 'bp-utils';
-
 angular.module('app', [
     uiRouter,
     Common.name,
@@ -37,11 +37,32 @@ angular.module('app', [
     ngFileUpload,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
-    'bp.utils'
-])
+    uibs
+  ])
   .constant('$menuConstant', {
     DEBUG: process.env.DEBUG
   })
-  .component('app', AppComponent);
+  .component('app', AppComponent)
+  .directive('typeahead', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attr, ctrl) {
+            element.bind('click', function () {
+                element[0].value =' '; 
+                ctrl.$setViewValue(element[0].value);
+            });
+        }
+    };
+  })
+  .filter('html',function($sce){
+        "ngInject";
+        return function(text){
+            if(text){
+            return $sce.trustAsHtml(text);
+            }
+            return '';
+        }
+    })
+
 
   console.log('process.env.DEBUG', process.env.DEBUG);
