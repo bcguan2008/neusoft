@@ -1,7 +1,8 @@
+import Api from '../api.service';
 class storeManageSvc {
-    constructor(Api) {
+    constructor($http, $q) {
         "ngInject";
-        this.Api = Api;
+        this.Api = new Api($http, $q);
     }
 
     // 获取门店列表

@@ -16,6 +16,7 @@ import AppComponent from './app.component';
 import 'angular-busy/dist/angular-busy';
 import 'angular-busy/angular-busy.css';
 import Service from './service/service';
+import StoreManageService from './service/StoreManage/service';
 
 import 'angular-bootstrap-datetimepicker';
 import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
@@ -32,6 +33,7 @@ angular.module('app', [
     ffanTable.name,
     Components.name,
     Service.name,
+    StoreManageService.name,
     ngFileUpload,
     'cgBusy',
     'ui.bootstrap.datetimepicker',
