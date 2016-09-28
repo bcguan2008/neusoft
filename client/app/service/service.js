@@ -4,10 +4,13 @@ import storeSvc from './storeSvc';
 import staffnewSvc from './staffnewSvc';
 import staffExcitationSvc from './staffExcitationSvc';
 import clerkSvc from './clerkSvc';
+
 import templateSvc from './templateSvc';
 import treeSvc from './treeSvc';
 import uploadSvc from './uploadSvc';
 import storeManageSvc from './storeManageSvc';
+import commonSvc from './commonSvc';
+
 
 export default angular.module('app.services', [
 ])
@@ -21,6 +24,6 @@ export default angular.module('app.services', [
     treeSvc,
     uploadSvc,
     storeManageSvc
+    commonSvc
 })
-// .constant('APIBASE','/Staffmgt');;
-.constant('APIBASE','');
+ .constant('APIBASE','/Staffmgt');

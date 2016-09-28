@@ -21,6 +21,7 @@ export default class DetailController {
         self.loadPromise = this.api.get('/Organization/detail',{id:this.$state.params.id})
        return self.loadPromise.then(res=>{
          self.loading = false;
+         console.log(res.datas)
             _this.d=res.datas; 
             
         })

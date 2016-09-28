@@ -1,6 +1,7 @@
 .DS_Store
 client/**/.DS_Store
 
+custom.env.config.js
 gulpfile.babel.js
 
 # Logs
