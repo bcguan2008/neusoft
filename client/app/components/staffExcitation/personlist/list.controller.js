@@ -5,7 +5,7 @@
  */
 
 export default class ListController {
-  constructor($scope,$http,staffExcitationSvc,NgTableParams,$window,$httpParamSerializer) {
+  constructor(staffExcitationSvc,NgTableParams,$window,$httpParamSerializer) {
   	 "ngInject";
      this.name = 'list';
      this.staffExcitationSvc = staffExcitationSvc;
@@ -22,6 +22,14 @@ export default class ListController {
      // $scope.vm.staffExcitation = [{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }, { id: 3, name: 'name 3' }, { id: 4, name: 'name 4' }];
      // $scope.vm.action = [{ id: 1, name: '一般好' }, { id: 2, name: '良' }, { id: 3, name: '优秀' }];
   }
+   // 月份 补 0
+   Appendzero(obj)  
+    {  
+        if(obj<10) return "0" +""+ obj;  
+        else return obj;  
+    }
+
+  //格式化数据
   getSearchFormData()
   {
     
@@ -29,12 +37,18 @@ export default class ListController {
       month:this.filter.month,
       task:this.filter.task,
     }
+
+    var now = new Date()
+    var curYear = now.getFullYear() 
+    var curMonth = now.getMonth()+1 //从0开始，因此需要+1
+
 //获取 选择月份
-     let selectMonth = this.selectMonth; 
-    if (selectMonth.value != undefined) {
-      filter.month = selectMonth.value;
+//如果不选择就显示当前月份信息
+   let sMonth = this.selectMonth; 
+    if (sMonth.value != undefined  && sMonth.value !="" ) {
+      filter.month = sMonth.value;
     }else{
-      filter.month = 0
+      filter.month = curYear +"-" + this.Appendzero(curMonth); 
     }
 //获取激励任务
     let selectTask = this.selectTask; 
@@ -42,7 +56,7 @@ export default class ListController {
     if (selectTask.value != undefined) {
       filter.task = selectTask.value;
     }else{
-      filter.task = 0
+      filter.task = ""
     }
 
    //  console.log( filter)
@@ -61,7 +75,7 @@ export default class ListController {
         count: 10
       }, {
           getData: function ($defer, params) {
-        
+          let totalAdd = 0
             let paramsUrl = params.url();
             self.loading = true;
             let formData = self.getSearchFormData();
@@ -70,17 +84,28 @@ export default class ListController {
             formData.limit = paramsUrl.count;
              console.log(formData)
             //员工个人奖励汇总
-            self.loadPromise = self.staffExcitationSvc.getBestirCollect(formData);
+            self.loadPromise = self.staffExcitationSvc.getBestirByMonth(formData);
             return self.loadPromise
               .then(result => {
                 self.loading = false;
                 if (result) {
+                    //计算 激励增加 激励扣除 总激励金额
+                   // result.items.forEach((item)=>{
+                   //            if (totalAmount==0)
+                   //            {
+                   //               totalAmount = item.amount
+                   //            }else{
+                   //               totalAmount = totalAmount+item.amount
+
+                   //            }
+                   //          })
                   self.d = {
                     totalCount: result.totalCount
+                   //  totalAmount:
                   }
                   params.total(result.totalCount);
                   //需要汇总的数据
-                  return result.datas;
+                  return result.items;
                 }
               });
           }
@@ -91,28 +116,13 @@ export default class ListController {
   search() {
     this.tableParams.parameters({ page: 1 }).reload();
   }
-
-		  /**
-		   * [reset 重置]
-		   */
-		  reset(){
-		    this.filter = {
-		      limit: 10,
-		      name: '',
-		      phone: '',
-		      action_1: '',
-		      status: '',
-		      update_start_time: '',
-		      update_end_time: ''
-		    };
-		}
+  
   // 导出Excel
   exportExcel(){
    // debugger;
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
-        console.log(formData)
     this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
 
   }

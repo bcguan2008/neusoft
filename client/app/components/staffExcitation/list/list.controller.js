@@ -5,8 +5,7 @@
  */
 
 export default class ListController {
-  constructor($scope,$http,$q,staffExcitationSvc,NgTableParams,
-    $httpParamSerializer,storeSvc,$window) {
+  constructor($q,staffExcitationSvc,NgTableParams,$httpParamSerializer,storeSvc,$window) {
   	 "ngInject";
       this.name = 'list';
       this.staffExcitationSvc = staffExcitationSvc;
@@ -15,6 +14,7 @@ export default class ListController {
       this.storeSvc= storeSvc;
       this.q = $q;
       this.window = $window;
+      //查询条件
       this.filter = {
        offset: 0 ,
        employeeName:'',
@@ -48,23 +48,28 @@ export default class ListController {
     // ];
    // this.month =  [{ id: 1, name: '一月' }, { id: 2, name: '二月' }, { id: 3, name: '三月' }, { id: 4, name: '四月' }, { id: 5, name: '五月' }, { id: 6, name: '六月' }, { id: 7, name: '七月' }, { id: 8, name: '八月' }, { id: 9, name: '九月' }, { id: 10, name: '十月' }, { id: 11, name: '十一月' }, { id: 18200000006, name: '十二月' }];
   }
- /**
+ // 月份 补 0
+   Appendzero(obj)  
+    {  
+        if(obj<10) return "0" +""+ obj;  
+        else return obj;  
+    }  
+  /**
    * 获取格式化后的数据
    */
   getSearchFormDataBymonth(){
     let filter = this.filterBymonth
      var now = new Date()
      var curYear = now.getFullYear() 
-     console.log(now.getFullYear())
      var curMonth = now.getMonth()+1 //从0开始，因此需要+1
       //获取当前月份传给后台
     let selectmonth = this.month; 
-    console.log(selectmonth.value)
-    if(selectmonth.value != undefined)
+
+    if(selectmonth.value != undefined && selectmonth.value !="" ) 
     {
        filter.month = selectmonth.value;  
     }else{
-      filter.month = curYear +"-" + curMonth; 
+      filter.month = curYear +"-" + this.Appendzero(curMonth); 
     }
     return filter
 
@@ -106,6 +111,10 @@ export default class ListController {
         count: 10
       }, {
           getData: function ($defer, params) {
+            let totalAmount = 0
+            let totalAdd = 0
+            let totalTake = 0
+
             let paramsUrl = params.url();
             self.loading = true;
             let formData = self.getSearchFormDataBymonth();
@@ -119,10 +128,29 @@ export default class ListController {
                 self.loading = false;
                 if (result) {
                  //debugger;
+                 //计算 激励增加 激励扣除 总激励金额
+                   // result.items.forEach((item)=>{
+                   //            if (totalAmount==0)
+                   //            {
+                   //               totalAmount = item.amount
+                   //               totalAdd = 
+                   //               totalTake =
+                   //            }else{
+                   //               totalAmount = totalAmount+item.amount
+                   //               totalAdd
+                   //               totalTake
+
+                   //            }
+                   //          })
+                   // self.d = {
+                   //  totalAmount:totalAmount,
+                   //  totalAdd:,
+                   //  totalTake:
+                   // }
                   self.totalCount = result.totalCount
                   params.total(result.totalCount);
 
-                  return result.datas; 
+                  return result.items; 
                 }
               });
           }
@@ -176,11 +204,11 @@ initSearch(){
           }
         });
   }
-  searchBymonth(){
-        //return staffExcitationSvc.getExcitationList(formData)
 
-         this.tableParams.parameters({page : 1}).reload();
+  searchBymonth(){
+          this.tableParams.parameters({page : 1}).reload();
   }
+
   searchExcitation(){
     
     let laterThan=new Date(this.filter.laterThan)
