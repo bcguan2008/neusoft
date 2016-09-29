@@ -100,14 +100,21 @@
             <tr>
                 <td class="text-right">备注：</td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%"></textarea>
-                    <div>（若门店地址或者其他信息与真实信息有出入，需要修改可在备注说明）</div>
+                    <textarea class="form-control" maxlength="1000" id="storeRemark" style="width: 60%; height: 200px" ng-model="vm.storeRemark" ng-change="vm.inputLength('storeRemark', vm.storeRemark, 1000)"></textarea>
+                    <div>（若门店地址或者其他信息与真实信息有出入不 需要修改可在备注说明），可以输入0-1000个字符（汉字相当于两个字符）</div>
+                    <div ng-init="vm.storeRemarkTips = 1000">您最多还可以输入{{vm.storeRemarkTips}}字</div>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">经营权说明书：</td>
                 <td>
-                    <div><button type="button" class="btn bp-btn-danger">上传经营权说明书</button></div>
+                    <div>{{vm.fileName}}</div>
+                    <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
+                       ngf-select="vm.uploadFile($file, $invalidFiles)"
+                       accept="image/*"
+                       ngf-pattern="'.jpg,.jpeg,.png'"
+                       ngf-max-files="1">上传经营权说明书</a>
+                    <a class="btn bp-btn-danger" ng-if="vm.showDeleteBtn" ng-click="vm.deleteFile()">删除</a>
                     <div style="margin-top: 8px">若其营业执照公司名称和地址与门店信息出入较大，则需下载<a href="/storemanage/claim/statement">《经营权说明书》</a>模板，打印填写并签字/盖章后上传扫描件。</div>
                 </td>
             </tr>

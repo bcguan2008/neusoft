@@ -189,7 +189,7 @@
             </tbody>
         </table>
         <div class="panel-footer">
-            <button class="btn bp-btn-primary" type="submit" ng-click="vm.save()">提交</button>
+            <button class="btn bp-btn-primary" type="submit" ng-click="vm.save(0)">提交</button>
             <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
         </div>
     </div>
@@ -204,10 +204,11 @@
                 </div>
                 <div class="modal-body list-table">
                     <div class="text-center" style="padding-bottom: 15px; color: red">根据您填写的资料，为您查找到以下相关门店信息，如其中有您的门店，请点击认领，避免重复提交资料。</div>
+                    <div class="text-center" style="padding-bottom: 15px">确认以下门店没有我的门店，继续提交新建资料，点击 [确认提交] 完成信息提交，点击 [取消] 关闭提示弹窗。</div>
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>门店编号</th>
+                            <th>门店ID</th>
                             <th>门店名称</th>
                             <th>经营品牌</th>
                             <th>城市</th>
@@ -217,20 +218,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>9105380</td>
-                            <td>第一家店</td>
-                            <td>爱茉莉</td>
-                            <td>北京市-北京市-东城区</td>
-                            <td>金地中心22</td>
-                            <td>010-1111111</td>
-                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">查看</td>
+                        <tr ng-repeat="row in vm.repeatStore">
+                            <td>{{row.storeId}}</td>
+                            <td>{{row.storeName}}</td>
+                            <td>
+                                <span ng-repeat="brandArr in row.brands">{{brandArr.brandName}},</span>
+                            </td>
+                            <td>{{row.provinceName}}-{{row.cityName}}-{{row.regionName}}</td>
+                            <td>{{row.storeAddress}}</td>
+                            <td>{{row.storePhone}}</td>
+                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">
+                                <span ng-if="row.status ==1 || row.status == 2 || row.status == 4" ng-click="vm.goClaimDetail(row.storeId)">认领</span>
+                                <span ng-if="row.status !=1 && row.status != 2 && row.status != 4" ng-click="vm.goDetail(row.storeId)">查看</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList()">关闭</button>
+                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList(); vm.save(1)">确认提交</button>
+                    <button type="button" class="btn bp-btn-default" ng-click="vm.hidePopupList()">取消</button>
                 </div>
             </div>
         </div>

@@ -171,7 +171,7 @@ export default class EditController {
 
     // 验证楼层输入
     checkFloor(floor) {
-        var pattern=/(^[\dF]+$)|(^[B\d]+$)/;
+        var pattern=/^B[1-9]\d*$|^[1-9]\d*F$/;
         if (pattern.test(floor)) {
             this.showFloorTips = false;
         }else {
@@ -224,8 +224,8 @@ export default class EditController {
             if (file.$ngfHeight > 540 || file.$ngfWidth > 960) {
                 alert('尺寸要求960*540');
             }else {
-                let option = {
-                    file: file
+                let options = {
+                    fileName: file
                 };
 
                 this.uploadSvc.upload(options).then(result=> {
@@ -315,13 +315,14 @@ export default class EditController {
     }
 
     // 提交
-    save(id) {
+    save(id, forceOperate) {
         let tipsCount = this.validate();
 
         if (tipsCount == null) {
             var brandIds = this.brandIdArr;
 
             var params = {
+                forceOperate: forceOperate,
                 storeId: id,
                 storeName: this.d.storeName,
                 storeEnglishName: this.d.storeEnglishName,
@@ -339,14 +340,19 @@ export default class EditController {
             this.storeManageSvc.updateStore(params)
                 .then(res=>{
                     alert('提交成功');
-                    // this.$state.go('storeMdetail', {id: id});
+                    this.$state.go('storeMdetail', {id: id});
                 }, err=>{
-                    // alert('提交错误');
                     alert(err.data.RESULT.message)
                     console.log(err);
-                    // test 需判断查重
-                    // this.isPopupListShow = true;
+
+                    // 需判断查重
+                    if (err.status == 1006) {
+                        this.isPopupListShow = true;
+                        this.repeatStore = err.data.repetition;
+                    }
                 })
+        }else {
+            document.body.scrollTop = 0;
         }
     }
 
@@ -452,5 +458,13 @@ export default class EditController {
 
     back() {
         this.$state.go('storeMlist');
+    }
+
+    goClaimDetail(id) {
+        this.$state.go('storeMclaimdetail', {id: id});
+    }
+
+    goDetail(id) {
+        this.$state.go('storeMdetail', {id: id});
     }
 }

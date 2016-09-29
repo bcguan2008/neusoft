@@ -177,7 +177,7 @@ export default class AddController {
 
     // 验证楼层输入
     checkFloor(floor) {
-        var pattern=/(^[\dF]+$)|(^[B\d]+$)/;
+        var pattern=/^B[1-9]\d*$|^[1-9]\d*F$/;
         if (pattern.test(floor)) {
             this.showFloorTips = false;
         }else {
@@ -230,8 +230,8 @@ export default class AddController {
             if (file.$ngfHeight > 540 || file.$ngfWidth > 960) {
                 alert('尺寸要求960*540');
             }else {
-                let option = {
-                    file: file
+                let options = {
+                    fileName: file
                 };
 
                 this.uploadSvc.upload(options).then(result=> {
@@ -321,7 +321,7 @@ export default class AddController {
     }
 
     // 提交
-    save() {
+    save(forceOperate) {
         this.submitting = true;
         let tipsCount = this.validate();
 
@@ -336,6 +336,7 @@ export default class AddController {
             var brandIds = this.brandIdArr;
 
             var params = {
+                forceOperate: forceOperate,
                 storeName: this.storeInfo.storeName,
                 isOwer: isOwer,
                 storeEnglishName: this.storeInfo.storeEnglishName,
@@ -359,10 +360,16 @@ export default class AddController {
                     alert('提交成功');
                     this.goClaimList();
                 }, err=>{
-                    alert('提交错误');
-                    // test 需判断查重
-                    // this.isPopupListShow = true;
+                    // alert('提交错误');
+
+                    // 需判断查重
+                    if (err.status == 1006) {
+                        this.isPopupListShow = true;
+                        this.repeatStore = err.data.repetition;
+                    }
                 })
+        }else {
+            document.body.scrollTop = 0;
         }
     }
 
@@ -513,5 +520,13 @@ export default class AddController {
 
     back() {
         this.$state.go('storeMclaimlist');
+    }
+
+    goClaimDetail(id) {
+        this.$state.go('storeMclaimdetail', {id: id});
+    }
+
+    goDetail(id) {
+        this.$state.go('storeMdetail', {id: id});
     }
 }
