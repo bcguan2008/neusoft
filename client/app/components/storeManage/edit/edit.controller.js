@@ -161,7 +161,7 @@ export default class EditController {
 
     // 验证电话号码
     checkPhone(phone) {
-        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)/;
+        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)|(^400\d{7}$)/;
         if (pattern.test(phone)) {
             this.showCheckTips = false;
         }else {

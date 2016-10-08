@@ -66,6 +66,11 @@ class storeManageSvc {
     getClaimDetail(params) {
         return this.Api.get('/storemanage/claim/detail', params);
     }
+
+    // 【认领】编辑门店
+    updateClaim(params) {
+        return this.Api.post('/storemanage/claim/update', params);
+    }
 }
 
 export default storeManageSvc

@@ -88,20 +88,20 @@
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
-                <td colspan="2">
-                    <select name="province" id="province"
+                <td class="city-select" colspan="2">
+                    <select name="province" id="province" class="form-control"
                             ng-model="vm.storeInfo.provinceId"
                             ng-options="item.provinceName for item in vm.provinceList"
                             ng-change="vm.getCity(vm.storeInfo.provinceId); vm.changeRequired()" required>
                         <option disabled value="">省</option>
                     </select>
-                    <select name="city" id="city"
+                    <select name="city" id="city" class="form-control"
                             ng-model="vm.storeInfo.cityId"
                             ng-options="item.cityName for item in vm.cityList"
                             ng-change="vm.getRegion(vm.storeInfo.cityId); vm.changeRequired()" required>
                         <option disabled value="">市</option>
                     </select>
-                    <select name="" id="county"
+                    <select name="" id="county" class="form-control"
                             ng-model="vm.storeInfo.regionId"
                             ng-options="item.regionName for item in vm.regionList"
                             ng-change="vm.changeRequired()" required>

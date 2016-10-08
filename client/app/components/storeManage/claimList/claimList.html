@@ -82,7 +82,7 @@
                                 <td>{{row.storePhone}}</td>
                                 <td>
                                     <a ng-if="row.status == 1 || row.status == 2 || row.status == 4" ng-click="vm.goClaimDetail(row.storeId)">认领</a>
-                                    <a ng-if="row.status != 1 && row.status != 2 && row.status != 4" ng-click="vm.goDetail(row.storeId)">查看</a>
+                                    <a ng-if="row.status != 1 && row.status != 2 && row.status != 4" ng-click="vm.goView(row.storeId)">查看</a>
                                 </td>
                             </tr>
                             <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">

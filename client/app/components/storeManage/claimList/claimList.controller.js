@@ -146,8 +146,8 @@ export default class ClaimListController {
         this.$state.go('storeMclaimdetail', {id: id});
     }
 
-    goDetail(id) {
-        this.$state.go('storeMdetail', {id: id});
+    goView(id) {
+        this.$state.go('storeMview', {id: id});
     }
 
     getstaffpageadd() {
