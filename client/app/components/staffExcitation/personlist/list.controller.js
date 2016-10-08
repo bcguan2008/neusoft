@@ -35,7 +35,7 @@ export default class ListController {
     
     let filter  = {
       month:this.filter.month,
-      task:this.filter.task,
+      type:this.filter.task,
     }
 
     var now = new Date()
@@ -50,13 +50,13 @@ export default class ListController {
     }else{
       filter.month = curYear +"-" + this.Appendzero(curMonth); 
     }
-//获取激励任务
+//获取激励场景
     let selectTask = this.selectTask; 
     
     if (selectTask.value != undefined) {
-      filter.task = selectTask.value;
+      filter.type = selectTask.value;
     }else{
-      filter.task = ""
+      filter.type = ""
     }
 
    //  console.log( filter)
@@ -82,13 +82,13 @@ export default class ListController {
            
            formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
-             console.log(formData)
+            // console.log(formData)
             //员工个人奖励汇总
-            self.loadPromise = self.staffExcitationSvc.getBestirByMonth(formData);
+            self.loadPromise = self.staffExcitationSvc.getBestirPerList(formData);
             return self.loadPromise
               .then(result => {
                 self.loading = false;
-                if (result) {
+                if (result && result.length > 0) {
                     //计算 激励增加 激励扣除 总激励金额
                    // result.items.forEach((item)=>{
                    //            if (totalAmount==0)
@@ -103,6 +103,7 @@ export default class ListController {
                     totalCount: result.totalCount
                    //  totalAmount:
                   }
+                  console.log(result)
                   params.total(result.totalCount);
                   //需要汇总的数据
                   return result.items;
@@ -123,7 +124,9 @@ export default class ListController {
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
-    this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+  // this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+ 
+   this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
 
   }
 }

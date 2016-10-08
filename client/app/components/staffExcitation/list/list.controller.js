@@ -23,14 +23,15 @@ export default class ListController {
        laterThan:'',
        earlierThan:''
       };
+      this.dmonth={}
       this.d={}
       this.filterBymonth = {
        offset: 0
       };
       this.month ={}
-      
-      this.initBymonth(); //本月汇总
       this.initSearch();
+      this.initBymonth(); //本月汇总
+      
 
      //this.action = [{ id: 0, name: '' },{ id: 1, name: '首单支付' }, { id: 2, name: '扫码激励' }, { id: 3, name: '拉新激励' }, { id: 4, name: '拉单激励' }];
     //  $scope.vm.items = [
@@ -111,7 +112,7 @@ export default class ListController {
         count: 10
       }, {
           getData: function ($defer, params) {
-            let totalAmount = 0
+            let totalBymonth = 0
             let totalAdd = 0
             let totalTake = 0
 
@@ -126,27 +127,31 @@ export default class ListController {
             return self.loadPromise 
               .then(result => {
                 self.loading = false;
-                if (result) {
+              
+                if (result && result.length >0) {
+
                  //debugger;
                  //计算 激励增加 激励扣除 总激励金额
-                   // result.items.forEach((item)=>{
-                   //            if (totalAmount==0)
-                   //            {
-                   //               totalAmount = item.amount
-                   //               totalAdd = 
-                   //               totalTake =
-                   //            }else{
-                   //               totalAmount = totalAmount+item.amount
-                   //               totalAdd
-                   //               totalTake
-
-                   //            }
-                   //          })
-                   // self.d = {
-                   //  totalAmount:totalAmount,
-                   //  totalAdd:,
-                   //  totalTake:
-                   // }
+                   result.items.forEach((item)=>{
+                              if (totalBymonth==0)
+                              {
+                                 totalBymonth = item.awardCount
+                                 totalAdd = item.awardCount
+                                 totalTake =item.outgoAmount
+                              }else{
+                                 totalBymonth = totalBymonth+item.awardCount
+                                 totalAdd = totalAdd +  item.awardCount
+                                 totalTake =  totalTake + item.outgoAmount
+                              }
+                            })
+                   self.dmonth = {
+                    totalBymonth:totalBymonth,
+                    totalAdd: totalAdd,
+                    totalTake: totalTake
+                   }
+                   // console.log(totalBymonth)
+                   // console.log(totalAdd)
+                   // console.log(totalTake)
                   self.totalCount = result.totalCount
                   params.total(result.totalCount);
 
@@ -179,7 +184,8 @@ initSearch(){
             return self.loadPromiseSearch
               .then(result => {
                 self.loading = false;
-                if (result) {
+               
+                if (result && result.length > 0) {
               
                     result.items.forEach((item)=>{
                               if (totalAmount==0)
@@ -196,7 +202,7 @@ initSearch(){
                     merchantId:result.items[0].merchantId
                   }
 
-                  console.log(result.items[0].merchantId)
+                //  console.log(result.items[0].merchantId)
                   params.total(result.totalCount);
                   return result.items;
                 }
@@ -243,7 +249,7 @@ initSearch(){
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
-    this.window.open('/Xapi/encourage/month_total?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+    this.window.open('/Xapi/encourage/month_total?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
 
     exportExcelSearch(){
@@ -251,7 +257,7 @@ initSearch(){
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
-    this.window.open('/Xapi/encourage/list?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+    this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
 
     //获取门店list
