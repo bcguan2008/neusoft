@@ -340,7 +340,7 @@ export default class ClaimEditController {
       this.storeManageSvc.updateClaim(params)
           .then(res=>{
             alert('提交成功');
-            this.$state.go('storeMdetail', {id: id});
+            this.$state.go('storeMview', {id: id});
           }, err=>{
             alert(err.data.RESULT.message)
             console.log(err);
