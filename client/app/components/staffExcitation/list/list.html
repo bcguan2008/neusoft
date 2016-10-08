@@ -1,6 +1,6 @@
 <div class="page-title">
   <div class="title">
-    <h1>员工激励</h1>
+
   </div>
 </div>
 <div class="conter-wrapper track-list-wrapper">
@@ -8,77 +8,106 @@
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
       <div class="panel-title">本月汇总
-
-       <div class="row" >
-            
-                  <div class="col-xs-6 col-sm-1 col-md-offset-9 text-nowrap">   
-                        <label >激励行为</label>  
-                  </div>
-                  <div class="col-xs-6 col-sm-2">   
-                        <select class="form-control"
-                        ng-options="a.name for a in vm.staffExcitation"
-                        ng-model="staffExcitation_1">
-                        <option value="">切换月份</option>
-                        </select> 
-                  </div> 
-        </div>
+             <div class="row" >
+              <div class="col-md-10 form-group">
+              </div> 
+                          <div class="col-md-2 form-group">       
+                                <select class="form-control autoWidth" 
+                                ng-model="vm.month.value"
+                                ng-change="vm.searchBymonth()"
+                                >
+                                  <option value="">切换月份</option>
+                                  <option value="2016-09">2016-09</option>
+                                  <option value="2016-10">2016-10</option>
+                                  <option value="2016-11">2016-11</option>
+                                  <option value="2016-12">2016-12</option>
+                                  <option value="2017-01">2017-01</option>
+                                  <option value="2017-02">2017-02</option>
+                                  <option value="2017-03">2017-03</option>
+                                  <option value="2017-04">2017-04</option>
+                                </select>
+     
+                        </div>
+              </div>
           </div>
    </div>
     <div class="panel-body">
           <div class="bp-container">
             <div class="table-container">
-              <div class="table-wrapper" ng-table="vm.tableParams">
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th> 员工姓名 </th>
-                      <th> 门店/广场名称 </th>
-                      <th> 激励增加 </th>
-                      <th> 激励扣除 </th>
-                      <th> 总激励金额 </th>
+              <div class="table-wrapper">
+                   <table ng-table="vm.tableParams" class="table-center table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;"
+        cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+        <thead>
+                    <tr> 
+                      <th class="text-center"> 员工姓名 </th>
+                      <th class="text-center"> 门店 </th>
+                      <th class="text-center"> 激励增加 </th>
+                      <th class="text-center"> 激励扣除 </th>
+                      <th class="text-center"> 总激励金额 </th>
                      
                     </tr>
                   </thead>
                   <tbody>
-                  <div ng-if="staffExcitation_1.name">
-                    <tr ng-repeat="row in vm.items track by $index">
-                 </div>
-                   <div ng-if="staffExcitation_1.name!=' '">
-                  <tr ng-repeat="row in vm.items track by $index" ng-if="row.name==staffExcitation_1.name" >
-                  </div>
-                     
-                      <td> {{row.name}} </td>
-                      <td> {{row.description}} </td>
-                      <td> {{row.field3}} </td>
-                      <td> {{row.field4}} </td>
-                      <td> {{row.id}} </td>
-
+               <!--    <tr ng-repeat="row in $data track by $index" ng-if="month.value?row.name == month.value:true"> -->
+                  <tr ng-repeat="row in $data track by $index">
+                      <td class="text-center"> {{row.bizAccountName}} </td> 
+                      <td class="text-center"> {{month.storeName}} </td>
+                      <td class="text-center"> {{row.contact}} </td>
+                      <td class="text-center"> {{row.field4}} </td>
+                      <td class="text-center"> {{row.id}} </td>
                   </tr>
-                    <tr class="lx-list-sp-tr" ng-if="!vm.items || !vm.items.length">
-                      <td colspan="10" style="text-align: center">
-                        <div class="text-center" ng-show="vm.loading">
-                          <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
-                        </div>
-                        <div class="text-center" ng-if="!vm.loading && (!vm.items || !vm.items.length)">
-                          <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
-                        </div>
-                      </td>
+                   <!-- 分页start -->
+                      <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
+                        <td colspan="10" style="text-align: center">
+                          <div class="text-center" ng-show="vm.loading"> 
+                            <i class="glyphicon glyphicon-refresh">数据加载中...</i>
+                          </div>
+                          <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
+                            <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- end -->
+                    </tbody>
+                  <thead>
+                    <tr>
+                      <th style="padding-bottom:2%" class="text-center"> 汇总 </th>
+                      <th><hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th>
+                      <th style="padding-bottom:2%" class="text-center">
+                      </th>
+                      <th style="padding-bottom:2%" class="text-center" > 
+                      </th> 
+                      <th style="padding-bottom:2%" class="text-center">
+                      </th>
+
+
                     </tr>
-                  </tbody>
+                  </thead>
                 </table>
+                <div class="recordCount">
+                  <span>共 <span class="count" ng-model="vm.totalCount">{{vm.totalCount}}</span> 条记录</span>
+                </div>
               </div>
             </div>
           </div>
-</div>
-</div>
+          </div>
+                <div class="panel-footer">
+                  <button class="btn bp-btn-primary" ng-click="vm.exportExcelMonth()">导出Excel</button>
+                </div>
 
-
+</div>
+ <div class="panel bp-panel-primary">
+    <div class="panel-heading">
+      <div class="panel-title">查询条件</div>
+  </div>
+</div>
     <div class="panel-body">
-      <form action="">
       <div class="row">
         <div class="col-md-3 form-group">
             <label>员工姓名</label>
-             <input type="text" class="form-control" ng-model="vm.filter.name" required  id="staffphone_id">
+             <input type="text" class="form-control" ng-model="vm.filter.employeeName" id="employeeNameid">
+             <input type="text" ng-model = "vm.d.merchantId" style="display:none" >
         
         </div>
           <div class="col-md-3 form-group">
@@ -86,31 +115,29 @@
              <label>员工手机号</label>
              <input type="text" class="form-control" ng-model="vm.filter.phone" required  id="staffphone_id">
         </div>
-          
+        <div class="col-md-3 form-group">
+            <label>门店</label> 
+            <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="store.name as store.name for store in vm.getStorelist($viewValue)"
+              typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.store" />
+          </div>
       </div>
 
-      <div class="row">
+<!--       <div class="row">
 
         <div class="col-md-3 form-group">
-          <label>激励行为</label>
+          <label>激励场景</label>
                     <select class="form-control"
                         ng-options="a.name for a in vm.action"
-                        ng-model="vm.filter.action_1">
+                        ng-model="vm.selectAction.value">
                     </select> 
-
         </div>
-
-      </div>
-      <div class="row">
-        
+      </div> -->
+      <div class="row">   
         <div class="col-md-9  form-group">
-          
-         <div class="col-md-2  form-group">
              <label>查询时间</label>
-          </div> 
 <!-- start -->
           <div class="row">
-            <div class="col-xs-6 for-after-line">
+            <div class="col-xs-4">
               <div class="dropdown">
                 <a class="dropdown-toggle"
                    id="dropdown1"
@@ -122,7 +149,7 @@
                     <input type="text"
                            placeholder="请选择开始时间"
                            class="form-control"
-                           data-ng-model="vm.filter.update_start_time">
+                           data-ng-model="vm.filter.laterThan">
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-calendar"></i>
                 </span>
@@ -132,12 +159,15 @@
                     role="menu"
                     aria-labelledby="dLabel">
                   <datetimepicker
-                    data-ng-model="vm.filter.update_start_time"
-                    data-datetimepicker-config="{dropdownSelector: '#dropdown1' ,modelType: 'YYYY-MM-DD HH:mm:ss'}"/>
+                    data-ng-model="vm.filter.laterThan"
+                    data-datetimepicker-config="{dropdownSelector: '#dropdown1' ,modelType: 'YYYY-MM-DD',startView:'day', minView:'day' }"/>
                 </ul>
               </div>
             </div>
-            <div class="col-xs-6">
+              <div class="col-xs-1">
+                <hr size="1" color="#999999">
+            </div>
+            <div class="col-xs-4">
               <div class="dropdown">
                 <a class="dropdown-toggle"
                    id="dropdown2"
@@ -147,9 +177,10 @@
                    href="#">
                   <div class="input-group">
                     <input type="text"
-                           placeholder="请选择截止时间"
+                           placeholder="请选择结束时间"
                            class="form-control"
-                           data-ng-model="vm.filter.update_end_time">
+                           data-ng-model="vm.filter.earlierThan"
+                           data-date-format="YYYY-MM-DD">
                 <span class="input-group-addon">
                   <i class="glyphicon glyphicon-calendar"></i>
                 </span>
@@ -159,38 +190,27 @@
                     role="menu"
                     aria-labelledby="dLabel">
                   <datetimepicker
-                    data-ng-model="vm.filter.update_end_time"
-                    data-datetimepicker-config="{ dropdownSelector: '#dropdown2' ,modelType: 'YYYY-MM-DD HH:mm:ss'}"/>
+                    data-ng-model="vm.filter.earlierThan"
+                    data-datetimepicker-config="{ dropdownSelector: '#dropdown2' ,modelType:'YYYY-MM-DD', startView:'day', minView:'day' }"
                 </ul>
               </div>
             </div>
           </div>
+
  <!-- end -->
 
           </div>
-
       </div>
+        <div class="pull-right">
+            <button class="btn bp-btn-primary" type="button" 
+                ng-click="vm.searchExcitation()">查询</button>
+            <button class="btn bp-btn-primary" type="button" 
+              ng-click="vm.reset()">重置查询条件</button>
+       </div>
+      </div>     
     </div>
-    <div class="panel-footer panel-footer-btn-center">
-          <button class="btn bp-btn-primary" type="button" 
-    
-        ng-click="vm.search_Excitation()">查询</button>
-
-      <button class="btn bp-btn-primary" type="button" 
-  
-        ng-click="vm.reset()">重置查询</button>
-
-        <button class="btn bp-btn-primary" type="button" 
-
-        ng-click="vm.exportExcel()">导出Excel</button>
-    </div>
-    </div>
-    </form>
   </div>
 </div>
-
-
-
   <div class="panel bp-panel-primary">
     <div class="panel-heading">
       <div class="panel-title">查询列表</div>
@@ -198,55 +218,74 @@
     <div class="panel-body">
           <div class="bp-container">
             <div class="table-container">
-              <div class="table-wrapper" ng-table="vm.tableParams">
-                <table class="table table-striped table-hover">
+              <div class="table-wrapper">
+                   <table ng-table="vm.tableParamsSearch" class="table-center table table-bordered table-striped table-hover" style="word-break:break-all;word-wrap:break-all;"
+                    cg-busy="{promise:vm.loadPromiseSearch, minDuration: 500, message:'数据加载ing...'}">
                   <thead>
                     <tr>
-                      <th> 员工姓名 </th>
-                      <th> 激励行为 </th>
-                      <th> 门店 </th>
-                      <th> 激励金额 </th>
-                      <th> 手机号码 </th>
-                      <th> 激励时间 </th>
-            
+                      <th class="text-center"> 员工姓名 </th>
+                      <th class="text-center"> 激励场景 </th>
+                      <th class="text-center"> 激励规则 </th>
+                      <th class="text-center"> 门店 </th>
+                      <th class="text-center"> 激励金额 </th>
+                      <th class="text-center"> 员工手机号 </th>
+                      <th class="text-center"> 时间 </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="row in result.list track by $index ">
+                    <tr ng-repeat="row in $data track by $index ">
 
-                      <td> {{row.name}} </td>
-                      <td> {{row.status}} </td>
-                      <td> {{row.storeName}} </td>
-                      <td> {{row.page_money}} </td>
-                      <td> {{row.contact}} </td>
-                      <td> {{row.page_time}} </td>
+                      <td class="text-center"> {{row.bizAccountName}} </td>
+                      <td class="text-center"> {{row.status}} </td>
+                      <td class="text-center"> {{row.storeName}} </td>
+                      <td class="text-center"> {{row.storeName}} </td>
+                      <td class="text-center"> {{row.amount}} </td>
+                      <td class="text-center"> {{row.phone}} </td>
+                       <td class="text-center"> {{row.actionTime |  date:'yyyy-MM-dd HH:mm:ss' }} </td>
                     </tr>
-                    <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
-                      <td colspan="10" style="text-align: center">
-                        <div class="text-center" ng-show="vm.loading">
-                          <i  class="glyphicon glyphicon-refresh">数据加载中...</i>
-                        </div>
-                        <div class="text-center" ng-if="!vm.loading && (!$data || !$data.length)">
-                          <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
-                        </div>
-                      </td>
-                    </tr>
+                    <!-- 分页start -->
+                      <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
+                        <td colspan="10" style="text-align: center">
+                          <div class="text-center" ng-show="vm.loading">
+                            <i class="glyphicon glyphicon-refresh">数据加载中...</i>
+                          </div>
+                          <div class="text-center" ng-if="!vm.loading && (!$data || !$dataSearch.length)">
+                            <i class="glyphicon glyphicon-remove"></i>您查询的条件错误或查询的结果不存在，请重新查询
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- end -->
                   </tbody>
                 <thead>
                     <tr>
-                      <th> 汇总 </th>
-                      <th> -- </th>
-                      <th> --</th>
-                      <th> 总计</th>
-                      <th> -- </th>
-                      <th> -- </th>
+                       <th style="padding-bottom:2%" class="text-center"> 汇总 </th>
+                      <th><hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th>
+                      <th>
+                      <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th>
+                      <th> <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th> 
+                      <th style="padding-bottom:2%" class="text-center">{{vm.d.totalAmount}}</th>
+                      <th> <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th>
+                      <th> <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" />
+                      </th>
+
                     </tr>
                   </thead>
-
-                </table>
+             
+                </table>  
+                 <div class="recordCount">
+                  <span>共 <span class="count" ng-model="vm.d.totalCountSearch">{{vm.d.totalCountSearch}}</span> 条记录</span>
+                </div>
               </div>
             </div>
           </div>
+
 </div>
+     <div class="panel-footer">
+      <button class="btn bp-btn-primary" ng-click="vm.exportExcelSearch()">导出Excel</button>
+    </div>
 </div>
 </div>
