@@ -8,13 +8,16 @@ class storeManageSvc {
     // 获取门店列表
     getStoreList(params) {
         return this.Api.get('/storemanage/store/search', params);
-        // return this.Api.get('/mock/storeList.json', params);
     }
 
     // 获取门店详情
     getStoreDetail(params) {
         return this.Api.get('/storemanage/store/detail', params);
-        // return this.Api.get('/mock/storeDetail.json', params);
+    }
+    
+    // 查看单个门店二维码
+    getStoreCode(params) {
+        return this.Api.get('/storemanage/store/code', params);
     }
 
     // 经营品牌列表
@@ -23,7 +26,6 @@ class storeManageSvc {
             brandName: brandName,
             limit: 10000
         }
-        console.log(params);
         return this.Api.get('/storemanage/label/brand', params);
     }
 
