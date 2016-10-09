@@ -51,6 +51,12 @@ export default class EditController {
             var a = inputText.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
+
+                if (len > maxLength) {
+                    inputText = inputText.substr(0, round);
+                    len -=2;
+                    break;
+                }
             }else {
                 len += 1;
             }
@@ -456,8 +462,8 @@ export default class EditController {
         this.$state.go('storeMclaimlist');
     }
 
-    back() {
-        this.$state.go('storeMlist');
+    back(id) {
+        this.$state.go('storeMdetail', {id: id});
     }
 
     goClaimDetail(id) {

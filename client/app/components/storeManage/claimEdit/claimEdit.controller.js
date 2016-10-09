@@ -25,6 +25,10 @@ export default class ClaimEditController {
     this.myTimeout = null;
     this.picId = 'storePic';
     this.bgId = 'storeBg';
+
+    let self = this;
+    self.storeFloorLen = 0;
+    self.storeBunkNoLen = 0;
   }
 
   init() {
@@ -51,6 +55,12 @@ export default class ClaimEditController {
       var a = inputText.charAt(i);
       if (a.match(/[^\x00-\xff]/ig)!=null) {
         len += 2;
+
+        if (len > maxLength) {
+          inputText = inputText.substr(0, round);
+          len -=2;
+          break;
+        }
       }else {
         len += 1;
       }
@@ -456,8 +466,8 @@ export default class ClaimEditController {
     this.$state.go('storeMclaimlist');
   }
 
-  back() {
-    this.$state.go('storeMlist');
+  back(id) {
+    this.$state.go('storeMview', {id: id});
   }
 
   goClaimDetail(id) {

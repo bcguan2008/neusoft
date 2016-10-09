@@ -13,7 +13,7 @@
                 <td class="col-md-5">
                     <input type="text" class="form-control" id="storeName" ng-focus="vm.showStoreNameLen=true" ng-blur="vm.showStoreNameLen=false" ng-model="vm.storeInfo.storeName" ng-change="vm.changeRequired(); vm.inputLength('storeName', vm.storeInfo.storeName, 40)">
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
-                    <span class="error-tips" ng-if="vm.showStoreNameLen" ng-init="vm.storeNameLen = 0">{{vm.storeNameLen}}/40</span>
+                    <span class="error-tips" ng-if="vm.showStoreNameLen">{{vm.storeNameLen}}/40</span>
                 </td>
                 <td class="col-md-4">
                     <input type="checkbox" id="isOwer" checked>新建自有门店
@@ -23,14 +23,14 @@
                 <td class="text-right">英文名称：</td>
                 <td colspan="2">
                     <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true" ng-blur="vm.showStoreENameLen=false" ng-model="vm.storeInfo.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.storeInfo.storeEnglishName, 100)">
-                    <span class="error-tips" ng-if="vm.showStoreENameLen" ng-init="vm.storeENameLen = 0">{{vm.storeENameLen}}/100</span>
+                    <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
                 <td colspan="2">
                     <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true" ng-blur="vm.showStoreEInitialsLen=false" ng-model="vm.storeInfo.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.storeInfo.storeEnglishInitials, 100)">
-                    <span class="error-tips" ng-if="vm.showStoreEInitialsLen" ng-init="vm.storeEInitialsLen = 0">{{vm.storeEInitialsLen}}/100</span>
+                    <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
                 </td>
             </tr>
             <tr>
@@ -117,7 +117,7 @@
                 <td colspan="2">
                     <input type="text" class="form-control" id="address" ng-focus="vm.showStoreAddressLen=true" ng-blur="vm.showStoreAddressLen=false" ng-model="vm.storeInfo.storeAddress" ng-change="vm.changeRequired(); vm.inputLength('storeAddress', vm.storeInfo.storeAddress, 120)">
                     <span class="error-tips" ng-show="vm.addressTips">必填字段</span>
-                    <span class="error-tips" ng-if="vm.showStoreAddressLen" ng-init="vm.storeAddressLen = 0">{{vm.storeAddressLen}}/120</span>
+                    <span class="error-tips" ng-if="vm.showStoreAddressLen">{{vm.storeAddressLen}}/120</span>
                 </td>
             </tr>
             <tr>
@@ -127,7 +127,7 @@
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                     <span class="error-tips" ng-if="vm.showCheckTips">请正确填写电话号码</span>
-                    <span class="error-tips" ng-if="vm.showStorePhoneLen" ng-init="vm.storePhoneLen = 0">{{vm.storePhoneLen}}/100</span>
+                    <span class="error-tips" ng-if="vm.showStorePhoneLen">{{vm.storePhoneLen}}/100</span>
                 </td>
             </tr>
             <tr>
@@ -135,14 +135,14 @@
                 <td colspan="2">
                     <input type="text" class="form-control" ng-focus="vm.showStoreFloorLen=true" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.storeInfo.storeFloor" ng-change="vm.inputLength('storeFloor', vm.storeInfo.storeFloor, 100); vm.checkFloor(vm.storeInfo.storeFloor)">
                     <span class="error-tips" ng-if="vm.showFloorTips">楼层格式为1F 或 B1</span>
-                    <span class="error-tips" ng-if="vm.showStoreFloorLen" ng-init="vm.storeFloorLen = 0">{{vm.storeFloorLen}}/100</span>
+                    <span class="error-tips" ng-if="vm.showStoreFloorLen">{{vm.storeFloorLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">铺位号：</td>
                 <td colspan="2">
                     <input type="text" class="form-control" ng-focus="vm.showStoreBunkNoLen=true" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.storeInfo.storeBunkNo" ng-change="vm.inputLength('storeBunkNo', vm.storeInfo.storeBunkNo, 15)">
-                    <span class="error-tips" ng-if="vm.showStoreBunkNoLen" ng-init="vm.storeBunkNoLen = 0">{{vm.storeBunkNoLen}}/15</span>
+                    <span class="error-tips" ng-if="vm.showStoreBunkNoLen">{{vm.storeBunkNoLen}}/15</span>
                 </td>
             </tr>
             <tr>

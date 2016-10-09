@@ -21,6 +21,15 @@ export default class AddController {
 
         this.picId = 'storePic';
         this.bgId = 'storeBg';
+
+        let self = this;
+        self.storeNameLen = 0;
+        self.storeENameLen = 0;
+        self.storeEInitialsLen = 0;
+        self.storeAddressLen = 0;
+        self.storePhoneLen = 0;
+        self.storeFloorLen = 0;
+        self.storeBunkNoLen = 0;
     }
 
     // 输入字数限制
@@ -30,6 +39,12 @@ export default class AddController {
             var a = inputText.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
+
+                if (len > maxLength) {
+                    inputText = inputText.substr(0, round);
+                    len -=2;
+                    break;
+                }
             }else {
                 len += 1;
             }
