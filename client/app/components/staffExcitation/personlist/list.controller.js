@@ -18,7 +18,7 @@ export default class ListController {
     this.selectMonth = {};
     this.selectTask={}
     this.init(); 
-
+    this.selectTask.value = "recruitingOrder"
      // $scope.vm.staffExcitation = [{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }, { id: 3, name: 'name 3' }, { id: 4, name: 'name 4' }];
      // $scope.vm.action = [{ id: 1, name: '一般好' }, { id: 2, name: '良' }, { id: 3, name: '优秀' }];
   }
@@ -56,7 +56,7 @@ export default class ListController {
     if (selectTask.value != undefined) {
       filter.type = selectTask.value;
     }else{
-      filter.type = ""
+      filter.type = "recruitingOrder"
     }
 
    //  console.log( filter)
@@ -101,9 +101,8 @@ export default class ListController {
                             })
                   self.d = {
                     totalAmount:totalAmount
-                   //  totalAmount:
                   }
-                  console.log(result)
+                
                   self.d.totalCount = result.totalCount;
                   params.total(result.totalCount);
                   //需要汇总的数据
