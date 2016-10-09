@@ -11,27 +11,25 @@
                        <select class="form-control autoWidth" 
                        ng-model="vm.selectMonth.value">
                                 <option value="">切换月份</option>
-                                  <option value="2016-09">2016-09</option>
                                   <option value="2016-10">2016-10</option>
                                   <option value="2016-11">2016-11</option>
                                   <option value="2016-12">2016-12</option>
                                   <option value="2017-01">2017-01</option>
                                   <option value="2017-02">2017-02</option>
                                   <option value="2017-03">2017-03</option>
-                                  <option value="2017-04">2017-04</option>
-                        </select>
+                        </select> 
                   </div>
                   <div class="col-md-3 form-group">  
-                        <label >激励任务</label>  
+                        <label >激励场景</label>  
                    
                        <select class="form-control autoWidth" 
                        ng-model="vm.selectTask.value"
                        >
-                                <option value="">全部</option>
-                                  <option value="1">任务一月</option>
-                                  <option value="2">任务二月</option>
-                                  <option value="3">任务三月</option>
-                                  <option value="4">任务四月</option>
+                              <!--   <option value="">全部</option>  -->
+                                  <option value="recruitingOrder">拉单</option>
+                                  <option value="recruitingMember">拉新</option>
+                                  <option value="payment">扫码收款</option>
+                                
                                 </select>
                   </div>
                   <div class="col-md-3 form-group">  
@@ -68,11 +66,11 @@
                  <tr ng-repeat="row in $data track by $index">
                 
                    
-                      <td class="text-center"> {{row.name}} </td>
-                      <td class="text-center"> {{row.name}} </td>
-                      <td class="text-center"> {{row.field3}} </td>
-                      <td class="text-center"> {{row.field4}} </td>
-                      <td class="text-center"> {{row.id}} </td>
+                      <td class="text-center"> {{row.actionName}} </td>
+                      <td class="text-center"> {{row.ruleName}} </td>
+                      <td class="text-center"> {{row.actionTime | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+                      <td class="text-center"> {{row.amount}} </td>
+                      <td class="text-center"> {{row.operatorName}} </td>
                   </tr>
                      <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
                       <td colspan="10" style="text-align: center">
@@ -90,7 +88,7 @@
                       <th style="padding-bottom:2%" class="text-center"> 汇总 </th>
                       <th><hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" /> </th>
                       <th> <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" /></th>
-                      <th style="padding-bottom:2%"> <!-- {{vm.d.totalAmount}} --></th>
+                      <th style="padding-bottom:2%" class="text-center"> {{vm.d.totalAmount}}</th>
                       <th> <hr style="width:40px;height:1px;border:none;border-top:1px solid #000000;" /></th>
                     </tr>
                   </thead>

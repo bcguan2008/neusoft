@@ -18,7 +18,7 @@ export default class ListController {
     this.selectMonth = {};
     this.selectTask={}
     this.init(); 
-
+    this.selectTask.value = "recruitingOrder"
      // $scope.vm.staffExcitation = [{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }, { id: 3, name: 'name 3' }, { id: 4, name: 'name 4' }];
      // $scope.vm.action = [{ id: 1, name: '一般好' }, { id: 2, name: '良' }, { id: 3, name: '优秀' }];
   }
@@ -35,7 +35,7 @@ export default class ListController {
     
     let filter  = {
       month:this.filter.month,
-      task:this.filter.task,
+      type:this.filter.task,
     }
 
     var now = new Date()
@@ -50,13 +50,13 @@ export default class ListController {
     }else{
       filter.month = curYear +"-" + this.Appendzero(curMonth); 
     }
-//获取激励任务
+//获取激励场景
     let selectTask = this.selectTask; 
     
     if (selectTask.value != undefined) {
-      filter.task = selectTask.value;
+      filter.type = selectTask.value;
     }else{
-      filter.task = ""
+      filter.type = "recruitingOrder"
     }
 
    //  console.log( filter)
@@ -75,34 +75,35 @@ export default class ListController {
         count: 10
       }, {
           getData: function ($defer, params) {
-          let totalAdd = 0
+          let totalAmount = 0
             let paramsUrl = params.url();
             self.loading = true;
             let formData = self.getSearchFormData();
            
            formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
-             console.log(formData)
+            // console.log(formData)
             //员工个人奖励汇总
-            self.loadPromise = self.staffExcitationSvc.getBestirByMonth(formData);
+            self.loadPromise = self.staffExcitationSvc.getBestirPerList(formData);
             return self.loadPromise
               .then(result => {
                 self.loading = false;
                 if (result) {
                     //计算 激励增加 激励扣除 总激励金额
-                   // result.items.forEach((item)=>{
-                   //            if (totalAmount==0)
-                   //            {
-                   //               totalAmount = item.amount
-                   //            }else{
-                   //               totalAmount = totalAmount+item.amount
+                   result.items.forEach((item)=>{
+                              if (totalAmount==0)
+                              {
+                                 totalAmount = item.amount
+                              }else{
+                                 totalAmount = totalAmount+item.amount
 
-                   //            }
-                   //          })
+                              }
+                            })
                   self.d = {
-                    totalCount: result.totalCount
-                   //  totalAmount:
+                    totalAmount:totalAmount
                   }
+                
+                  self.d.totalCount = result.totalCount;
                   params.total(result.totalCount);
                   //需要汇总的数据
                   return result.items;
@@ -123,7 +124,9 @@ export default class ListController {
     let formData = this.getSearchFormData();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
-    this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+  // this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
+ 
+   this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
 
   }
 }
