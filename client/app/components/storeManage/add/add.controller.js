@@ -404,6 +404,16 @@ export default class AddController {
             tipsCount++;
         }
 
+        if (!this.checkEName(this.storeInfo.storeEnglishName)) {
+            this.showStoreENameLimit = true;
+            tipsCount++;
+        }
+
+        if (!this.checkEName(this.storeInfo.storeEnglishInitials)) {
+            this.showStoreEInitialsLimit = true;
+            tipsCount++;
+        }
+
         if (this.storeIntrLen < 40) {
             this.intrTips = true;
             tipsCount++;
@@ -462,6 +472,23 @@ export default class AddController {
             return tipsCount;
         }
         return null;
+    }
+
+    // 英文名称输入格式限制
+    checkEName(input, item) {
+        var pattern = /^([A-Za-z0-9_])*$/;
+
+        if (!pattern.test(input)) {
+            return false;
+        }else {
+            if (item == "name") {
+                this.showStoreENameLimit = false;
+            }
+            if (item == "initials") {
+                this.showStoreEInitialsLimit = false;
+            }
+            return true;
+        }
     }
 
     // 获取该门店经营品牌

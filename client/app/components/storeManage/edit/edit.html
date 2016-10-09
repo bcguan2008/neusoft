@@ -19,14 +19,16 @@
             <tr>
                 <td class="text-right">英文名称：</td>
                 <td>
-                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false" ng-model="vm.d.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false; vm.checkEName(vm.d.storeEnglishName, 'name')" ng-model="vm.d.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreENameLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
                 <td>
-                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.d.storeEnglishInitials, 'initials')" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreEInitialsLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
                 </td>
             </tr>

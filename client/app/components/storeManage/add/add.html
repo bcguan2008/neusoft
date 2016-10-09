@@ -22,14 +22,16 @@
             <tr>
                 <td class="text-right">英文名称：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true" ng-blur="vm.showStoreENameLen=false" ng-model="vm.storeInfo.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.storeInfo.storeEnglishName, 100)">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true" ng-blur="vm.showStoreENameLen=false; vm.checkEName(vm.storeInfo.storeEnglishName, 'name')" ng-model="vm.storeInfo.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.storeInfo.storeEnglishName, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreENameLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
                 <td colspan="2">
-                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true" ng-blur="vm.showStoreEInitialsLen=false" ng-model="vm.storeInfo.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.storeInfo.storeEnglishInitials, 100)">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.storeInfo.storeEnglishInitials, 'initials')" ng-model="vm.storeInfo.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.storeInfo.storeEnglishInitials, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreEInitialsLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
                 </td>
             </tr>

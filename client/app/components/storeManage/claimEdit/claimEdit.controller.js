@@ -366,7 +366,7 @@ export default class ClaimEditController {
     }
   }
 
-  // 验证必填项
+  // 验证必填项 输入限制项
   validate() {
     let tipsCount = 0;
     var storeName = $("#storeName").val(),
@@ -374,6 +374,16 @@ export default class ClaimEditController {
 
     if (storeName.length == 0) {
       this.nameTips = true;
+      tipsCount++;
+    }
+
+    if (!this.checkEName(this.d.storeEnglishName)) {
+      this.showStoreENameLimit = true;
+      tipsCount++;
+    }
+
+    if (!this.checkEName(this.d.storeEnglishInitials)) {
+      this.showStoreEInitialsLimit = true;
       tipsCount++;
     }
 
@@ -415,6 +425,23 @@ export default class ClaimEditController {
       return tipsCount;
     }
     return null;
+  }
+
+  // 英文名称输入格式限制
+  checkEName(input, item) {
+    var pattern = /^([A-Za-z0-9_])*$/;
+
+    if (!pattern.test(input)) {
+      return false;
+    }else {
+      if (item == "name") {
+        this.showStoreENameLimit = false;
+      }
+      if (item == "initials") {
+        this.showStoreEInitialsLimit = false;
+      }
+      return true;
+    }
   }
 
   // 获取该门店经营品牌
