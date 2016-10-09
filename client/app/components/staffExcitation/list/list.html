@@ -105,13 +105,12 @@
         <div class="col-md-3 form-group">
             <label>员工姓名</label>
              <input type="text" class="form-control" ng-model="vm.filter.employeeName" id="employeeNameid">
-             <input type="text" ng-model = "vm.d.merchantId" style="display:none" >
-        
+                   <input type="text" id= "merchantId" value="" style="display:none">
         </div>
           <div class="col-md-3 form-group">
              
              <label>员工手机号</label>
-             <input type="text" class="form-control" ng-model="vm.filter.phone" required  id="staffphone_id">
+             <input type="text" class="form-control" ng-model="vm.filter.phone" id="staffphone_id">
         </div>
         <div class="col-md-3 form-group">
             <label>门店</label> 
@@ -239,7 +238,7 @@
                       <td class="text-center"> {{row.storeName}} </td>
                       <td class="text-center"> {{row.amount}} </td>
                       <td class="text-center"> {{row.phone}} </td>
-                       <td class="text-center"> {{row.createdAt |  date:'yyyy-MM-dd HH:mm:ss' }} </td>
+                       <td class="text-center"> {{row.createdAt |  date:'YYYY-MM-dd HH:mm:ss' }} </td>
                     </tr>
                     <!-- 分页start -->
                       <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">

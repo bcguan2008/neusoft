@@ -75,7 +75,7 @@ export default class ListController {
         count: 10
       }, {
           getData: function ($defer, params) {
-          let totalAdd = 0
+          let totalAmount = 0
             let paramsUrl = params.url();
             self.loading = true;
             let formData = self.getSearchFormData();
@@ -88,22 +88,23 @@ export default class ListController {
             return self.loadPromise
               .then(result => {
                 self.loading = false;
-                if (result && result.length > 0) {
+                if (result) {
                     //计算 激励增加 激励扣除 总激励金额
-                   // result.items.forEach((item)=>{
-                   //            if (totalAmount==0)
-                   //            {
-                   //               totalAmount = item.amount
-                   //            }else{
-                   //               totalAmount = totalAmount+item.amount
+                   result.items.forEach((item)=>{
+                              if (totalAmount==0)
+                              {
+                                 totalAmount = item.amount
+                              }else{
+                                 totalAmount = totalAmount+item.amount
 
-                   //            }
-                   //          })
+                              }
+                            })
                   self.d = {
-                    totalCount: result.totalCount
+                    totalAmount:totalAmount
                    //  totalAmount:
                   }
                   console.log(result)
+                  self.d.totalCount = result.totalCount;
                   params.total(result.totalCount);
                   //需要汇总的数据
                   return result.items;

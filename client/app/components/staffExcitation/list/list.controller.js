@@ -21,7 +21,8 @@ export default class ListController {
        phone:'',
        store:'',
        laterThan:'',
-       earlierThan:''
+       earlierThan:'',
+       merchantId:''
       };
       this.dmonth={}
       this.d={}
@@ -29,6 +30,7 @@ export default class ListController {
        offset: 0
       };
       this.month ={}
+      this.merchantSearch = '';
       this.initSearch();
       this.initBymonth(); //本月汇总
       
@@ -77,25 +79,17 @@ export default class ListController {
   }
 
   getSearchFormData(){
+    //let merchantId =""
+   // let merchantSearch =''
     let filter = {
-      merchantId:this.d.merchantId,
+     
       employeeName:this.filter.employeeName,
       phone:this.filter.phone,
       storeName:this.filter.store
 
     }
-    // filter.bizAccountName=this.filter.bizAccountName;
-    // filter.phone=this.filter.phone;
-    // filter.storeName=this.filter.store; // 门店名称
-
- 
-    // let selectAction = this.selectAction; 
-    // if(selectAction.value != undefined)
-    // {
-    //    filter.status = selectAction.value.name;  
-    // }
-
    
+    filter.merchantId = $('#merchantId').val()
     filter.laterThan = this.filter.laterThan; //开始时间
     filter.earlierThan = this.filter.earlierThan; //结束时间
     return filter;
@@ -121,26 +115,26 @@ export default class ListController {
             let formData = self.getSearchFormDataBymonth();
             formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
-            console.log(formData)
-            //员工奖励汇总
+            //员工奖励汇总 
             self.loadPromise = self.staffExcitationSvc.getBestirByMonth(formData);
+           // console.log(formData)
             return self.loadPromise 
               .then(result => {
                 self.loading = false;
-              
-                if (result && result.length >0) {
+                if (result) {
 
                  //debugger;
                  //计算 激励增加 激励扣除 总激励金额
                    result.items.forEach((item)=>{
+                   
                               if (totalBymonth==0)
                               {
                                  totalBymonth = item.awardCount
-                                 totalAdd = item.awardCount
+                                 totalAdd = item.incomeAmount
                                  totalTake =item.outgoAmount
                               }else{
                                  totalBymonth = totalBymonth+item.awardCount
-                                 totalAdd = totalAdd +  item.awardCount
+                                 totalAdd = totalAdd +  item.incomeAmount
                                  totalTake =  totalTake + item.outgoAmount
                               }
                             })
@@ -157,7 +151,9 @@ export default class ListController {
 
                   return result.items; 
                 }
-              });
+              })
+              // .then(error=>{ self.totalCount = 0
+              //  console.log("aa")});
           }
         });
   }
@@ -180,14 +176,15 @@ initSearch(){
             //员工奖励汇总 
            //  console.log(formData) 
            //  console.log(self.staffExcitationSvc.getBestirList(formData))
+                     
             self.loadPromiseSearch = self.staffExcitationSvc.getBestirList(formData);
             return self.loadPromiseSearch
-              .then(result => {
+              .then(resultsearch => {
                 self.loading = false;
-               
-                if (result && result.length > 0) {
-              
-                    result.items.forEach((item)=>{
+             // console.log(resultsearch)
+                if (resultsearch) {
+             
+                    resultsearch.items.forEach((item)=>{
                               if (totalAmount==0)
                               {
                                  totalAmount = item.amount
@@ -196,15 +193,24 @@ initSearch(){
 
                               }
                             })
+                  //  console.log(resultsearch)
+
                   self.d = {
                     totalAmount:totalAmount,
-                    totalCountSearch: result.totalCount,
-                    merchantId:result.items[0].merchantId
+                    totalCountSearch: resultsearch.totalCount,
+                   // merchantId:resultsearch.items[0].merchantId
+                   
+                  }
+                  
+                  if(resultsearch.totalCount > 0){
+                     $('#merchantId').attr("value",resultsearch.items[0].merchantId)
+                    // $('#merchantId').val(resultsearch.items[0].merchantId)
+                    //self.d ={  merchantId:resultsearch.items[0].merchantId}
                   }
 
                 //  console.log(result.items[0].merchantId)
-                  params.total(result.totalCount);
-                  return result.items;
+                  params.total(resultsearch.totalCount);
+                  return resultsearch.items;
                 }
               });
           }
