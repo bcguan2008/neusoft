@@ -11,17 +11,17 @@ class staffExcitationSvc  {
   }
 //根据商户号获取旗下员工维度的付款激励汇总
  getBestirByMonth(params){
+  //console.log(params)
   return this.Api.get(this.baseUrl+'month_total', params); 
   }
 
 //根据商户号搜索某商户下员工的付款码激励明细
   getBestirList(params){ 
-   return this.Api.get(this.baseUrl+'list', params); 
+    return this.Api.get(this.baseUrl+'list', params); 
   }
 
   //个人激励列表
   getBestirPerList(params){ 
-
    return this.Api.get(this.baseUrl+'encourage_my_list', params); 
   }
 }
