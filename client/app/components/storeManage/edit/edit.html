@@ -11,7 +11,7 @@
             <tr>
                 <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
                 <td class="col-md-9">
-                    <input type="text" class="form-control" id="storeName" ng-focus="vm.showStoreNameLen=true; vm.inputLength('storeName', vm.d.storeName, 40)" ng-blur="vm.showStoreNameLen=false" ng-model="vm.d.storeName" ng-change="vm.changeRequired()">
+                    <input type="text" class="form-control" id="storeName" ng-focus="vm.showStoreNameLen=true; vm.inputLength('storeName', vm.d.storeName, 40)" ng-blur="vm.showStoreNameLen=false" ng-model="vm.d.storeName" ng-change="vm.changeRequired(); vm.inputLength('storeName', vm.d.storeName, 40)">
                     <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
                     <span class="error-tips" ng-if="vm.showStoreNameLen">{{vm.storeNameLen}}/40</span>
                 </td>
@@ -19,14 +19,16 @@
             <tr>
                 <td class="text-right">英文名称：</td>
                 <td>
-                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false" ng-model="vm.d.storeEnglishName">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false; vm.checkEName(vm.d.storeEnglishName, 'name')" ng-model="vm.d.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreENameLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-right">英文缩写：</td>
                 <td>
-                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false" ng-model="vm.d.storeEnglishInitials">
+                    <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.d.storeEnglishInitials, 'initials')" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)">
+                    <span class="error-tips" ng-if="vm.showStoreEInitialsLimit">只能包含字母、数字、下划线</span>
                     <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
                 </td>
             </tr>
@@ -84,15 +86,15 @@
             </tr>
             <tr>
                 <td class="text-right"><span class="required-star">*</span>城市：</td>
-                <td>
-                    <select id="province" disabled>
+                <td class="city-select">
+                    <select class="form-control" id="province" disabled>
                         <option selected>{{vm.d.provinceName}}</option>
                     </select>
-                    <select id="city" disabled>
+                    <select class="form-control" id="city" disabled>
                         <option selected>{{vm.d.cityName}}</option>
                     </select>
-                    <select id="county" disabled>
-                        <option selected>{{vm.d.countyName}}</option>
+                    <select class="form-control" id="county" disabled>
+                        <option selected>{{vm.d.regionName}}</option>
                     </select>
                     <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
                     <span class="error-tips" ng-show="vm.cityTips">城市不能为空！</span>
@@ -109,7 +111,7 @@
             <tr>
                 <td class="text-right"><span class="required-star">*</span>门店电话：</td>
                 <td>
-                    <input type="text" class="form-control" id="phone" ng-focus="vm.showStorePhoneLen=true; vm.inputLength('storePhone', vm.d.storePhone, 100)" ng-blur="vm.showStorePhoneLen=false; vm.checkPhone(vm.d.storePhone)" ng-model="vm.d.storePhone" ng-change="vm.changeRequired()">
+                    <input type="text" class="form-control" id="phone" ng-focus="vm.showStorePhoneLen=true; vm.inputLength('storePhone', vm.d.storePhone, 100)" ng-blur="vm.showStorePhoneLen=false; vm.checkPhone(vm.d.storePhone)" ng-model="vm.d.storePhone" ng-change="vm.changeRequired(); vm.inputLength('storePhone', vm.d.storePhone, 100)">
                     <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
                     <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
                     <span class="error-tips" ng-if="vm.showCheckTips">请正确填写电话号码</span>
@@ -119,7 +121,7 @@
             <tr>
                 <td class="text-right">楼层：</td>
                 <td>
-                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor" ng-change="vm.checkFloor(vm.d.storeFloor)">
+                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor" ng-change="vm.checkFloor(vm.d.storeFloor); vm.inputLength('storeFloor', vm.d.storeFloor, 100)">
                     <span class="error-tips" ng-if="vm.showFloorTips">楼层格式为1F 或 B1</span>
                     <span class="error-tips" ng-if="vm.showStoreFloorLen">{{vm.storeFloorLen}}/100</span>
                 </td>
@@ -127,7 +129,7 @@
             <tr>
                 <td class="text-right">铺位号：</td>
                 <td>
-                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo">
+                    <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo" ng-change="vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)">
                     <span class="error-tips" ng-if="vm.showStoreBunkNoLen">{{vm.storeBunkNoLen}}/15</span>
                 </td>
             </tr>
@@ -175,8 +177,8 @@
             </tbody>
         </table>
         <div class="panel-footer">
-            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.storeId)">提交</button>
-            <button class="btn bp-btn-primary" ng-click="vm.back()">返回</button>
+            <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.storeId, 0)">提交</button>
+            <button class="btn bp-btn-primary" ng-click="vm.back(vm.d.storeId)">返回</button>
         </div>
     </div>
 
@@ -190,10 +192,11 @@
                 </div>
                 <div class="modal-body list-table">
                     <div class="text-center" style="padding-bottom: 15px; color: red">根据您填写的资料，为您查找到以下相关门店信息，如其中有您的门店，请点击认领，避免重复提交资料。</div>
+                    <div class="text-center" style="padding-bottom: 15px">确认以下门店没有我的门店，继续提交新建资料，点击 [确认提交] 完成信息提交，点击 [取消] 关闭提示弹窗。</div>
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>门店编号</th>
+                            <th>门店ID</th>
                             <th>门店名称</th>
                             <th>经营品牌</th>
                             <th>城市</th>
@@ -203,20 +206,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>9105380</td>
-                            <td>第一家店</td>
-                            <td>爱茉莉</td>
-                            <td>北京市-北京市-东城区</td>
-                            <td>金地中心22</td>
-                            <td>010-1111111</td>
-                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">查看</td>
+                        <tr ng-repeat="row in vm.repeatStore">
+                            <td>{{row.storeId}}</td>
+                            <td>{{row.storeName}}</td>
+                            <td>
+                                <span ng-repeat="brandArr in row.brands">{{brandArr.brandName}},</span>
+                            </td>
+                            <td>{{row.provinceName}}-{{row.cityName}}-{{row.regionName}}</td>
+                            <td>{{row.storeAddress}}</td>
+                            <td>{{row.storePhone}}</td>
+                            <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">
+                                <span ng-if="row.status ==1 || row.status == 2 || row.status == 4" ng-click="vm.goClaimDetail(row.storeId)">认领</span>
+                                <span ng-if="row.status !=1 && row.status != 2 && row.status != 4" ng-click="vm.goDetail(row.storeId)">查看</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList()">关闭</button>
+                    <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList(); vm.save(vm.d.storeId, 1)">确认提交</button>
+                    <button type="button" class="btn bp-btn-default" ng-click="vm.hidePopupList()">取消</button>
                 </div>
             </div>
         </div>

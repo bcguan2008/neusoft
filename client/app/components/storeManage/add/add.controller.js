@@ -21,6 +21,15 @@ export default class AddController {
 
         this.picId = 'storePic';
         this.bgId = 'storeBg';
+
+        let self = this;
+        self.storeNameLen = 0;
+        self.storeENameLen = 0;
+        self.storeEInitialsLen = 0;
+        self.storeAddressLen = 0;
+        self.storePhoneLen = 0;
+        self.storeFloorLen = 0;
+        self.storeBunkNoLen = 0;
     }
 
     // 输入字数限制
@@ -30,6 +39,12 @@ export default class AddController {
             var a = inputText.charAt(i);
             if (a.match(/[^\x00-\xff]/ig)!=null) {
                 len += 2;
+
+                if (len > maxLength) {
+                    inputText = inputText.substr(0, round);
+                    len -=2;
+                    break;
+                }
             }else {
                 len += 1;
             }
@@ -167,7 +182,7 @@ export default class AddController {
 
     // 验证电话号码
     checkPhone(phone) {
-        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)/;
+        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)|(^400\d{7}$)/;
         if (pattern.test(phone)) {
             this.showCheckTips = false;
         }else {
@@ -177,7 +192,7 @@ export default class AddController {
 
     // 验证楼层输入
     checkFloor(floor) {
-        var pattern=/(^[\dF]+$)|(^[B\d]+$)/;
+        var pattern=/^B[1-9]\d*$|^[1-9]\d*F$/;
         if (pattern.test(floor)) {
             this.showFloorTips = false;
         }else {
@@ -230,8 +245,8 @@ export default class AddController {
             if (file.$ngfHeight > 540 || file.$ngfWidth > 960) {
                 alert('尺寸要求960*540');
             }else {
-                let option = {
-                    file: file
+                let options = {
+                    fileName: file
                 };
 
                 this.uploadSvc.upload(options).then(result=> {
@@ -321,7 +336,7 @@ export default class AddController {
     }
 
     // 提交
-    save() {
+    save(forceOperate) {
         this.submitting = true;
         let tipsCount = this.validate();
 
@@ -336,6 +351,7 @@ export default class AddController {
             var brandIds = this.brandIdArr;
 
             var params = {
+                forceOperate: forceOperate,
                 storeName: this.storeInfo.storeName,
                 isOwer: isOwer,
                 storeEnglishName: this.storeInfo.storeEnglishName,
@@ -359,10 +375,16 @@ export default class AddController {
                     alert('提交成功');
                     this.goClaimList();
                 }, err=>{
-                    alert('提交错误');
-                    // test 需判断查重
-                    // this.isPopupListShow = true;
+                    // alert('提交错误');
+
+                    // 需判断查重
+                    if (err.status == 1006) {
+                        this.isPopupListShow = true;
+                        this.repeatStore = err.data.repetition;
+                    }
                 })
+        }else {
+            document.body.scrollTop = 0;
         }
     }
 
@@ -379,6 +401,16 @@ export default class AddController {
 
         if (storeName.length == 0) {
             this.nameTips = true;
+            tipsCount++;
+        }
+
+        if (!this.checkEName(this.storeInfo.storeEnglishName)) {
+            this.showStoreENameLimit = true;
+            tipsCount++;
+        }
+
+        if (!this.checkEName(this.storeInfo.storeEnglishInitials)) {
+            this.showStoreEInitialsLimit = true;
             tipsCount++;
         }
 
@@ -440,6 +472,23 @@ export default class AddController {
             return tipsCount;
         }
         return null;
+    }
+
+    // 英文名称输入格式限制
+    checkEName(input, item) {
+        var pattern = /^([A-Za-z0-9_])*$/;
+
+        if (!pattern.test(input)) {
+            return false;
+        }else {
+            if (item == "name") {
+                this.showStoreENameLimit = false;
+            }
+            if (item == "initials") {
+                this.showStoreEInitialsLimit = false;
+            }
+            return true;
+        }
     }
 
     // 获取该门店经营品牌
@@ -513,5 +562,13 @@ export default class AddController {
 
     back() {
         this.$state.go('storeMclaimlist');
+    }
+
+    goClaimDetail(id) {
+        this.$state.go('storeMclaimdetail', {id: id});
+    }
+
+    goDetail(id) {
+        this.$state.go('storeMdetail', {id: id});
     }
 }

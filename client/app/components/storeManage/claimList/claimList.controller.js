@@ -101,7 +101,7 @@ export default class ClaimListController {
             params.status = status;
         }
         if (status == -1) {
-            params.status = "0,1,2,3,4,5,6,7,8";
+            params.status = "0,1,2,3,4,6,8";
         }
 
         if (this.searchOptions.storeName) {
@@ -146,8 +146,8 @@ export default class ClaimListController {
         this.$state.go('storeMclaimdetail', {id: id});
     }
 
-    goDetail(id) {
-        this.$state.go('storeMdetail', {id: id});
+    goView(id) {
+        this.$state.go('storeMview', {id: id});
     }
 
     getstaffpageadd() {
