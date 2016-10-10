@@ -252,7 +252,7 @@ initSearch(){
    */
   exportExcelMonth(){
    // debugger;
-    let formData = this.getSearchFormData();
+    let formData = this.getSearchFormDataBymonth();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
     this.window.open('/Xapi/encourage/month_total?export=excel&'+ this.httpParamSerializer(formData), '_blank');
