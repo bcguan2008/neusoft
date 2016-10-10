@@ -129,11 +129,11 @@ export default class ListController {
                    
                               if (totalBymonth==0)
                               {
-                                 totalBymonth = item.awardCount
+                                 totalBymonth = item.amount
                                  totalAdd = item.incomeAmount
                                  totalTake =item.outgoAmount
                               }else{
-                                 totalBymonth = totalBymonth+item.awardCount
+                                 totalBymonth = totalBymonth+item.amount
                                  totalAdd = totalAdd +  item.incomeAmount
                                  totalTake =  totalTake + item.outgoAmount
                               }
@@ -252,7 +252,7 @@ initSearch(){
    */
   exportExcelMonth(){
    // debugger;
-    let formData = this.getSearchFormData();
+    let formData = this.getSearchFormDataBymonth();
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
     this.window.open('/Xapi/encourage/month_total?export=excel&'+ this.httpParamSerializer(formData), '_blank');
