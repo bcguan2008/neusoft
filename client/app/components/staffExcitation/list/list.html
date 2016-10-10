@@ -15,8 +15,8 @@
                                 <select class="form-control autoWidth" 
                                 ng-model="vm.month.value"
                                 ng-change="vm.searchBymonth()"
-                                >
-                                  <option value="">切换月份</option>
+                                ><!-- disabled selected hidden -->
+                                 <option value="" disabled selected hidden >切换月份</option>
                                   <option value="2016-10">2016-10</option>
                                   <option value="2016-11">2016-11</option>
                                   <option value="2016-12">2016-12</option>
@@ -52,7 +52,7 @@
                       <td class="text-center"> {{row.storeName}} </td>
                       <td class="text-center"> {{row.incomeAmount}} </td>
                       <td class="text-center"> {{row.outgoAmount}} </td>
-                      <td class="text-center"> {{row.awardCount}} </td>
+                      <td class="text-center"> {{row.amount}} </td>
                   </tr>
                    <!-- 分页start -->
                       <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">
@@ -140,8 +140,7 @@
                    id="dropdown1"
                    role="button"
                    data-toggle="dropdown"
-                   data-target="#"
-                   href="#">
+                   data-target="#">
                   <div class="input-group">
                     <input type="text"
                            placeholder="请选择开始时间"
@@ -170,8 +169,7 @@
                    id="dropdown2"
                    role="button"
                    data-toggle="dropdown"
-                   data-target="#"
-                   href="#">
+                   data-target="#">
                   <div class="input-group">
                     <input type="text"
                            placeholder="请选择结束时间"
