@@ -73,5 +73,28 @@ export default [
         tracking:{
             key:'SOP_SOPHOME_STAFFTMAN_MYACTIVE_TAB'
         }
+    },
+    {
+        /**
+         * 认领门店
+         */
+        name:'storeMclaimlist',
+        url: '/storeManage/claimList',
+        template: '<storemclaimlist></storemclaimlist>',
+        tracking:{
+            key:'SOP_SOPHOME_STAFFTMAN_MYACTIVE_TAB'
+        }
+    },
+    {
+        /**
+         * 我的门店
+         */
+        name:'storeMlist',
+        url: '/storeManage/list',
+        template: '<storemlist></storemlist>',
+        tracking:{
+            key:'SOP_SOPHOME_STAFFTMAN_MYACTIVE_TAB'
+        }
     }
+
 ]
