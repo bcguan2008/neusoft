@@ -24,7 +24,7 @@ class storeManageSvc {
     getBrandList(brandName) {
         var params = {
             brandName: brandName,
-            limit: 10000
+            limit: 99
         }
         return this.Api.get('/storemanage/label/brand', params);
     }
