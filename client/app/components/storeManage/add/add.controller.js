@@ -182,7 +182,7 @@ export default class AddController {
 
     // 验证电话号码
     checkPhone(phone) {
-        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)|(^400\d{7}$)/;
+        var pattern = /(^1[3|4|5|7|8][0-9]\d{8}$)|(^400-\d{3}-\d{4}$)|(^((\d{3,4}-)?\d{7,8})(-\d{2,4})?$)/;
         if (pattern.test(phone)) {
             this.showCheckTips = false;
         }else {
@@ -193,7 +193,7 @@ export default class AddController {
     // 验证楼层输入
     checkFloor(floor) {
         var pattern=/^B[1-9]\d*$|^[1-9]\d*F$/;
-        if (pattern.test(floor)) {
+        if (floor=="" || pattern.test(floor)) {
             this.showFloorTips = false;
         }else {
             this.showFloorTips = true;
@@ -365,10 +365,13 @@ export default class AddController {
                 storePhone: this.storeInfo.storePhone,
                 storeFloor: this.storeInfo.storeFloor,
                 storeBunkNo: this.storeInfo.storeBunkNo,
-                supportWifi: this.storeInfo.supportWifi,
                 storePicsrc: this.storePicsrc,
                 bgPic: this.bgPic
             };
+
+            if (this.storeInfo.supportWifi != undefined) {
+                params.supportWifi =  this.storeInfo.supportWifi;
+            }
 
             this.storeManageSvc.saveStore(params)
                 .then(res=>{

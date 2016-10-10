@@ -27,9 +27,9 @@
       <tr>
         <td class="text-right">英文缩写：</td>
         <td>
-          <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.d.storeEnglishInitials, 'initials')" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)">
+          <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 50)" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.d.storeEnglishInitials, 'initials')" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 50)">
           <span class="error-tips" ng-if="vm.showStoreEInitialsLimit">只能包含字母、数字、下划线</span>
-          <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
+          <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/50</span>
         </td>
       </tr>
       <tr>
@@ -112,7 +112,7 @@
         <td class="text-right"><span class="required-star">*</span>门店电话：</td>
         <td>
           <input type="text" class="form-control" id="phone" ng-focus="vm.showStorePhoneLen=true; vm.inputLength('storePhone', vm.d.storePhone, 100)" ng-blur="vm.showStorePhoneLen=false; vm.checkPhone(vm.d.storePhone)" ng-model="vm.d.storePhone" ng-change="vm.changeRequired(); vm.inputLength('storePhone', vm.d.storePhone, 100)">
-          <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+          <div style="margin-top: 5px">提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直拨号码 - 分机号码” </div>
           <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
           <span class="error-tips" ng-if="vm.showCheckTips">请正确填写电话号码</span>
           <span class="error-tips" ng-if="vm.showStorePhoneLen">{{vm.storePhoneLen}}/100</span>

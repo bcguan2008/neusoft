@@ -44,7 +44,7 @@ export default class ClaimViewController {
   }
 
   back() {
-    this.$state.go('storeMlist');
+    this.$state.go('storeMclaimlist');
   }
 
   edit(id){

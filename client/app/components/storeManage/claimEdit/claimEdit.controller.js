@@ -27,6 +27,11 @@ export default class ClaimEditController {
     this.bgId = 'storeBg';
 
     let self = this;
+    self.storeNameLen = 0;
+    self.storeENameLen = 0;
+    self.storeEInitialsLen = 0;
+    self.storeAddressLen = 0;
+    self.storePhoneLen = 0;
     self.storeFloorLen = 0;
     self.storeBunkNoLen = 0;
   }
@@ -171,7 +176,7 @@ export default class ClaimEditController {
 
   // 验证电话号码
   checkPhone(phone) {
-    var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)|(^400\d{7}$)/;
+    var pattern = /(^1[3|4|5|7|8][0-9]\d{8}$)|(^400-\d{3}-\d{4}$)|(^((\d{3,4}-)?\d{7,8})(-\d{2,4})?$)/;
     if (pattern.test(phone)) {
       this.showCheckTips = false;
     }else {
@@ -182,7 +187,7 @@ export default class ClaimEditController {
   // 验证楼层输入
   checkFloor(floor) {
     var pattern=/^B[1-9]\d*$|^[1-9]\d*F$/;
-    if (pattern.test(floor)) {
+    if (floor=="" || pattern.test(floor)) {
       this.showFloorTips = false;
     }else {
       this.showFloorTips = true;
@@ -342,10 +347,13 @@ export default class ClaimEditController {
         storePhone: this.d.storePhone,
         storeFloor: this.d.storeFloor,
         storeBunkNo: this.d.storeBunkNo,
-        supportWifi: this.d.supportWifi,
         storePicsrc: this.storePicsrc,
         bgPic: this.bgPic
       };
+
+      if (this.d.supportWifi != undefined) {
+        params.supportWifi =  this.d.supportWifi;
+      }
 
       this.storeManageSvc.updateClaim(params)
           .then(res=>{
