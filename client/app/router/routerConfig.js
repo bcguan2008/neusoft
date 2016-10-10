@@ -56,9 +56,9 @@ export default [
         /**
          * 员工激励
          */
-        name:'staffElist',
+        name:'staffelist',
         url: '/staffExcitation/list',
-        template: '<list></list>',
+        template: '<staffelist></staffelist>',
         tracking:{
             key:'SOP_SOPHOME_STAFFTMAN_STAFFACTIVE_TAB'
         }
