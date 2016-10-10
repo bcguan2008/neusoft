@@ -10,7 +10,6 @@ import 'bp-sop-skin';
 import angular from 'angular';
 import 'angular-ui-tree';
 import uibs from 'angular-ui-bootstrap';
-import uiRouter from 'angular-ui-router';
 import ffanTable from 'ffan-ng-table';
 import Common from './common/common';
 import Components from './components/components';
@@ -19,6 +18,7 @@ import 'angular-busy/dist/angular-busy';
 import 'angular-busy/angular-busy.css';
 import Service from './service/service';
 import StoreManageService from './service/StoreManage/service';
+import ffanRouter from './router/router';
 
 import 'angular-bootstrap-datetimepicker';
 import 'angular-bootstrap-datetimepicker/src/css/datetimepicker.css';
@@ -28,7 +28,7 @@ import 'angular-bootstrap-datetimepicker/src/js/datetimepicker.templates';
 import ngFileUpload from 'ng-file-upload';
 
 angular.module('app', [
-    uiRouter,
+    ffanRouter.name,
     Common.name,
     ffanTable.name,
     Components.name,
