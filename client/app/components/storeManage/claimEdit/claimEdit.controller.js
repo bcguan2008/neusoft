@@ -152,20 +152,22 @@ export default class ClaimEditController {
       )
     }
 
-    var n = [];
-    for (var i=0; i<this.brands.length; i++) {
+    var n = [],
+        selectedBrands = [];
+    for (var i = 0; i < this.brands.length; i++) {
       if (n.indexOf(this.brands[i].brandId) == -1) {
         n.push(this.brands[i].brandId);
-      }else {
-        this.brands.splice(i, 1);
+        selectedBrands.push(this.brands[i]);
       }
     }
+    this.brands = selectedBrands;
 
     this.hideBrandPopup();
     this.changeRequired();
   }
 
   hideBrandPopup() {
+    this.brandList = "";
     this.isAddBrandShow = false;
   }
 
