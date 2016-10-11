@@ -47,16 +47,22 @@ export default class EditController {
     // 输入字数限制
     inputLength(inputId, inputText, maxLength) {
         var len = 0;
-        for (var i=0,round=0; i<inputText.length; i++,round++) {
+        for (var i = 0, round = 0; i < inputText.length; i++, round++) {
             var a = inputText.charAt(i);
-            if (a.match(/[^\x00-\xff]/ig)!=null) {
+            if (a.match(/[^\x00-\xff]/ig) != null) {
                 len += 2;
-            }else {
+
+                if (len > maxLength) {
+                    inputText = inputText.substr(0, round);
+                    len -= 2;
+                    break;
+                }
+            } else {
                 len += 1;
             }
 
             if (len >= maxLength) {
-                inputText = inputText.substr(0, round+1);
+                inputText = inputText.substr(0, round + 1);
             }
         }
 
@@ -117,7 +123,7 @@ export default class EditController {
     searchBrandList(name) {
         var _this = this;
         this.storeManageSvc.getBrandList(name)
-            .then(result=>{
+            .then(result=> {
                 _this.brandList = result.datas;
             });
     }
@@ -127,7 +133,7 @@ export default class EditController {
         var checkbox = $("#selectBrand input:checked"),
             addCount = checkbox.length;
 
-        for (var i=0; i<addCount; i++) {
+        for (var i = 0; i < addCount; i++) {
             var brandId = parseInt(checkbox[i].name);
             this.brands.push(
                 {
@@ -138,10 +144,10 @@ export default class EditController {
         }
 
         var n = [];
-        for (var i=0; i<this.brands.length; i++) {
+        for (var i = 0; i < this.brands.length; i++) {
             if (n.indexOf(this.brands[i].brandId) == -1) {
                 n.push(this.brands[i].brandId);
-            }else {
+            } else {
                 this.brands.splice(i, 1);
             }
         }
@@ -156,25 +162,25 @@ export default class EditController {
 
     // 删除经营品牌
     deleteBrand(i) {
-        this.brands.splice(i,1);
+        this.brands.splice(i, 1);
     }
 
     // 验证电话号码
     checkPhone(phone) {
-        var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)/;
+        var pattern = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0}1[0-9]{10}$)|(^400\d{7}$)/;
         if (pattern.test(phone)) {
             this.showCheckTips = false;
-        }else {
+        } else {
             this.showCheckTips = true;
         }
     }
 
     // 验证楼层输入
     checkFloor(floor) {
-        var pattern=/(^[\dF]+$)|(^[B\d]+$)/;
+        var pattern = /^B[1-9]\d*$|^[1-9]\d*F$/;
         if (pattern.test(floor)) {
             this.showFloorTips = false;
-        }else {
+        } else {
             this.showFloorTips = true;
         }
     }
@@ -191,7 +197,7 @@ export default class EditController {
         if (file) {
             if (file.$ngfHeight > 640 || file.$ngfWidth > 640) {
                 alert('尺寸要求640*640');
-            }else {
+            } else {
                 let options = {
                     fileName: file
                 };
@@ -223,9 +229,9 @@ export default class EditController {
         if (file) {
             if (file.$ngfHeight > 540 || file.$ngfWidth > 960) {
                 alert('尺寸要求960*540');
-            }else {
-                let option = {
-                    file: file
+            } else {
+                let options = {
+                    fileName: file
                 };
 
                 this.uploadSvc.upload(options).then(result=> {
@@ -315,13 +321,14 @@ export default class EditController {
     }
 
     // 提交
-    save(id) {
+    save(id, forceOperate) {
         let tipsCount = this.validate();
 
         if (tipsCount == null) {
             var brandIds = this.brandIdArr;
 
             var params = {
+                forceOperate: forceOperate,
                 storeId: id,
                 storeName: this.d.storeName,
                 storeEnglishName: this.d.storeEnglishName,
@@ -337,16 +344,21 @@ export default class EditController {
             };
 
             this.storeManageSvc.updateStore(params)
-                .then(res=>{
+                .then(res=> {
                     alert('提交成功');
-                    // this.$state.go('storeMdetail', {id: id});
-                }, err=>{
-                    // alert('提交错误');
+                    this.$state.go('storeMdetail', {id: id});
+                }, err=> {
                     alert(err.data.RESULT.message)
                     console.log(err);
-                    // test 需判断查重
-                    // this.isPopupListShow = true;
+
+                    // 需判断查重
+                    if (err.status == 1006) {
+                        this.isPopupListShow = true;
+                        this.repeatStore = err.data.repetition;
+                    }
                 })
+        } else {
+            document.body.scrollTop = 0;
         }
     }
 
@@ -358,6 +370,16 @@ export default class EditController {
 
         if (storeName.length == 0) {
             this.nameTips = true;
+            tipsCount++;
+        }
+
+        if (!this.checkEName(this.d.storeEnglishName)) {
+            this.showStoreENameLimit = true;
+            tipsCount++;
+        }
+
+        if (!this.checkEName(this.d.storeEnglishInitials)) {
+            this.showStoreEInitialsLimit = true;
             tipsCount++;
         }
 
@@ -401,12 +423,29 @@ export default class EditController {
         return null;
     }
 
+    // 英文名称输入格式限制
+    checkEName(input, item) {
+        var pattern = /^([A-Za-z0-9_])*$/;
+
+        if (!pattern.test(input)) {
+            return false;
+        }else {
+            if (item == "name") {
+                this.showStoreENameLimit = false;
+            }
+            if (item == "initials") {
+                this.showStoreEInitialsLimit = false;
+            }
+            return true;
+        }
+    }
+
     // 获取该门店经营品牌
     getBrandIds() {
         var count = $("#brandIds tr").length,
             brandIdArr = [];
 
-        for (var i=0; i<count; i++) {
+        for (var i = 0; i < count; i++) {
             var id = $("#brandIds tr")[i].id;
             brandIdArr.push(id);
         }
@@ -446,11 +485,19 @@ export default class EditController {
         this.isPopupListShow = false;
     }
 
-    goClaimList(){
+    goClaimList() {
         this.$state.go('storeMclaimlist');
     }
 
-    back() {
-        this.$state.go('storeMlist');
+    back(id) {
+        this.$state.go('storeMdetail', {id: id});
+    }
+
+    goClaimDetail(id) {
+        this.$state.go('storeMclaimdetail', {id: id});
+    }
+
+    goDetail(id) {
+        this.$state.go('storeMdetail', {id: id});
     }
 }

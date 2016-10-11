@@ -1,0 +1,107 @@
+<div class="page-title">
+  <div class="title">
+    <h1 class="pull-left">查看门店</h1>
+  </div>
+</div>
+
+<div class="conter-wrapper">
+  <div style="margin-bottom: 30px; margin-top: 15px; color: #0000cc" ng-if="vm.d.status == 6">您的门店信息修改正在审核中……</div>
+  <div class="panel bp-panel-primary">
+    <table class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+      <tbody>
+      <tr>
+        <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
+        <td class="col-md-9"><input type="text" class="form-control" disabled ng-model="vm.d.storeName"></td>
+      </tr>
+      <tr>
+        <td class="text-right">英文名称：</td>
+        <td><input type="text" class="form-control" disabled ng-model="vm.d.storeEnglishName"></td>
+      </tr>
+      <tr>
+        <td class="text-right">英文缩写：</td>
+        <td><input type="text" class="form-control" disabled ng-model="vm.d.storeEnglishInitials"></td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店简介：</td>
+        <td>
+          <textarea name="" id="" cols="30" rows="10" class="form-control" style="width: 60%" disabled ng-model="vm.d.storeDesc"></textarea>
+          <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
+          <div>您最多还可输入{{vm.d.descLen}}字</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
+        <td>
+          <div id="brandIds" style="margin-top: 10px">
+            <table class="col-md-5 table-bordered">
+              <tbody>
+              <tr id="{{brand.brandId}}" ng-repeat="brand in vm.d.brands">
+                <td class="text-right">{{brand.brandName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>城市：</td>
+        <td class="city-select">
+          <select class="form-control" id="province" disabled>
+            <option selected>{{vm.d.provinceName}}</option>
+          </select>
+          <select class="form-control" id="city" disabled>
+            <option selected>{{vm.d.cityName}}</option>
+          </select>
+          <select class="form-control" id="county" disabled>
+            <option selected>{{vm.d.regionName}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店地址：</td>
+        <td><input type="text" class="form-control" disabled ng-model="vm.d.storeAddress"></td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店电话：</td>
+        <td>
+          <input type="text" class="form-control" disabled ng-model="vm.d.storePhone">
+          <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">楼层：</td>
+        <td><input type="text" class="form-control" disabled ng-model="vm.d.storeFloor"></td>
+      </tr>
+      <tr>
+        <td class="text-right">铺位号：</td>
+        <td><input type="text" class="form-control" disabled ng-model="vm.d.storeBunkNo"></td>
+      </tr>
+      <tr>
+        <td class="text-right">是否支持WI-FI：</td>
+        <td>
+          <input type="radio" value="0" disabled ng-checked="vm.d.supportWifi==1">支持
+          <input type="radio" value="1" style="margin-left: 30px;" disabled ng-checked="vm.d.supportWifi==0">不支持
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
+        <td>
+          <img class="store-image" id="{{vm.d.storePicsrc}}" ng-if="vm.d.storePicsrc!=''" ng-src="http://img1.ffan.com/orig/{{vm.d.storePicsrc}}">
+          <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
+        <td>
+          <img class="store-image" ng-if="vm.d.bgPic!=''" ng-src="http://img1.ffan.com/orig/{{vm.d.bgPic}}">
+          <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer form-actions">
+      <button class="btn bp-btn-primary" type="button" ng-if="vm.d.status != 6" ng-click="vm.edit(vm.d.storeId)">编辑</button>
+      <button class="btn bp-btn-primary" type="button" ng-click="vm.back()">返回</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,233 @@
+<div class="page-title">
+  <div class="title">
+    <h1 class="pull-left">编辑门店</h1>
+  </div>
+</div>
+
+<div class="conter-wrapper">
+  <div class="panel bp-panel-primary">
+    <table class="table table-bordered table-striped table-hover" cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'数据加载ing...'}">
+      <tbody>
+      <tr>
+        <td class="col-md-3 text-right"><span class="required-star">*</span>门店名称：</td>
+        <td class="col-md-9">
+          <input type="text" class="form-control" id="storeName" ng-focus="vm.showStoreNameLen=true; vm.inputLength('storeName', vm.d.storeName, 40)" ng-blur="vm.showStoreNameLen=false" ng-model="vm.d.storeName" ng-change="vm.changeRequired(); vm.inputLength('storeName', vm.d.storeName, 40)">
+          <span class="error-tips" ng-show="vm.nameTips">必填字段</span>
+          <span class="error-tips" ng-if="vm.showStoreNameLen">{{vm.storeNameLen}}/40</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">英文名称：</td>
+        <td>
+          <input type="text" class="form-control" ng-focus="vm.showStoreENameLen=true; vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)" ng-blur="vm.showStoreENameLen=false; vm.checkEName(vm.d.storeEnglishName, 'name')" ng-model="vm.d.storeEnglishName" ng-change="vm.inputLength('storeEnglishName', vm.d.storeEnglishName, 100)">
+          <span class="error-tips" ng-if="vm.showStoreENameLimit">只能包含字母、数字、下划线</span>
+          <span class="error-tips" ng-if="vm.showStoreENameLen">{{vm.storeENameLen}}/100</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">英文缩写：</td>
+        <td>
+          <input type="text" class="form-control" ng-focus="vm.showStoreEInitialsLen=true; vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)" ng-blur="vm.showStoreEInitialsLen=false; vm.checkEName(vm.d.storeEnglishInitials, 'initials')" ng-model="vm.d.storeEnglishInitials" ng-change="vm.inputLength('storeEnglishInitials', vm.d.storeEnglishInitials, 100)">
+          <span class="error-tips" ng-if="vm.showStoreEInitialsLimit">只能包含字母、数字、下划线</span>
+          <span class="error-tips" ng-if="vm.showStoreEInitialsLen">{{vm.storeEInitialsLen}}/100</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店简介：</td>
+        <td>
+          <textarea class="form-control" maxlength="1000" id="storeIntr" style="width: 60%; height: 200px" ng-model="vm.storeIntr" ng-change="vm.inputLength('storeIntr', vm.storeIntr, 1000); vm.changeRequired()"></textarea>
+          <div class="error-tips pull-right" style="width: 38%" ng-show="vm.intrTips">已输入{{vm.storeIntrLen}}个字符，字符数在40-1000之间（一个汉字占两个字符）</div>
+          <div>提示：可以输入40-1000个字符（汉字相当于两个字符）</div>
+          <div>您最多还可输入<span>{{vm.storeIntrTips}}</span>字</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>经营品牌：</td>
+        <td>
+          <button class="btn bp-btn-danger" type="button" ng-click="vm.showBrandPopup()">添加</button>
+          <!--已添加品牌列表-->
+          <div id="brandIds" style="margin-top: 10px">
+            <table class="col-md-8 table-bordered">
+              <tbody>
+              <tr id="{{brand.brandId}}" ng-repeat="brand in vm.brands">
+                <td class="col-md-8 text-right">{{brand.brandName}}</td>
+                <td class="col-md-4"><a ng-click="vm.deleteBrand($index)">删除</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="error-tips" ng-show="vm.brandTips">必填字段</div>
+
+          <!--添加品牌弹窗-->
+          <div class="modal-dialog" style="position: fixed; top: 23%; left: 50%; margin-left: -210px; z-index: 9" ng-show="vm.isAddBrandShow">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="modal-title">添加品牌</span>
+                <div class="modal-close" ng-click="vm.hideBrandPopup()">X</div>
+              </div>
+              <div class="modal-body">
+                <div class="text-center">
+                  <span>查找品牌：</span>
+                  <input type="text" class="form-control"
+                         ng-init="vm.searchName=''" ng-model="vm.searchName" ng-change="vm.changeSearchName(vm.searchName)">
+                </div>
+                <div id="selectBrand" style="height: 200px; padding-top: 20px; overflow-y: auto;">
+                  <div class="col-md-6" ng-repeat="brand in vm.brandList">
+                    <input type="checkbox" name="{{brand.brandId}}" value="{{brand.brandName}}">{{brand.brandName}}
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn bp-btn-danger" ng-click="vm.addBrand()">保存</button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>城市：</td>
+        <td class="city-select">
+          <select class="form-control" id="province" disabled>
+            <option selected>{{vm.d.provinceName}}</option>
+          </select>
+          <select class="form-control" id="city" disabled>
+            <option selected>{{vm.d.cityName}}</option>
+          </select>
+          <select class="form-control" id="county" disabled>
+            <option selected>{{vm.d.regionName}}</option>
+          </select>
+          <span class="error-tips" ng-show="vm.provinceTips">省份不能为空！</span>
+          <span class="error-tips" ng-show="vm.cityTips">城市不能为空！</span>
+          <span class="error-tips" ng-show="vm.countyTips">区县不能为空！</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店地址：</td>
+        <td>
+          <input type="text" class="form-control" id="address" disabled ng-model="vm.d.storeAddress">
+          <span class="error-tips" ng-show="vm.addressTips">必填字段</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店电话：</td>
+        <td>
+          <input type="text" class="form-control" id="phone" ng-focus="vm.showStorePhoneLen=true; vm.inputLength('storePhone', vm.d.storePhone, 100)" ng-blur="vm.showStorePhoneLen=false; vm.checkPhone(vm.d.storePhone)" ng-model="vm.d.storePhone" ng-change="vm.changeRequired(); vm.inputLength('storePhone', vm.d.storePhone, 100)">
+          <span>提示：手机号码、400电话或固定电话，固定电话格式为“区号 - 直播号码 - 分机号码”</span>
+          <span class="error-tips" ng-show="vm.phoneTips">必填字段</span>
+          <span class="error-tips" ng-if="vm.showCheckTips">请正确填写电话号码</span>
+          <span class="error-tips" ng-if="vm.showStorePhoneLen">{{vm.storePhoneLen}}/100</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">楼层：</td>
+        <td>
+          <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreFloorLen=true; vm.inputLength('storeFloor', vm.d.storeFloor, 100)" ng-blur="vm.showStoreFloorLen=false" ng-model="vm.d.storeFloor" ng-change="vm.checkFloor(vm.d.storeFloor); vm.inputLength('storeFloor', vm.d.storeFloor, 100)">
+          <span class="error-tips" ng-if="vm.showFloorTips">楼层格式为1F 或 B1</span>
+          <span class="error-tips" ng-if="vm.showStoreFloorLen">{{vm.storeFloorLen}}/100</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">铺位号：</td>
+        <td>
+          <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo" ng-change="vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)">
+          <span class="error-tips" ng-if="vm.showStoreBunkNoLen">{{vm.storeBunkNoLen}}/15</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right">是否支持WI-FI：</td>
+        <td>
+          <input type="radio" name="supportWifi" ng-model="vm.d.supportWifi" value="1" ng-checked="vm.d.supportWifi==1">支持
+          <input type="radio" name="supportWifi" ng-model="vm.d.supportWifi" value="0" style="margin-left: 30px;" ng-checked="vm.d.supportWifi==0">不支持
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店LOGO：</td>
+        <td>
+          <img class="store-image" id="{{vm.storePicsrc}}" ng-src="http://img1.ffan.com/orig/{{vm.storePicsrc}}" ng-if="vm.showStoreLogo">
+          <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
+             ngf-select="vm.uploadLogo($file, $invalidFiles, vm.picId)"
+             accept="image/*"
+             ngf-pattern="'.jpg,.jpeg,.png'"
+             ngf-min-height="640"
+             ngf-min-width="640"
+             ngf-max-size="5MB"
+             ngf-max-files="1">上传图片</a>
+          <a class="btn bp-btn-danger" ng-show="vm.showLogoDeleteBtn" ng-click="vm.deleteLogo()">删除</a>
+          <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求640*640，只能上传1张</div>
+          <div class="error-tips" ng-show="vm.storePicTips">此处为必填项</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right"><span class="required-star">*</span>门店背景图片：</td>
+        <td>
+          <img class="store-image" ng-src="http://img1.ffan.com/orig/{{vm.bgPic}}" ng-if="vm.showBgPic">
+          <a href="javascript:void(0);" class="btn bp-btn-danger"  style="margin: 10px 0"
+             ngf-select="vm.uploadBg($file, $invalidFiles, vm.bgId)"
+             accept="image/*"
+             ngf-pattern="'.jpg,.jpeg,.png'"
+             ngf-min-height="540"
+             ngf-min-width="960"
+             ngf-max-size="5MB"
+             ngf-max-files="1">上传图片</a>
+          <a class="btn bp-btn-danger" ng-show="vm.showBgDeleteBtn" ng-click="vm.deleteBg()">删除</a>
+          <div>提示：图片格式支持JPG、JPEG、PNG，大小不超过5M，尺寸要求960*540，只能上传1张</div>
+          <div class="error-tips" ng-show="vm.bgPicTips">此处为必填项</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <button class="btn bp-btn-primary" ng-disabled="editStore.$invalid" type="submit" ng-click="vm.save(vm.d.storeId, 0)">提交</button>
+      <button class="btn bp-btn-primary" ng-click="vm.back(vm.d.storeId)">返回</button>
+    </div>
+  </div>
+
+  <!--查重 弹窗-->
+  <div class="repetition-list-popup" ng-show="vm.isPopupListShow">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="modal-title">门店列表</span>
+          <div class="modal-close" ng-click="vm.hidePopupList()">X</div>
+        </div>
+        <div class="modal-body list-table">
+          <div class="text-center" style="padding-bottom: 15px; color: red">根据您填写的资料，为您查找到以下相关门店信息，如其中有您的门店，请点击认领，避免重复提交资料。</div>
+          <div class="text-center" style="padding-bottom: 15px">确认以下门店没有我的门店，继续提交新建资料，点击 [确认提交] 完成信息提交，点击 [取消] 关闭提示弹窗。</div>
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+              <th>门店ID</th>
+              <th>门店名称</th>
+              <th>经营品牌</th>
+              <th>城市</th>
+              <th>门店地址</th>
+              <th>门店电话</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in vm.repeatStore">
+              <td>{{row.storeId}}</td>
+              <td>{{row.storeName}}</td>
+              <td>
+                <span ng-repeat="brandArr in row.brands">{{brandArr.brandName}},</span>
+              </td>
+              <td>{{row.provinceName}}-{{row.cityName}}-{{row.regionName}}</td>
+              <td>{{row.storeAddress}}</td>
+              <td>{{row.storePhone}}</td>
+              <td class="text-center" style="background: #097ef6; color: #ffffff; cursor: pointer">
+                <span ng-if="row.status ==1 || row.status == 2 || row.status == 4" ng-click="vm.goClaimDetail(row.storeId)">认领</span>
+                <span ng-if="row.status !=1 && row.status != 2 && row.status != 4" ng-click="vm.goDetail(row.storeId)">查看</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bp-btn-danger" ng-click="vm.hidePopupList(); vm.save(vm.d.storeId, 1)">确认提交</button>
+          <button type="button" class="btn bp-btn-default" ng-click="vm.hidePopupList()">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

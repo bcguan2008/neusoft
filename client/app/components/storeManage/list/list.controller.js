@@ -63,9 +63,8 @@ export default class ListController {
     // 二维码
     showQrcode(storeId) {
         let self = this;
-        this.api.get('/storemanage/store/code', {storeId: storeId})
+        self.storeManageSvc.getStoreCode({storeId: storeId})
             .then(result => {
-                console.log(result);
                 this.qrCodeUrl = result.qrCodeImgUrl;
             });
         this.singleStoreId = storeId;
