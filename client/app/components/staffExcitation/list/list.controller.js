@@ -33,30 +33,15 @@ export default class ListController {
       this.merchantSearch = '';
       this.initSearch();
       this.initBymonth(); //本月汇总
-      
-
-     //this.action = [{ id: 0, name: '' },{ id: 1, name: '首单支付' }, { id: 2, name: '扫码激励' }, { id: 3, name: '拉新激励' }, { id: 4, name: '拉单激励' }];
-    //  $scope.vm.items = [
-    //     {"id":"一月","name":"1","description":"description 1","field3":"field3 1","field4":"field4 1","field5 ":"field5 1"}, 
-    //     {"id":"二月","name":"性别女","description":"description 1","field3":"field3 2","field4":"field4 2","field5 ":"field5 2"}, 
-    //     {"id":"二月","name":"性别女","description":"description 1","field3":"field3 3","field4":"field4 3","field5 ":"field5 3"}, 
-    //     {"id":"二月","name":"性别女","description":"description 1","field3":"field3 4","field4":"field4 4","field5 ":"field5 4"}, 
-    //     {"id":"18200000006","name":"4","description":"description 1","field3":"field3 5","field4":"field4 5","field5 ":"field5 5"}, 
-    //     {"id":"性别女","name":"5","description":"description 1","field3":"field3 6","field4":"field4 6","field5 ":"field5 6"}, 
-    //     {"id":"性别女","name":"6","description":"description 1","field3":"field3 7","field4":"field4 7","field5 ":"field5 7"}, 
-    //     {"id":"性别女","name":"7","description":"description 1","field3":"field3 8","field4":"field4 8","field5 ":"field5 8"}, 
-    //     {"id":"9","name":"7","description":"description 1","field3":"field3 9","field4":"field4 9","field5 ":"field5 9"}, 
-    //     {"id":"10","name":"8","description":"description 1","field3":"field3 10","field4":"field4 10","field5 ":"field5 10"}, 
-    //     {"id":"11","name":"11","description":"description 1","field3":"field3 11","field4":"field4 11","field5 ":"field5 11"}, 
-    // ];
-   // this.month =  [{ id: 1, name: '一月' }, { id: 2, name: '二月' }, { id: 3, name: '三月' }, { id: 4, name: '四月' }, { id: 5, name: '五月' }, { id: 6, name: '六月' }, { id: 7, name: '七月' }, { id: 8, name: '八月' }, { id: 9, name: '九月' }, { id: 10, name: '十月' }, { id: 11, name: '十一月' }, { id: 18200000006, name: '十二月' }];
+      this.parseInt = parseInt;
   }
  // 月份 补 0
    Appendzero(obj)  
     {  
         if(obj<10) return "0" +""+ obj;  
         else return obj;  
-    }  
+    }
+
   /**
    * 获取格式化后的数据
    */
@@ -79,8 +64,7 @@ export default class ListController {
   }
 
   getSearchFormData(){
-    //let merchantId =""
-   // let merchantSearch =''
+ 
     let filter = {
      
       employeeName:this.filter.employeeName,
@@ -129,13 +113,15 @@ export default class ListController {
                    
                               if (totalBymonth==0)
                               {
-                                 totalBymonth = item.amount
-                                 totalAdd = item.incomeAmount
-                                 totalTake =item.outgoAmount
+                              //*1 接受的是字符 为了计算变成number
+                                 totalBymonth = item.amount *1
+                                 totalAdd = item.incomeAmount *1
+                                 totalTake = item.outgoAmount *1
                               }else{
-                                 totalBymonth = totalBymonth+item.amount
-                                 totalAdd = totalAdd +  item.incomeAmount
-                                 totalTake =  totalTake + item.outgoAmount
+                            
+                                 totalBymonth = totalBymonth *1 + item.amount*1
+                                 totalAdd = totalAdd *1 +  item.incomeAmount*1
+                                 totalTake =  totalTake*1 + item.outgoAmount*1
                               }
                             })
                    self.dmonth = {
@@ -187,28 +173,24 @@ initSearch(){
                     resultsearch.items.forEach((item)=>{
                               if (totalAmount==0)
                               {
-                                 totalAmount = item.amount
+                                 totalAmount = item.amount *1
                               }else{
-                                 totalAmount = totalAmount+item.amount
+                                
+                                 totalAmount = totalAmount *1 +item.amount *1
 
                               }
                             })
-                  //  console.log(resultsearch)
-
+              
                   self.d = {
                     totalAmount:totalAmount,
                     totalCountSearch: resultsearch.totalCount,
-                   // merchantId:resultsearch.items[0].merchantId
-                   
+                 
                   }
                   
                   if(resultsearch.totalCount > 0){
                      $('#merchantId').attr("value",resultsearch.items[0].merchantId)
-                    // $('#merchantId').val(resultsearch.items[0].merchantId)
-                    //self.d ={  merchantId:resultsearch.items[0].merchantId}
                   }
 
-                //  console.log(result.items[0].merchantId)
                   params.total(resultsearch.totalCount);
                   return resultsearch.items;
                 }

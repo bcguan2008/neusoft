@@ -93,9 +93,9 @@ export default class ListController {
                    result.items.forEach((item)=>{
                               if (totalAmount==0)
                               {
-                                 totalAmount = item.amount
+                                 totalAmount = item.amount *1
                               }else{
-                                 totalAmount = totalAmount+item.amount
+                                 totalAmount = totalAmount *1 +item.amount *1
 
                               }
                             })
