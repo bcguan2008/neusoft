@@ -363,9 +363,6 @@ export default class ClaimEditController {
             alert('提交成功');
             this.$state.go('storeMview', {id: id});
           }, err=>{
-            alert(err.data.RESULT.message)
-            console.log(err);
-
             // 需判断查重
             if (err.status == 1006) {
               this.isPopupListShow = true;

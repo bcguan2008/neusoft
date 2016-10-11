@@ -380,8 +380,6 @@ export default class AddController {
                     alert('提交成功');
                     this.goClaimList();
                 }, err=>{
-                    // alert('提交错误');
-
                     // 需判断查重
                     if (err.status == 1006) {
                         this.isPopupListShow = true;
