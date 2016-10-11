@@ -243,8 +243,8 @@ initSearch(){
     exportExcelSearch(){
    // debugger;
     let formData = this.getSearchFormData();
-        formData.page = this.tableParams.page(); 
-        formData.limit = this.tableParams.data.length;
+        formData.page = this.tableParamsSearch.page(); 
+        formData.limit = this.tableParamsSearch.data.length;
     this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
 
