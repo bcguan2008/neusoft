@@ -202,6 +202,16 @@ export default class AddController {
         }
     }
 
+    // 验证铺位号输入
+    checkBunkNo(bunkNo) {
+        var pattern = /^[A-Za-z0-9!@#$%&*_=;"',?]+$/;
+        if (bunkNo=="" || pattern.test(bunkNo)) {
+            this.showBunkNoTips = false;
+        }else {
+            this.showBunkNoTips = true;
+        }
+    }
+
     // 上传logo图片
     uploadLogo(file, errFile, id) {
         let errInfo = this.catchErrFileError(errFile, id);
@@ -458,6 +468,10 @@ export default class AddController {
         }
 
         if (this.showFloorTips) {
+            tipsCount++;
+        }
+        
+        if (this.showBunkNoTips) {
             tipsCount++;
         }
 

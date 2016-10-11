@@ -129,7 +129,8 @@
       <tr>
         <td class="text-right">铺位号：</td>
         <td>
-          <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo" ng-change="vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)">
+          <input type="text" class="form-control" ng-disabled="vm.d.plazaId!=0" ng-focus="vm.showStoreBunkNoLen=true; vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)" ng-blur="vm.showStoreBunkNoLen=false" ng-model="vm.d.storeBunkNo" ng-change="vm.checkBunkNo(vm.d.storeBunkNo); vm.inputLength('storeBunkNo', vm.d.storeBunkNo, 15)">
+          <span class="error-tips" ng-if="vm.showBunkNoTips">可以输入字母、数字和!@#$%&*_=;"',?</span>
           <span class="error-tips" ng-if="vm.showStoreBunkNoLen">{{vm.storeBunkNoLen}}/15</span>
         </td>
       </tr>
