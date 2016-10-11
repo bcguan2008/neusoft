@@ -14,10 +14,6 @@ export default class ClaimListController {
         this.storeManageSvc = storeManageSvc;
         this.init();
         this.getProvince();
-        this.filter = {
-            limit: 10,
-            offset: 0
-        };
 
         this.submitting = false;
     }
@@ -25,7 +21,7 @@ export default class ClaimListController {
     init() {
         var self = this;
         var _this = this;
-        var filter = this.filter;
+
         this.tableParams = new this.NgTableParams({
             page: 1,
             count: 10

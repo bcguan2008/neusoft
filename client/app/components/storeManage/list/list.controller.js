@@ -16,22 +16,21 @@ export default class ListController {
         this.storeManageSvc = storeManageSvc;
         this.api = Api;
         this.init();
-        this.filter = {
-            limit: 10,
-            offset: 0
-        };
     }
 
     // 格式化后的数据
-    getSearchFormData() {
-        let filter = this.filter;
+    getSearchFormData(paramsUrl) {
+        let filter = {};
+
+        filter.offset = (paramsUrl.page-1) * paramsUrl.count;
+        filter.limit = paramsUrl.count;
+
         return filter;
     }
 
     init() {
         var self = this;
         var _this = this;
-        var filter = this.filter;
 
         this.tableParams = new this.NgTableParams({
             page: 1,
@@ -39,7 +38,7 @@ export default class ListController {
         }, {
             getData: function (params) {
                 self.loading = true;
-                let formData = self.getSearchFormData(filter);
+                let formData = self.getSearchFormData(params.url());
 
                 formData.page = params.url().page;
                 formData.offset = (params.url().page-1) * params.url().count;
