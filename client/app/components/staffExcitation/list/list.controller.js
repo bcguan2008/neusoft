@@ -125,9 +125,9 @@ export default class ListController {
                               }
                             })
                    self.dmonth = {
-                    totalBymonth:totalBymonth,
-                    totalAdd: totalAdd,
-                    totalTake: totalTake
+                    totalBymonth:totalBymonth.toFixed(2),
+                    totalAdd: totalAdd.toFixed(2),
+                    totalTake: totalTake.toFixed(2)
                    }
                    // console.log(totalBymonth)
                    // console.log(totalAdd)
@@ -182,7 +182,7 @@ initSearch(){
                             })
               
                   self.d = {
-                    totalAmount:totalAmount,
+                    totalAmount:totalAmount.toFixed(2),
                     totalCountSearch: resultsearch.totalCount,
                  
                   }
