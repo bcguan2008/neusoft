@@ -348,7 +348,8 @@ export default class ClaimEditController {
         storeFloor: this.d.storeFloor,
         storeBunkNo: this.d.storeBunkNo,
         storePicsrc: this.storePicsrc,
-        bgPic: this.bgPic
+        bgPic: this.bgPic,
+        plazaId: this.d.plazaId
       };
 
       if (this.d.supportWifi != undefined) {

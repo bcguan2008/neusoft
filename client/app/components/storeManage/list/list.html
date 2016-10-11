@@ -13,7 +13,7 @@
                             <th>城市</th>
                             <th>门店地址</th>
                             <th>门店电话</th>
-                            <th style="width: 13.3%;">操作</th>
+                            <th style="width: 15%;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,7 +26,7 @@
                             <td>{{row.provinceName}}-{{row.cityName}}-{{row.countyName}}</td>
                             <td>{{row.storeAddress}}</td>
                             <td>{{row.storePhone}}</td>
-                            <td>
+                            <td style="text-align: center;">
                                 <a ng-click="vm.detail(row.storeId)">查看详情</a>
                                 <a style="margin-left: 10px" ng-click="vm.showQrcode(row.storeId)">二维码</a>
                             </td>

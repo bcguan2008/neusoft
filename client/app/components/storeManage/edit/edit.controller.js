@@ -166,6 +166,7 @@ export default class EditController {
     }
 
     hideBrandPopup() {
+        this.brandList = "";
         this.isAddBrandShow = false;
     }
 
@@ -348,7 +349,8 @@ export default class EditController {
                 storeFloor: this.d.storeFloor,
                 storeBunkNo: this.d.storeBunkNo,
                 storePicsrc: this.storePicsrc,
-                bgPic: this.bgPic
+                bgPic: this.bgPic,
+                plazaId: this.d.plazaId
             };
 
             if (this.d.supportWifi != undefined) {
