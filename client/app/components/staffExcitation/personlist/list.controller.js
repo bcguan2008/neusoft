@@ -125,8 +125,7 @@ export default class ListController {
         formData.page = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
   // this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
- 
-   this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
+   this.window.open('/Xapi/encourage/encourage_my_list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
 
   }
 }
