@@ -75,7 +75,7 @@
                                 <td>{{row.storeId}}</td>
                                 <td>{{row.storeName}}</td>
                                 <td>
-                                    <span ng-repeat="brand in row.brands">{{brand.brandName}}，</span>
+                                    <span ng-repeat="brand in row.brands">{{brand.brandName}}<i ng-if="$index < row.brands.length-1">，</i></span>
                                 </td>
                                 <td>{{row.provinceName}}-{{row.cityName}}-{{row.regionName}}</td>
                                 <td>{{row.storeAddress}}</td>
