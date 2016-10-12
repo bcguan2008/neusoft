@@ -235,7 +235,8 @@ initSearch(){
    // debugger;
     let formData = this.getSearchFormDataBymonth();
         formData.offset = this.tableParams.page(); 
-        formData.limit = this.tableParams.data.length;
+        //formData.limit = this.tableParams.data.length;
+        formData.limit = this.tableParams.count();
     this.window.open('/Xapi/encourage/month_total?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
 
@@ -243,7 +244,8 @@ initSearch(){
    // debugger;
     let formData = this.getSearchFormData();
         formData.offset = this.tableParamsSearch.page(); 
-        formData.limit = this.tableParamsSearch.data.length;
+       // formData.limit = this.tableParamsSearch.data.length;
+        formData.limit = this.tableParamsSearch.count();
     this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
 
