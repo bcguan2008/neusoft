@@ -152,7 +152,7 @@
                 <td class="text-right">是否支持WI-FI：</td>
                 <td colspan="2">
                     <input type="radio" value="1" ng-model="vm.storeInfo.supportWifi">支持
-                    <input type="radio" value="0" style="margin-left: 30px;" ng-model="vm.storeInfo.supportWifi">不支持
+                    <input type="radio" value="0" style="margin-left: 30px;" ng-model="vm.storeInfo.supportWifi" ng-init="vm.storeInfo.supportWifi = 0">不支持
                 </td>
             </tr>
             <tr>
