@@ -161,8 +161,7 @@ initSearch(){
 
             formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
-            //员工奖励汇总 
-            console.log('=========',formData)              
+            //员工奖励汇总            
             self.loadPromiseSearch = self.staffExcitationSvc.getBestirList(formData);
             return self.loadPromiseSearch
               .then(resultsearch => {
@@ -235,7 +234,7 @@ initSearch(){
   exportExcelMonth(){
    // debugger;
     let formData = this.getSearchFormDataBymonth();
-        formData.page = this.tableParams.page(); 
+        formData.offset = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
     this.window.open('/Xapi/encourage/month_total?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
@@ -243,7 +242,7 @@ initSearch(){
     exportExcelSearch(){
    // debugger;
     let formData = this.getSearchFormData();
-        formData.page = this.tableParamsSearch.page(); 
+        formData.offset = this.tableParamsSearch.page(); 
         formData.limit = this.tableParamsSearch.data.length;
     this.window.open('/Xapi/encourage/list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
   }
