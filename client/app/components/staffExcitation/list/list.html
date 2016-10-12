@@ -17,12 +17,12 @@
                                 ng-change="vm.searchBymonth()"
                                 ><!-- disabled selected hidden -->
                                  <option value="" disabled selected hidden >切换月份</option>
+                                  <option value="2016-05">2016-05</option>
+                                  <option value="2016-06">2016-06</option>
+                                  <option value="2016-07">2016-07</option>
+                                  <option value="2016-08">2016-08</option>
+                                  <option value="2016-09">2016-09</option>
                                   <option value="2016-10">2016-10</option>
-                                  <option value="2016-11">2016-11</option>
-                                  <option value="2016-12">2016-12</option>
-                                  <option value="2017-01">2017-01</option>
-                                  <option value="2017-02">2017-02</option>
-                                  <option value="2017-03">2017-03</option>
                                 </select>
      
                         </div>
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="col-md-3 form-group">
             <label>员工姓名</label>
-             <input type="text" class="form-control" ng-model="vm.filter.employeeName" id="employeeNameid">
+             <input type="text" class="form-control" ng-model="vm.filter.employeeName" id="employeeNameid"> 
                    <input type="text" id= "merchantId" value="" style="display:none">
         </div>
           <div class="col-md-3 form-group">
@@ -114,7 +114,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label>门店</label> 
-            <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="store.name as store.name for store in vm.getStorelist($viewValue)"
+            <input type="text" class="form-control" placeholder="请输入关键字" uib-typeahead="store as store.name for store in vm.getStorelist($viewValue)"
               typeahead-loading="loading" typeahead-no-results="noResults" ng-model="vm.filter.store" />
           </div>
       </div>
@@ -236,7 +236,7 @@
                       <td class="text-center"> {{row.storeName}} </td>
                       <td class="text-center"> {{row.amount}} </td>
                       <td class="text-center"> {{row.phone}} </td>
-                       <td class="text-center"> {{row.createdAt |  date:'YYYY-MM-dd HH:mm:ss' }} </td>
+                       <td class="text-center"> {{row.createdAt |  date:'yyyy-MM-dd HH:mm:ss' }} </td>
                     </tr>
                     <!-- 分页start -->
                       <tr class="lx-list-sp-tr" ng-if="!$data || !$data.length">

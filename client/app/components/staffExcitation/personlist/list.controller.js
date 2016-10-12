@@ -100,7 +100,7 @@ export default class ListController {
                               }
                             })
                   self.d = {
-                    totalAmount:totalAmount
+                    totalAmount:totalAmount.toFixed(2)
                   }
                 
                   self.d.totalCount = result.totalCount;

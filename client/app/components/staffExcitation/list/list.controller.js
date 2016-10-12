@@ -19,7 +19,7 @@ export default class ListController {
        offset: 0 ,
        employeeName:'',
        phone:'',
-       store:'',
+       storeId:'',
        laterThan:'',
        earlierThan:'',
        merchantId:''
@@ -63,16 +63,20 @@ export default class ListController {
 
   }
 
+
   getSearchFormData(){
- 
+    
     let filter = {
      
       employeeName:this.filter.employeeName,
       phone:this.filter.phone,
-      storeName:this.filter.store
+      //storeName:this.filter.store
 
     }
-   
+  // console.log(this.filter.store.relation_id)
+   if(this.filter.store!=undefined){
+    filter.storeId=  this.filter.store.relation_id;
+  }
     filter.merchantId = $('#merchantId').val()
     filter.laterThan = this.filter.laterThan; //开始时间
     filter.earlierThan = this.filter.earlierThan; //结束时间
@@ -125,13 +129,10 @@ export default class ListController {
                               }
                             })
                    self.dmonth = {
-                    totalBymonth:totalBymonth,
-                    totalAdd: totalAdd,
-                    totalTake: totalTake
+                    totalBymonth:totalBymonth.toFixed(2),
+                    totalAdd: totalAdd.toFixed(2),
+                    totalTake: totalTake.toFixed(2)
                    }
-                   // console.log(totalBymonth)
-                   // console.log(totalAdd)
-                   // console.log(totalTake)
                   self.totalCount = result.totalCount
                   params.total(result.totalCount);
 
@@ -147,6 +148,7 @@ export default class ListController {
 initSearch(){
      
      let self = this;
+
       this.tableParamsSearch = new this.NgTableParams({
         page: 1,
         count: 10
@@ -160,9 +162,7 @@ initSearch(){
             formData.offset = paramsUrl.page;
             formData.limit = paramsUrl.count;
             //员工奖励汇总 
-           //  console.log(formData) 
-           //  console.log(self.staffExcitationSvc.getBestirList(formData))
-                     
+            console.log('=========',formData)              
             self.loadPromiseSearch = self.staffExcitationSvc.getBestirList(formData);
             return self.loadPromiseSearch
               .then(resultsearch => {
@@ -182,7 +182,7 @@ initSearch(){
                             })
               
                   self.d = {
-                    totalAmount:totalAmount,
+                    totalAmount:totalAmount.toFixed(2),
                     totalCountSearch: resultsearch.totalCount,
                  
                   }
@@ -257,6 +257,5 @@ initSearch(){
     deferred.resolve(storeList);
     return deferred.promise;
   }
-
 
 }
