@@ -122,7 +122,7 @@ export default class ListController {
   exportExcel(){
    // debugger;
     let formData = this.getSearchFormData();
-        formData.page = this.tableParams.page(); 
+        formData.offset = this.tableParams.page(); 
         formData.limit = this.tableParams.data.length;
   // this.window.open('/Staffmgt/Employee/stafflist?format=excel&'+ this.httpParamSerializer(formData), '_blank');
    this.window.open('/Xapi/encourage/encourage_my_list?export=excel&'+ this.httpParamSerializer(formData), '_blank');
