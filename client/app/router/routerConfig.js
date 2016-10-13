@@ -57,7 +57,7 @@ export default [
          * 员工激励
          */
         name:'staffelist',
-        url: '/staffExcitation/list',
+        url: '/Estaff/list',
         template: '<staffelist></staffelist>',
         tracking:{
             key:'SOP_SOPHOME_STAFFTMAN_STAFFACTIVE_TAB'
@@ -68,7 +68,7 @@ export default [
          * 我的激励
          */
         name:'personlist',
-        url: '/staffExcitation/personlist',
+        url: '/Estaff/personlist',
         template: '<personlist></personlist>',
         tracking:{
             key:'SOP_SOPHOME_STAFFTMAN_MYACTIVE_TAB'
