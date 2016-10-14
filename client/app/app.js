@@ -40,7 +40,7 @@ angular.module('app', [
     uibs
   ])
   .constant('$menuConstant', {
-    DEBUG: process.env.DEBUG
+    DEBUG: true
   })
   .component('app', AppComponent)
   .directive('typeahead', function () {

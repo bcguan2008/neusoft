@@ -54,7 +54,9 @@
                                 <div class="col-md-12 pre-scrollable"  style="word-break:break-all;word-wrap:break-all;"  cg-busy="{promise:vm.loadPromise, minDuration: 500, message:'正在加载功能模板列表...'}">
                                     <div class=" col-md-6 checkbox" ng-repeat="item in vm.d.templateData track by $index">
                                         <label> 
-                                            <input type="checkbox" id={{item.rid}} name="{{item.name}}"
+                                            <input
+                                                ng-disabled="item.creatorId == 1" 
+                                                type="checkbox" id={{item.rid}} name="{{item.name}}"
                                                 ng-model="item.checked" > 
                                                 {{vm.getTemplateName(item)}}
                                         </label>
